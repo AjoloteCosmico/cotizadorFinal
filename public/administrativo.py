@@ -276,6 +276,8 @@ for i in tablas:
     p=pd.read_sql('select * from '+i+' where quotation_id = '+str(id),cnx)
     p=p.assign(tabla=i)
     if(('cost' not in p.columns)&(len(p)>0)):
+        if('caliber' not in p.columns):
+             p=p.assign(caliber='14')
         costo=aceros.loc[aceros['caliber']==str(p['caliber'].values[0]),'cost'].values[0]
         if('total_kg' in p.columns):
             p=p.assign(cost=costo*p.total_kg)
