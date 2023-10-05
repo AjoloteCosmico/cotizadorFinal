@@ -272,6 +272,7 @@ aceros=pd.read_sql('select * from steels ',cnx)
 products=pd.DataFrame()
 
 for i in tablas:
+    print(i)
     p=pd.read_sql('select * from '+i+' where quotation_id = '+str(id),cnx)
     p=p.assign(tabla=i)
     if(('cost' not in p.columns)&(len(p)>0)):
