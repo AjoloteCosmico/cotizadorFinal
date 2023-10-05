@@ -279,7 +279,10 @@ for i in tablas:
     if(('cost' not in p.columns)&(len(p)>0)):
         if('caliber' not in p.columns):
              p=p.assign(caliber='14')
-        p['caliber']=p['caliber'].str.replace('-','')
+        try:
+            p['caliber']=p['caliber'].str.replace('-','')
+        except:
+            print(' ')
         print(str(p['caliber'].values[0]))
         costo=aceros.loc[aceros['caliber']==str(p['caliber'].values[0]),'cost'].values[0]
         if('total_kg' in p.columns):
