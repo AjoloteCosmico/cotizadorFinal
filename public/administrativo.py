@@ -277,7 +277,11 @@ for i in tablas:
     p=p.assign(tabla=i)
     if(('cost' not in p.columns)&(len(p)>0)):
         costo=aceros.loc[aceros['caliber']==str(p['caliber'].values[0]),'cost'].values[0]
-        p=p.assign(cost=costo*p.total_kg)
+        if('total_kg' in p.columns):
+            p=p.assign(cost=costo*p.total_kg)
+        if('total_weight' in p.columns):
+            
+            p=p.assign(cost=costo*p.total_weight)
         print(i)
         print(costo)
     products=products.append(p)
