@@ -276,7 +276,7 @@ for i in tablas:
     p=pd.read_sql('select * from '+i+' where quotation_id = '+str(id),cnx)
     p=p.assign(tabla=i)
     if(('cost' not in p.columns)&(len(p)>0)):
-        costo=aceros.loc[aceros['caliber']==p['caliber'].values[0],'cost'].values[0]
+        costo=aceros.loc[aceros['caliber']==str(p['caliber'].values[0]),'cost'].values[0]
         p=p.assign(cost=costo*p.total_kg)
         print(i)
         print(costo)
