@@ -1564,7 +1564,7 @@ class PanelController extends Controller
             Cart_product::destroy($cartl2->id);
         }
         //agregar el nuevo al carrito, lo que este en 
-        $SJL2 = Quot25PaintedPanel::where('quotation_id', $Quotation_Id)->first();
+        $SJL2 = Quot25JPaintedPanel::where('quotation_id', $Quotation_Id)->first();
         //guardar en el carrito
         $Cart_product= new Cart_product();
         $Cart_product->name='PANEL PINTADO VIGA L 2.5 IN'.$SJL2->model;

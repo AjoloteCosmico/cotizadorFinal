@@ -884,7 +884,7 @@ class FreightController extends Controller
             $Cart_product->amount=$p->amount;
             $Cart_product->save();
         }
-        $productos = QuotationUnistall::where('quotation_id', $Quotation_Id)->get();
+        $productos = QuotationUninstall::where('quotation_id', $Quotation_Id)->get();
         //guardar en el carrito
         foreach($productos as $p){
             $Cart_product= new Cart_product();
