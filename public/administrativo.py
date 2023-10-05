@@ -278,7 +278,7 @@ for i in tablas:
     if(('cost' not in p.columns)&(len(p)>0)):
         if('caliber' not in p.columns):
              p=p.assign(caliber='14')
-        costo=aceros.loc[aceros['caliber']==str(p['caliber'].values[0]),'cost'].values[0]
+        costo=aceros.loc[aceros['caliber'].str.contains(str(p['caliber'].values[0])),'cost'].values[0]
         if('total_kg' in p.columns):
             p=p.assign(cost=costo*p.total_kg)
         if('total_weight' in p.columns):
