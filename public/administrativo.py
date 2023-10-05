@@ -268,7 +268,8 @@ tablas={'double_deep_crossbars' : 'double deep crossbars',
 'uninstalls' : 'uninstalls',
 'wood' : 'wood',}
 aceros=pd.read_sql('select * from steels ',cnx)
- 
+aceros.loc[aceros['caliber']=='EST 3 IN','caliber']='EST3'
+
 products=pd.DataFrame()
 
 for i in tablas:
@@ -278,7 +279,7 @@ for i in tablas:
     if(('cost' not in p.columns)&(len(p)>0)):
         if('caliber' not in p.columns):
              p=p.assign(caliber='14')
-        costo=aceros.loc[aceros['caliber'].replace(' ','').str.contains(str(p['caliber'].values[0])),'cost'].values[0]
+        costo=aceros.loc[aceros['caliber']==str(p['caliber'].values[0]),'cost'].values[0]
         if('total_kg' in p.columns):
             p=p.assign(cost=costo*p.total_kg)
         if('total_weight' in p.columns):
