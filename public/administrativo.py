@@ -4,6 +4,7 @@ import xlsxwriter
 import pandas as pd
 import sys
 import mysql.connector
+import numpy as np
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -332,7 +333,8 @@ def ret_na(value):
         x=float(value)
     except:
         x='NA'
-    
+    if(np.isnan(x)):
+        x='NA'
     return x
 def num(value):
     if(len(str(value))>0):
