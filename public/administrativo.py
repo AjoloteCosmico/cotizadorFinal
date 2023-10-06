@@ -299,8 +299,7 @@ pricelist_protectors=pd.read_sql('select * from price_list_protectors',cnx)
 quotation_protectors=pd.read_sql('select quotation_protectors.*, protectors.sku from quotation_protectors  inner join protectors on protectors.protector=quotation_protectors.protector where quotation_id ='+str(id),cnx)
 quotation_shlf=pd.read_sql('select * from selective_heavy_load_frames where quotation_id ='+str(id),cnx)
 df[0:1].to_excel(writer, sheet_name='Sheet1', startrow=7,startcol=6, header=False, index=False)
-pricelist_screw=pd.read_sql('select * from price_list_screws inner join materials on materials.price_list_screw_id= price_list_screws.id',cnx)
-
+materials=pd.read_sql('select * from (materials left join price_list_screws on materials.price_list_screw_id= price_list_screws.id)left join price_lists on price_lists.id=materials.price_list_id',cnx)
 worksheet = writer.sheets['Sheet1']
 #Encabezado del documento--------------
 worksheet.merge_range('B2:F2', 'REPORTE POR COTIZACION ', negro_b)
@@ -369,7 +368,7 @@ for i in range(0,len(products)):
     worksheet.write('I'+str(row_count), ret_na(products['caliber'].values[i]), blue_content)
     #pesos
     worksheet.write('J'+str(row_count),str((num(products['total_weight'].values[i])+num(products['total_kg'].values[i]))/products['amount'].values[i])+'kg', blue_content)
-    worksheet.write('K'+str(row_count),str((num(products['total_weight'].values[i])+num(products['total_kg'].values[i])))+'kg', blue_content)
+    worksheet.write('K'+str(row_count),(num(products['total_weight'].values[i])+num(products['total_kg'].values[i])), blue_content)
     try: 
         worksheet.write('L'+str(row_count),ret_na(num(products['amount'].values[i]*products['cost'].values[i])/(num(products['total_weight'].values[i])+num(products['total_kg'].values[i]))), blue_content)
     except:
