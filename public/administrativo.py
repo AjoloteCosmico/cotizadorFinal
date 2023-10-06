@@ -333,7 +333,10 @@ def ret_na(value):
         x=float(value)
     except:
         x='NA'
-    if(np.isnan(x)):
+    try:
+        if(np.isnan(x)):
+            x='NA'
+    except:
         x='NA'
     return x
 def num(value):
