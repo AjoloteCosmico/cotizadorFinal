@@ -358,6 +358,10 @@ for i in range(0,len(products)):
     #pesos
     worksheet.write('J'+str(row_count),str((num(products['total_weight'].values[i])+num(products['total_kg'].values[i]))/products['amount'].values[i])+'kg', blue_content)
     worksheet.write('K'+str(row_count),str((num(products['total_weight'].values[i])+num(products['total_kg'].values[i])))+'kg', blue_content)
+    print(products['amount'].values[i])
+    print(products['cost'].values[i])
+    print(num(products['total_weight'].values[i]))
+    print(num(products['total_kg'].values[i]))
     worksheet.write('L'+str(row_count),products['amount'].values[i]*products['cost'].values[i]/(num(products['total_weight'].values[i])+num(products['total_kg'].values[i])), blue_content)
 
     worksheet.write('M'+str(row_count),'NA', blue_content)
