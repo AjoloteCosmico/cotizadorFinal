@@ -336,6 +336,8 @@ def ret_na(value):
     try:
         if(np.isnan(x)):
             x='NA'
+        if(np.isinf(x)):
+            x='NA'
     except:
         x='NA'
     return x
