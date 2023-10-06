@@ -342,10 +342,13 @@ def ret_na(value):
         x='NA'
     return x
 def num(value):
-    if(len(str(value))>0):
-        return value
-    else:
-        return 0
+    try:
+        x=float(value)
+    except:
+        x=0
+    if((np.isnan(x))|(np.isinf(x))):
+        x=0
+    return x
 
 for i in range(0,len(products)):
     piezas=pricelist_screw.loc[pricelist_screw['product'].str.contains(products['tabla'].values[i])]
@@ -367,7 +370,7 @@ for i in range(0,len(products)):
     #pesos
     worksheet.write('J'+str(row_count),str((num(products['total_weight'].values[i])+num(products['total_kg'].values[i]))/products['amount'].values[i])+'kg', blue_content)
     worksheet.write('K'+str(row_count),str((num(products['total_weight'].values[i])+num(products['total_kg'].values[i])))+'kg', blue_content)
-    worksheet.write('L'+str(row_count),ret_na(products['amount'].values[i]*products['cost'].values[i]/(num(products['total_weight'].values[i])+num(products['total_kg'].values[i]))), blue_content)
+    worksheet.write('L'+str(row_count),ret_na(num(products['amount'].values[i]*products['cost'].values[i])/(num(products['total_weight'].values[i])+num(products['total_kg'].values[i]))), blue_content)
 
     worksheet.write('M'+str(row_count),'NA', blue_content)
     worksheet.write('N'+str(row_count),'NA', blue_content)
