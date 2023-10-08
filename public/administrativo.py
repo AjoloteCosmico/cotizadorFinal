@@ -353,6 +353,7 @@ for i in range(0,len(products)):
     piezas=materials.loc[materials['product'].str.contains(products['tabla'].values[i])]
     print(piezas)
     n=len(piezas)
+    piezas=piezas.fillna('')
     print(n,products['tabla'].values[i],row_count)
     #pda
     worksheet.write('C'+str(row_count), str(i*n+1), blue_content)
