@@ -382,7 +382,7 @@ for i in range(0,len(products)):
         worksheet.write('C'+str(row_count), str(i*n+2+j), blue_content)
         worksheet.write('D'+str(row_count), 'TC..', blue_content)
         worksheet.write('E'+str(row_count), str(piezas['amount'].values[j]), blue_content)
-        worksheet.write('F'+str(row_count), piezas['description'].values[j], blue_content)
+        worksheet.write('F'+str(row_count), str(piezas['description'].values[j]), blue_content)
         worksheet.write('G'+str(row_count), piezas['cost'].values[j], blue_content)
         worksheet.write('H'+str(row_count), piezas['amount'].values[j]*piezas['cost'].values[j], blue_content)
         worksheet.write('I'+str(row_count), piezas['type'].values[j], blue_content)
