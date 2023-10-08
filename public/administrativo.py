@@ -350,7 +350,7 @@ def num(value):
     return x
 
 for i in range(0,len(products)):
-    piezas=pricelist_screw.loc[pricelist_screw['product'].str.contains(products['tabla'].values[i])]
+    piezas=materials.loc[materials['product'].str.contains(products['tabla'].values[i])]
 
     n=len(piezas)
     print(n,products['tabla'].values[i],row_count)
