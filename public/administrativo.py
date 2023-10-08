@@ -351,7 +351,7 @@ def num(value):
 
 for i in range(0,len(products)):
     piezas=materials.loc[materials['product'].str.contains(products['tabla'].values[i])]
-
+    print(piezas)
     n=len(piezas)
     print(n,products['tabla'].values[i],row_count)
     #pda
