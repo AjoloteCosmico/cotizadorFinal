@@ -146,7 +146,15 @@ blue_content = workbook.add_format({
     'border_color':a_color,
     'font_size':10,
     'num_format': '[$$-409]#,##0.00'})
-
+blue_content_unit = workbook.add_format({
+    'border': 1,
+    'align': 'center',
+    'valign': 'vcenter',
+    'font_color': 'black',
+    
+    'border_color':a_color,
+    'font_size':10,
+    'num_format': '0.00'})
 blue_content_bold = workbook.add_format({
     'bold': True,
     'border': 1,
@@ -235,7 +243,7 @@ tablas={'double_deep_crossbars' : 'VIGA TIPO CAJA DE DOBLE PROFUNDIDAD DE 2.5',
 'freights' : 'FLETES',
 'grills' : 'PARRILLA',
 'installations' : 'INSTALACIONES',
-'packagings' : 'ENVASES',
+'packagings' : 'FLETE',
 'quot25_j_galvanized_panels' : 'PANELES GALVANIZADOS DE 25 ',
 'quot25_j_painted_panels' : 'PANELES PINTADOS DE 25 ',
 'quot2_j_galvanized_panels' : 'PANELES GALVANIZADOS DE 2 IN',
@@ -293,21 +301,24 @@ for i in tablas:
         if('total_kg' in p.columns):
             p=p.assign(cost=costo*p.total_kg)
         if('total_weight' in p.columns):
-           #xd jeje 
+           
             p=p.assign(cost=costo*p.total_weight)
         if('weight_kg' in p.columns):
-           #xd jeje 
+         
             p=p.assign(cost=costo*p.weight_kg)
         if('weight' in p.columns):
-           #xd jeje 
+          
             p=p.assign(cost=costo*p.weight)
         if('long' in p.columns):
-           #xd jeje 
+           
             p=p.assign(cost=costo*p.long)
         print(i)
     products=products.append(p,ignore_index=True)
-cols_to_fill=['description','protector','model','sku']
-products[cols_to_fill]=products[cols_to_fill].fillna('')
+cols_to_fill_str=['description','protector','model','sku']
+products[cols_to_fill_str]=products[cols_to_fill_str].fillna('')
+cols_to_fill_zero=['weight','total_kg','total_weight','weight_kg','m2','total_m2']
+products[cols_to_fill_zero]=products[cols_to_fill_zero].fillna(0)
+
 pricelist_protectors=pd.read_sql('select * from price_list_protectors',cnx)
 quotation_protectors=pd.read_sql('select quotation_protectors.*, protectors.sku from quotation_protectors  inner join protectors on protectors.protector=quotation_protectors.protector where quotation_id ='+str(id),cnx)
 quotation_shlf=pd.read_sql('select * from selective_heavy_load_frames where quotation_id ='+str(id),cnx)
@@ -364,7 +375,10 @@ def num(value):
 #iterar sobre los productos
 
 for i in range(0,len(products)):
-    piezas=materials.loc[materials['product'].str.contains(products['tabla'].values[i])]
+    
+    def my_func(row, table_name):
+        return row in table_name
+    piezas=materials.loc[materials['product'].apply(my_func,table_name=products['tabla'].values[i])]
     costo_product=products['cost'].values[i]
     n=len(piezas)
     piezas['type']=piezas['type'].fillna('')
@@ -383,34 +397,40 @@ for i in range(0,len(products)):
     #calibre
     worksheet.write('I'+str(row_count), ret_na(products['caliber'].values[i]), blue_content)
     #pesos
-    worksheet.write('J'+str(row_count),str((num(products['total_weight'].values[i])+num(products['total_kg'].values[i]))/products['amount'].values[i])+'kg', blue_content)
-    worksheet.write('K'+str(row_count),(num(products['total_weight'].values[i])+num(products['total_kg'].values[i])), blue_content)
+    worksheet.write('J'+str(row_count),(num(products['total_weight'].values[i])+num(products['total_kg'].values[i])+products['weight'].values[i]+products['weight_kg'].values[i])/products['amount'].values[i], blue_content_unit)
+    worksheet.write('K'+str(row_count),(num(products['total_weight'].values[i])+num(products['total_kg'].values[i])+products['weight'].values[i]+products['weight_kg'].values[i]), blue_content_unit)
     try: 
         worksheet.write('L'+str(row_count),ret_na(num(products['amount'].values[i]*products['cost'].values[i])/(num(products['total_weight'].values[i])+num(products['total_kg'].values[i]))), blue_content)
     except:
         worksheet.write('L'+str(row_count),'NA', blue_content)
-
-    worksheet.write('M'+str(row_count),'NA', blue_content)
-    worksheet.write('N'+str(row_count),'NA', blue_content)
+    #medidas
+    worksheet.write('M'+str(row_count),products['m2'].values[i]+products['total_m2'].values[0], blue_content_unit)
+    worksheet.write('N'+str(row_count),(products['m2'].values[i]+products['total_m2'].values[0])*products['amount'].values[i], blue_content)
     row_count=row_count+1
+    #PIEZAS PIEZAS PIEZAS CICLO DE PIEZAS
     for j in range(0,n):
         
         print('entre al ciclo')
-        print(piezas['cost'].fillna(0).values[j])
+        print(piezas['cost'].fillna(0).values[j],piezas['amount'])
         costo= piezas['cost'].fillna(0).values[j].sum()
         cant= piezas['amount'].fillna(0).values[j].sum()
         worksheet.write('C'+str(row_count), str(i*n+2+j), blue_content)
+        #sku
         worksheet.write('D'+str(row_count), 'TC..', blue_content)
         worksheet.write('E'+str(row_count), str(piezas['amount'].values[j]), blue_content)
         worksheet.write('F'+str(row_count), str(piezas['description'].values[j]), blue_content)
+        #costos
         worksheet.write('G'+str(row_count),costo, blue_content)
-        worksheet.write('H'+str(row_count), piezas['amount'].values[j]*costo, blue_content)
-        worksheet.write('I'+str(row_count), piezas['type'].values[j][0]+piezas['type'].values[j][1], blue_content)
-        worksheet.write('J'+str(row_count),str(0.0), blue_content)
-        worksheet.write('K'+str(row_count),str(0.0), blue_content)
+        worksheet.write('H'+str(row_count), cant*costo, blue_content)
+        #calibre
+        worksheet.write('I'+str(row_count), piezas['type'].values[j][0]+piezas['type'].values[j][1], blue_content_unit)
+        #pesos
+        worksheet.write('J'+str(row_count),str(0.0), blue_content_unit)
+        worksheet.write('K'+str(row_count),str(0.0), blue_content_unit)
         worksheet.write('L'+str(row_count), str(0.0), blue_content)
-        worksheet.write('M'+str(row_count), str(0.0), blue_content)
-        worksheet.write('N'+str(row_count), str(0.0), blue_content)
+        #medidas
+        worksheet.write('M'+str(row_count), 0.0, blue_content_unit)
+        worksheet.write('N'+str(row_count), 0.0, blue_content_unit)
         row_count=row_count+1
 trow=row_count
 
@@ -458,15 +478,15 @@ worksheet.merge_range('H'+str(trow+7)+':K'+str(trow+7),'CONTRATO UNITARIO SOLO T
 worksheet.merge_range('H'+str(trow+8)+':K'+str(trow+8),'CONTRATO UNITARIO COMBINADO',blue_header_format)
 
 
-worksheet.write('L'+str(trow+5),0,blue_content)
+worksheet.write('L'+str(trow+5),materials['cost'].fillna(0).values[j].sum(),blue_content)
 worksheet.write('M'+str(trow+5),0,blue_content)
 worksheet.write('N'+str(trow+5),0,blue_content)
 
-worksheet.write('L'+str(trow+6),0,blue_content)
+worksheet.write('L'+str(trow+6),products.loc[products['tabla'].isin(['quotation_installs','quotation_uninstalls']),'cost'].sum(),blue_content)
 worksheet.write('M'+str(trow+6),0,blue_content)
 worksheet.write('N'+str(trow+6),0,blue_content)
 
-worksheet.write('L'+str(trow+7),0,blue_content)
+worksheet.write('L'+str(trow+7),products['cost'].sum(),blue_content)
 worksheet.write('M'+str(trow+7),0,blue_content)
 worksheet.write('N'+str(trow+7),0,blue_content)
 
@@ -476,7 +496,6 @@ worksheet.write('N'+str(trow+8),0,blue_content)
 #TODO: calcular bien esto, to6al menos iva
 
 worksheet.set_column('A:A',15)
-
 worksheet.set_column('D:D',20)
 worksheet.set_column('F:F',25)
 worksheet.set_column('L:L',15)
