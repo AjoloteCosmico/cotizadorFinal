@@ -486,11 +486,11 @@ worksheet.write('L'+str(trow+6),products.loc[products['tabla'].isin(['quotation_
 worksheet.write('M'+str(trow+6),0,blue_content)
 worksheet.write('N'+str(trow+6),0,blue_content)
 
-worksheet.write('L'+str(trow+7),products['cost'].sum(),blue_content)
+worksheet.write('L'+str(trow+7),products.loc[(products['tabla'].isin(['quotation_travel_assignments','packagings'])),'cost'].sum(),blue_content)
 worksheet.write('M'+str(trow+7),0,blue_content)
 worksheet.write('N'+str(trow+7),0,blue_content)
 
-worksheet.write('L'+str(trow+8),0,blue_content)
+worksheet.write('L'+str(trow+8),products['cost'].sum(),blue_content)
 worksheet.write('M'+str(trow+8),0,blue_content)
 worksheet.write('N'+str(trow+8),0,blue_content)
 #TODO: calcular bien esto, to6al menos iva
