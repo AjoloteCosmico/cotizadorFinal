@@ -213,62 +213,62 @@ year = date.strftime("%Y")
 
 
 #aki voy a trae r todos los datos
-tablas={'double_deep_crossbars' : 'barras dobles prro',
-'double_deep_floors' : 'double deep floors',
-'double_deep_floor_reinforcements' : 'double deep floor reinforcements',
-'double_deep_heavy_load_frames' : 'double deep heavy load frames',
-'double_deep_joist_box25s' : 'double deep joist box25s',
-'double_deep_joist_box25_caliber14s' : 'double deep joist box25 caliber14s',
-'double_deep_joist_box2s' : 'double deep joist box2s',
-'double_deep_joist_box2_caliber14s' : 'double deep joist box2 caliber14s',
-'double_deep_joist_c2_s' : 'double deep joist c2 s',
-'double_deep_joist_chairs' : 'double deep joist chairs',
-'double_deep_joist_l25_caliber14s' : 'double deep joist l25 caliber14s',
-'double_deep_joist_l25_s' : 'double deep joist l25 s',
-'double_deep_joist_l2_caliber14s' : 'double deep joist l2 caliber14s',
-'double_deep_joist_l2_s' : 'double deep joist l2 s',
-'double_deep_joist_lrs' : 'double deep joist lrs',
-'double_deep_joist_structurals' : 'double deep joist structurals',
-'double_deep_miniature_frames' : 'double deep miniature frames',
-'double_deep_spacers' : 'double deep spacers',
-'double_deep_structural_frames' : 'double deep structural frames',
-'freights' : 'freights',
-'grills' : 'grills',
-'installations' : 'installations',
-'packagings' : 'packagings',
-'quot25_j_galvanized_panels' : 'quot25 j galvanized panels',
-'quot25_j_painted_panels' : 'quot25 j painted panels',
-'quot2_j_galvanized_panels' : 'quot2 j galvanized panels',
-'quot2_j_painted_panels' : 'quot2 j painted panels',
-'quotation_administratives' : 'quotation administratives',
-'quotation_installs' : 'quotation installs',
-'quotation_protectors' : '',
-'quotation_specials' : 'quotation specials',
-'quotation_travel_assignments' : 'quotation travel assignments',
-'quotation_uninstalls' : 'quotation uninstalls',
-'quot_chair_j_galvanized_panels' : 'quot chair j galvanized panels',
-'quot_chair_j_painted_panels' : 'quot chair j painted panels',
-'selective_crossbars' : 'selective crossbars',
-'selective_floors' : 'selective floors',
-'selective_floor_reinforcements' : 'selective floor reinforcements',
+tablas={'double_deep_crossbars' : 'VIGA TIPO CAJA DE DOBLE PROFUNDIDAD DE 2.5',
+'double_deep_floors' : 'SUELOS DE DOBLE PROFUNDIDAD',
+'double_deep_floor_reinforcements' : 'REFUERZOS PARA EL SUELO DE DOBLE PROFUNDIDAD',
+'double_deep_heavy_load_frames' : 'BASTIDORES DE CARGA PESADA DE DOBLE PROFUNDIDAD',
+'double_deep_joist_box25s' : 'VIGA TIPO CAJA DE DOBLE PROFUNDIDAD DE 2.5',
+'double_deep_joist_box25_caliber14s' : 'VIGA TIPO CAJA DE DOBLE PROFUNDIDAD DE 2.5 CALIBRE 14',
+'double_deep_joist_box2s' : 'VIGA TIPO CAJA DE DOBLE PROFUNDIDAD DE 2',
+'double_deep_joist_box2_caliber14s' : 'VIGA TIPO CAJA DE DOBLE PROFUNDIDAD DE 2 CALIBRE 14',
+'double_deep_joist_c2_s' : 'VIGA DE DOBLE PROFUNDIAD TIPO C2',
+'double_deep_joist_chairs' : 'VIGA DE DOBLE PROFUNDIAD TIPO SILLA',
+'double_deep_joist_l25_caliber14s' : 'VIGA TIPO L DE DOBLE PROFUNDIDAD DE 2.5 CALIBRE 14',
+'double_deep_joist_l25_s' : 'VIGA TIPO L DE DOBLE PROFUNDIDAD DE 2.5 ',
+'double_deep_joist_l2_caliber14s' : 'VIGA TIPO L DE DOBLE PROFUNDIDAD DE 2 CALIBRE 14',
+'double_deep_joist_l2_s' : 'VIGA TIPO L DE DOBLE PROFUNDIDAD DE 2 ',
+'double_deep_joist_lrs' : 'VIGA DE DOBLE PROFUNDIAD TIPO LR',
+'double_deep_joist_structurals' : 'VIGA DE DOBLE PROFUNDIAD TIPO ESTRUCTURAL',
+'double_deep_miniature_frames' : 'MARCOS EN MINIATURA DE DOBLE PROFUNDIDAD',
+'double_deep_spacers' : 'ESPACIADOR DE DOBLE PROFUNDIDAD',
+'double_deep_structural_frames' : 'MARCOS ESTRUCTURALES DE DOBLE PROFUNDIDAD',
+'freights' : 'FLETES',
+'grills' : 'PARRILLA',
+'installations' : 'INSTALACIONES',
+'packagings' : 'ENVASES',
+'quot25_j_galvanized_panels' : 'PANELES GALVANIZADOS DE 25 ',
+'quot25_j_painted_panels' : 'PANELES PINTADOS DE 25 ',
+'quot2_j_galvanized_panels' : 'PANELES GALVANIZADOS DE 2 IN',
+'quot2_j_painted_panels' : 'PANELES PINTADOS DE 2 IN',
+'quotation_administratives' : 'PRESUPUESTOS ADMINISTRATIVOS',
+'quotation_installs' : 'INSTALACIONES DE COTIZACION',
+'quotation_protectors' : 'PRESUPUESTO PROTECTORES',
+'quotation_specials' : 'PRESUPUESTO ESPECIAL',
+'quotation_travel_assignments' : 'ASIGNACION DE VIAJES',
+'quotation_uninstalls' : 'COTIZACION DESINTALAR',
+'quot_chair_j_galvanized_panels' : 'PANELES GALVANIZADOS SILLA',
+'quot_chair_j_painted_panels' : 'PANELES PINTADOS  SILLA',
+'selective_crossbars' : 'CROSSBAR SELECTIVO',
+'selective_floors' : 'PISO SELECTIVO',
+'selective_floor_reinforcements' : 'PISO REFORZADO SELECTIVO',
 'selective_heavy_load_frames' : 'MARCO SELECTIVO',
-'selective_joist_box25s' : 'selective joist box25s',
-'selective_joist_box25_caliber14s' : 'selective joist box25 caliber14s',
-'selective_joist_box2s' : 'selective joist box2s',
-'selective_joist_box2_caliber14s' : 'selective joist box2 caliber14s',
-'selective_joist_c2_s' : 'selective joist c2 s',
-'selective_joist_chairs' : 'selective joist chairs',
-'selective_joist_l25_caliber14s' : 'selective joist l25 caliber14s',
-'selective_joist_l25_s' : 'selective joist l25 s',
-'selective_joist_l2_caliber14s' : 'selective joist l2 caliber14s',
-'selective_joist_l2_s' : 'selective joist l2 s',
-'selective_joist_lrs' : 'selective joist lrs',
-'selective_joist_structurals' : 'selective joist structurals',
-'selective_miniature_frames' : 'selective miniature frames',
-'selective_spacers' : 'selective spacers',
-'selective_structural_frames' : 'selective structural frames',
-'uninstalls' : 'uninstalls',
-'wood' : 'wood',}
+'selective_joist_box25s' : 'SELECTIVO VIGA CAJA DE 25',
+'selective_joist_box25_caliber14s' : 'SELECTIVO VIGA CAJA DE 25 CALIBRE 14',
+'selective_joist_box2s' : 'SELECTIVO VIGA CAJA DE 2',
+'selective_joist_box2_caliber14s' : 'SELECTIVO VIGA CAJA DE 2 CALIBRE 14',
+'selective_joist_c2_s' : 'SELECTIVO VIGA C2',
+'selective_joist_chairs' : 'SELECTIVO VIGA SILLA',
+'selective_joist_l25_caliber14s' : 'SELECTIVO VIGA L25 CALIBRE 14',
+'selective_joist_l25_s' : 'SELECTIVO VIGA L25 ',
+'selective_joist_l2_caliber14s' : 'SELECTIVO VIGA L2 CALIBRE 14',
+'selective_joist_l2_s' : 'SELECTIVO VIGA L2',
+'selective_joist_lrs' : 'SELECTIVO VIGA LSR',
+'selective_joist_structurals' : 'SELECTIVO VIGA ESTRUCTURAL',
+'selective_miniature_frames' : 'MARCOS EN MINIATURA SELECTIVOS',
+'selective_spacers' : 'SELECTIVO ESPACIADORES',
+'selective_structural_frames' : 'SELECTIVO MARCO ESTRUCTURAL',
+'uninstalls' : 'DESINSTALAR',
+'wood' : 'MADERA',}
 aceros=pd.read_sql('select * from steels ',cnx)
 aceros.loc[aceros['caliber']=='EST 3 IN','caliber']='EST3'
 
@@ -352,11 +352,12 @@ def num(value):
         x=0
     return x
 #iterar sobre los productos
+
 for i in range(0,len(products)):
     piezas=materials.loc[materials['product'].str.contains(products['tabla'].values[i])]
     print(piezas)
     n=len(piezas)
-    piezas=piezas.fillna('')
+    piezas['type']=piezas['type'].fillna('')
     print(n,products['tabla'].values[i],row_count)
     #pda
     worksheet.write('C'+str(row_count), str(i*n+1), blue_content)
@@ -382,14 +383,18 @@ for i in range(0,len(products)):
     worksheet.write('N'+str(row_count),'NA', blue_content)
     row_count=row_count+1
     for j in range(0,n):
+        
         print('entre al ciclo')
+        print(piezas['cost'].fillna(0).values[j])
+        costo= piezas['cost'].fillna(0).values[j].sum()
+        cant= piezas['amount'].fillna(0).values[j].sum()
         worksheet.write('C'+str(row_count), str(i*n+2+j), blue_content)
         worksheet.write('D'+str(row_count), 'TC..', blue_content)
         worksheet.write('E'+str(row_count), str(piezas['amount'].values[j]), blue_content)
         worksheet.write('F'+str(row_count), str(piezas['description'].values[j]), blue_content)
-        worksheet.write('G'+str(row_count), piezas['cost'].fillna(0).values[j].sum(), blue_content)
-        worksheet.write('H'+str(row_count), piezas['amount'].values[j]*piezas['cost'].values[j], blue_content)
-        worksheet.write('I'+str(row_count), piezas['type'].values[j], blue_content)
+        worksheet.write('G'+str(row_count),costo, blue_content)
+        worksheet.write('H'+str(row_count), piezas['amount'].values[j]*costo, blue_content)
+        worksheet.write('I'+str(row_count), piezas['type'].values[j][0]+piezas['type'].values[j][1], blue_content)
         worksheet.write('J'+str(row_count),str(0.0), blue_content)
         worksheet.write('K'+str(row_count),str(0.0), blue_content)
         worksheet.write('L'+str(row_count), str(0.0), blue_content)
