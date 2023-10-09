@@ -192,6 +192,7 @@ blue_content_dll = workbook.add_format({
     'border_color':a_color,
     'font_size':10,
     'num_format': '[$$-409]#,##0.00'})
+
 total_cereza_format = workbook.add_format({
     'bold': True,
     'text_wrap': True,
@@ -272,9 +273,11 @@ aceros=pd.read_sql('select * from steels ',cnx)
 aceros.loc[aceros['caliber']=='EST 3 IN','caliber']='EST3'
 
 products=pd.DataFrame()
-
+#iterar sobre tablas
 for i in tablas:
     print(i)
+    #buscar en la base de datos todos los productos de esta tabla
+    #pertenecientes a la cotizacion pedida por el usuario.
     p=pd.read_sql('select * from '+i+' where quotation_id = '+str(id),cnx)
     p=p.assign(tabla=i)
     if(('cost' not in p.columns)&(len(p)>0)):
@@ -348,7 +351,7 @@ def num(value):
     if((np.isnan(x))|(np.isinf(x))):
         x=0
     return x
-
+#iterar sobre los productos
 for i in range(0,len(products)):
     piezas=materials.loc[materials['product'].str.contains(products['tabla'].values[i])]
     print(piezas)
@@ -379,9 +382,10 @@ for i in range(0,len(products)):
     worksheet.write('N'+str(row_count),'NA', blue_content)
     row_count=row_count+1
     for j in range(0,n):
+        print('entre al ciclo')
         worksheet.write('C'+str(row_count), str(i*n+2+j), blue_content)
         worksheet.write('D'+str(row_count), 'TC..', blue_content)
-        worksheet.write('E'+str(row_count), str(piezas['amount'].values[j]), blue_content)
+        worksheet.writen('E'+str(row_count), str(piezas['amount'].values[j]), blue_content)
         worksheet.write('F'+str(row_count), str(piezas['description'].values[j]), blue_content)
         worksheet.write('G'+str(row_count), piezas['cost'].values[j], blue_content)
         worksheet.write('H'+str(row_count), piezas['amount'].values[j]*piezas['cost'].values[j], blue_content)
