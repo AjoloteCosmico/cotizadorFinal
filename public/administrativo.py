@@ -282,6 +282,7 @@ for i in tablas:
     p=p.assign(tabla=i)
     if(('cost' not in p.columns)&(len(p)>0)):
         if('caliber' not in p.columns):
+             #esto es en especifico por un caso en que todas kas piezas son cal 14
              p=p.assign(caliber='14')
         try:
             p['caliber']=p['caliber'].str.replace('-','')
@@ -294,10 +295,19 @@ for i in tablas:
         if('total_weight' in p.columns):
            #xd jeje 
             p=p.assign(cost=costo*p.total_weight)
+        if('weight_kg' in p.columns):
+           #xd jeje 
+            p=p.assign(cost=costo*p.weight_kg)
+        if('weight' in p.columns):
+           #xd jeje 
+            p=p.assign(cost=costo*p.weight)
+        if('long' in p.columns):
+           #xd jeje 
+            p=p.assign(cost=costo*p.long)
         print(i)
-        print(costo)
-    products=products.append(p)
-products=products.fillna('')
+    products=products.append(p,ignore_index=True)
+cols_to_fill=['description','protector','model','sku']
+products[cols_to_fill]=products[cols_to_fill].fillna('')
 pricelist_protectors=pd.read_sql('select * from price_list_protectors',cnx)
 quotation_protectors=pd.read_sql('select quotation_protectors.*, protectors.sku from quotation_protectors  inner join protectors on protectors.protector=quotation_protectors.protector where quotation_id ='+str(id),cnx)
 quotation_shlf=pd.read_sql('select * from selective_heavy_load_frames where quotation_id ='+str(id),cnx)
@@ -355,7 +365,7 @@ def num(value):
 
 for i in range(0,len(products)):
     piezas=materials.loc[materials['product'].str.contains(products['tabla'].values[i])]
-   
+    costo_product=products['cost'].values[i]
     n=len(piezas)
     piezas['type']=piezas['type'].fillna('')
     print(n,products['tabla'].values[i],row_count,products['cost'].values[i])
@@ -367,6 +377,7 @@ for i in range(0,len(products)):
     #descripcion
     worksheet.write('F'+str(row_count), tablas[products['tabla'].values[i]]+products['protector'].values[i]+' '+products['model'].values[i], blue_content)
     #costos
+    print(costo_product)
     worksheet.write('G'+str(row_count), products['cost'].values[i], blue_content)
     worksheet.write('H'+str(row_count), products['amount'].values[i]*products['cost'].values[i], blue_content)
     #calibre
@@ -422,12 +433,19 @@ worksheet.merge_range('D'+str(trow+3)+':E'+str(trow+4),'RESUMEN DE KILOS',blue_h
 #subtabla 1, kilos
 worksheet.write('D'+str(trow+5),'KILOS',blue_header_format)
 worksheet.write('E'+str(trow+5),'CALIBRE',blue_header_format)
+suma_peso=0
+art_i=0
+for i in products['caliber'].fillna('NA').astype(str).unique():
+    if(i!='NA'):
+        print(i)
+        p=products.loc[products['caliber']==i]
+        sum_kg=p['weight'].fillna(0).sum()+p['total_weight'].fillna(0).sum()+p['weight_kg'].fillna(0).sum()+p['total_kg'].fillna(0).sum()
+        suma_peso=suma_peso+sum_kg
+        worksheet.write('D'+str(trow+6+art_i),sum_kg,blue_content)
+        worksheet.write('E'+str(trow+6+art_i),i,blue_content)
+        art_i=art_i+1
 
-worksheet.write('D'+str(trow+6),0,blue_content)
-worksheet.write('E'+str(trow+6),0,blue_content)
-worksheet.write('D'+str(trow+7),0,blue_content)
-worksheet.write('E'+str(trow+7),0,blue_content)
-worksheet.write('D'+str(trow+8),0,blue_footer_format_bold)
+worksheet.write('D'+str(trow+5+len(products['caliber'].unique())),suma_peso,blue_footer_format_bold)
 #subtabla2 costos
 worksheet.merge_range('H'+str(trow+4)+':K'+str(trow+4),'RESUMEN DE COSTOS',blue_header_format_bold)
 worksheet.write('L'+str(trow+4),'POSICION',blue_header_format)
