@@ -213,7 +213,7 @@ year = date.strftime("%Y")
 
 
 #aki voy a trae r todos los datos
-tablas={'double_deep_crossbars' : 'double deep crossbars',
+tablas={'double_deep_crossbars' : 'barras dobles prro',
 'double_deep_floors' : 'double deep floors',
 'double_deep_floor_reinforcements' : 'double deep floor reinforcements',
 'double_deep_heavy_load_frames' : 'double deep heavy load frames',
@@ -387,7 +387,7 @@ for i in range(0,len(products)):
         worksheet.write('D'+str(row_count), 'TC..', blue_content)
         worksheet.writen('E'+str(row_count), str(piezas['amount'].values[j]), blue_content)
         worksheet.write('F'+str(row_count), str(piezas['description'].values[j]), blue_content)
-        worksheet.write('G'+str(row_count), piezas['cost'].values[j], blue_content)
+        worksheet.write('G'+str(row_count), piezas['cost'].fillna(0).values[j].sum(), blue_content)
         worksheet.write('H'+str(row_count), piezas['amount'].values[j]*piezas['cost'].values[j], blue_content)
         worksheet.write('I'+str(row_count), piezas['type'].values[j], blue_content)
         worksheet.write('J'+str(row_count),str(0.0), blue_content)
