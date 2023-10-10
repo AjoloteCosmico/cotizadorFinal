@@ -219,7 +219,6 @@ currentDateTime = datetime.datetime.now()
 date = currentDateTime.date()
 year = date.strftime("%Y")
 
-
 #aki voy a trae r todos los datos
 tablas={'double_deep_crossbars' : 'VIGA TIPO CAJA DE DOBLE PROFUNDIDAD DE 2.5',
 'double_deep_floors' : 'SUELOS DE DOBLE PROFUNDIDAD',
@@ -316,8 +315,9 @@ for i in tablas:
     products=products.append(p,ignore_index=True)
 cols_to_fill_str=['description','protector','model','sku']
 products[cols_to_fill_str]=products[cols_to_fill_str].fillna('')
-cols_to_fill_zero=['weight','total_kg','total_weight','weight_kg','m2','total_m2']
-products[cols_to_fill_zero]=products[cols_to_fill_zero].fillna(0)
+cols_kg=['weight','total_kg','total_weight','weight_kg']
+cols_m2=['m2','total_m2']
+products[cols_kg+cols_m2]=products[cols_kg+cols_m2].fillna(0)
 
 pricelist_protectors=pd.read_sql('select * from price_list_protectors',cnx)
 quotation_protectors=pd.read_sql('select quotation_protectors.*, protectors.sku from quotation_protectors  inner join protectors on protectors.protector=quotation_protectors.protector where quotation_id ='+str(id),cnx)
@@ -478,21 +478,23 @@ worksheet.merge_range('H'+str(trow+7)+':K'+str(trow+7),'CONTRATO UNITARIO SOLO T
 worksheet.merge_range('H'+str(trow+8)+':K'+str(trow+8),'CONTRATO UNITARIO COMBINADO',blue_header_format)
 
 
-worksheet.write('L'+str(trow+5),materials['cost'].fillna(0).values[j].sum(),blue_content)
+costo_total=products['cost'].sum()+materials['cost'].fillna(0).sum(axis=1, numeric_only=True).sum()
+
+worksheet.write('L'+str(trow+5),materials['cost'].fillna(0).sum(axis=1, numeric_only=True).sum(),blue_content)
 worksheet.write('M'+str(trow+5),0,blue_content)
-worksheet.write('N'+str(trow+5),0,blue_content)
+worksheet.write('N'+str(trow+5),materials['cost'].fillna(0).sum(axis=1, numeric_only=True).sum()/costo_total*100,blue_content)
 
 worksheet.write('L'+str(trow+6),products.loc[products['tabla'].isin(['quotation_installs','quotation_uninstalls']),'cost'].sum(),blue_content)
-worksheet.write('M'+str(trow+6),0,blue_content)
+worksheet.write('M'+str(trow+6),products.loc[products['tabla'].isin(['quotation_installs','quotation_uninstalls']),'cost'].sum()/costo_total*100,blue_content)
 worksheet.write('N'+str(trow+6),0,blue_content)
 
 worksheet.write('L'+str(trow+7),products.loc[(products['tabla'].isin(['quotation_travel_assignments','packagings'])),'cost'].sum(),blue_content)
 worksheet.write('M'+str(trow+7),0,blue_content)
-worksheet.write('N'+str(trow+7),0,blue_content)
+worksheet.write('N'+str(trow+7),products.loc[(products['tabla'].isin(['quotation_travel_assignments','packagings'])),'cost'].sum()/costo_total*100,blue_content)
 
 worksheet.write('L'+str(trow+8),products['cost'].sum(),blue_content)
-worksheet.write('M'+str(trow+8),0,blue_content)
-worksheet.write('N'+str(trow+8),0,blue_content)
+worksheet.write('M'+str(trow+8),products[cols_kg].sum(axis=1, numeric_only=True).sum(),blue_content)
+worksheet.write('N'+str(trow+8),'100%',blue_content)
 #TODO: calcular bien esto, to6al menos iva
 
 worksheet.set_column('A:A',15)
