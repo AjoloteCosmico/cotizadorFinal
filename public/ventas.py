@@ -4,6 +4,7 @@ import xlsxwriter
 import pandas as pd
 import sys
 import mysql.connector
+import numpy as np
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -25,13 +26,9 @@ cnx = mysql.connector.connect(user=DB_USERNAME,
                               database=DB_DATABASE,
                               use_pure=False)
 #Seccion para traer informacion de la base
-query = ('SELECT * from customers where id =1')
-
 # join para cobros
 # cobros=pd.read_sql('Select cobros.* ,customers.customer,internal_orders.invoice, users.name from ((cobros inner join internal_orders on internal_orders.id = cobros.order_id) inner join customers on customers.id = internal_orders.customer_id )inner join users on cobros.capturo=users.id',cnx)
-
 quotation=pd.read_sql("select * from quotations where id=" +str(id),cnx)
-products=pd.read_sql("select * from cart_products where quotation_id=" +str(id),cnx)
 #traer datos de los pedidos
 # pedidos=pd.read_sql("""Select internal_orders.* ,customers.clave,customers.alias,
 # coins.exchange_sell, coins.coin, coins.symbol,coins.code
@@ -149,7 +146,15 @@ blue_content = workbook.add_format({
     'border_color':a_color,
     'font_size':10,
     'num_format': '[$$-409]#,##0.00'})
-
+blue_content_unit = workbook.add_format({
+    'border': 1,
+    'align': 'center',
+    'valign': 'vcenter',
+    'font_color': 'black',
+    
+    'border_color':a_color,
+    'font_size':10,
+    'num_format': '0.00'})
 blue_content_bold = workbook.add_format({
     'bold': True,
     'border': 1,
@@ -195,6 +200,7 @@ blue_content_dll = workbook.add_format({
     'border_color':a_color,
     'font_size':10,
     'num_format': '[$$-409]#,##0.00'})
+
 total_cereza_format = workbook.add_format({
     'bold': True,
     'text_wrap': True,
@@ -212,12 +218,118 @@ import datetime
 currentDateTime = datetime.datetime.now()
 date = currentDateTime.date()
 year = date.strftime("%Y")
+
+#aki voy a trae r todos los datos
+tablas={'double_deep_crossbars' : 'VIGA TIPO CAJA DE DOBLE PROFUNDIDAD DE 2.5',
+'double_deep_floors' : 'SUELOS DE DOBLE PROFUNDIDAD',
+'double_deep_floor_reinforcements' : 'REFUERZOS PARA EL SUELO DE DOBLE PROFUNDIDAD',
+'double_deep_heavy_load_frames' : 'BASTIDORES DE CARGA PESADA DE DOBLE PROFUNDIDAD',
+'double_deep_joist_box25s' : 'VIGA TIPO CAJA DE DOBLE PROFUNDIDAD DE 2.5',
+'double_deep_joist_box25_caliber14s' : 'VIGA TIPO CAJA DE DOBLE PROFUNDIDAD DE 2.5 CALIBRE 14',
+'double_deep_joist_box2s' : 'VIGA TIPO CAJA DE DOBLE PROFUNDIDAD DE 2',
+'double_deep_joist_box2_caliber14s' : 'VIGA TIPO CAJA DE DOBLE PROFUNDIDAD DE 2 CALIBRE 14',
+'double_deep_joist_c2_s' : 'VIGA DE DOBLE PROFUNDIAD TIPO C2',
+'double_deep_joist_chairs' : 'VIGA DE DOBLE PROFUNDIAD TIPO SILLA',
+'double_deep_joist_l25_caliber14s' : 'VIGA TIPO L DE DOBLE PROFUNDIDAD DE 2.5 CALIBRE 14',
+'double_deep_joist_l25_s' : 'VIGA TIPO L DE DOBLE PROFUNDIDAD DE 2.5 ',
+'double_deep_joist_l2_caliber14s' : 'VIGA TIPO L DE DOBLE PROFUNDIDAD DE 2 CALIBRE 14',
+'double_deep_joist_l2_s' : 'VIGA TIPO L DE DOBLE PROFUNDIDAD DE 2 ',
+'double_deep_joist_lrs' : 'VIGA DE DOBLE PROFUNDIAD TIPO LR',
+'double_deep_joist_structurals' : 'VIGA DE DOBLE PROFUNDIAD TIPO ESTRUCTURAL',
+'double_deep_miniature_frames' : 'MARCOS EN MINIATURA DE DOBLE PROFUNDIDAD',
+'double_deep_spacers' : 'ESPACIADOR DE DOBLE PROFUNDIDAD',
+'double_deep_structural_frames' : 'MARCOS ESTRUCTURALES DE DOBLE PROFUNDIDAD',
+'freights' : 'FLETES',
+'grills' : 'PARRILLA',
+'installations' : 'INSTALACIONES',
+'packagings' : 'FLETE',
+'quot25_j_galvanized_panels' : 'PANELES GALVANIZADOS DE 25 ',
+'quot25_j_painted_panels' : 'PANELES PINTADOS DE 25 ',
+'quot2_j_galvanized_panels' : 'PANELES GALVANIZADOS DE 2 IN',
+'quot2_j_painted_panels' : 'PANELES PINTADOS DE 2 IN',
+'quotation_administratives' : 'PRESUPUESTOS ADMINISTRATIVOS',
+'quotation_installs' : 'INSTALACION',
+'quotation_protectors' : 'PRESUPUESTO PROTECTORES',
+'quotation_specials' : 'PRESUPUESTO ESPECIAL',
+'quotation_travel_assignments' : 'ASIGNACION DE VIAJES',
+'quotation_uninstalls' : 'DESINTALACION',
+'quot_chair_j_galvanized_panels' : 'PANELES GALVANIZADOS SILLA',
+'quot_chair_j_painted_panels' : 'PANELES PINTADOS  SILLA',
+'selective_crossbars' : 'CROSSBAR ',
+'selective_floors' : 'PISO SELECTIVO',
+'selective_floor_reinforcements' : 'PISO REFORZADO SELECTIVO',
+'selective_heavy_load_frames' : 'MARCO SELECTIVO',
+'selective_joist_box25s' : 'SELECTIVO VIGA CAJA DE 25',
+'selective_joist_box25_caliber14s' : 'SELECTIVO VIGA CAJA DE 25 CALIBRE 14',
+'selective_joist_box2s' : 'SELECTIVO VIGA CAJA DE 2',
+'selective_joist_box2_caliber14s' : 'SELECTIVO VIGA CAJA DE 2 CALIBRE 14',
+'selective_joist_c2_s' : 'SELECTIVO VIGA C2',
+'selective_joist_chairs' : 'SELECTIVO VIGA SILLA',
+'selective_joist_l25_caliber14s' : 'SELECTIVO VIGA L25 CALIBRE 14',
+'selective_joist_l25_s' : 'SELECTIVO VIGA L25 ',
+'selective_joist_l2_caliber14s' : 'SELECTIVO VIGA L2 CALIBRE 14',
+'selective_joist_l2_s' : 'SELECTIVO VIGA L2',
+'selective_joist_lrs' : 'SELECTIVO VIGA LSR',
+'selective_joist_structurals' : 'SELECTIVO VIGA ESTRUCTURAL',
+'selective_miniature_frames' : 'MARCOS EN MINIATURA SELECTIVOS',
+'selective_spacers' : 'SELECTIVO ESPACIADORES',
+'selective_structural_frames' : 'SELECTIVO MARCO ESTRUCTURAL',
+'uninstalls' : 'DESINSTALAR',
+'wood' : 'MADERA',}
+aceros=pd.read_sql('select * from steels ',cnx)
+aceros.loc[aceros['caliber']=='EST 3 IN','caliber']='EST3'
+
+products=pd.DataFrame()
+#iterar sobre tablas
+for i in tablas:
+    print(i)
+    #buscar en la base de datos todos los productos de esta tabla
+    #pertenecientes a la cotizacion pedida por el usuario.
+    p=pd.read_sql('select * from '+i+' where quotation_id = '+str(id),cnx)
+    p=p.assign(tabla=i)
+    if(('cost' not in p.columns)&(len(p)>0)):
+        if('caliber' not in p.columns):
+             #esto es en especifico por un caso en que todas kas piezas son cal 14
+             p=p.assign(caliber='14')
+        try:
+            p['caliber']=p['caliber'].str.replace('-','')
+        except:
+            print(' ')
+        print(str(p['caliber'].values[0]))
+        costo=aceros.loc[aceros['caliber']==str(p['caliber'].values[0]),'cost'].values[0]
+        if('total_kg' in p.columns):
+            p=p.assign(cost=costo*p.total_kg)
+        if('total_weight' in p.columns):
+           
+            p=p.assign(cost=costo*p.total_weight)
+        if('weight_kg' in p.columns):
+         
+            p=p.assign(cost=costo*p.weight_kg)
+        if('weight' in p.columns):
+          
+            p=p.assign(cost=costo*p.weight)
+        if('long' in p.columns):
+           
+            p=p.assign(cost=costo*p.long)
+        print(i)
+    products=products.append(p,ignore_index=True)
+cols_to_fill_str=['description','protector','model','sku']
+products[cols_to_fill_str]=products[cols_to_fill_str].fillna('')
+cols_kg=['weight','total_kg','total_weight','weight_kg']
+cols_m2=['m2','total_m2']
+price_cols=['price','total_price','import','unit_price']
+products[cols_kg+cols_m2+price_cols]=products[cols_kg+cols_m2+price_cols].fillna(0)
+
+pricelist_protectors=pd.read_sql('select * from price_list_protectors',cnx)
+quotation_protectors=pd.read_sql('select quotation_protectors.*, protectors.sku from quotation_protectors  inner join protectors on protectors.protector=quotation_protectors.protector where quotation_id ='+str(id),cnx)
+quotation_shlf=pd.read_sql('select * from selective_heavy_load_frames where quotation_id ='+str(id),cnx)
 df[0:1].to_excel(writer, sheet_name='Sheet1', startrow=7,startcol=6, header=False, index=False)
+materials=pd.read_sql('select * from (materials left join price_list_screws on materials.price_list_screw_id= price_list_screws.id)left join price_lists on price_lists.id=materials.price_list_id',cnx)
 worksheet = writer.sheets['Sheet1']
 #Encabezado del documento--------------
 worksheet.merge_range('B2:F2', 'REPORTE POR COTIZACION ', negro_b)
-worksheet.merge_range('B3:F3', 'VENTAS', negro_s)
-
+worksheet.merge_range('B3:F3', 'ADMINISTRATIVO', negro_s)
+worksheet.merge_range('B4:F4', 'COSTOS ', negro_b)
 worksheet.write('H2', 'AÑO', negro_b)
 
 worksheet.write('I2', year, negro_b)
@@ -230,59 +342,106 @@ worksheet.merge_range('C6:C8', 'PDA', blue_header_format)
 worksheet.merge_range('D6:D8', 'SKU	', blue_header_format)
 worksheet.merge_range('E6:E8', 'CANT', blue_header_format)	
 worksheet.merge_range('F6:F8', 'DESCRIPCION', blue_header_format)	
-worksheet.merge_range('G6:G8', 'PRECIO VENTA UNIT', blue_header_format)	
-worksheet.merge_range('H6:H8', 'PRECIO VENTA TOTAL', blue_header_format)	
+worksheet.merge_range('G6:G8', 'PRECIO VNT UNIT', blue_header_format)	
+worksheet.merge_range('H6:H8', 'PRECIO VNT TOTAL', blue_header_format)	
 worksheet.merge_range('I6:I8', 'CALIBRE	', blue_header_format)
 worksheet.merge_range('J6:J8', 'KG UNIT	', blue_header_format)
 worksheet.merge_range('K6:K8', 'KG TOTAL', blue_header_format)	
 
+row_count=9
+def ret_na(value):
+    try:
+        x=float(value)
+    except:
+        x='NA'
+    try:
+        if(np.isnan(x)):
+            x='NA'
+        if(np.isinf(x)):
+            x='NA'
+    except:
+        x='NA'
+    return x
+def num(value):
+    try:
+        x=float(value)
+    except:
+        x=0
+    if((np.isnan(x))|(np.isinf(x))):
+        x=0
+    return x
+#iterar sobre los productos
 
 for i in range(0,len(products)):
-    worksheet.write('C'+str(9+i), str(i), blue_content)
-    worksheet.write('D'+str(9+i), 'TC0000113997'+str(i), blue_content)
-    worksheet.write('E'+str(9+i), products['amount'].values[i], blue_content)
-    worksheet.write('F'+str(9+i), products['name'].values[i], blue_content)
-
-    worksheet.write('G'+str(9+i), products['unit_price'].values[i], blue_content)
-    worksheet.write('H'+str(9+i), products['total_price'].values[i], blue_content)
-    worksheet.write('I'+str(9+i), '-'+str(i), blue_content)
-    worksheet.write('J'+str(9+i), '-'+str(i), blue_content)
-
-
-
-
-trow=11+len(products)
-
-
-
+    
+    def my_func(row, table_name):
+        return row in table_name
+    piezas=materials.loc[materials['product'].apply(my_func,table_name=products['tabla'].values[i])]
+    costo_product=products['cost'].values[i]
+    n=len(piezas)
+    piezas['type']=piezas['type'].fillna('')
+    print(n,products['tabla'].values[i],row_count,products['cost'].values[i])
+    #pda
+    worksheet.write('C'+str(row_count), str(i*n+1), blue_content)
+    #sku
+    worksheet.write('D'+str(row_count), products['sku'].values[i], blue_content)
+    worksheet.write('E'+str(row_count), str(products['amount'].values[i]), blue_content)
+    #descripcion
+    worksheet.write('F'+str(row_count), tablas[products['tabla'].values[i]]+products['protector'].values[i]+' '+products['model'].values[i], blue_content)
+    #costos
+    print(costo_product)
+    worksheet.write('G'+str(row_count), products['cost'].values[i], blue_content)
+    worksheet.write('H'+str(row_count), products['amount'].values[i]*products['cost'].values[i], blue_content)
+    #calibre
+    worksheet.write('I'+str(row_count), ret_na(products['caliber'].values[i]), blue_content)
+    #pesos
+    worksheet.write('J'+str(row_count),(num(products['total_weight'].values[i])+num(products['total_kg'].values[i])+products['weight'].values[i]+products['weight_kg'].values[i])/products['amount'].values[i], blue_content_unit)
+    worksheet.write('K'+str(row_count),(num(products['total_weight'].values[i])+num(products['total_kg'].values[i])+products['weight'].values[i]+products['weight_kg'].values[i]), blue_content_unit)
+    try: 
+        worksheet.write('L'+str(row_count),ret_na(num(products['amount'].values[i]*products['cost'].values[i])/(num(products['total_weight'].values[i])+num(products['total_kg'].values[i]))), blue_content)
+    except:
+        worksheet.write('L'+str(row_count),'NA', blue_content)
+    #medidas
+    worksheet.write('M'+str(row_count),products['m2'].values[i]+products['total_m2'].values[0], blue_content_unit)
+    worksheet.write('N'+str(row_count),(products['m2'].values[i]+products['total_m2'].values[0])*products['amount'].values[i], blue_content)
+    row_count=row_count+1
+    #PIEZAS PIEZAS PIEZAS CICLO DE PIEZAS
+    for j in range(0,n):
+        
+        print('entre al ciclo')
+        print(piezas['cost'].fillna(0).values[j],piezas['amount'])
+        costo= piezas['cost'].fillna(0).values[j].sum()
+        cant= piezas['amount'].fillna(0).values[j].sum()
+        worksheet.write('C'+str(row_count), str(i*n+2+j), blue_content)
+        #sku
+        worksheet.write('D'+str(row_count), ''.join(materials['sku'].fillna('').values[0]), blue_content)
+        worksheet.write('E'+str(row_count), str(piezas['amount'].values[j]), blue_content)
+        worksheet.write('F'+str(row_count), str(piezas['description'].values[j]), blue_content)
+        #costos
+        worksheet.write('G'+str(row_count),costo, blue_content)
+        worksheet.write('H'+str(row_count), cant*costo, blue_content)
+        #calibre
+        worksheet.write('I'+str(row_count), piezas['type'].values[j][0]+piezas['type'].values[j][1], blue_content_unit)
+        #pesos
+        worksheet.write('J'+str(row_count),str(0.0), blue_content_unit)
+        worksheet.write('K'+str(row_count),str(0.0), blue_content_unit)
+        row_count=row_count+1
+trow=row_count
 
 
 #TOTALES
 worksheet.merge_range('C'+str(trow+1)+':E'+str(trow), 'TOTAL (EQV M.N)', blue_header_format_bold)
-worksheet.merge_range('I'+str(trow+1)+':J'+str(trow),40 ,blue_footer_format_bold)
+worksheet.write_formula('H'+str(trow),'{=SUM(H9:H'+str(trow-1)+')}',blue_footer_format_bold)
+worksheet.write_formula('K'+str(trow),'{=SUM(K9:K'+str(trow-1)+')}',blue_footer_format_bold)
+worksheet.write_formula('N'+str(trow),'{=SUM(N9:N'+str(trow-1)+')}',blue_footer_format_bold)
 
 
 
-# worksheet.write('K'+str(trow), str(cobros['amount'].sum()), blue_content)
-# worksheet.write('L'+str(trow), str(cobros['exchange_sell'].values[0]*cobros['amount'].sum()), blue_content_bold)
 
-
-#RESUMEN
-worksheet.merge_range('D'+str(trow+3)+':E'+str(trow+3),'RESUMEN DE KILOS',blue_header_format_bold)
-
-worksheet.write('D'+str(trow+4),'KILOS',blue_header_format)
-
-worksheet.write('D'+str(trow+5),0,blue_content)
-worksheet.write('E'+str(trow+5),0,blue_content)
-worksheet.write('D'+str(trow+6),0,blue_content)
-worksheet.write('E'+str(trow+6),0,blue_content)
-
-worksheet.write('D'+str(trow+7),0,blue_footer_format_bold)
-
-#TODO: calcular bien esto, total menos iva
 
 worksheet.set_column('A:A',15)
-worksheet.set_column('F:F',17)
+worksheet.set_column('D:D',20)
+worksheet.set_column('F:F',25)
 worksheet.set_column('L:L',15)
 worksheet.set_column('G:G',15)
 worksheet.set_column('H:H',15)

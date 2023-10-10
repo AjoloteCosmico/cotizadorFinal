@@ -416,7 +416,7 @@ for i in range(0,len(products)):
         cant= piezas['amount'].fillna(0).values[j].sum()
         worksheet.write('C'+str(row_count), str(i*n+2+j), blue_content)
         #sku
-        worksheet.write('D'+str(row_count), 'TC..', blue_content)
+        worksheet.write('D'+str(row_count), ''.join(materials['sku'].fillna('').values[0]), blue_content)
         worksheet.write('E'+str(row_count), str(piezas['amount'].values[j]), blue_content)
         worksheet.write('F'+str(row_count), str(piezas['description'].values[j]), blue_content)
         #costos
