@@ -70,7 +70,7 @@ class FramesController extends Controller
                 $Placas = $Data->plates;
                 $TornTravDiag = ($Travesanos + $Diagonales) * 4;
                 $TornPlacas = $Placas * 2;
-                $PriceListScrewsTravDiag = PriceListScrew::where('description', 'TORNILLO Y TUERCA 5/16 I X 5/8 IN G5 GALV')->first();
+                $PriceListScrewsTravDiag = PriceListScrew::where('description', 'TORNILLO Y TUERCA 5/16 I X 3/4 IN G5 GALV')->first();
                 $PriceListScrewCostTravDiag = $PriceListScrewsTravDiag->cost * $PriceListScrewsTravDiag->f_total;
                 $CostTornTravDiag = $TornTravDiag * $PriceListScrewCostTravDiag;
                 $TotTornTravDiag = $Cantidad * $TornTravDiag;
