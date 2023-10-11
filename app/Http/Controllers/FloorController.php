@@ -47,17 +47,17 @@ class FloorController extends Controller
             $PriceUnit = $Price * $F_Total;
             $LargoPiso = $Piece->length;
             if($LargoPiso <= '1.5'){
-                $Tornillos = PriceListScrew::where('description', 'TORNILLO Y TUERCA 5/16 I X 5/8 IN G5 GALV')->first();
+                $Tornillos = PriceListScrew::where('description', 'TORNILLO Y TUERCA 5/16 I X 3/4 IN G5 GALV')->first();
                 $CostoTornillos = $Tornillos->cost * $Tornillos->f_total;
                 $CantidadTornillos = $Amount * 6;
                 $CostoTotalTornillos = $CantidadTornillos * $CostoTornillos;
             }elseif($LargoPiso >= '1.51' AND $LargoPiso <= '3'){
-                $Tornillos = PriceListScrew::where('description', 'TORNILLO Y TUERCA 5/16 I X 5/8 IN G5 GALV')->first();
+                $Tornillos = PriceListScrew::where('description', 'TORNILLO Y TUERCA 5/16 I X 3/4 IN G5 GALV')->first();
                 $CostoTornillos = $Tornillos->cost * $Tornillos->f_total;
                 $CantidadTornillos = $Amount * 8;
                 $CostoTotalTornillos = $CantidadTornillos * $CostoTornillos;
             }else{
-                $Tornillos = PriceListScrew::where('description', 'TORNILLO Y TUERCA 5/16 I X 5/8 IN G5 GALV')->first();
+                $Tornillos = PriceListScrew::where('description', 'TORNILLO Y TUERCA 5/16 I X 3/4 IN G5 GALV')->first();
                 $CostoTornillos = $Tornillos->cost * $Tornillos->f_total;
                 $CantidadTornillos = $Amount * 10;
                 $CostoTotalTornillos = $CantidadTornillos * $CostoTornillos;

@@ -37,7 +37,7 @@ class SpacerController extends Controller
         $F_Total = $PriceLists->f_total;
         $PriceUnit = $Price * $F_Total;
         $SubTotal = $Amount * $PriceUnit;
-        $Tornillos = PriceListScrew::where('description', 'TORNILLO Y TUERCA 5/16 I X 5/8 IN G5 GALV')->first();
+        $Tornillos = PriceListScrew::where('description', 'TORNILLO Y TUERCA 5/16 I X 3/4 IN G5 GALV')->first();
         $CostoTornillos = $Tornillos->cost * $Tornillos->f_total;
         $CantidadTornillos = $Amount * 4;
         $CostoTotalTornillos = $CantidadTornillos * $CostoTornillos;

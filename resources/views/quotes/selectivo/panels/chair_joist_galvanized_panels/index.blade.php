@@ -22,7 +22,7 @@
                 <div class="col-sm-6 col-xs-12">
                     <div class="form-group p-2">
                         <x-jet-label value="* Cantidad" />
-                        <input type="number" name="amount" class="inputjet w-full text-xs uppercase" value="{{ old('amount') }}" />
+                        <input type="number" min=1 name="amount" class="inputjet w-full text-xs uppercase" value="{{ old('amount') }}" />
                         <x-jet-input-error for='amount' /><br>
 
                         <x-jet-label value="* Seleccione el Calibre" />
