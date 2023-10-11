@@ -17,6 +17,7 @@ DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_PORT = os.getenv('DB_PORT')
 
 a_color='#354F84'
+a_lite='#b4c7ed'
 b_color='#91959E'
 # Conectar a DB
 cnx = mysql.connector.connect(user=DB_USERNAME,
@@ -327,6 +328,13 @@ for i in range(0,len(products)):
     n=len(piezas)
     piezas['type']=piezas['type'].fillna('')
     print(n,products['tabla'].values[i],row_count,products['cost'].values[i])
+    
+    if(i%2==0):
+        blue_content.set_bg_color('white')
+        blue_content_unit.set_bg_color('white')
+    if(i%2==1):
+        blue_content.set_bg_color(a_lite)
+        blue_content_unit.set_bg_color(a_lite)
     #pda
     worksheet.write('C'+str(row_count), str(i*n+1), blue_content)
     #sku

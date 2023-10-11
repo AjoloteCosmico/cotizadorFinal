@@ -184,6 +184,9 @@ total_cereza_format = workbook.add_format({
     'valign': 'top',
     'fg_color':'#F4B084',
     'border': 1})
+df=pd.DataFrame()
+df[0:1].to_excel(writer, sheet_name='Sheet1', startrow=7,startcol=6, header=False, index=False)
+
 worksheet = writer.sheets['Sheet1']
 #Encabezado del documento--------------
 
