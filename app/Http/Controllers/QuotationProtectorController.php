@@ -65,6 +65,7 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $Amount * $PostProtectorsWeight;
                 $QuotationProtectors->unit_price = $PostProtectorsSalePrice;
                 $QuotationProtectors->total_price = $Amount * $PostProtectorsSalePrice;
+                $QuotationProtectors->sku='TC0000117249';
                 $QuotationProtectors->save();
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('update_reg', 'ok');
             }else{
@@ -76,6 +77,7 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $Amount * $PostProtectorsWeight;
                 $QuotationProtectors->unit_price = $PostProtectorsSalePrice;
                 $QuotationProtectors->total_price = $Amount * $PostProtectorsSalePrice;
+                $QuotationProtectors->sku='TC0000117249';
                 $QuotationProtectors->save();
                 
                 //(new CartController)->add($user_id,'PROTECTOR DE POSTE',$PostProtectorsSalePrice,$Amount,$Quotation_Id);
@@ -98,6 +100,7 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->sku='TC0000117250';
                 $QuotationProtectors->save();
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('update_reg', 'ok');
             }else{
@@ -109,6 +112,7 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->sku='TC0000117250';
                 $QuotationProtectors->save();
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('create_reg', 'ok');
             }
@@ -129,6 +133,7 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->sku='TC0000117251';
                 $QuotationProtectors->save();
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('update_reg', 'ok');
             }else{
@@ -140,6 +145,7 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->sku='TC0000117251';
                 $QuotationProtectors->save();
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('create_reg', 'ok');
             }
@@ -160,6 +166,7 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->sku='TC0000117252';
                 $QuotationProtectors->save();
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('update_reg', 'ok');
             }else{
@@ -171,6 +178,7 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->sku='TC0000117252';
                 $QuotationProtectors->save();
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('create_reg', 'ok');
             }
@@ -191,6 +199,7 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->sku='TC0000117253';
                 $QuotationProtectors->save();
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('update_reg', 'ok');
             }else{
@@ -202,6 +211,7 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->sku='TC0000117253';
                 $QuotationProtectors->save();
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('create_reg', 'ok');
             }

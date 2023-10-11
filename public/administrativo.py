@@ -156,6 +156,24 @@ blue_content_unit = workbook.add_format({
     'border_color':a_color,
     'font_size':10,
     'num_format': '0.00'})
+blue_content_lite = workbook.add_format({
+    'border': 1,
+    'align': 'center',
+    'valign': 'vcenter',
+    'font_color': 'black',
+    'bg_color':a_lite,
+    'border_color':a_color,
+    'font_size':10,
+    'num_format': '[$$-409]#,##0.00'})
+blue_content_unit_lite = workbook.add_format({
+    'border': 1,
+    'align': 'center',
+    'valign': 'vcenter',
+    'font_color': 'black',
+    'bg_color':a_lite,
+    'border_color':a_color,
+    'font_size':10,
+    'num_format': '0.00'})
 blue_content_bold = workbook.add_format({
     'bold': True,
     'border': 1,
@@ -326,38 +344,40 @@ for i in range(0,len(products)):
     piezas=materials.loc[materials['product'].apply(my_func,table_name=products['tabla'].values[i])]
     costo_product=products['cost'].values[i]
     n=len(piezas)
-    piezas['type']=piezas['type'].fillna('')
+    cols_na=['type','description','piece']
+    # piezas[cols_na]=piezas[cols_na].fillna('')
     print(n,products['tabla'].values[i],row_count,products['cost'].values[i])
     
-    if(i%2==0):
-        blue_content.set_bg_color('white')
-        blue_content_unit.set_bg_color('white')
     if(i%2==1):
-        blue_content.set_bg_color(a_lite)
-        blue_content_unit.set_bg_color(a_lite)
+        formato=blue_content
+        formato_unit=blue_content_unit
+    if(i%2==0):
+        formato=blue_content_lite
+        formato_unit=blue_content_unit_lite
+    
     #pda
-    worksheet.write('C'+str(row_count), str(i*n+1), blue_content)
+    worksheet.write('C'+str(row_count), str(i*n+1), formato)
     #sku
-    worksheet.write('D'+str(row_count), products['sku'].values[i], blue_content)
-    worksheet.write('E'+str(row_count), str(products['amount'].values[i]), blue_content)
+    worksheet.write('D'+str(row_count), products['sku'].values[i], formato)
+    worksheet.write('E'+str(row_count), str(products['amount'].values[i]), formato_unit)
     #descripcion
-    worksheet.write('F'+str(row_count), tablas[products['tabla'].values[i]]+products['protector'].values[i]+' '+products['model'].values[i], blue_content)
+    worksheet.write('F'+str(row_count), tablas[products['tabla'].values[i]]+products['protector'].values[i]+' '+products['model'].values[i], formato)
     #costos
     print(costo_product)
-    worksheet.write('G'+str(row_count), products['cost'].values[i], blue_content)
-    worksheet.write('H'+str(row_count), products['amount'].values[i]*products['cost'].values[i], blue_content)
+    worksheet.write('G'+str(row_count), products['cost'].values[i], formato)
+    worksheet.write('H'+str(row_count), products['amount'].values[i]*products['cost'].values[i], formato)
     #calibre
-    worksheet.write('I'+str(row_count), ret_na(products['caliber'].values[i]), blue_content)
+    worksheet.write('I'+str(row_count), ret_na(products['caliber'].values[i]), formato)
     #pesos
-    worksheet.write('J'+str(row_count),(num(products['total_weight'].values[i])+num(products['total_kg'].values[i])+products['weight'].values[i]+products['weight_kg'].values[i])/products['amount'].values[i], blue_content_unit)
-    worksheet.write('K'+str(row_count),(num(products['total_weight'].values[i])+num(products['total_kg'].values[i])+products['weight'].values[i]+products['weight_kg'].values[i]), blue_content_unit)
+    worksheet.write('J'+str(row_count),(num(products['total_weight'].values[i])+num(products['total_kg'].values[i])+products['weight'].values[i]+products['weight_kg'].values[i])/products['amount'].values[i], formato_unit)
+    worksheet.write('K'+str(row_count),(num(products['total_weight'].values[i])+num(products['total_kg'].values[i])+products['weight'].values[i]+products['weight_kg'].values[i]), formato_unit)
     try: 
-        worksheet.write('L'+str(row_count),ret_na(num(products['amount'].values[i]*products['cost'].values[i])/(num(products['total_weight'].values[i])+num(products['total_kg'].values[i]))), blue_content)
+        worksheet.write('L'+str(row_count),(num(products['amount'].values[i]*products['cost'].values[i])/(num(products['total_weight'].values[i])+num(products['total_kg'].values[i]))), formato)
     except:
-        worksheet.write('L'+str(row_count),'NA', blue_content)
+        worksheet.write('L'+str(row_count),0, formato)
     #medidas
-    worksheet.write('M'+str(row_count),products['m2'].values[i]+products['total_m2'].values[0], blue_content_unit)
-    worksheet.write('N'+str(row_count),(products['m2'].values[i]+products['total_m2'].values[0])*products['amount'].values[i], blue_content)
+    worksheet.write('M'+str(row_count),products['m2'].values[i]+products['total_m2'].values[0], formato_unit)
+    worksheet.write('N'+str(row_count),(products['m2'].values[i]+products['total_m2'].values[0])*products['amount'].values[i], formato)
     row_count=row_count+1
     #PIEZAS PIEZAS PIEZAS CICLO DE PIEZAS
     for j in range(0,n):
@@ -366,23 +386,23 @@ for i in range(0,len(products)):
         print(piezas['cost'].fillna(0).values[j],piezas['amount'])
         costo= piezas['cost'].fillna(0).values[j].sum()
         cant= piezas['amount'].fillna(0).values[j].sum()
-        worksheet.write('C'+str(row_count), str(i*n+2+j), blue_content)
+        worksheet.write('C'+str(row_count), str(i*n+2+j), formato)
         #sku
-        worksheet.write('D'+str(row_count), ''.join(materials['sku'].fillna('').values[0]), blue_content)
-        worksheet.write('E'+str(row_count), str(piezas['amount'].values[j]), blue_content)
-        worksheet.write('F'+str(row_count), str(piezas['description'].values[j]), blue_content)
+        worksheet.write('D'+str(row_count), ''.join(materials['sku'].fillna('').values[0]), formato)
+        worksheet.write('E'+str(row_count), str(piezas['amount'].values[j]), formato)
+        worksheet.write('F'+str(row_count), str(piezas['description'].values[j]), formato)
         #costos
-        worksheet.write('G'+str(row_count),costo, blue_content)
-        worksheet.write('H'+str(row_count), cant*costo, blue_content)
+        worksheet.write('G'+str(row_count),costo, formato)
+        worksheet.write('H'+str(row_count), cant*costo, formato)
         #calibre
-        worksheet.write('I'+str(row_count), piezas['type'].values[j][0]+piezas['type'].values[j][1], blue_content_unit)
+        worksheet.write('I'+str(row_count), piezas['type'].values[j][0]+piezas['type'].values[j][1], formato_unit)
         #pesos
-        worksheet.write('J'+str(row_count),str(0.0), blue_content_unit)
-        worksheet.write('K'+str(row_count),str(0.0), blue_content_unit)
-        worksheet.write('L'+str(row_count), str(0.0), blue_content)
+        worksheet.write('J'+str(row_count),str(0.0), formato_unit)
+        worksheet.write('K'+str(row_count),str(0.0), formato_unit)
+        worksheet.write('L'+str(row_count), 0.0, formato)
         #medidas
-        worksheet.write('M'+str(row_count), 0.0, blue_content_unit)
-        worksheet.write('N'+str(row_count), 0.0, blue_content_unit)
+        worksheet.write('M'+str(row_count), 0.0, formato_unit)
+        worksheet.write('N'+str(row_count), 0.0, formato_unit)
         row_count=row_count+1
 trow=row_count
 
@@ -451,7 +471,7 @@ worksheet.write('N'+str(trow+8),'100%',blue_content)
 
 worksheet.set_column('A:A',15)
 worksheet.set_column('D:D',20)
-worksheet.set_column('F:F',25)
+worksheet.set_column('F:F',30)
 worksheet.set_column('L:L',15)
 worksheet.set_column('G:G',15)
 worksheet.set_column('H:H',15)
