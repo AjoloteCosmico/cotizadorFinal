@@ -287,6 +287,7 @@ quotation_protectors=pd.read_sql('select quotation_protectors.*, protectors.sku 
 quotation_shlf=pd.read_sql('select * from selective_heavy_load_frames where quotation_id ='+str(id),cnx)
 df[0:1].to_excel(writer, sheet_name='Sheet1', startrow=7,startcol=6, header=False, index=False)
 materials=pd.read_sql('select * from (materials left join price_list_screws on materials.price_list_screw_id= price_list_screws.id)left join price_lists on price_lists.id=materials.price_list_id',cnx)
+materials['type']=materials['type'].fillna('')
 worksheet = writer.sheets['Sheet1']
 #Encabezado del documento--------------
 worksheet.merge_range('B2:F2', 'REPORTE POR COTIZACION ', negro_b)
@@ -344,8 +345,7 @@ for i in range(0,len(products)):
     piezas=materials.loc[materials['product'].apply(my_func,table_name=products['tabla'].values[i])]
     costo_product=products['cost'].values[i]
     n=len(piezas)
-    cols_na=['type','description','piece']
-    # piezas[cols_na]=piezas[cols_na].fillna('')
+    
     print(n,products['tabla'].values[i],row_count,products['cost'].values[i])
     
     if(i%2==1):
@@ -390,7 +390,7 @@ for i in range(0,len(products)):
         #sku
         worksheet.write('D'+str(row_count), ''.join(materials['sku'].fillna('').values[0]), formato)
         worksheet.write('E'+str(row_count), str(piezas['amount'].values[j]), formato)
-        worksheet.write('F'+str(row_count), str(piezas['description'].values[j]), formato)
+        worksheet.write('F'+str(row_count), str(piezas['description'].fillna('').values[j][0])+str(piezas['piece'].fillna('').values[j]), formato)
         #costos
         worksheet.write('G'+str(row_count),costo, formato)
         worksheet.write('H'+str(row_count), cant*costo, formato)

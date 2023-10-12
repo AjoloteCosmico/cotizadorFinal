@@ -210,18 +210,59 @@ DD/MM/AAAA""", negro_b)
 
 worksheet.write('L2', date, negro_b)
 worksheet.insert_image("A1", "img/logo/logo.png",{"x_scale": 0.6, "y_scale": 0.6})
-worksheet.merge_range('C6:C8', 'PDA', blue_header_format)
-worksheet.merge_range('D6:D8', 'SKU	', blue_header_format)
-worksheet.merge_range('E6:E8', 'CANT', blue_header_format)	
-worksheet.merge_range('F6:F8', 'DESCRIPCION', blue_header_format)	
-worksheet.merge_range('G6:G8', 'PRECIO VNT UNIT', blue_header_format)	
-worksheet.merge_range('H6:H8', 'PRECIO VNT TOTAL', blue_header_format)	
-worksheet.merge_range('I6:I8', 'CALIBRE	', blue_header_format)
-worksheet.merge_range('J6:J8', 'KG UNIT	', blue_header_format)
-worksheet.merge_range('K6:K8', 'KG TOTAL', blue_header_format)	
 
 
+worksheet.merge_range('B6:B10', 'NOHA', blue_header_format)
+worksheet.merge_range('C6:C10', 'PDA', blue_header_format)
+worksheet.merge_range('D6:D10', 'PI', blue_header_format)
+worksheet.merge_range('E6:E10', """FECHA
+AAAA-MM-DD""", blue_header_format)
 
+worksheet.merge_range('F6:G9', 'CLIENTE', blue_header_format)
+worksheet.write('F10', 'NUMERO', blue_header_format)
+worksheet.write('G10', 'NOMBRE CORTO', blue_header_format)
+
+worksheet.merge_range('H6:H10', """MONEDA""", blue_header_format)
+
+worksheet.merge_range('I6:O6', 'DERECHOS ADQUIRIDOS', blue_header_format)
+worksheet.merge_range('I7:J9', """IMPORTE TOTAL 
+(DERECHOS ADQUIRIDOS) 
+SIN IVA""", blue_header_format)
+worksheet.write('I10', 'MN', blue_header_format)
+worksheet.write('J10', 'DLLS', blue_header_format)
+
+
+worksheet.merge_range('K7:L9', """COBRADO
+(IMPORTE TOTAL COBRADO)
+SIN IVA""", blue_header_format)
+worksheet.write('K10', 'MN', blue_header_format)
+worksheet.write('L10', 'DLLS', blue_header_format)
+
+
+worksheet.merge_range('M7:N9', """POR COBRAR
+(IMPORTE TOTAL POR COBRAR) 
+SIN IVA""", blue_header_format)
+worksheet.write('M10', 'MN', blue_header_format)
+worksheet.write('N10', 'DLLS', blue_header_format)
+
+
+worksheet.merge_range('O7:O10', '% POR COBRAR DEL PEDIDO INTERNO', blue_header_format)
+
+worksheet.merge_range('P6:S6', """DERECHOS ADQUIRIDOS POR COBRAR CONTABLES""", blue_header_format)
+worksheet.merge_range('P7:Q9', """FACTURADO
+C X C
+(SIN IVA)""", blue_header_format)
+worksheet.write('P10', 'MN', blue_header_format)
+worksheet.write('Q10', 'DLLS', blue_header_format)
+
+
+worksheet.merge_range('R7:S9', """POR FACTURAR
+DA X C
+(SIN IVA)""", blue_header_format)
+worksheet.write('R10', 'MN', blue_header_format)
+worksheet.write('S10', 'DLLS', blue_header_format)
+
+worksheet.merge_range('T6:T10', """ESTATUS""", blue_header_format)
 
 #ajustar columnas
 worksheet.set_column('A:A',15)
