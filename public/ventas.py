@@ -397,15 +397,18 @@ trow=row_count
 worksheet.merge_range('C'+str(trow+1)+':E'+str(trow), 'TOTAL (EQV M.N)', blue_header_format_bold)
 worksheet.write_formula('H'+str(trow),'{=SUM(H9:H'+str(trow-1)+')}',blue_footer_format_bold)
 worksheet.write_formula('K'+str(trow),'{=SUM(K9:K'+str(trow-1)+')}',blue_footer_format_bold)
-worksheet.write_formula('N'+str(trow),'{=SUM(N9:N'+str(trow-1)+')}',blue_footer_format_bold)
 
+#subtabla
+worksheet.write('F'+str(trow+5), 'PRECIO DE VENTA POR POSICION', blue_header_format_bold)
+worksheet.write_formula('G'+str(trow+5), '{=(H'+str(trow)+'* '+str(row_count-9)+')}', blue_content)
+worksheet.write_formula('K'+str(trow+5), '{=(H'+str(trow)+'/ K'+str(trow)+')}', blue_content)
 
 
 
 
 worksheet.set_column('A:A',15)
 worksheet.set_column('D:D',20)
-worksheet.set_column('F:F',25)
+worksheet.set_column('F:F',30)
 worksheet.set_column('L:L',15)
 worksheet.set_column('G:G',15)
 worksheet.set_column('H:H',15)
