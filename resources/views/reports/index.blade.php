@@ -10,6 +10,18 @@
     <div class="container w-full bg-white p-3 rounded-xl shadow-xl">
         <div class="row m-3">
             
+        <div class="col-sm-12 text-right">
+             <div class="row">
+               
+             <a href="{{route('reports.generate',[0,'consecutivo',0])}}">
+              <button class="button"> <span class="badge badge-success">Consecutivo &nbsp; <i class="fa fa-file-excel-o fa-lg" aria-hidden="true"></i></span> </button>
+             </a>  
+            <a href="{{route('reports.generate',[0,'consecutivo',0])}}">
+               <button class="button"> <span class="badge badge-danger">Consecutivo &nbsp; <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
+            </a> 
+
+             </div>  
+            </div>
             <div class="w-100">&nbsp;</div>
             <div class="col-sm-12 table-responsive">
                 <table class="table tablequotations table-striped text-xs">
