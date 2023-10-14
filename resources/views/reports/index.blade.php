@@ -8,13 +8,21 @@
 
 @section('content')
     <div class="container w-full bg-white p-3 rounded-xl shadow-xl">
-        <div class="row m-3">
+       
+    <table>
+        <tr>
+
+        </tr>
+    </table>
+    
+    <div class="row m-3">
             
-        <div class="col-sm-12 text-right">
-             <div class="row">
+        <div class="col-lg-12 text-left">
+             <div class="row" >
                
              <a href="{{route('reports.generate',[0,'consecutivo',0])}}">
-              <button class="button"> <span class="badge badge-success">Consecutivo &nbsp; <i class="fa fa-file-excel-o fa-lg" aria-hidden="true"></i></span> </button>
+              <button class="button"> <span class="badge badge-success" style="size:20px;">Consecutivo &nbsp; 
+                <i class="fa fa-file-excel-o fa-lg" aria-hidden="true"></i></span> </button>
              </a>  
             <a href="{{route('reports.generate',[0,'consecutivo',0])}}">
                <button class="button"> <span class="badge badge-danger">Consecutivo &nbsp; <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
@@ -52,8 +60,8 @@
                             <th>Sistema</th>
                             <th>Fecha</th>
                             <th>Cliente</th>
-                            <th></th>
-                            <th></th>
+                            <th>Excel</th>
+                            <th>PDF</th>
                         </tr>
                     </thead>
                     <tbody>
