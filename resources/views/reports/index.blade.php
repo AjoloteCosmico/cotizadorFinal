@@ -20,6 +20,27 @@
                <button class="button"> <span class="badge badge-danger">Consecutivo &nbsp; <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
             </a> 
 
+             </div>
+             <div class="row">
+               
+             <a href="{{route('reports.generate',[0,'kpis',0])}}">
+              <button class="button"> <span class="badge badge-success">KPI's &nbsp; <i class="fa fa-file-excel-o fa-lg" aria-hidden="true"></i></span> </button>
+             </a>  
+            <a href="{{route('reports.generate',[0,'kpis',0])}}">
+               <button class="button"> <span class="badge badge-danger">KPI's&nbsp; <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
+            </a> 
+
+             </div>
+             <div class="row">
+               
+             <a href="{{route('reports.generate',[0,'kpis2',0])}}">
+              <button class="button"> <span class="badge badge-success">KPI2's &nbsp; <i class="fa fa-file-excel-o fa-lg" aria-hidden="true"></i></span> </button>
+             </a>  
+            <a href="{{route('reports.generate',[0,'kpis2',0])}}">
+               <button class="button"> <span class="badge badge-danger">KPI2's&nbsp; <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
+            </a> 
+
+
              </div>  
             </div>
             <div class="w-100">&nbsp;</div>
@@ -48,6 +69,9 @@
                                   </a>  
                                   <a href="{{route('reports.generate',[$row->id,'ventas',0])}}">
                                   <button class="button"> <span class="badge badge-success">Ventas &nbsp; <i class="fa fa-file-excel-o fa-lg" aria-hidden="true"></i></span> </button>
+                                  </a>
+                                  <a href="{{route('reports.generate',[$row->id,'margen',0])}}">
+                                  <button class="button"> <span class="badge badge-success">Margen &nbsp; <i class="fa fa-file-excel-o fa-lg" aria-hidden="true"></i></span> </button>
                                   </a> 
                                </td> 
                                <td>
@@ -56,6 +80,9 @@
                                   </a>  
                                   <a href="{{route('reports.generate',[$row->id,'ventas',1])}}">
                                   <button class="button"> <span class="badge badge-danger">Ventas &nbsp;<i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
+                                  </a> 
+                                  <a href="{{route('reports.generate',[$row->id,'margen',1])}}">
+                                  <button class="button"> <span class="badge badge-danger">Margen &nbsp;<i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
                                   </a> 
                                </td>
                             </tr>
