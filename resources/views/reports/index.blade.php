@@ -9,47 +9,41 @@
 @section('content')
     <div class="container w-full bg-white p-3 rounded-xl shadow-xl">
        
-    <table>
-        <tr>
-
-        </tr>
-    </table>
     
     <div class="row m-3">
             
         <div class="col-lg-12 text-left">
-             <div class="row" >
-               
-             <a href="{{route('reports.generate',[0,'consecutivo',0])}}">
+        <table>
+        <tr>
+            <td><a href="{{route('reports.generate',[0,'consecutivo',0])}}">
               <button class="button"> <span class="badge badge-success" style="size:20px;">Consecutivo &nbsp; 
                 <i class="fa fa-file-excel-o fa-lg" aria-hidden="true"></i></span> </button>
-             </a>  
+             </a> <br> </td>
+            <td>
             <a href="{{route('reports.generate',[0,'consecutivo',0])}}">
                <button class="button"> <span class="badge badge-danger">Consecutivo &nbsp; <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
-            </a> 
-
-             </div>
-             <div class="row">
-               
-             <a href="{{route('reports.generate',[0,'kpis',0])}}">
+            </a> <br></td>
+        </tr>
+        <tr>
+            <td><a href="{{route('reports.generate',[0,'kpis',0])}}">
               <button class="button"> <span class="badge badge-success">KPI's &nbsp; <i class="fa fa-file-excel-o fa-lg" aria-hidden="true"></i></span> </button>
-             </a>  
-            <a href="{{route('reports.generate',[0,'kpis',0])}}">
+             </a><br>  </td>
+            <td><a href="{{route('reports.generate',[0,'kpis',0])}}">
                <button class="button"> <span class="badge badge-danger">KPI's&nbsp; <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
-            </a> 
-
-             </div>
-             <div class="row">
-               
+            </a><br> </td>
+        </tr>
+        <tr>
+            <td>
              <a href="{{route('reports.generate',[0,'kpis2',0])}}">
               <button class="button"> <span class="badge badge-success">KPI2's &nbsp; <i class="fa fa-file-excel-o fa-lg" aria-hidden="true"></i></span> </button>
-             </a>  
+             </a><br> </td>
+            <td>
             <a href="{{route('reports.generate',[0,'kpis2',0])}}">
                <button class="button"> <span class="badge badge-danger">KPI2's&nbsp; <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
-            </a> 
-
-
-             </div>  
+            </a><br> </td>
+        </tr>
+    </table>
+    
             </div>
             <div class="w-100">&nbsp;</div>
             <div class="col-sm-12 table-responsive">
