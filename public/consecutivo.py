@@ -10,7 +10,10 @@ from dotenv import load_dotenv
 load_dotenv()
 #ESTE ARGUMENTO NO SE USA EN ESTE REPORTE, SERÁ 0 SIEMPRE UWU
 id=str(sys.argv[1])
-
+DB_USERNAME = os.getenv('DB_USERNAME')
+DB_DATABASE = os.getenv('DB_DATABASE')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_PORT = os.getenv('DB_PORT')
 a_color='#354F84'
 b_color='#91959E'
 
