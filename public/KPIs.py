@@ -14,7 +14,7 @@ id=str(sys.argv[1])
 a_color='#354F84'
 b_color='#91959E'
 
-writer = pd.ExcelWriter('storage/report/tabla2'+str(id)+'.xlsx', engine='xlsxwriter')
+writer = pd.ExcelWriter('storage/report/tabla3'+str(id)+'.xlsx', engine='xlsxwriter')
 
 workbook = writer.book
 ##FORMATOS PARA EL TITULO------------------------------------------------------------------------------
@@ -211,36 +211,106 @@ DD/MM/AAAA""", negro_b)
 worksheet.write('L2', date, negro_b)
 worksheet.insert_image("A1", "img/logo/logo.png",{"x_scale": 0.6, "y_scale": 0.6})
 
+#Cabecera 1
+worksheet.merge_range('B6:I6', 'CONCENTRADO DE COTIZACIONES MENSUALES (NO INCLUYE ACTUALIZACIONES)', blue_header_format)
+worksheet.merge_range('B7:B9', 'MES', blue_header_format)
+worksheet.merge_range('C7:C9', 'USD', blue_header_format)
+worksheet.merge_range('D7:D9', 'T.C', blue_header_format)
+worksheet.merge_range('E7:E9', "20", blue_header_format)
+worksheet.merge_range('F7:F9', 'PESOS', blue_header_format)
+worksheet.merge_range('G7:G9', 'SUMA', blue_header_format)
+worksheet.merge_range('H7:H9', 'NO. COT', blue_header_format)
+worksheet.merge_range('I7:I9', "NO. CLIEN", blue_header_format)
+worksheet.merge_range('D10:E10', " ", blue_content)
+worksheet.merge_range('D11:E11', " ", blue_content)
+worksheet.merge_range('D12:E12', " ", blue_content)
+worksheet.merge_range('D13:E13', " ", blue_content)
+worksheet.merge_range('D14:E14', " ", blue_content)
+worksheet.merge_range('D15:E15', " ", blue_content)
+worksheet.merge_range('D16:E16', " ", blue_content)
+worksheet.merge_range('D17:E17', " ", blue_content)
+worksheet.merge_range('D18:E18', " ", blue_content)
+worksheet.merge_range('D19:E19', " ", blue_content)
+worksheet.merge_range('D20:E20', " ", blue_content)
+worksheet.merge_range('D21:E21', " ", blue_content)
 
-worksheet.merge_range('B6:B8', 'NO', blue_header_format)
-worksheet.merge_range('C6:C8', 'DIAS', blue_header_format)
-worksheet.merge_range('D6:D8', '# COT', blue_header_format)
-worksheet.merge_range('E6:E8', "F. ENTREGA", blue_header_format)
-worksheet.merge_range('F6:F8', 'VENDEDOR', blue_header_format)
-worksheet.merge_range('G6:G8', 'CLIENTE', blue_header_format)
-worksheet.merge_range('H6:H8', 'PRIO', blue_header_format)
-worksheet.merge_range('I6:I8', "MONTO", blue_header_format)
-worksheet.merge_range('J6:J8', 'MONTO MN', blue_header_format)
-worksheet.merge_range('K6:K8', 'DESCRIPCION', blue_header_format)
-worksheet.merge_range('L6:L8', 'KILOS', blue_header_format)
-worksheet.merge_range('M6:M8', "ENCARGADO", blue_header_format)
-worksheet.merge_range('N6:N8', 'OBSERVACIONES', blue_header_format)
-for i in range(1, 96):
-    
-        worksheet.write('B'+str(i+8), str(i), blue_header_format)
-    
-for i in range(14489, 14584):
-    
-        worksheet.write('D'+str(i+8), str(i), blue_header_format)
+#Meses
+worksheet.write('B10', "ENERO", blue_content)
+worksheet.write('B11', "FEBERO", blue_content)
+worksheet.write('B12', "MARZO", blue_content)
+worksheet.write('B13', "ABRIL", blue_content)
+worksheet.write('B14', "MAYO", blue_content)
+worksheet.write('B15', "JUNIO", blue_content)
+worksheet.write('B16', "JULIO", blue_content)
+worksheet.write('B17', "AGOSTO", blue_content)
+worksheet.write('B18', "SEPTIEMBRE", blue_content)
+worksheet.write('B19', "OCTUBRE", blue_content)
+worksheet.write('B20', "NOVIEMBRE", blue_content)
+worksheet.write('B21', "DICIEMBRE", blue_content)
 
+#Sumas
+worksheet.write('C22', "SUMA", blue_content)
+worksheet.write('D22', "SUMA", blue_content)
+worksheet.write('E22', "SUMA", blue_content)
+worksheet.write('F22', "SUMA", blue_content)
+worksheet.write('G22', "SUMA", blue_content)
+worksheet.write('H22', "SUMA", blue_content)
+worksheet.write('I22', "SUMA", blue_content)
+
+#Cabezera Enero
+worksheet.merge_range('M6:O6', 'ENERO', blue_header_format)
+worksheet.merge_range('M7:M8', 'VENDEDOR', blue_header_format)
+worksheet.merge_range('N7:O7', 'COTIZACIONES', blue_header_format)
+worksheet.write('N8', 'NO.', blue_header_format)
+worksheet.write('O8', '$', blue_header_format)
+
+#Vendedores
+worksheet.write('M9', "V4 (SOLIS)", blue_content)
+worksheet.write('M10', "V7 (GUSTAVO)", blue_content)
+worksheet.write('M11', "V7 (GUSTAVO)", blue_content)
+worksheet.write('M12', "V11 (FERNANDO)", blue_content)
+worksheet.write('M13', "V12 (GUILLERMO)", blue_content)
+worksheet.write('M14', "V13 (OSCAR)", blue_content)
+worksheet.write('M15', "V14 (DORIAN)", blue_content)
+worksheet.write('M13', "V16 (OLGUIN))", blue_content)
+worksheet.write('M14', "V18 (IVAN)", blue_content)
+worksheet.write('M15', "V19 (ALEJANDRA)", blue_content)
+
+#Sumas vendedores
+worksheet.write('N16', "SUMA", blue_content)
+worksheet.write('O16', "SUMA", blue_content)
+
+#Cabecera ingenieros
+worksheet.merge_range('C26:F26', 'ENERO', blue_header_format)
+worksheet.merge_range('C27:C28', 'Ingeniero', blue_header_format)
+worksheet.merge_range('D27:F27', 'ACTIVIDADES', blue_header_format)
+worksheet.write('D28', "NO", blue_header_format)
+worksheet.write('E28', "INGENIERIA (HORAS)", blue_header_format)
+worksheet.write('F28', "OBRAS", blue_header_format)
+
+
+
+#Ingenieros
+worksheet.write('C29', "OSCAR", blue_content)
+worksheet.write('C30', "ALDO", blue_content)
+worksheet.write('C31', "GERMAN", blue_content)
+worksheet.write('C32', "MIGUEL", blue_content)
+
+#Sumas Ingenieros
+worksheet.write('D33', "SUMA", blue_content)
+worksheet.write('E33', "SUMA", blue_content)
 
 #ajustar columnas
 worksheet.set_column('A:A',15)
+worksheet.set_column('B:B',15)
+worksheet.set_column('C:C',20)
 worksheet.set_column('D:D',20)
+worksheet.set_column('E:E',20)
 worksheet.set_column('F:F',25)
 worksheet.set_column('L:L',15)
 worksheet.set_column('G:G',15)
 worksheet.set_column('H:H',15)
+worksheet.set_column('M:M',25)
 worksheet.set_column('I:N',15)
 worksheet.set_column('P:T',15)
 
