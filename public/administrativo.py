@@ -39,7 +39,7 @@ quotation=pd.read_sql("select * from quotations where id=" +str(id),cnx)
 #     inner join coins on internal_orders.coin_id = coins.id)
 #      """,cnx)
 writer = pd.ExcelWriter('storage/report/administrativo'+str(id)+'.xlsx', engine='xlsxwriter')
-writer = pd.ExcelWriter('storage/report/kpis'+str(id)+'.xlsx', engine='xlsxwriter')
+
 workbook = writer.book
 ##FORMATOS PARA EL TITULO------------------------------------------------------------------------------
 rojo_l = workbook.add_format({

@@ -14,7 +14,7 @@ id=str(sys.argv[1])
 a_color='#354F84'
 b_color='#91959E'
 
-writer = pd.ExcelWriter('storage/report/conseutivo'+str(id)+'.xlsx', engine='xlsxwriter')
+writer = pd.ExcelWriter('storage/report/consecutivo'+str(id)+'.xlsx', engine='xlsxwriter')
 
 workbook = writer.book
 ##FORMATOS PARA EL TITULO------------------------------------------------------------------------------
