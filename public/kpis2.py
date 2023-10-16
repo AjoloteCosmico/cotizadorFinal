@@ -14,7 +14,7 @@ id=str(sys.argv[1])
 a_color='#354F84'
 b_color='#91959E'
 
-writer = pd.ExcelWriter('storage/report/tabla2'+str(id)+'.xlsx', engine='xlsxwriter')
+writer = pd.ExcelWriter('storage/report/kpis2'+str(id)+'.xlsx', engine='xlsxwriter')
 
 workbook = writer.book
 ##FORMATOS PARA EL TITULO------------------------------------------------------------------------------
@@ -211,36 +211,37 @@ DD/MM/AAAA""", negro_b)
 worksheet.write('L2', date, negro_b)
 worksheet.insert_image("A1", "img/logo/logo.png",{"x_scale": 0.6, "y_scale": 0.6})
 
+#Cabezera pricipal
+worksheet.merge_range('B6:J6', 'KPI S INGENIERIA Y COTIZACIONES', blue_header_format)
+worksheet.merge_range('B7:J7', 'RESUMEN EJECUTIVO', blue_header_format)
+worksheet.merge_range('B8:B10', 'PDA', blue_header_format)
+worksheet.merge_range('C8:C10', 'KPI', blue_header_format)
+worksheet.merge_range('D8:D10', 'DETALLE', blue_header_format)
+worksheet.merge_range('E8:E10', "VALOR", blue_header_format)
+worksheet.merge_range('F8:G10', 'VALOR', blue_header_format)
+worksheet.merge_range('H8:H10', "UNIDAD", blue_header_format)
+worksheet.merge_range('I8:I10', "INDICADOR", blue_header_format)
+worksheet.merge_range('J8:J10', "RESULTADO", blue_header_format)
 
-worksheet.merge_range('B6:B8', 'NO', blue_header_format)
-worksheet.merge_range('C6:C8', 'DIAS', blue_header_format)
-worksheet.merge_range('D6:D8', '# COT', blue_header_format)
-worksheet.merge_range('E6:E8', "F. ENTREGA", blue_header_format)
-worksheet.merge_range('F6:F8', 'VENDEDOR', blue_header_format)
-worksheet.merge_range('G6:G8', 'CLIENTE', blue_header_format)
-worksheet.merge_range('H6:H8', 'PRIO', blue_header_format)
-worksheet.merge_range('I6:I8', "MONTO", blue_header_format)
-worksheet.merge_range('J6:J8', 'MONTO MN', blue_header_format)
-worksheet.merge_range('K6:K8', 'DESCRIPCION', blue_header_format)
-worksheet.merge_range('L6:L8', 'KILOS', blue_header_format)
-worksheet.merge_range('M6:M8', "ENCARGADO", blue_header_format)
-worksheet.merge_range('N6:N8', 'OBSERVACIONES', blue_header_format)
-for i in range(1, 96):
-    
-        worksheet.write('B'+str(i+8), str(i), blue_header_format)
-    
-for i in range(14489, 14584):
-    
-        worksheet.write('D'+str(i+8), str(i), blue_header_format)
 
+worksheet.write('L8', "PERIODO REPORTADO:", blue_header_format)
+worksheet.write('L9', "Mensual", blue_header_format)
+worksheet.write('M8', "DESDE (DD-MM-AAAA)", blue_header_format)
+worksheet.write('M9', "01/01/2023", blue_header_format)
+worksheet.write('N8', "Hasta (DD-MM-AAAA)", blue_header_format)
+worksheet.write('N9', "31/31/2023", blue_header_format)
 
 #ajustar columnas
 worksheet.set_column('A:A',15)
 worksheet.set_column('D:D',20)
 worksheet.set_column('F:F',25)
+worksheet.set_column('J:J',25)
 worksheet.set_column('L:L',15)
 worksheet.set_column('G:G',15)
 worksheet.set_column('H:H',15)
+worksheet.set_column('L:L',15)
+worksheet.set_column('M:M',90)
+worksheet.set_column('N:N',90)
 worksheet.set_column('I:N',15)
 worksheet.set_column('P:T',15)
 

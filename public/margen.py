@@ -6,38 +6,17 @@ import sys
 import mysql.connector
 import numpy as np
 import os
-import formatos
 from dotenv import load_dotenv
 load_dotenv()
-#ESTE ARGUMENTO NO SE USA EN ESTE REPORTE, SERÁ 0 SIEMPRE UWU
+#ESTE ARGUMENTO NO SE USA EN ESTE REPORTE, SERÁ 0 SIEMPRE UWU tabla 1
 id=str(sys.argv[1])
-#configurar la conexion a la base de datos
-DB_USERNAME = os.getenv('DB_USERNAME')
-DB_DATABASE = os.getenv('DB_DATABASE')
-DB_PASSWORD = os.getenv('DB_PASSWORD')
-DB_PORT = os.getenv('DB_PORT')
-a_color='#354F84'
-a_lite='#b4c7ed'
-b_color='#91959E'
-# Conectar a DB
-cnx = mysql.connector.connect(user=DB_USERNAME,
-                              password=DB_PASSWORD,
-                              host='localhost',
-                              port=DB_PORT,
-                              database=DB_DATABASE,
-                              use_pure=False)
 
-quotation=pd.read_sql("select * from quotations where id=" +str(id),cnx)
+a_color='#354F84'
+b_color='#91959E'
 
 writer = pd.ExcelWriter('storage/report/margen'+str(id)+'.xlsx', engine='xlsxwriter')
+
 workbook = writer.book
-df=quotation[['id','user_id']]
-
-df[0:1].to_excel(writer, sheet_name='Sheet1', startrow=7,startcol=6, header=False, index=False)
-worksheet = writer.sheets['Sheet1']
-
-#agregarle los formatos
-# workbook=formatos.add_formats(workbook)
 ##FORMATOS PARA EL TITULO------------------------------------------------------------------------------
 rojo_l = workbook.add_format({
     'bold': 0,
@@ -153,24 +132,6 @@ blue_content_unit = workbook.add_format({
     'border_color':a_color,
     'font_size':10,
     'num_format': '0.00'})
-blue_content_lite = workbook.add_format({
-    'border': 1,
-    'align': 'center',
-    'valign': 'vcenter',
-    'font_color': 'black',
-    'bg_color':a_lite,
-    'border_color':a_color,
-    'font_size':10,
-    'num_format': '[$$-409]#,##0.00'})
-blue_content_unit_lite = workbook.add_format({
-    'border': 1,
-    'align': 'center',
-    'valign': 'vcenter',
-    'font_color': 'black',
-    'bg_color':a_lite,
-    'border_color':a_color,
-    'font_size':10,
-    'num_format': '0.00'})
 blue_content_bold = workbook.add_format({
     'bold': True,
     'border': 1,
@@ -223,25 +184,34 @@ total_cereza_format = workbook.add_format({
     'valign': 'top',
     'fg_color':'#F4B084',
     'border': 1})
-df=quotation[['id','user_id']]
+df=pd.DataFrame()
+df[0:1].to_excel(writer, sheet_name='Sheet1', startrow=7,startcol=6, header=False, index=False)
+
+worksheet = writer.sheets['Sheet1']
 #Encabezado del documento--------------
-worksheet.merge_range('B2:F2', 'REPORTE POR COTIZACION ', negro_b)
-worksheet.merge_range('B3:F3', 'ADMINISTRATIVO', negro_s)
-worksheet.merge_range('B4:F4', 'COSTOS ', negro_b)
-worksheet.write('H2', 'AÑO', negro_b)
+
 import datetime
 
 currentDateTime = datetime.datetime.now()
 date = currentDateTime.date()
 year = date.strftime("%Y")
 
+
+worksheet = writer.sheets['Sheet1']
+#Encabezado del documento--------------
+worksheet.merge_range('B2:F2', 'REPORTE POR COTIZACION ', negro_b)
+worksheet.merge_range('B3:F3', 'ADMINISTRATIVO', negro_s)
+worksheet.merge_range('B4:F4', 'COSTOS ', negro_b)
+worksheet.write('H2', 'AÑO', negro_b)
+
 worksheet.write('I2', year, negro_b)
 worksheet.merge_range('J2:K3', """FECHA DEL REPORTE
 DD/MM/AAAA""", negro_b)
 
+
+#Fila 1
 worksheet.write('L2', date, negro_b)
 worksheet.insert_image("A1", "img/logo/logo.png",{"x_scale": 0.6, "y_scale": 0.6})
-
 worksheet.merge_range('B6:C6', 'COTIZACION', blue_header_format)
 worksheet.merge_range('B7:C7', 'COSTO DE KG PINTURA	', blue_header_format)
 worksheet.merge_range('B8:C8', 'POSICIONES', blue_header_format)	
