@@ -8,14 +8,23 @@ import numpy as np
 import os
 from dotenv import load_dotenv
 load_dotenv()
-#ESTE ARGUMENTO NO SE USA EN ESTE REPORTE, SERÁ 0 SIEMPRE UWU
 id=str(sys.argv[1])
+
 DB_USERNAME = os.getenv('DB_USERNAME')
 DB_DATABASE = os.getenv('DB_DATABASE')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_PORT = os.getenv('DB_PORT')
+
 a_color='#354F84'
+a_lite='#b4c7ed'
 b_color='#91959E'
+# Conectar a DB
+cnx = mysql.connector.connect(user=DB_USERNAME,
+                              password=DB_PASSWORD,
+                              host='localhost',
+                              port=DB_PORT,
+                              database=DB_DATABASE,
+                              use_pure=False)
 
 writer = pd.ExcelWriter('storage/report/consecutivo'+str(id)+'.xlsx', engine='xlsxwriter')
 
@@ -199,6 +208,12 @@ currentDateTime = datetime.datetime.now()
 date = currentDateTime.date()
 year = date.strftime("%Y")
 
+#Conectarse a la base
+#traer datos
+
+
+cotizaciones=pd.read_sql('select quotations.*, customers.customer,users.name from (quotations inner join customers on quotations.customer_id = customers.id) inner join users on users.id = quotations.user_id ',cnx)
+
 
 worksheet = writer.sheets['Sheet1']
 #Encabezado del documento--------------
@@ -228,15 +243,85 @@ worksheet.merge_range('K6:K8', 'DESCRIPCION', blue_header_format)
 worksheet.merge_range('L6:L8', 'KILOS', blue_header_format)
 worksheet.merge_range('M6:M8', "ENCARGADO", blue_header_format)
 worksheet.merge_range('N6:N8', 'OBSERVACIONES', blue_header_format)
-for i in range(1, 96):
-    
-        worksheet.write('B'+str(i+8), str(i), blue_header_format)
-    
-for i in range(14489, 14584):
-    
-        worksheet.write('D'+str(i+8), str(i), blue_header_format)
 
+price_cols=['price','total_price','import','unit_price']
 
+aceros=pd.read_sql('select * from steels ',cnx)
+aceros.loc[aceros['caliber']=='EST 3 IN','caliber']='EST3'
+
+def cociente(a,b):
+    if(b>0):
+        return a/b
+    else: 
+        return 0
+import tablas_dict
+for j in range(len(cotizaciones)):
+    products=pd.DataFrame()
+    for i in tablas_dict.tablas:
+        # print(i)
+        #buscar en la base de datos todos los productos de esta tabla
+        #pertenecientes a la cotizacion pedida por el usuario.
+        p=pd.read_sql('select * from '+i+' where quotation_id = '+str(cotizaciones['id'].values[0]),cnx)
+        p=p.assign(tabla=i)
+        if(('cost' not in p.columns)&(len(p)>0)):
+            if('caliber' not in p.columns):
+                #esto es en especifico por un caso en que todas kas piezas son cal 14
+                p=p.assign(caliber='14')
+            try:
+                p['caliber']=p['caliber'].str.replace('-','')
+            except:
+                print(' ')
+            # print(str(p['caliber'].values[0]))
+            costo=aceros.loc[aceros['caliber']==str(p['caliber'].values[0]),'cost'].values[0]
+            if('total_kg' in p.columns):
+                p=p.assign(cost=costo*p.total_kg)
+            if('total_weight' in p.columns):
+            
+                p=p.assign(cost=costo*p.total_weight)
+            if('weight_kg' in p.columns):
+            
+                p=p.assign(cost=costo*p.weight_kg)
+            if('weight' in p.columns):
+            
+                p=p.assign(cost=costo*p.weight)
+            if('long' in p.columns):
+            
+                p=p.assign(cost=costo*p.long)
+            # print(i)
+        products=products.append(p,ignore_index=True)
+    cols_to_fill_str=['description','protector','model','sku']
+    products[cols_to_fill_str]=products[cols_to_fill_str].fillna('')
+    cols_kg=['weight','total_kg','total_weight','weight_kg']
+    cols_m2=['m2','total_m2']
+    price_cols=['price','total_price','import','unit_price']
+    products[cols_kg+cols_m2]=products[cols_kg+cols_m2].fillna(0)
+
+    kilos=products[cols_kg].sum(axis=1, numeric_only=True).sum()
+    #trayendo informacion de materiales
+    materials=pd.read_sql('select * from (materials left join price_list_screws on materials.price_list_screw_id= price_list_screws.id)left join price_lists on price_lists.id=materials.price_list_id',cnx)
+    materials['type']=materials['type'].fillna('')
+    materials=materials.rename(columns={'product':'tabla'})
+    #calculando costos
+    used_materials=products[['tabla','quotation_id']].merge(materials,how='inner',on='tabla')
+
+    precio_pintura=pd.read_sql("select cost from price_lists where description like 'PINTURA'",cnx).values[0]
+    costo_pintura=products.loc[products['caliber'].notna(),'cost'].sum()
+    costo_total=costo_pintura+products['cost'].sum()+used_materials['cost'].fillna(0).sum(axis=1, numeric_only=True).sum()
+    precio_venta=products[price_cols].sum(axis=1,numeric_only=True).sum()
+    # print(used_materials)
+    worksheet.write('B'+str(j+9),str(j+1),blue_content)
+    worksheet.write('C'+str(j+9),' ',blue_content)
+    worksheet.write('D'+str(j+9),cotizaciones['invoice'].values[j],blue_content)
+    worksheet.write('E'+str(j+9),' ',blue_content)
+    worksheet.write('F'+str(j+9),cotizaciones['customer'].values[j],blue_content)
+    worksheet.write('G'+str(j+9),cotizaciones['name'].values[j],blue_content)
+    worksheet.write('H'+str(j+9),'',blue_content)
+    worksheet.write('I'+str(j+9),precio_venta*20,blue_content)
+    worksheet.write('J'+str(j+9),precio_venta,blue_content)
+    worksheet.write('K'+str(j+9),cotizaciones['system'].values[j],blue_content)
+    worksheet.write('L'+str(j+9),kilos,blue_content_unit)
+    worksheet.write('M'+str(j+9),'',blue_content)
+    worksheet.write('N'+str(j+9),'',blue_content)
 #ajustar columnas
 worksheet.set_column('A:A',15)
 worksheet.set_column('D:D',20)
