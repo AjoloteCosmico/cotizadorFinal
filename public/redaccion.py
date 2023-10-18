@@ -38,7 +38,6 @@ context={
     'folio': cotizacion['invoice'].values[0],
     'fecha':today,
     'asesor':user['name'].values[0],
-
 } 
 print(context['direccion'])
 doc.render(context) 
