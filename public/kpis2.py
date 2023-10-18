@@ -10,6 +10,8 @@ from dotenv import load_dotenv
 load_dotenv()
 #ESTE ARGUMENTO NO SE USA EN ESTE REPORTE, SERÁ 0 SIEMPRE UWU
 id=str(sys.argv[1])
+
+#configurar la conexion a la base de datos >>>>>>> 10037817f79290778a91a333cbe882be7f36de63
 DB_USERNAME = os.getenv('DB_USERNAME')
 DB_DATABASE = os.getenv('DB_DATABASE')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
@@ -208,8 +210,7 @@ worksheet.merge_range('B4:F4', 'COSTOS ', negro_b)
 worksheet.write('H2', 'AÑO', negro_b)
 
 worksheet.write('I2', year, negro_b)
-worksheet.merge_range('J2:K3', """FECHA DEL REPORTE
-DD/MM/AAAA""", negro_b)
+worksheet.merge_range('J2:K3', """FECHA DEL REPORTE DD/MM/AAAA""", negro_b)
 
 worksheet.write('L2', date, negro_b)
 worksheet.insert_image("A1", "img/logo/logo.png",{"x_scale": 0.6, "y_scale": 0.6})
@@ -225,6 +226,15 @@ worksheet.merge_range('F8:G10', 'VALOR', blue_header_format)
 worksheet.merge_range('H8:H10', "UNIDAD", blue_header_format)
 worksheet.merge_range('I8:I10', "INDICADOR", blue_header_format)
 worksheet.merge_range('J8:J10', "RESULTADO", blue_header_format)
+
+#Un FOR
+numero_De_Filas = 15
+for i in range(numero_De_Filas):
+    worksheet.write(10 + i, 1, i + 1)  # La columna "PDA" está en la segunda columna (columna B)
+
+#Trabajo Axel
+# Consulta para obtener los datos de la tabla "destinatios"
+
 
 
 worksheet.write('L8', "PERIODO REPORTADO:", blue_header_format)
