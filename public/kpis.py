@@ -299,6 +299,7 @@ worksheet.merge_range('G7:G9', 'SUMA', blue_header_format)
 worksheet.merge_range('H7:H9', 'NO. COT', blue_header_format)
 worksheet.merge_range('I7:I9', "NO. CLIEN", blue_header_format)
 row=10
+
 for i in Meses:
     cotizaciones_mes=cotizaciones.loc[cotizaciones['mes']==i]
     worksheet.write('B'+str(row),Meses[i],blue_content)
@@ -309,7 +310,9 @@ for i in Meses:
     worksheet.write('H'+str(row),str(len(cotizaciones_mes)),blue_content_unit)
     worksheet.write('I'+str(row),str(len(cotizaciones_mes['customer'].unique())),blue_content_unit)
     row=row+1
-
+#FILA DE TOTALES AQUI, EJ
+worksheet.write('F'+str(row),products[price_cols].sum(axis=1, numeric_only=True).sum(),blue_footer_format_bold)
+    
 #iterando sobre vendedores
 row=10
 for i in cotizaciones['user_id'].unique():
@@ -329,8 +332,8 @@ worksheet.set_column('L:L',15)
 worksheet.set_column('G:G',25)
 worksheet.set_column('H:H',15)
 worksheet.set_column('L:L',15)
-worksheet.set_column('M:M',90)
-worksheet.set_column('N:N',90)
+worksheet.set_column('M:M',15)
+worksheet.set_column('N:N',15)
 worksheet.set_column('I:N',15)
 worksheet.set_column('P:T',15)
 
