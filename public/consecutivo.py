@@ -15,9 +15,7 @@ DB_DATABASE = os.getenv('DB_DATABASE')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_PORT = os.getenv('DB_PORT')
 
-a_color='#354F84'
-a_lite='#b4c7ed'
-b_color='#91959E'
+
 # Conectar a DB
 cnx = mysql.connector.connect(user=DB_USERNAME,
                               password=DB_PASSWORD,
@@ -30,6 +28,10 @@ writer = pd.ExcelWriter('storage/report/consecutivo'+str(id)+'.xlsx', engine='xl
 
 workbook = writer.book
 ##FORMATOS PARA EL TITULO------------------------------------------------------------------------------
+
+a_color='#354F84'
+a_lite='#b4c7ed'
+b_color='#91959E'
 rojo_l = workbook.add_format({
     'bold': 0,
     'border': 0,
@@ -245,7 +247,6 @@ worksheet.merge_range('M6:M8', "ENCARGADO", blue_header_format)
 worksheet.merge_range('N6:N8', 'OBSERVACIONES', blue_header_format)
 
 price_cols=['price','total_price','import','unit_price']
-
 aceros=pd.read_sql('select * from steels ',cnx)
 aceros.loc[aceros['caliber']=='EST 3 IN','caliber']='EST3'
 
