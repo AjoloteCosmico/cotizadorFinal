@@ -9,7 +9,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 #ESTE ARGUMENTO NO SE USA EN ESTE REPORTE, SERÁ 0 SIEMPRE UWU
-id=str(sys.argv[1])
+id=0
 #configurar la conexion a la base de datos
 DB_USERNAME = os.getenv('DB_USERNAME')
 DB_DATABASE = os.getenv('DB_DATABASE')
@@ -282,8 +282,10 @@ worksheet.merge_range('B7:E7', "PERIODO REPORTADO:", blue_header_format)
 
 
 worksheet.write('F7', "Mensual", blue_header_format)
-worksheet.write('G7', "DESDE (DD-MM-AAAA)", blue_header_format)
-worksheet.write('H7', "Hasta (DD-MM-AAAA)", blue_header_format)
+worksheet.write('G7', """DESDE (AAAA-MM-DD)
+                """+str(cotizaciones.sort_values(by='created_at')['created_at'].values[0])[0:10], blue_header_format)
+worksheet.write('H7', """Hasta (AAAA-MM-DD)
+                """+str(cotizaciones.sort_values(by='created_at')['created_at'].values[len(cotizaciones)-1])[0:10], blue_header_format)
 
 
 #Cabezera pricipal
@@ -426,8 +428,7 @@ worksheet.set_column('D:D',12)
 worksheet.set_column('E:E',25)
 worksheet.set_column('J:J',25)
 worksheet.set_column('L:L',15)
-worksheet.set_column('G:G',15)
-worksheet.set_column('H:H',15)
+worksheet.set_column('G:H',25)
 worksheet.set_column('L:L',15)
 worksheet.set_column('M:M',90)
 worksheet.set_column('N:N',90)
