@@ -196,6 +196,27 @@ blue_content_dll = workbook.add_format({
     'font_size':10,
     'num_format': '[$$-409]#,##0.00'})
 
+blue_transparent_bold = workbook.add_format({
+    'bold': 0,
+    'border': 1,
+    'align': 'center',
+    'valign': 'vcenter',
+    'font_color': 'black',
+
+    'font_size':11,
+    'border_color':a_color,})
+
+blue_transparent_bold_result = workbook.add_format({
+    'bold': True,
+    'bg_color': a_color,
+    'border': 1,
+    'align': 'center',
+    'valign': 'vcenter',
+    'border_color':'white',
+    'font_color': 'white',
+    'font_size':11,
+    'border_color':a_color,})
+
 total_cereza_format = workbook.add_format({
     'bold': True,
     'text_wrap': True,
@@ -282,13 +303,12 @@ worksheet.merge_range('B4:F4', 'MONTOS TOTALES ', negro_b)
 worksheet.write('H2', 'AÑO', negro_b)
 
 worksheet.write('I2', year, negro_b)
-worksheet.merge_range('J2:K3', """FECHA DEL REPORTE
-DD/MM/AAAA""", negro_b)
+worksheet.merge_range('J2:K2', """FECHA DEL REPORTE """, negro_b)
 
-worksheet.write('L2', date, negro_b)
+worksheet.merge_range('J3:K3', date, negro_b)
 worksheet.insert_image("A1", "img/logo/logo.png",{"x_scale": 0.6, "y_scale": 0.6})
 
-#Cabecera 1
+#Cabecera 1 Meses
 worksheet.merge_range('B6:I6', 'CONCENTRADO DE COTIZACIONES MENSUALES (NO INCLUYE ACTUALIZACIONES)', blue_header_format)
 worksheet.merge_range('B7:B9', 'MES', blue_header_format)
 worksheet.merge_range('C7:C9', 'USD', blue_header_format)
@@ -310,27 +330,117 @@ for i in Meses:
     worksheet.write('I'+str(row),str(len(cotizaciones_mes['customer'].unique())),blue_content_unit)
     row=row+1
 
+#Sumas 
+numero_De_Filas = 12
+total=0
+renglones=0
+for i in range(numero_De_Filas):
+    worksheet.write(9 + i, 2, i + 1, blue_content)  
+    total=total+(i+1)
+    renglones=i
+worksheet.write(renglones+10, 2, total, blue_footer_format_bold)
+
+total=0
+arreglo2 = [None]*13
+for i in range(numero_De_Filas):
+    worksheet.write(9 + i, 3, ((i + 1)*20), blue_content)  
+    total=total+(i+1)
+    arreglo2[i]=((i+1)*20)
+    renglones=i
+worksheet.merge_range('D22:E22', total, blue_footer_format_bold)
+
+total=0
+arreglo1 = [None]*13
+for i in range(numero_De_Filas):
+    worksheet.write(9 + i, 5, i + 501, blue_content)  
+    total=total+(i+501)
+    arreglo1[i]=(i+501)
+    renglones=i
+worksheet.write(renglones+10, 5, total, blue_footer_format_bold)
+
+total=0
+arreglo3 = [None]*13
+for i in range(numero_De_Filas):
+    arreglo3[i] = arreglo1[i] + arreglo2[i]
+    worksheet.write(9 + i, 6,arreglo3[i], blue_content) 
+    total=total+(arreglo3[i])
+    renglones=i
+worksheet.write(renglones+10, 6, total, blue_footer_format_bold)
+
+total=0
+for i in range(numero_De_Filas):
+    worksheet.write(9 + i, 7, i, blue_transparent_bold )  
+    total=total+(i+1)
+    renglones=i
+worksheet.write(renglones+10, 7, total, blue_transparent_bold_result )
+
+total=0
+for i in range(numero_De_Filas):
+    worksheet.write(9 + i, 8, i, blue_transparent_bold  )  
+    total=total+(i+1)
+    renglones=i
+worksheet.write(renglones+10, 8, total, blue_transparent_bold_result )
+
+#Cabecera 2 vendedores
+worksheet.merge_range('M6:O6', 'ENERO', blue_header_format)
+worksheet.merge_range('M7:M8', 'VENDEDOR', blue_header_format)
+worksheet.merge_range('N7:O7', 'COTIZACIONES', blue_header_format)
+worksheet.write('N8', 'NO.', blue_header_format)
+worksheet.write('O8', '$', blue_header_format)
+
 #iterando sobre vendedores
-row=10
+row=9
+suma_N = 0
+suma_O = 0
 for i in cotizaciones['user_id'].unique():
     cotizaciones_vendedor=cotizaciones.loc[cotizaciones['user_id']==i]
-    worksheet.write('K'+str(row),cotizaciones.loc[cotizaciones['user_id']==i,'name'].values[0],blue_content)
-    worksheet.write('M'+str(row),products.loc[products['quotation_id'].isin(cotizaciones_vendedor['id'].unique()),price_cols].sum(axis=1, numeric_only=True).sum(),blue_content)
-    worksheet.write('L'+str(row),str(len(cotizaciones_vendedor)),blue_content_unit)
+    worksheet.write('M'+str(row),cotizaciones.loc[cotizaciones['user_id']==i,'name'].values[0],blue_content)
+    worksheet.write('N'+str(row),str(len(cotizaciones_vendedor)),blue_content_unit)
     
+    suma_N += len(cotizaciones_vendedor)
+
+    total_O = products.loc[products['quotation_id'].isin(cotizaciones_vendedor['id'].unique()), price_cols].sum(axis=1, numeric_only=True).sum()
+    worksheet.write('O' + str(row), total_O, blue_content)
+    suma_O += total_O
+
     row=row+1
+worksheet.write(row-1, 13 , suma_N, blue_transparent_bold_result )
+worksheet.write(row-1, 14 , suma_O, blue_transparent_bold_result )
+
+
+#Cabecera 3 ingenieros
+worksheet.merge_range('D26:G26', 'ENERO', blue_header_format)
+worksheet.merge_range('D27:D28', 'Ingeniero', blue_header_format)
+worksheet.merge_range('E27:G27', 'ACTIVIDADES', blue_header_format)
+worksheet.write('E28', "NO", blue_header_format)
+worksheet.write('F28', "INGENIERIA (HORAS)", blue_header_format)
+worksheet.write('G28', "OBRAS", blue_header_format)
+
+#Ingenieros
+worksheet.write('D29', "OSCAR", blue_content)
+worksheet.write('D30', "ALDO", blue_content)
+worksheet.write('D31', "GERMAN", blue_content)
+worksheet.write('D32', "MIGUEL", blue_content)
+
+#Sumas Ingenieros
+worksheet.write('E33', "SUMA", blue_transparent_bold_result)
+worksheet.write('F33', "SUMA", blue_transparent_bold_result)
+
 
 #ajustar columnas
 worksheet.set_column('A:A',15)
+worksheet.set_column('B:B',15)
+worksheet.set_column('D:D',15)
+worksheet.set_column('E:F',25)
 worksheet.set_column('D:E',9)
-worksheet.set_column('F:F',25)
+#worksheet.set_column('F:F',20)
 worksheet.set_column('J:J',25)
 worksheet.set_column('L:L',15)
 worksheet.set_column('G:G',25)
 worksheet.set_column('H:H',15)
 worksheet.set_column('L:L',15)
-worksheet.set_column('M:M',90)
-worksheet.set_column('N:N',90)
+worksheet.set_column('L:M',90)
+worksheet.set_column('N:O',30)
 worksheet.set_column('I:N',15)
 worksheet.set_column('P:T',15)
 
