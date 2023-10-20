@@ -28,7 +28,7 @@
             <td><a href="{{route('reports.generate',[0,'kpis',0])}}">
               <button class="button"> <span class="badge badge-success">KPI's &nbsp; <i class="fa fa-file-excel-o fa-lg" aria-hidden="true"></i></span> </button>
              </a><br>  </td>
-            <td><a href="{{route('reports.generate',[0,'kpis',0])}}">
+            <td><a href="{{route('reports.generate',[0,'kpis',1])}}">
                <button class="button"> <span class="badge badge-danger">KPI's&nbsp; <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
             </a><br> </td>
         </tr>
@@ -38,7 +38,7 @@
               <button class="button"> <span class="badge badge-success">KPI2's &nbsp; <i class="fa fa-file-excel-o fa-lg" aria-hidden="true"></i></span> </button>
              </a><br> </td>
             <td>
-            <a href="{{route('reports.generate',[0,'kpis2',0])}}">
+            <a href="{{route('reports.generate',[0,'kpis2',1])}}">
                <button class="button"> <span class="badge badge-danger">KPI2's&nbsp; <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
             </a><br> </td>
         </tr>
