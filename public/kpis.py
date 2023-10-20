@@ -330,7 +330,6 @@ for i in Meses:
     worksheet.write('H'+str(row),str(len(cotizaciones_mes)),blue_content_unit)
     worksheet.write('I'+str(row),str(len(cotizaciones_mes['customer'].unique())),blue_content_unit)
     row=row+1
-<<<<<<< HEAD
 
 #Sumas 
 numero_De_Filas = 12
@@ -390,11 +389,6 @@ worksheet.merge_range('N7:O7', 'COTIZACIONES', blue_header_format)
 worksheet.write('N8', 'NO.', blue_header_format)
 worksheet.write('O8', '$', blue_header_format)
 
-=======
-#FILA DE TOTALES AQUI, EJ
-worksheet.write('F'+str(row),products[price_cols].sum(axis=1, numeric_only=True).sum(),blue_footer_format_bold)
-    
->>>>>>> 29703cb79cab0ee0caf2fc9d81b814d1872b00df
 #iterando sobre vendedores
 row=9
 suma_N = 0
@@ -446,13 +440,8 @@ worksheet.set_column('L:L',15)
 worksheet.set_column('G:G',25)
 worksheet.set_column('H:H',15)
 worksheet.set_column('L:L',15)
-<<<<<<< HEAD
 worksheet.set_column('L:M',90)
 worksheet.set_column('N:O',30)
-=======
-worksheet.set_column('M:M',15)
-worksheet.set_column('N:N',15)
->>>>>>> 29703cb79cab0ee0caf2fc9d81b814d1872b00df
 worksheet.set_column('I:N',15)
 worksheet.set_column('P:T',15)
 
