@@ -37,13 +37,13 @@ class PanelController extends Controller
         $Quotation_Id = $id;
         $Calibers = TwoInJoistLGalvanizedPanel::distinct()->get('caliber');
         $FrameBackgrounds = TwoInJoistLGalvanizedPanel::distinct()->get('frame_background');
-        $LengthDimensions = TwoInJoistLGalvanizedPanel::distinct()->get('length_dimension');
+        $BackgroundDimensions = TwoInJoistLGalvanizedPanel::distinct()->get('background_dimension');
         
         return view('quotes.selectivo.panels.two_in_joist_l_galvanized_panels.index', compact(
             'Quotation_Id',
             'Calibers',
             'FrameBackgrounds',
-            'LengthDimensions',
+            'BackgroundDimensions',
         ));
     }
 
@@ -129,14 +129,14 @@ class PanelController extends Controller
             'amount' => 'required',
             'caliber' => 'required',
             'frame_background' => 'required',
-            'length_dimension' => 'required',
+            'background_dimension' => 'required',
         ];
 
         $messages = [
             'amount.required' => 'Capture la Cantidad',
             'caliber.required' => 'Seleccione el calibre',
             'frame_background.required' => 'Seleccione el Fondo',
-            'length_dimension.required' => 'Seleccione el Largo',
+            'background_dimension.required' => 'Seleccione el Ancho',
         ];
 
         $request->validate($rules,$messages);
@@ -145,9 +145,9 @@ class PanelController extends Controller
         $Amount = $request->amount;
         $Caliber = $request->caliber;
         $FrameBackgrounds = $request->frame_background;
-        $LengthDimension = $request->length_dimension;
+        $BackgroundDimension = $request->background_dimension;
 
-        $TwoInJoistLGalvanizedPanel = TwoInJoistLGalvanizedPanel::where('caliber', $Caliber)->where('frame_background', $FrameBackgrounds)->where('length_dimension', $LengthDimension)->first();
+        $TwoInJoistLGalvanizedPanel = TwoInJoistLGalvanizedPanel::where('caliber', $Caliber)->where('frame_background', $FrameBackgrounds)->where('background_dimension', $BackgroundDimension)->first();
         if($TwoInJoistLGalvanizedPanel){
             $PriceLists = PriceList::where('piece', 'PANELES')->where('caliber', $Caliber)->where('type','Galvanizada')->first();
             $F_Total = $PriceLists->f_total;
@@ -172,7 +172,7 @@ class PanelController extends Controller
                 $Quot2JGalvanizedPanel->amount = $Amount;
                 $Quot2JGalvanizedPanel->caliber = $Caliber;
                 $Quot2JGalvanizedPanel->frame_background = $FrameBackgrounds;
-                $Quot2JGalvanizedPanel->length_dimension = $LengthDimension;
+                $Quot2JGalvanizedPanel->length_dimension = $TwoInJoistLGalvanizedPanel->length_dimension;
                 $Quot2JGalvanizedPanel->weight = $Weight;
                 $Quot2JGalvanizedPanel->total_weight = $TotalWeight;
                 $Quot2JGalvanizedPanel->m2 = $M2;
@@ -186,7 +186,8 @@ class PanelController extends Controller
                 $Quot2JGalvanizedPanel->amount = $Amount;
                 $Quot2JGalvanizedPanel->caliber = $Caliber;
                 $Quot2JGalvanizedPanel->frame_background = $FrameBackgrounds;
-                $Quot2JGalvanizedPanel->length_dimension = $LengthDimension;
+                $Quot2JGalvanizedPanel->length_dimension = $TwoInJoistLGalvanizedPanel->length_dimension;
+                $Quot2JGalvanizedPanel->loading_capacity = $TwoInJoistLGalvanizedPanel->loading_capacity;
                 $Quot2JGalvanizedPanel->weight = $Weight;
                 $Quot2JGalvanizedPanel->total_weight = $TotalWeight;
                 $Quot2JGalvanizedPanel->m2 = $M2;
@@ -194,13 +195,16 @@ class PanelController extends Controller
                 $Quot2JGalvanizedPanel->total_price = $TotalPrice;
                 $Quot2JGalvanizedPanel->save();
             }
-
+            $LengthDimension= $TwoInJoistLGalvanizedPanel->length_dimension;
+            $LoadingCapacity= $TwoInJoistLGalvanizedPanel->loading_capacity;
             return view('quotes.selectivo.panels.two_in_joist_l_galvanized_panels.store', compact(
                 'Quotation_Id',
                 'Amount',
                 'Caliber',
                 'FrameBackgrounds',
                 'LengthDimension',
+                'BackgroundDimension',
+                'LoadingCapacity',
                 'PriceUnit',
                 'TotalPrice',
                 'Weight',
