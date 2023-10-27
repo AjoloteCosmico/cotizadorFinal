@@ -38,6 +38,10 @@
                                 <td>Largo: {{$LengthDimension}}</td>
                             </tr>
                             <tr class="text-right">
+                                <td>Ancho: {{$BackgroundDimension}}</td>
+                                <td>Capacidad de Carga: {{$LoadingCapacity}}</td>
+                            </tr>
+                            <tr class="text-right">
                                 <td>Peso: {{$Weight}}</td>
                                 <td>Peso Total: {{$TotalWeight}}</td>
                             </tr>

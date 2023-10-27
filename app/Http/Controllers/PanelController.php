@@ -52,13 +52,13 @@ class PanelController extends Controller
         $Quotation_Id = $id;
         $Calibers = TwoInJoistLPaintedPanel::distinct()->get('caliber');
         $FrameBackgrounds = TwoInJoistLPaintedPanel::distinct()->get('frame_background');
-        $LengthDimensions = TwoInJoistLPaintedPanel::distinct()->get('length_dimension');
+        $BackgroundDimensions = TwoInJoistLPaintedPanel::distinct()->get('background_dimension');
         
         return view('quotes.selectivo.panels.two_in_joist_l_painted_panels.index', compact(
             'Quotation_Id',
             'Calibers',
             'FrameBackgrounds',
-            'LengthDimensions',
+            'BackgroundDimensions',
         ));
     }
 
@@ -67,13 +67,13 @@ class PanelController extends Controller
         $Quotation_Id = $id;
         $Calibers = TwoPointFiveInJoistLGalvanizedPanel::distinct()->get('caliber');
         $FrameBackgrounds = TwoPointFiveInJoistLGalvanizedPanel::distinct()->get('frame_background');
-        $LengthDimensions = TwoPointFiveInJoistLGalvanizedPanel::distinct()->get('length_dimension');
+        $BackgroundDimensions = TwoPointFiveInJoistLGalvanizedPanel::distinct()->get('background_dimension');
         
         return view('quotes.selectivo.panels.two_point_five_in_joist_l_galvanized_panels.index', compact(
             'Quotation_Id',
             'Calibers',
             'FrameBackgrounds',
-            'LengthDimensions',
+            'BackgroundDimensions',
         ));
     }
 
@@ -82,13 +82,13 @@ class PanelController extends Controller
         $Quotation_Id = $id;
         $Calibers = TwoPointFiveInJoistLPaintedPanel::distinct()->get('caliber');
         $FrameBackgrounds = TwoPointFiveInJoistLPaintedPanel::distinct()->get('frame_background');
-        $LengthDimensions = TwoPointFiveInJoistLPaintedPanel::distinct()->get('length_dimension');
+        $BackgroundDimensions = TwoPointFiveInJoistLPaintedPanel::distinct()->get('background_dimension');
         
         return view('quotes.selectivo.panels.two_point_five_in_joist_l_painted_panels.index', compact(
             'Quotation_Id',
             'Calibers',
             'FrameBackgrounds',
-            'LengthDimensions',
+            'BackgroundDimensions',
         ));
     }
 
@@ -97,13 +97,13 @@ class PanelController extends Controller
         $Quotation_Id = $id;
         $Calibers = ChairJoistGalvanizedPanel::distinct()->get('caliber');
         $FrameBackgrounds = ChairJoistGalvanizedPanel::distinct()->get('frame_background');
-        $LengthDimensions = ChairJoistGalvanizedPanel::distinct()->get('length_dimension');
+        $BackgroundDimensions = ChairJoistGalvanizedPanel::distinct()->get('background_dimension');
         
         return view('quotes.selectivo.panels.chair_joist_galvanized_panels.index', compact(
             'Quotation_Id',
             'Calibers',
             'FrameBackgrounds',
-            'LengthDimensions',
+            'BackgroundDimensions',
         ));
     }
 
@@ -112,13 +112,13 @@ class PanelController extends Controller
         $Quotation_Id = $id;
         $Calibers = ChairJoistLPaintedPanel::distinct()->get('caliber');
         $FrameBackgrounds = ChairJoistLPaintedPanel::distinct()->get('frame_background');
-        $LengthDimensions = ChairJoistLPaintedPanel::distinct()->get('length_dimension');
+        $BackgroundDimensions = ChairJoistLPaintedPanel::distinct()->get('background_dimension');
         
         return view('quotes.selectivo.panels.chair_joist_l_painted_panels.index', compact(
             'Quotation_Id',
             'Calibers',
             'FrameBackgrounds',
-            'LengthDimensions',
+            'BackgroundDimensions',
         ));
     }
 
@@ -225,14 +225,14 @@ class PanelController extends Controller
             'amount' => 'required',
             'caliber' => 'required',
             'frame_background' => 'required',
-            'length_dimension' => 'required',
+            'background_dimension' => 'required',
         ];
 
         $messages = [
             'amount.required' => 'Capture la Cantidad',
             'caliber.required' => 'Seleccione el calibre',
             'frame_background.required' => 'Seleccione el Fondo',
-            'length_dimension.required' => 'Seleccione el Largo',
+            'background_dimension.required' => 'Seleccione el Largo',
         ];
 
         $request->validate($rules,$messages);
@@ -241,9 +241,9 @@ class PanelController extends Controller
         $Amount = $request->amount;
         $Caliber = $request->caliber;
         $FrameBackgrounds = $request->frame_background;
-        $LengthDimension = $request->length_dimension;
+        $BackgroundDimension = $request->background_dimension;
 
-        $TwoInJoistLPaintedPanel = TwoInJoistLPaintedPanel::where('caliber', $Caliber)->where('frame_background', $FrameBackgrounds)->where('length_dimension', $LengthDimension)->first();
+        $TwoInJoistLPaintedPanel = TwoInJoistLPaintedPanel::where('caliber', $Caliber)->where('frame_background', $FrameBackgrounds)->where('background_dimension', $BackgroundDimension)->first();
         if($TwoInJoistLPaintedPanel){
             $PriceLists = PriceList::where('piece', 'PANELES')->where('caliber', $Caliber)->where('type','Negra')->first();
             $F_Total = $PriceLists->f_total;
@@ -268,7 +268,7 @@ class PanelController extends Controller
                 $Quot2JPaintedPanel->amount = $Amount;
                 $Quot2JPaintedPanel->caliber = $Caliber;
                 $Quot2JPaintedPanel->frame_background = $FrameBackgrounds;
-                $Quot2JPaintedPanel->length_dimension = $LengthDimension;
+                $Quot2JPaintedPanel->length_dimension = $TwoInJoistLPaintedPanel->length_dimension;
                 $Quot2JPaintedPanel->weight = $Weight;
                 $Quot2JPaintedPanel->total_weight = $TotalWeight;
                 $Quot2JPaintedPanel->m2 = $M2;
@@ -282,7 +282,7 @@ class PanelController extends Controller
                 $Quot2JPaintedPanel->amount = $Amount;
                 $Quot2JPaintedPanel->caliber = $Caliber;
                 $Quot2JPaintedPanel->frame_background = $FrameBackgrounds;
-                $Quot2JPaintedPanel->length_dimension = $LengthDimension;
+                $Quot2JPaintedPanel->length_dimension = $TwoInJoistLPaintedPanel->length_dimension;
                 $Quot2JPaintedPanel->weight = $Weight;
                 $Quot2JPaintedPanel->total_weight = $TotalWeight;
                 $Quot2JPaintedPanel->m2 = $M2;
@@ -290,13 +290,16 @@ class PanelController extends Controller
                 $Quot2JPaintedPanel->total_price = $TotalPrice;
                 $Quot2JPaintedPanel->save();
             }
-
+            $LengthDimension= $TwoInJoistLPaintedPanel->length_dimension;
+            $LoadingCapacity= $TwoInJoistLPaintedPanel->loading_capacity;
             return view('quotes.selectivo.panels.two_in_joist_l_painted_panels.store', compact(
                 'Quotation_Id',
                 'Amount',
                 'Caliber',
                 'FrameBackgrounds',
                 'LengthDimension',
+                'BackgroundDimension',
+                'LoadingCapacity',
                 'PriceUnit',
                 'TotalPrice',
                 'Weight',
@@ -317,14 +320,14 @@ class PanelController extends Controller
             'amount' => 'required',
             'caliber' => 'required',
             'frame_background' => 'required',
-            'length_dimension' => 'required',
+            'background_dimension' => 'required',
         ];
 
         $messages = [
             'amount.required' => 'Capture la Cantidad',
             'caliber.required' => 'Seleccione el calibre',
             'frame_background.required' => 'Seleccione el Fondo',
-            'length_dimension.required' => 'Seleccione el Largo',
+            'background_dimension.required' => 'Seleccione el Largo',
         ];
 
         $request->validate($rules,$messages);
@@ -333,9 +336,9 @@ class PanelController extends Controller
         $Amount = $request->amount;
         $Caliber = $request->caliber;
         $FrameBackgrounds = $request->frame_background;
-        $LengthDimension = $request->length_dimension;
+        $BackgroundDimension = $request->background_dimension;
 
-        $TwoPointFiveInJoistLGalvanizedPanel = TwoPointFiveInJoistLGalvanizedPanel::where('caliber', $Caliber)->where('frame_background', $FrameBackgrounds)->where('length_dimension', $LengthDimension)->first();
+        $TwoPointFiveInJoistLGalvanizedPanel = TwoPointFiveInJoistLGalvanizedPanel::where('caliber', $Caliber)->where('frame_background', $FrameBackgrounds)->where('background_dimension', $BackgroundDimension)->first();
         if($TwoPointFiveInJoistLGalvanizedPanel){
             $PriceLists = PriceList::where('piece', 'PANELES')->where('caliber', $Caliber)->where('type','Galvanizada')->first();
             $F_Total = $PriceLists->f_total;
@@ -360,7 +363,7 @@ class PanelController extends Controller
                 $Quot25JGalvanizedPanel->amount = $Amount;
                 $Quot25JGalvanizedPanel->caliber = $Caliber;
                 $Quot25JGalvanizedPanel->frame_background = $FrameBackgrounds;
-                $Quot25JGalvanizedPanel->length_dimension = $LengthDimension;
+                $Quot25JGalvanizedPanel->length_dimension = $TwoPointFiveInJoistLGalvanizedPanel->length_dimension;
                 $Quot25JGalvanizedPanel->weight = $Weight;
                 $Quot25JGalvanizedPanel->total_weight = $TotalWeight;
                 $Quot25JGalvanizedPanel->m2 = $M2;
@@ -374,7 +377,7 @@ class PanelController extends Controller
                 $Quot25JGalvanizedPanel->amount = $Amount;
                 $Quot25JGalvanizedPanel->caliber = $Caliber;
                 $Quot25JGalvanizedPanel->frame_background = $FrameBackgrounds;
-                $Quot25JGalvanizedPanel->length_dimension = $LengthDimension;
+                $Quot25JGalvanizedPanel->length_dimension = $TwoPointFiveInJoistLGalvanizedPanel->length_dimension;
                 $Quot25JGalvanizedPanel->weight = $Weight;
                 $Quot25JGalvanizedPanel->total_weight = $TotalWeight;
                 $Quot25JGalvanizedPanel->m2 = $M2;
@@ -382,6 +385,9 @@ class PanelController extends Controller
                 $Quot25JGalvanizedPanel->total_price = $TotalPrice;
                 $Quot25JGalvanizedPanel->save();
             }
+            $LengthDimension= $TwoPointFiveInJoistLGalvanizedPanel->length_dimension;
+            $LoadingCapacity= $TwoPointFiveInJoistLGalvanizedPanel->loading_capacity;
+            
 
             return view('quotes.selectivo.panels.two_point_five_in_joist_l_galvanized_panels.store', compact(
                 'Quotation_Id',
@@ -389,6 +395,8 @@ class PanelController extends Controller
                 'Caliber',
                 'FrameBackgrounds',
                 'LengthDimension',
+                'BackgroundDimension',
+                'LoadingCapacity',
                 'PriceUnit',
                 'TotalPrice',
                 'Weight',
@@ -409,14 +417,14 @@ class PanelController extends Controller
             'amount' => 'required',
             'caliber' => 'required',
             'frame_background' => 'required',
-            'length_dimension' => 'required',
+            'background_dimension' => 'required',
         ];
 
         $messages = [
             'amount.required' => 'Capture la Cantidad',
             'caliber.required' => 'Seleccione el calibre',
             'frame_background.required' => 'Seleccione el Fondo',
-            'length_dimension.required' => 'Seleccione el Largo',
+            'background_dimension.required' => 'Seleccione el Largo',
         ];
 
         $request->validate($rules,$messages);
@@ -425,9 +433,9 @@ class PanelController extends Controller
         $Amount = $request->amount;
         $Caliber = $request->caliber;
         $FrameBackgrounds = $request->frame_background;
-        $LengthDimension = $request->length_dimension;
+        $BackgroundDimension = $request->background_dimension;
 
-        $TwoPointFiveInJoistLPaintedPanel = TwoPointFiveInJoistLPaintedPanel::where('caliber', $Caliber)->where('frame_background', $FrameBackgrounds)->where('length_dimension', $LengthDimension)->first();
+        $TwoPointFiveInJoistLPaintedPanel = TwoPointFiveInJoistLPaintedPanel::where('caliber', $Caliber)->where('frame_background', $FrameBackgrounds)->where('background_dimension', $BackgroundDimension)->first();
         if($TwoPointFiveInJoistLPaintedPanel){
             $PriceLists = PriceList::where('piece', 'PANELES')->where('caliber', $Caliber)->where('type','Negra')->first();
             $F_Total = $PriceLists->f_total;
@@ -452,7 +460,7 @@ class PanelController extends Controller
                 $Quot25JPaintedPanel->amount = $Amount;
                 $Quot25JPaintedPanel->caliber = $Caliber;
                 $Quot25JPaintedPanel->frame_background = $FrameBackgrounds;
-                $Quot25JPaintedPanel->length_dimension = $LengthDimension;
+                $Quot25JPaintedPanel->length_dimension = $TwoPointFiveInJoistLPaintedPanel->length_dimension;
                 $Quot25JPaintedPanel->weight = $Weight;
                 $Quot25JPaintedPanel->total_weight = $TotalWeight;
                 $Quot25JPaintedPanel->m2 = $M2;
@@ -466,7 +474,7 @@ class PanelController extends Controller
                 $Quot25JPaintedPanel->amount = $Amount;
                 $Quot25JPaintedPanel->caliber = $Caliber;
                 $Quot25JPaintedPanel->frame_background = $FrameBackgrounds;
-                $Quot25JPaintedPanel->length_dimension = $LengthDimension;
+                $Quot25JPaintedPanel->length_dimension = $TwoPointFiveInJoistLPaintedPanel->length_dimension;
                 $Quot25JPaintedPanel->weight = $Weight;
                 $Quot25JPaintedPanel->total_weight = $TotalWeight;
                 $Quot25JPaintedPanel->m2 = $M2;
@@ -474,6 +482,9 @@ class PanelController extends Controller
                 $Quot25JPaintedPanel->total_price = $TotalPrice;
                 $Quot25JPaintedPanel->save();
             }
+            $LengthDimension= $TwoPointFiveInJoistLPaintedPanel->length_dimension;
+            $LoadingCapacity= $TwoPointFiveInJoistLPaintedPanel->loading_capacity;
+            
 
             return view('quotes.selectivo.panels.two_point_five_in_joist_l_painted_panels.store', compact(
                 'Quotation_Id',
@@ -481,6 +492,8 @@ class PanelController extends Controller
                 'Caliber',
                 'FrameBackgrounds',
                 'LengthDimension',
+                'BackgroundDimension',
+                'LoadingCapacity',
                 'PriceUnit',
                 'TotalPrice',
                 'Weight',
@@ -501,14 +514,14 @@ class PanelController extends Controller
             'amount' => 'required',
             'caliber' => 'required',
             'frame_background' => 'required',
-            'length_dimension' => 'required',
+            'background_dimension' => 'required',
         ];
 
         $messages = [
             'amount.required' => 'Capture la Cantidad',
             'caliber.required' => 'Seleccione el calibre',
             'frame_background.required' => 'Seleccione el Fondo',
-            'length_dimension.required' => 'Seleccione el Largo',
+            'background_dimension.required' => 'Seleccione el Largo',
         ];
 
         $request->validate($rules,$messages);
@@ -517,9 +530,9 @@ class PanelController extends Controller
         $Amount = $request->amount;
         $Caliber = $request->caliber;
         $FrameBackgrounds = $request->frame_background;
-        $LengthDimension = $request->length_dimension;
+        $BackgroundDimension = $request->background_dimension;
 
-        $ChairJoistGalvanizedPanel = ChairJoistGalvanizedPanel::where('caliber', $Caliber)->where('frame_background', $FrameBackgrounds)->where('length_dimension', $LengthDimension)->first();
+        $ChairJoistGalvanizedPanel = ChairJoistGalvanizedPanel::where('caliber', $Caliber)->where('frame_background', $FrameBackgrounds)->where('background_dimension', $BackgroundDimension)->first();
         if($ChairJoistGalvanizedPanel){
             $PriceLists = PriceList::where('piece', 'PANELES')->where('caliber', $Caliber)->where('type','Galvanizada')->first();
             $F_Total = $PriceLists->f_total;
@@ -544,7 +557,7 @@ class PanelController extends Controller
                 $QuotChairJGalvanizedPanel->amount = $Amount;
                 $QuotChairJGalvanizedPanel->caliber = $Caliber;
                 $QuotChairJGalvanizedPanel->frame_background = $FrameBackgrounds;
-                $QuotChairJGalvanizedPanel->length_dimension = $LengthDimension;
+                $QuotChairJGalvanizedPanel->length_dimension = $LengthDimension= $QuotChairJGalvanizedPanel->length_dimension;
                 $QuotChairJGalvanizedPanel->weight = $Weight;
                 $QuotChairJGalvanizedPanel->total_weight = $TotalWeight;
                 $QuotChairJGalvanizedPanel->m2 = $M2;
@@ -558,7 +571,7 @@ class PanelController extends Controller
                 $QuotChairJGalvanizedPanel->amount = $Amount;
                 $QuotChairJGalvanizedPanel->caliber = $Caliber;
                 $QuotChairJGalvanizedPanel->frame_background = $FrameBackgrounds;
-                $QuotChairJGalvanizedPanel->length_dimension = $LengthDimension;
+                $QuotChairJGalvanizedPanel->length_dimension = $LengthDimension= $QuotChairJGalvanizedPanel->length_dimension;
                 $QuotChairJGalvanizedPanel->weight = $Weight;
                 $QuotChairJGalvanizedPanel->total_weight = $TotalWeight;
                 $QuotChairJGalvanizedPanel->m2 = $M2;
@@ -566,13 +579,17 @@ class PanelController extends Controller
                 $QuotChairJGalvanizedPanel->total_price = $TotalPrice;
                 $QuotChairJGalvanizedPanel->save();
             }
-
+            $LengthDimension= $QuotChairJGalvanizedPanel->length_dimension;
+            $LoadingCapacity= $QuotChairJGalvanizedPanel->loading_capacity;
+            
             return view('quotes.selectivo.panels.chair_joist_galvanized_panels.store', compact(
                 'Quotation_Id',
                 'Amount',
                 'Caliber',
                 'FrameBackgrounds',
                 'LengthDimension',
+                'BackgroundDimension',
+                'LoadingCapacity',
                 'PriceUnit',
                 'TotalPrice',
                 'Weight',
@@ -593,14 +610,14 @@ class PanelController extends Controller
             'amount' => 'required',
             'caliber' => 'required',
             'frame_background' => 'required',
-            'length_dimension' => 'required',
+            'background_dimension' => 'required',
         ];
 
         $messages = [
             'amount.required' => 'Capture la Cantidad',
             'caliber.required' => 'Seleccione el calibre',
             'frame_background.required' => 'Seleccione el Fondo',
-            'length_dimension.required' => 'Seleccione el Largo',
+            'background_dimension.required' => 'Seleccione el Largo',
         ];
 
         $request->validate($rules,$messages);
@@ -609,9 +626,9 @@ class PanelController extends Controller
         $Amount = $request->amount;
         $Caliber = $request->caliber;
         $FrameBackgrounds = $request->frame_background;
-        $LengthDimension = $request->length_dimension;
+        $BackgroundDimension = $request->background_dimension;
 
-        $ChairJoistLPaintedPanel = ChairJoistLPaintedPanel::where('caliber', $Caliber)->where('frame_background', $FrameBackgrounds)->where('length_dimension', $LengthDimension)->first();
+        $ChairJoistLPaintedPanel = ChairJoistLPaintedPanel::where('caliber', $Caliber)->where('frame_background', $FrameBackgrounds)->where('background_dimension', $BackgroundDimension)->first();
         if($ChairJoistLPaintedPanel){
             $PriceLists = PriceList::where('piece', 'PANELES')->where('caliber', $Caliber)->where('type','Negra')->first();
             $F_Total = $PriceLists->f_total;
@@ -636,7 +653,7 @@ class PanelController extends Controller
                 $QuotChairJPaintedPanel->amount = $Amount;
                 $QuotChairJPaintedPanel->caliber = $Caliber;
                 $QuotChairJPaintedPanel->frame_background = $FrameBackgrounds;
-                $QuotChairJPaintedPanel->length_dimension = $LengthDimension;
+                $QuotChairJPaintedPanel->length_dimension = $QuotChairJPaintedPanel->length_dimension;
                 $QuotChairJPaintedPanel->weight = $Weight;
                 $QuotChairJPaintedPanel->total_weight = $TotalWeight;
                 $QuotChairJPaintedPanel->m2 = $M2;
@@ -650,7 +667,7 @@ class PanelController extends Controller
                 $QuotChairJPaintedPanel->amount = $Amount;
                 $QuotChairJPaintedPanel->caliber = $Caliber;
                 $QuotChairJPaintedPanel->frame_background = $FrameBackgrounds;
-                $QuotChairJPaintedPanel->length_dimension = $LengthDimension;
+                $QuotChairJPaintedPanel->length_dimension = $QuotChairJPaintedPanel->length_dimension;
                 $QuotChairJPaintedPanel->weight = $Weight;
                 $QuotChairJPaintedPanel->total_weight = $TotalWeight;
                 $QuotChairJPaintedPanel->m2 = $M2;
@@ -658,13 +675,17 @@ class PanelController extends Controller
                 $QuotChairJPaintedPanel->total_price = $TotalPrice;
                 $QuotChairJPaintedPanel->save();
             }
-
+            $LengthDimension= $QuotChairJPaintedPanel->length_dimension;
+            $LoadingCapacity= $QuotChairJPaintedPanel->loading_capacity;
+            
             return view('quotes.selectivo.panels.chair_joist_l_painted_panels.store', compact(
                 'Quotation_Id',
                 'Amount',
                 'Caliber',
                 'FrameBackgrounds',
                 'LengthDimension',
+                'BackgroundDimension',
+                'LoadingCapacity',
                 'PriceUnit',
                 'TotalPrice',
                 'Weight',
