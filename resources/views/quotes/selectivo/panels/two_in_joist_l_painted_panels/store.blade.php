@@ -35,11 +35,11 @@
                             </tr>
                             <tr class="text-right">
                                 <td>Fondo: {{$FrameBackgrounds}}</td>
-                                <td>Largo: {{$LengthDimension}}</td>
+                                <td></td>
                             </tr>
                             <tr class="text-right">
                                 <td>Ancho: {{$BackgroundDimension}}</td>
-                                <td>Capacidad de Carga: {{$LoadingCapacity}}</td>
+                                <td>Capacidad: {{$LoadingCapacity}} kg</td>
                             </tr>
                             <tr class="text-right">
                                 <td>Peso: {{$Weight}}</td>

@@ -557,7 +557,7 @@ class PanelController extends Controller
                 $QuotChairJGalvanizedPanel->amount = $Amount;
                 $QuotChairJGalvanizedPanel->caliber = $Caliber;
                 $QuotChairJGalvanizedPanel->frame_background = $FrameBackgrounds;
-                $QuotChairJGalvanizedPanel->length_dimension = $LengthDimension= $QuotChairJGalvanizedPanel->length_dimension;
+                $QuotChairJGalvanizedPanel->length_dimension = $LengthDimension= $ChairJoistGalvanizedPanel->length_dimension;
                 $QuotChairJGalvanizedPanel->weight = $Weight;
                 $QuotChairJGalvanizedPanel->total_weight = $TotalWeight;
                 $QuotChairJGalvanizedPanel->m2 = $M2;
@@ -571,7 +571,7 @@ class PanelController extends Controller
                 $QuotChairJGalvanizedPanel->amount = $Amount;
                 $QuotChairJGalvanizedPanel->caliber = $Caliber;
                 $QuotChairJGalvanizedPanel->frame_background = $FrameBackgrounds;
-                $QuotChairJGalvanizedPanel->length_dimension = $LengthDimension= $QuotChairJGalvanizedPanel->length_dimension;
+                $QuotChairJGalvanizedPanel->length_dimension = $LengthDimension= $ChairJoistGalvanizedPanel->length_dimension;
                 $QuotChairJGalvanizedPanel->weight = $Weight;
                 $QuotChairJGalvanizedPanel->total_weight = $TotalWeight;
                 $QuotChairJGalvanizedPanel->m2 = $M2;
@@ -579,8 +579,8 @@ class PanelController extends Controller
                 $QuotChairJGalvanizedPanel->total_price = $TotalPrice;
                 $QuotChairJGalvanizedPanel->save();
             }
-            $LengthDimension= $QuotChairJGalvanizedPanel->length_dimension;
-            $LoadingCapacity= $QuotChairJGalvanizedPanel->loading_capacity;
+            $LengthDimension= $ChairJoistGalvanizedPanel->length_dimension;
+            $LoadingCapacity= $ChairJoistGalvanizedPanel->loading_capacity;
             
             return view('quotes.selectivo.panels.chair_joist_galvanized_panels.store', compact(
                 'Quotation_Id',
@@ -653,7 +653,7 @@ class PanelController extends Controller
                 $QuotChairJPaintedPanel->amount = $Amount;
                 $QuotChairJPaintedPanel->caliber = $Caliber;
                 $QuotChairJPaintedPanel->frame_background = $FrameBackgrounds;
-                $QuotChairJPaintedPanel->length_dimension = $QuotChairJPaintedPanel->length_dimension;
+                $QuotChairJPaintedPanel->length_dimension = $ChairJoistLPaintedPanel->length_dimension;
                 $QuotChairJPaintedPanel->weight = $Weight;
                 $QuotChairJPaintedPanel->total_weight = $TotalWeight;
                 $QuotChairJPaintedPanel->m2 = $M2;
@@ -667,7 +667,7 @@ class PanelController extends Controller
                 $QuotChairJPaintedPanel->amount = $Amount;
                 $QuotChairJPaintedPanel->caliber = $Caliber;
                 $QuotChairJPaintedPanel->frame_background = $FrameBackgrounds;
-                $QuotChairJPaintedPanel->length_dimension = $QuotChairJPaintedPanel->length_dimension;
+                $QuotChairJPaintedPanel->length_dimension = $ChairJoistLPaintedPanel->length_dimension;
                 $QuotChairJPaintedPanel->weight = $Weight;
                 $QuotChairJPaintedPanel->total_weight = $TotalWeight;
                 $QuotChairJPaintedPanel->m2 = $M2;
@@ -675,8 +675,8 @@ class PanelController extends Controller
                 $QuotChairJPaintedPanel->total_price = $TotalPrice;
                 $QuotChairJPaintedPanel->save();
             }
-            $LengthDimension= $QuotChairJPaintedPanel->length_dimension;
-            $LoadingCapacity= $QuotChairJPaintedPanel->loading_capacity;
+            $LengthDimension= $ChairJoistLPaintedPanel->length_dimension;
+            $LoadingCapacity= $ChairJoistLPaintedPanel->loading_capacity;
             
             return view('quotes.selectivo.panels.chair_joist_l_painted_panels.store', compact(
                 'Quotation_Id',
