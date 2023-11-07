@@ -46,7 +46,7 @@ for i in tablas:
     print(i)
     #buscar en la base de datos todos los productos de esta tabla
     #pertenecientes a la cotizacion pedida por el usuario.
-    p=pd.read_sql('select * from '+i+' where quotation_id = '+str(id),cnx)
+    p=pd.read_sql('select * from '+i+' where quotation_id = '+str(sys.argv[1]),cnx)
     p=p.assign(tabla=i)
     if(('cost' not in p.columns)&(len(p)>0)):
         if('caliber' not in p.columns):
@@ -81,8 +81,8 @@ cols_m2=['m2','total_m2']
 products[cols_kg+cols_m2]=products[cols_kg+cols_m2].fillna(0)
 
 pricelist_protectors=pd.read_sql('select * from price_list_protectors',cnx)
-quotation_protectors=pd.read_sql('select quotation_protectors.*, protectors.sku from quotation_protectors  inner join protectors on protectors.protector=quotation_protectors.protector where quotation_id ='+str(id),cnx)
-quotation_shlf=pd.read_sql('select * from selective_heavy_load_frames where quotation_id ='+str(id),cnx)
+quotation_protectors=pd.read_sql('select quotation_protectors.*, protectors.sku from quotation_protectors  inner join protectors on protectors.protector=quotation_protectors.protector where quotation_id ='+str(sys.argv[1]),cnx)
+quotation_shlf=pd.read_sql('select * from selective_heavy_load_frames where quotation_id ='+str(sys.argv[1]),cnx)
 materials=pd.read_sql('select * from (materials left join price_list_screws on materials.price_list_screw_id= price_list_screws.id)left join price_lists on price_lists.id=materials.price_list_id',cnx)
 materials['type']=materials['type'].fillna('')
 

@@ -157,9 +157,12 @@ class PanelController extends Controller
             $F_Desc =$PriceLists->f_desc;
             $Price = $TwoInJoistLGalvanizedPanel->import;
             // $PriceUnit = $Price * $F_Total;
-            $PriceUnit = ($Price * $F_Vta * $F_Desp * $F_Emb) / $F_Desc;
-            $TotalPrice = $Amount * $PriceUnit;
+            // $PriceUnit = ($Price * $F_Vta * $F_Desp * $F_Emb) / $F_Desc;
             $Weight = $TwoInJoistLGalvanizedPanel->weight;
+               
+            // dd($Weight,$PriceLists->cost,$F_Total);
+            $PriceUnit = $PriceLists->cost * $F_Total * $Weight;
+            $TotalPrice = $Amount * $PriceUnit;
             $TotalWeight = $Amount * $Weight;
             $Sku = $TwoInJoistLGalvanizedPanel->sku;
             $M2 = $TwoInJoistLGalvanizedPanel->m2;
@@ -347,11 +350,15 @@ class PanelController extends Controller
             $F_Desp = $PriceLists->f_desp;
             $F_Emb = $PriceLists->f_emb;
             $F_Desc =$PriceLists->f_desc;
-            $Price = $TwoPointFiveInJoistLGalvanizedPanel->import;
-            // $PriceUnit = $Price * $F_Total;
-            $PriceUnit = ($Price * $F_Vta * $F_Desp * $F_Emb) / $F_Desc;
-            $TotalPrice = $Amount * $PriceUnit;
             $Weight = $TwoPointFiveInJoistLGalvanizedPanel->weight;
+           
+            $Price = $TwoPointFiveInJoistLGalvanizedPanel->import;
+            $PriceUnit = $PriceLists->cost * $F_Total * $Weight;
+            
+            // $PriceUnit = $Price * $F_Total;
+            // $PriceUnit = ($Price * $F_Vta * $F_Desp * $F_Emb) / $F_Desc;
+            
+            $TotalPrice = $Amount * $PriceUnit;
             $TotalWeight = $Amount * $Weight;
             $Sku = $TwoPointFiveInJoistLGalvanizedPanel->sku;
             $M2 = $TwoPointFiveInJoistLGalvanizedPanel->m2;
@@ -446,9 +453,11 @@ class PanelController extends Controller
             $F_Desc =$PriceLists->f_desc;
             $Price = $TwoPointFiveInJoistLPaintedPanel->import;
             // $PriceUnit = $Price * $F_Total;
-            $PriceUnit = ($Price * $F_Vta * $F_Desp * $F_Emb) / $F_Desc;
-            $TotalPrice = $Amount * $PriceUnit;
+            // $PriceUnit = ($Price * $F_Vta * $F_Desp * $F_Emb) / $F_Desc;
             $Weight = $TwoPointFiveInJoistLPaintedPanel->weight;
+            $PriceUnit = $PriceLists->cost * $F_Total * $Weight;
+            $TotalPrice = $Amount * $PriceUnit;
+            
             $TotalWeight = $Amount * $Weight;
             $Sku = $TwoPointFiveInJoistLPaintedPanel->sku;
             $M2 = $TwoPointFiveInJoistLPaintedPanel->m2;
@@ -543,9 +552,11 @@ class PanelController extends Controller
             $F_Desc =$PriceLists->f_desc;
             $Price = $ChairJoistGalvanizedPanel->import;
             // $PriceUnit = $Price * $F_Total;
-            $PriceUnit = ($Price * $F_Vta * $F_Desp * $F_Emb) / $F_Desc;
-            $TotalPrice = $Amount * $PriceUnit;
+            // $PriceUnit = ($Price * $F_Vta * $F_Desp * $F_Emb) / $F_Desc;
             $Weight = $ChairJoistGalvanizedPanel->weight;
+            $PriceUnit = $PriceLists->cost * $F_Total * $Weight;
+            $TotalPrice = $Amount * $PriceUnit;
+            
             $TotalWeight = $Amount * $Weight;
             $Sku = $ChairJoistGalvanizedPanel->sku;
             $M2 = $ChairJoistGalvanizedPanel->m2;
@@ -639,10 +650,13 @@ class PanelController extends Controller
             $F_Desc =$PriceLists->f_desc;
             $Price = $ChairJoistLPaintedPanel->import;
             // $PriceUnit = $Price * $F_Total;
-            $PriceUnit = ($Price * $F_Vta * $F_Desp * $F_Emb) / $F_Desc;
-            $TotalPrice = $Amount * $PriceUnit;
+            // $PriceUnit = ($Price * $F_Vta * $F_Desp * $F_Emb) / $F_Desc;
             $Weight = $ChairJoistLPaintedPanel->weight;
+            $PriceUnit = $PriceLists->cost * $F_Total * $Weight;
+            
+            $TotalPrice = $Amount * $PriceUnit;
             $TotalWeight = $Amount * $Weight;
+            
             $Sku = $ChairJoistLPaintedPanel->sku;
             $M2 = $ChairJoistLPaintedPanel->m2;
 
