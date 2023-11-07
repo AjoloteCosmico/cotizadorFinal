@@ -251,11 +251,12 @@ class PanelController extends Controller
             $F_Desp = $PriceLists->f_desp;
             $F_Emb = $PriceLists->f_emb;
             $F_Desc =$PriceLists->f_desc;
-            $Price = $TwoInJoistLPaintedPanel->import;
-            // $PriceUnit = $Price * $F_Total;
-            $PriceUnit = ($Price * $F_Vta * $F_Desp * $F_Emb) / $F_Desc;
-            $TotalPrice = $Amount * $PriceUnit;
+            $Price = $TwoInJoistLPaintedPanel->import;            
             $Weight = $TwoInJoistLPaintedPanel->weight;
+            // dd($Weight,$PriceLists->cost,$F_Total);
+            $PriceUnit = $PriceLists->cost * $F_Total * $Weight;
+            // $PriceUnit = ($Price * $F_Vta * $F_Desp * $F_Emb) / $F_Desc;
+            $TotalPrice = $Amount * $PriceUnit;
             $TotalWeight = $Amount * $Weight;
             $Sku = $TwoInJoistLPaintedPanel->sku;
             $M2 = $TwoInJoistLPaintedPanel->m2;

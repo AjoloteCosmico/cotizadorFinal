@@ -15,6 +15,7 @@ class CartController extends Controller
    public function index(){
     $user_id=Auth::user()->id;
     $Quotation = Quotation::where('user_id','=',$user_id)->where('status','Iniciada')->orderBy('created_at', 'desc')->first();
+    // dd($Quotation);
     if($Quotation->id){
         $QuotationId=$Quotation->id;
     }else{
@@ -24,16 +25,16 @@ class CartController extends Controller
 
     $Quotation = Quotation::where('user_id','=',$user_id)->where('status','Iniciada')->orderBy('created_at', 'desc')->first();
     $Cart_products=Cart_product::where('quotation_id',$QuotationId)->get();
-    dd($Quotation,$Cart_products);
+    // dd($Quotation,$Cart_products);
     return view('quotes.cart.index',compact('Cart_products','QuotationId'));
    }
    public function actualizar(){
     $user_id=Auth::user()->id;
-    $Quotation = Quotation::where('user_id','=',$user_id)->orderBy('created_at', 'desc')->first();
-    $Cart_products=Cart_product::where('quotation_id',$Quotation_Id)->get();
+    $Quotation = Quotation::where('user_id','=',$user_id)->where('status','Iniciada')->orderBy('created_at', 'desc')->first();
+    $Cart_products=Cart_product::where('quotation_id',$Quotation->id)->get();
     
     return [
-        'label'       => count($Cart_products)+3,
+        'label'       => count($Cart_products),
         'label_color' => 'danger',
         'icon' => 'fas fa-shopping-cart',
         
