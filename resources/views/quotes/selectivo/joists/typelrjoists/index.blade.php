@@ -24,14 +24,13 @@
                         <x-jet-label value="* Cantidad de Vigas" />
                         <input type="number" name="amount" class="inputjet w-full text-xs uppercase" value="{{ old('amount') }}" />
                         <x-jet-input-error for='amount' /><br>
-
-                        <x-jet-label value="* Seleccione el Calibre" />
-                        <select name="caliber" class="inputjet w-full text-xs uppercase">
-                            @foreach ($Calibers as $row)
-                                <option value="{{$row->caliber}}"@if (old('caliber')==$row->caliber) selected @endif>{{$row->caliber}}</option>
-                            @endforeach
-                        </select>
-                        <x-jet-input-error for='caliber' /><br>
+                        
+                        <x-jet-label value="* Capacidad de carga requerida por par de vigas (Kg)" />
+                        <input type="number" name="weight" class="inputjet w-full text-xs uppercase" />
+                        <x-jet-input-error for='weight' /><br>
+                        <x-jet-label value="* Tipo de Viga" />
+                        <input type="text" name="joist_type" class="inputjet w-full text-xs uppercase" value="{{$Joists->joist}}" />
+                        <x-jet-input-error for='joist_type' /><br>
 
                         <x-jet-label value="* Largo en metros" />
                         <select name="length" class="inputjet w-full text-xs uppercase">
@@ -41,26 +40,20 @@
                         </select>
                         <x-jet-input-error for='length' /><br>
                         
-                        <x-jet-label value="* Peralte" />
-                        <select name="camber" class="inputjet w-full text-xs uppercase">
-                            @foreach ($Cambers as $row)
-                                <option value="{{$row->camber}}"@if (old('camber')==$row->camber) selected @endif>{{$row->camber}}</option>
-                            @endforeach
+                        <x-jet-label value="* Seleccione el Calibre" />
+                        <select name="caliber" class="inputjet w-full text-xs uppercase">
+                                <option value="14" @if (old('caliber')==14) selected @endif>14</option>
+                            
+                                <option value="15" @if (old('caliber')==15) selected @endif>15 </option>
+                            
                         </select>
-                        <x-jet-input-error for='camber' /><br>
+                        <x-jet-input-error for='caliber' /><br>
 
-                        <x-jet-label value="* Patín" />
-                        <input type="text" name="skate" class="inputjet w-full text-xs uppercase" />
-                        <x-jet-input-error for='skate' /><br>
+                       
                         
-                        <x-jet-label value="* Capacidad de carga requerida por par de vigas (Kg)" />
-                        <input type="number" name="weight" class="inputjet w-full text-xs uppercase" />
-                        <x-jet-input-error for='weight' /><br>
-
-                        <x-jet-label value="* Tipo de Viga" />
-                        <input type="text" name="joist_type" class="inputjet w-full text-xs uppercase" value="{{$Joists->joist}}" />
-                        <x-jet-input-error for='joist_type' /><br>
-
+                       
+                        
+                        
                     </div>
                     <div class="form-group p-2 gap-2 flex items-center">
                         <button type="submit" class="btn btn-blue mb-2">

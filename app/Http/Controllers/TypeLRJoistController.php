@@ -130,21 +130,15 @@ class TypeLRJoistController extends Controller
     {
         $rules = [
             'amount' => 'required',
-            'caliber' => 'required',
-            'length' => 'required',
-            'camber' => 'required',
-            'skate' => 'required',
             'weight' => 'required',
             'joist_type' => 'required',
+            'caliber' => 'required',
         ];
         $messages = [
             'amount.required' => 'Capture una cantidad válida',
-            'caliber.required' => 'Seleccione el Calibre de la Viga',
-            'lenght.required' => 'Seleccione el Largo',
-            'camber.required' => 'Seleccione el Peralte',
-            'skate.required' => 'Capture el Patín',
-            'weight.required' => 'Capture la Capacidad de carga',            
-            'joist_type.required' => 'Seleccione el tipo de Viga',
+            'weight.required' => 'Capture la carga requerida',
+            'joist_type.required' => 'Elija el tipo de Viga',
+            'caliber.required' => 'Elija el Calibre de la Viga',
         ];
         $request->validate($rules, $messages);
 
