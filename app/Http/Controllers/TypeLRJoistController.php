@@ -141,76 +141,81 @@ class TypeLRJoistController extends Controller
             'caliber.required' => 'Elija el Calibre de la Viga',
         ];
         $request->validate($rules, $messages);
+        $request->validate($rules, $messages);
 
         $Quotation_Id = $request->Quotation_Id;
         $Amount = $request->amount;
         $Caliber = $request->caliber;
         $Length = $request->length;
-        $Camber = $request->camber;
-        $Skate = $request->skate;
         $Weight = $request->weight;
         $JoistType = $request->joist_type;
         $Increment = $Weight * 0.07;
         $WeightIncrement = $Weight + $Increment;
-        
-        $TypeLJoists = TypeLRJoist::where('caliber',$Caliber)->where('camber', $Camber)->where('length', $Length)->first();
-        $Import = $Amount * $TypeLJoists->price;
-        $Clavijas = PriceListScrew::where('description', 'CLAVIJA DE SEGURIDAD PARA VIGAS')->first();
-        $CostoClavija = $Clavijas->cost * $Clavijas->f_total;
-        $CantidadClavijas = $Amount * 2;
-        $CostoTotalClavijas = $CantidadClavijas * $CostoClavija;
+        $Cambers = TypeLRJoistLoadingCapacity::where('crossbar_length', '>=', $Length)->where('loading_capacity', '>=', $WeightIncrement)->first();
 
-        $SJLR = SelectiveJoistLr::where('quotation_id', $Quotation_Id)->first();
-        if($SJLR){
-            $SJLR->amount = $Amount;
-            $SJLR->caliber = $Caliber;
-            $SJLR->skate = $Skate;
-            $SJLR->loading_capacity = $Weight;
-            $SJLR->type_joist = $JoistType;
-            $SJLR->length_meters = $Length;
-            $SJLR->camber = $TypeLJoists->camber;
-            $SJLR->weight_kg = $TypeLJoists->weight;
-            $SJLR->m2 = $TypeLJoists->m2;
-            $SJLR->length = $TypeLJoists->length;
-            $SJLR->sku = $TypeLJoists->sku;
-            $SJLR->unit_price = $TypeLJoists->price;
-            $SJLR->total_price = $Import + $CostoTotalClavijas;
-            $SJLR->save();
+        if($Cambers){
+            $Camber=$Cambers->camber;
+            $TypeLJoists = TypeLRJoist::where('caliber',$Caliber)->where('camber', $Cambers->camber)->where('length', $Length)->first();
+            // dd($Cambers,$WeightIncrement,$Length,$TypeLJoists);
+            $Import = $Amount * $TypeLJoists->price;
+            $Clavijas = PriceListScrew::where('description', 'CLAVIJA DE SEGURIDAD PARA VIGAS')->first();
+            $CostoClavija = $Clavijas->cost * $Clavijas->f_total;
+            $CantidadClavijas = $Amount * 2;
+            $CostoTotalClavijas = $CantidadClavijas * $CostoClavija;
+            $CostoTotal = $CostoTotalClavijas + $Import;
+            $SJLR = SelectiveJoistLr::where('quotation_id', $Quotation_Id)->first();
+            if($SJLR){
+                $SJLR->amount = $Amount;
+                $SJLR->caliber = $Caliber;
+                $SJLR->loading_capacity = $Weight;
+                $SJLR->type_joist = $JoistType;
+                $SJLR->length_meters = $Length;
+                $SJLR->camber = $TypeLJoists->camber;
+                $SJLR->weight_kg = $TypeLJoists->weight;
+                $SJLR->m2 = $TypeLJoists->m2;
+                $SJLR->length = $TypeLJoists->length;
+                $SJLR->sku = $TypeLJoists->sku;
+                $SJLR->unit_price = $TypeLJoists->price;
+                $SJLR->total_price = $Import + $CostoTotalClavijas;
+                $SJLR->save();
+            }else{
+                $SJLR = new SelectiveJoistLr();
+                $SJLR->quotation_id = $Quotation_Id;
+                $SJLR->amount = $Amount;
+                $SJLR->caliber = $Caliber;
+                $SJLR->loading_capacity = $Weight;
+                $SJLR->type_joist = $JoistType;
+                $SJLR->length_meters = $Length;
+                $SJLR->camber = $TypeLJoists->camber;
+                $SJLR->weight_kg = $TypeLJoists->weight;
+                $SJLR->m2 = $TypeLJoists->m2;
+                $SJLR->length = $TypeLJoists->length;
+                $SJLR->sku = $TypeLJoists->sku;
+                $SJLR->unit_price = $TypeLJoists->price;
+                $SJLR->total_price = $Import + $CostoTotalClavijas;
+                $SJLR->save();
+            }
+    
+            return view('quotes.selectivo.joists.typelrjoists.store', compact(
+                'Amount',
+                'Caliber',
+                'Length',
+                'Camber',
+                'Weight',
+                'JoistType',
+                'Increment',
+                'WeightIncrement',
+                'TypeLJoists',
+                'Import',
+                'Quotation_Id',
+                'CantidadClavijas',
+                'CostoTotalClavijas',
+                'CostoTotal'
+            ));
         }else{
-            $SJLR = new SelectiveJoistLr();
-            $SJLR->quotation_id = $Quotation_Id;
-            $SJLR->amount = $Amount;
-            $SJLR->caliber = $Caliber;
-            $SJLR->skate = $Skate;
-            $SJLR->loading_capacity = $Weight;
-            $SJLR->type_joist = $JoistType;
-            $SJLR->length_meters = $Length;
-            $SJLR->camber = $TypeLJoists->camber;
-            $SJLR->weight_kg = $TypeLJoists->weight;
-            $SJLR->m2 = $TypeLJoists->m2;
-            $SJLR->length = $TypeLJoists->length;
-            $SJLR->sku = $TypeLJoists->sku;
-            $SJLR->unit_price = $TypeLJoists->price;
-            $SJLR->total_price = $Import + $CostoTotalClavijas;
-            $SJLR->save();
-        }
-
-        return view('quotes.selectivo.joists.typelrjoists.store', compact(
-            'Amount',
-            'Caliber',
-            'Length',
-            'Camber',
-            'Skate',
-            'Weight',
-            'JoistType',
-            'Increment',
-            'WeightIncrement',
-            'TypeLJoists',
-            'Import',
-            'Quotation_Id',
-            'CantidadClavijas',
-            'CostoTotalClavijas',
-        ));
+            return redirect()->route('menujoists.show')->with('no_existe', 'ok');
+        } 
+        
     }
 
     public function show($id)
@@ -218,7 +223,7 @@ class TypeLRJoistController extends Controller
         $Quotation_Id = $id;
         $Joists = Joist::where('joist', 'Tipo LR')->first();
         $Calibers = TypeLRJoistCaliber::where('caliber', '<>', '14')->get();
-        $Lengths = TypeLRJoistLength::all();
+        $Lengths = TypeLRJoist::select('length')->distinct()->get();
         $Cambers = TypeLRJoistCamber::all();
         $CrossbarLengths = TypeLRJoistCrossbarLength::all();
         $LoadingCapacities = TypeLRJoistLoadingCapacity::all();
