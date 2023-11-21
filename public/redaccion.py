@@ -78,7 +78,11 @@ cols_to_fill_str=['description','protector','model','sku']
 products[cols_to_fill_str]=products[cols_to_fill_str].fillna('')
 cols_kg=['weight','total_kg','total_weight','weight_kg']
 cols_m2=['m2','total_m2']
-products[cols_kg+cols_m2]=products[cols_kg+cols_m2].fillna(0)
+largo_cols=['long','length','length_meters','frame_background',
+       'length_dimension', 'dimensions']
+ancho_cols=['uncut_front',  'uncut_background',
+       'depth']
+products[cols_kg+cols_m2+largo_cols+ancho_cols]=products[cols_kg+cols_m2+largo_cols+ancho_cols].fillna(0)
 price_cols=['price','total_price','import','unit_price']
 products[price_cols] =products[price_cols].fillna(0)    
 pricelist_protectors=pd.read_sql('select * from price_list_protectors',cnx)
@@ -90,10 +94,19 @@ materials['type']=materials['type'].fillna('')
 doc = DocxTemplate("plantilla.docx")
 productos=[]
 for i in range(len(products)):
-    productos.append({'nombre':tablas[products['tabla'].values[i]],'precio':products[price_cols].sum(axis=1).values[i],'cantidad':products['amount'].values[i]})
+    productos.append({'nombre':tablas[products['tabla'].values[i]],'precio':products[price_cols].sum(axis=1).values[i],
+                      'cantidad':products['amount'].values[i],
+                      'largo': products[largo_cols].sum(axis=1).values[i],
+                      'ancho': products[ancho_cols].sum(axis=1).values[i]})
   
 precio_total=products[price_cols].sum(axis=1).sum()
 kilos_totales=products[cols_kg].sum(axis=1).sum()
+fletes_tables=['packagings','quotation_travel_assignments']
+instalacion_tables=['quotation_installs','quotation_uninstalls']
+precios=products[price_cols+['tabla']]
+costo_flete=precios.loc[precios['tabla'].isin(fletes_tables)].sum(axis=1,numeric_only=True).sum()
+costo_instalacion=precios.loc[precios['tabla'].isin(instalacion_tables)].sum(axis=1,numeric_only=True).sum()
+
 context={
     'cliente':cliente['customer'].values[0],
     'direccion':cliente['address'].values[0]+' '+cliente['outdoor'].values[0]+', '+cliente['city'].values[0]+' '+cliente['suburb'].values[0]+' '+cliente['state'].values[0]+', cp: '+str(cliente['zip_code'].values[0]),
@@ -103,7 +116,11 @@ context={
     'productos': productos,
     'precio_total': precio_total,
     'kilos_totales': kilos_totales,
+    'costo_flete':costo_flete,
+    'costo_instalacion':costo_instalacion,
+    'costo_selectivo':precio_total - costo_flete -costo_instalacion
+
 } 
 doc.render(context) 
-doc.save("storage/Cotizacion"+str(sys.argv[1])+".docx")
+doc.save("storage/Cotizacion"+str(id)+".docx")
       
