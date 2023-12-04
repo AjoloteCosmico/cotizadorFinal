@@ -38,6 +38,7 @@ date = currentDateTime.date()
 year = date.strftime("%Y")
 
 from tablas_dict import tablas
+from tablas_dict import redact
 aceros=pd.read_sql('select * from steels ',cnx)
 aceros.loc[aceros['caliber']=='EST 3 IN','caliber']='EST3'
 
@@ -94,7 +95,8 @@ materials['type']=materials['type'].fillna('')
 doc = DocxTemplate("plantilla.docx")
 productos=[]
 for i in range(len(products)):
-    productos.append({'nombre':tablas[products['tabla'].values[i]],'precio':products[price_cols].sum(axis=1).values[i],
+    productos.append({'nombre':redact[products['tabla'].values[i]],
+                      'precio':products[price_cols].sum(axis=1).values[i],
                       'cantidad':products['amount'].values[i],
                       'largo': products[largo_cols].sum(axis=1).values[i],
                       'ancho': products[ancho_cols].sum(axis=1).values[i]})
@@ -105,7 +107,8 @@ fletes_tables=['packagings','quotation_travel_assignments']
 instalacion_tables=['quotation_installs','quotation_uninstalls']
 precios=products[price_cols+['tabla']]
 costo_flete=precios.loc[precios['tabla'].isin(fletes_tables)].sum(axis=1,numeric_only=True).sum()
-costo_instalacion=precios.loc[precios['tabla'].isin(instalacion_tables)].sum(axis=1,numeric_only=True).sum()
+costo_instalacion=precios.loc[(precios['tabla'].isin(instalacion_tables))&(precios['print']=='Sí')].sum(axis=1,numeric_only=True).sum()
+costo_instalacion_incluida=precios.loc[(precios['tabla'].isin(instalacion_tables))&(precios['print']=='In')].sum(axis=1,numeric_only=True).sum()
 
 context={
     'cliente':cliente['customer'].values[0],
@@ -118,9 +121,8 @@ context={
     'kilos_totales': kilos_totales,
     'costo_flete':costo_flete,
     'costo_instalacion':costo_instalacion,
+    'costo_instalacion_incluida':costo_instalacion_incluida,
     'costo_selectivo':precio_total - costo_flete -costo_instalacion
-
 } 
 doc.render(context) 
 doc.save("storage/Cotizacion"+str(id)+".docx")
-      
