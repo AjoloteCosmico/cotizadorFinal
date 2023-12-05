@@ -233,6 +233,7 @@ class FreightController extends Controller
                     $row->breakdown_install = NULL;
                     $row->save();
                 }
+                // dd('caso que creo');
             }
         }elseif($request->install == 'INCLUIDA'){
             if($request->uninstall == 'INCLUIDA'){
@@ -284,6 +285,7 @@ class FreightController extends Controller
         }else{
             $PrintInstall = 'No';
             $PrintUninstall = 'No';
+            dd('apunto de borrar caso 1');
             $QuotationInstalls = QuotationInstall::where('quotation_id', $request->Quotation_Id)->delete();
             $QuotationUninstalls = QuotationUninstall::where('quotation_id', $request->Quotation_Id)->delete();
         }
@@ -382,10 +384,19 @@ class FreightController extends Controller
                 }
             }
         }else{
+        if($request->uninstall == 'No'){
             $PrintInstall = 'No';
-            $PrintUninstall = 'No';
             $QuotationInstalls = QuotationInstall::where('quotation_id', $request->Quotation_Id)->delete();
+           
+        }
+        if($request->install == 'No'){
+            $PrintUninstall = 'No';
             $QuotationUninstalls = QuotationUninstall::where('quotation_id', $request->Quotation_Id)->delete();
+        }
+            
+            
+           
+            
         }
         return $this->selectivo_installs_add_carrito($request->Quotation_Id);
 

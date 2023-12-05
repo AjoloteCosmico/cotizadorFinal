@@ -46,7 +46,6 @@ class QuotationInstallController extends Controller
         $QuotationInstalls->import = $Import;
         $QuotationInstalls->print = 'No';
         $QuotationInstalls->save();
-                
         return redirect()->route('selectivo_installs', $Quotation_Id);
     }
 
