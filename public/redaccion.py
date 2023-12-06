@@ -106,8 +106,7 @@ for i in range(len(products)):
                         'ancho': products[ancho_cols].sum(axis=1).values[i],
                         'fondo': products['depth'].values[i],
                         'model': products['model'].values[i]})
-                
-                        
+                                  
 precio_total=products[price_cols].sum(axis=1).sum()
 kilos_totales=products[cols_kg].sum(axis=1).sum()
 fletes_tables=['packagings','quotation_travel_assignments']
