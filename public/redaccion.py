@@ -93,14 +93,21 @@ materials=pd.read_sql('select * from (materials left join price_list_screws on m
 materials['type']=materials['type'].fillna('')
 
 doc = DocxTemplate("plantilla.docx")
+
+instalacion_tables=['quotation_installs','quotation_uninstalls']
 productos=[]
+print(products.columns)
 for i in range(len(products)):
-    productos.append({'nombre':redact[products['tabla'].values[i]],
-                      'precio':products[price_cols].sum(axis=1).values[i],
-                      'cantidad':products['amount'].values[i],
-                      'largo': products[largo_cols].sum(axis=1).values[i],
-                      'ancho': products[ancho_cols].sum(axis=1).values[i]})
-  
+    if(products['tabla'].values[i] not in instalacion_tables):
+        productos.append({'nombre':redact[products['tabla'].values[i]],
+                        'precio':products[price_cols].sum(axis=1).values[i],
+                        'cantidad':products['amount'].values[i],
+                        'largo': products[largo_cols].sum(axis=1).values[i],
+                        'ancho': products[ancho_cols].sum(axis=1).values[i],
+                        'fondo': products['model'].values[i],
+                        'model': products['model'].values[i]})
+                
+                        
 precio_total=products[price_cols].sum(axis=1).sum()
 kilos_totales=products[cols_kg].sum(axis=1).sum()
 fletes_tables=['packagings','quotation_travel_assignments']
@@ -123,6 +130,6 @@ context={
     'costo_instalacion':costo_instalacion,
     'costo_instalacion_incluida':costo_instalacion_incluida,
     'costo_selectivo':precio_total - costo_flete -costo_instalacion
-} 
+    } 
 doc.render(context) 
 doc.save("storage/Cotizacion"+str(id)+".docx")

@@ -109,6 +109,7 @@ class FramesController extends Controller
                     $SHLF->amount = $Cantidad;
                     $SHLF->model = $Modelo;
                     $SHLF->caliber = $Calibre;
+                    $SHLF->depth = $Profundidad;
                     $SHLF->total_load_kg = $Total_Peso;
                     $SHLF->total_poles = $Total_Postes;
                     $SHLF->total_crossbars = $Total_Travesanos;
@@ -127,6 +128,7 @@ class FramesController extends Controller
                     $SHLF->amount = $Cantidad;
                     $SHLF->model = $Modelo;
                     $SHLF->caliber = $Calibre;
+                    $SHLF->depth = $Profundidad;
                     $SHLF->total_load_kg = $Total_Peso;
                     $SHLF->total_poles = $Total_Postes;
                     $SHLF->total_crossbars = $Total_Travesanos;
