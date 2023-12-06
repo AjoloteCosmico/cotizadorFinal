@@ -285,7 +285,7 @@ class FreightController extends Controller
         }else{
             $PrintInstall = 'No';
             $PrintUninstall = 'No';
-            dd('apunto de borrar caso 1');
+            
             $QuotationInstalls = QuotationInstall::where('quotation_id', $request->Quotation_Id)->delete();
             $QuotationUninstalls = QuotationUninstall::where('quotation_id', $request->Quotation_Id)->delete();
         }

@@ -105,7 +105,7 @@ precio_total=products[price_cols].sum(axis=1).sum()
 kilos_totales=products[cols_kg].sum(axis=1).sum()
 fletes_tables=['packagings','quotation_travel_assignments']
 instalacion_tables=['quotation_installs','quotation_uninstalls']
-precios=products[price_cols+['tabla']]
+precios=products[price_cols+['tabla','print']]
 costo_flete=precios.loc[precios['tabla'].isin(fletes_tables)].sum(axis=1,numeric_only=True).sum()
 costo_instalacion=precios.loc[(precios['tabla'].isin(instalacion_tables))&(precios['print']=='Sí')].sum(axis=1,numeric_only=True).sum()
 costo_instalacion_incluida=precios.loc[(precios['tabla'].isin(instalacion_tables))&(precios['print']=='In')].sum(axis=1,numeric_only=True).sum()
