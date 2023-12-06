@@ -104,7 +104,7 @@ for i in range(len(products)):
                         'cantidad':products['amount'].values[i],
                         'largo': products[largo_cols].sum(axis=1).values[i],
                         'ancho': products[ancho_cols].sum(axis=1).values[i],
-                        'fondo': products['model'].values[i],
+                        'fondo': products['depth'].values[i],
                         'model': products['model'].values[i]})
                 
                         
