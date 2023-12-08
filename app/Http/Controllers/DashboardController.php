@@ -355,7 +355,7 @@ class DashboardController extends Controller
             $Questionary = Questionary::where('quotation_id',$Quotation->id)->get();
             $Quotation->status='terminada';
             $Quotation->save();
-            return redirect()->route('quotations',$Quotation_Id);
+            return redirect()->route('quotations',$Quotation->id);
             
 
         }
