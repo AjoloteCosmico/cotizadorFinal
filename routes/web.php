@@ -80,6 +80,10 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     Route::get('quoter/{id}', [DashboardController::class, 'quoter'])->name('quoter');
     Route::post('rack_engineering', [DashboardController::class, 'rack_engineering'])->name('rack_engineering');
     Route::get('rack_engineering_form/{id}', [DashboardController::class, 'rack_engineering_form'])->name('rack_engineering_form');
+    
+    Route::get('closing_questionary/{id}', [DashboardController::class, 'closing_questionary'])->name('closing_questionary');
+    Route::post('close_quotation/{id}', [DashboardController::class, 'close_quotation'])->name('close_quotation');
+    
     Route::post('cuestionario_inicial', [DashboardController::class, 'cuestionario_inicial'])->name('cuestionario_inicial');
     Route::post('material_list_engineering_form', [DashboardController::class, 'material_list_engineering_form'])->name('material_list_engineering_form');
     Route::post('layout_quoter', [DashboardController::class, 'layout_quoter'])->name('layout_quoter');

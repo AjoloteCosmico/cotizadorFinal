@@ -334,8 +334,21 @@ class DashboardController extends Controller
 
         return view('quoter.material_list_engineering_form', compact(
             'Materials',
-        ));
-    }
+        ));}
+
+        public function closing_questionary($id){
+            $Quotation = Quotation::find($id);
+            $Questionary = Questionary::where('quotation_id',$Quotation->id)->get();
+            if($Questionary->count()==0){
+                
+                $Questionary=new Questionary();
+                $Questionary->quotation_id=$Quotation->id;
+            }
+            
+            
+            return view('quotes.closing_questionary',Compact('Quotation','Questionary'));
+        }
+    
 
     
 }
