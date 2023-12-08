@@ -31,6 +31,10 @@ cotizacion=pd.read_sql("select * from quotations where id ="+str(id),cnx)
 cliente=pd.read_sql("""select * from customers where customers.id="""+str(cotizacion['customer_id'].values[0]),cnx)
 user=pd.read_sql("""select * from users where users.id="""+str(cotizacion['user_id'].values[0]),cnx)
 productos=pd.read_sql("""select * from cart_products where cart_products.quotation_id="""+str(cotizacion['id'].values[0]),cnx)
+questionario=pd.read_sql("""select * from questionaries where questionaries.quotation_id="""+str(cotizacion['id'].values[0]),cnx)
+if(len(questionario)==0):
+    questionario=pd.read_sql("""select * from questionaries limit 1""",cnx)
+
 import datetime
 
 currentDateTime = datetime.datetime.now()
@@ -128,7 +132,24 @@ context={
     'costo_flete':costo_flete,
     'costo_instalacion':costo_instalacion,
     'costo_instalacion_incluida':costo_instalacion_incluida,
-    'costo_selectivo':precio_total - costo_flete -costo_instalacion
+    'costo_selectivo':precio_total - costo_flete -costo_instalacion,
+    'estado': cliente['state'].values[0],
+    'a5': questionario['a5'].values[0], #que productos e almacena
+   #reativos de nivel
+    'a8': questionario['a8'].values[0],#frente
+    'a9': questionario['a9'].values[0],#fondo
+    'a10': questionario['a10'].values[0],#alto
+    'a11': questionario['a11'].values[0],#peso
+# dimensiones de la tarima
+    'a18': questionario['a18'].values[0],#frente
+    'a19': questionario['a19'].values[0],#fondo
+    'a20': questionario['a20'].values[0],#alto
+    'a21': questionario['a21'].values[0],#peso
+#ambiente
+    'a25': questionario['a25'].values[0], #temperatura
+    'a26': questionario['a26'].values[0], #inflamable
+    'a27': questionario['a27'].values[0], #explosivo
+    'a28': questionario['a28'].values[0], #corrosivo
     } 
 doc.render(context) 
 doc.save("storage/Cotizacion"+str(id)+".docx")
