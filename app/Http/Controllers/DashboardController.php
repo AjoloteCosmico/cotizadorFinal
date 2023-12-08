@@ -350,5 +350,15 @@ class DashboardController extends Controller
         }
     
 
+        public function close_quotation(Request $request,$id){
+            $Quotation = Quotation::find($id);
+            $Questionary = Questionary::where('quotation_id',$Quotation->id)->get();
+            $Quotation->status='terminada';
+            $Quotation->save();
+            return redirect()->route('quotations',$Quotation_Id);
+            
+
+        }
+
     
 }
