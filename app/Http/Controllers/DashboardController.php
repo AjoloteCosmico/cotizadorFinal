@@ -343,6 +343,7 @@ class DashboardController extends Controller
                 
                 $Questionary=new Questionary();
                 $Questionary->quotation_id=$Quotation->id;
+                $Questionary->save();
             }
             
             
