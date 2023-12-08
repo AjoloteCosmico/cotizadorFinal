@@ -91,7 +91,7 @@
     setTimeout(
   function() {
     window.location.replace("{{route('redaccion',$QuotationId)}}");
-  }, 10);
+  }, 19);
   
 </script>
 <script type="text/javascript" src="{{ asset('vendor/mystylesjs/js/close_quotation.js') }}"></script>
