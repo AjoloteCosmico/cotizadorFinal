@@ -149,7 +149,6 @@
 
                         <p class="card-text mb-3">CANTIDAD DE POSICIONES:</p>
                         <div class="form-group">
-                                            <x-jet-label value="Frente" />
                                             <x-jet-input type="text" name="a8" value="{{old('a8')}}" class="w-flex uppercase"/>
                                             <x-jet-input-error for='a8' />
                                         </div>
@@ -168,7 +167,6 @@
                         </div>
                                         <p class="card-text mb-3">TIEMPO DE ENTREGA:</p>
                         <div class="form-group">
-                                            <x-jet-label value="Frente" />
                                             <x-jet-input type="text" name="a8" value="{{old('a8')}}" class="w-flex uppercase"/>
                                             <x-jet-input-error for='a8' />
                                         </div>
