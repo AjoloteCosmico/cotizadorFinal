@@ -338,7 +338,7 @@ class DashboardController extends Controller
 
         public function closing_questionary($id){
             $Quotation = Quotation::find($id);
-            $Questionary = Questionary::where('quotation_id',$Quotation->id)->get();
+            $Questionary = Questionary::where('quotation_id',$Quotation->id)->first();
             if($Questionary->count()==0){
                 
                 $Questionary=new Questionary();
@@ -346,6 +346,7 @@ class DashboardController extends Controller
                 $Questionary->save();
             }
             
+            // dd($Questionary);
             
             return view('quotes.closing_questionary',Compact('Quotation','Questionary'));
         }
@@ -353,9 +354,26 @@ class DashboardController extends Controller
 
         public function close_quotation(Request $request,$id){
             $Quotation = Quotation::find($id);
-            $Questionary = Questionary::where('quotation_id',$Quotation->id)->get();
+            $Questionary = Questionary::where('quotation_id',$Quotation->id)->first();
             $Quotation->status='terminada';
             $Quotation->save();
+            $Questionary->npos = $request->npos;
+            $Questionary->ndib = $request->ndib;
+            $Questionary->vigas = $request->vigas;
+            $Questionary->tiempo = $request->tiempo;
+            $Questionary->a8 = $request->a8;
+            $Questionary->a9 = $request->a9;
+            $Questionary->a10 = $request->a10;
+            $Questionary->a11 = $request->a11;
+            
+            $Questionary->a18 = $request->a18;
+            $Questionary->a19 = $request->a19;
+            $Questionary->a20 = $request->a20;
+           
+            $Questionary->a25 = $request->a25;
+            $Questionary->a26 = $request->a26;
+            $Questionary->a27 = $request->a27;
+            $Questionary->save();
             return redirect()->route('quotations',$Quotation->id);
             
 
