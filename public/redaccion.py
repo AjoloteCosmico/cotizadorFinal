@@ -150,6 +150,11 @@ context={
     'a26': questionario['a26'].values[0], #inflamable
     'a27': questionario['a27'].values[0], #explosivo
     'a28': questionario['a28'].values[0], #corrosivo
+#Reactivos extra
+    'ndib':  questionario['ndib'].values[0], #numero de dibujos
+    'npos':  questionario['npos'].values[0], #numero de posiciones
+    'vigas':  questionario['vigas'].values[0], #vigas
+    'tiempo':  questionario['tiempo'].values[0], #tiempo de entrega
     } 
 doc.render(context) 
 doc.save("storage/Cotizacion"+str(id)+".docx")

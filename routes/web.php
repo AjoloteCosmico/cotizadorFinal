@@ -66,7 +66,6 @@ use App\Models\Quotation;
 use App\Models\QuotationInstall;
 use App\Models\QuotationProtector;
 use App\Models\SinglePiece;
-
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -169,110 +168,6 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     Route::post('/selectivo_vigas_tipo_Chair/calibre14', [TypeChairJoistController::class, 'caliber14_calc'])->name('typechairjoists_caliber14.calc');
 
 
-    Route::get('/double_deep', [DoubleDeepController::class, 'index'])->name('double_deep.index');
-    Route::get('/double_deep/{id}', [DoubleDeepController::class, 'show'])->name('double_deep.show');
-
-    Route::get('/double_deep_marcos/{id}', [DoubleDeepMenuFrameController::class, 'show'])->name('double_deep_menuframes.show');
-    Route::get('/double_deep_vigas/{id}', [DoubleDeepMenuJoistController::class, 'show'])->name('double_deep_menujoists.show');
-
-    Route::get('/double_deep_crossbars/{id}', [DoubleDeepCrossbarController::class, 'show'])->name('double_deep_crossbars.show');
-    Route::post('/double_deep_crossbars/calc', [DoubleDeepCrossbarController::class, 'calc'])->name('double_deep_crossbars.calc');
-    
-    Route::post('/double_deep_floors/calc', [DoubleDeepFloorController::class, 'calc'])->name('double_deep_floors.calc');
-    Route::get('/double_deep_floors/{id}', [DoubleDeepFloorController::class, 'show'])->name('double_deep_floors.show');
-
-    Route::post('/double_deep_floor_reinforcements/calc', [DoubleDeepFloorReinforcementController::class, 'calc'])->name('double_deep_floor_reinforcements.calc');
-    Route::get('/double_deep_floor_reinforcements/{id}', [DoubleDeepFloorReinforcementController::class, 'show'])->name('double_deep_floor_reinforcements.show');
-    
-    Route::get('/double_deep_spacers/{id}', [DoubleDeepSpacerController::class, 'show'])->name('double_deep_spacers.show');
-    Route::post('/double_deep_spacers/calc', [DoubleDeepSpacerController::class, 'calc'])->name('double_deep_spacers.calc');
-
-    Route::get('/double_deep_carga_pesada/{id}', [DoubleDeepFramesController::class, 'show'])->name('double_deep_frames.show');
-    Route::post('/double_deep_carga_pesada', [DoubleDeepFramesController::class, 'store'])->name('double_deep_frames.store');
-
-    // Route::get('/double_deep_minimarcos/{id}', [DoubleDeepMiniatureFrameController::class, 'show'])->name('double_deep_miniatureframe.show');
-    // Route::post('/double_deep_minimarcos', [DoubleDeepMiniatureFrameController::class, 'store'])->name('double_deep_miniatureframe.store');
-    
-    Route::get('/double_deep_marcos_estructurales/{id}', [DoubleDeepStructuralFrameworksController::class, 'show'])->name('double_deep_structuralframeworks.show');
-    Route::post('/double_deep_marcos_estructurales', [DoubleDeepStructuralFrameworksController::class, 'store'])->name('double_deep_structuralframeworks.store');
-
-    Route::get('/double_deep_vigas_tipo_L_2/{id}', [DoubleDeepTypeL2JoistController::class, 'show'])->name('double_deep_typel2joists.show');
-    Route::post('/double_deep_vigas_tipo_L_2/', [DoubleDeepTypeL2JoistController::class, 'store'])->name('double_deep_typel2joists.store');
-    
-    Route::get('/double_deep_vigas_tipo_L_2/calibre14/{id}', [DoubleDeepTypeL2JoistController::class, 'caliber14_show'])->name('double_deep_typel2joists_caliber14.show');
-    Route::post('/double_deep_vigas_tipo_L_2/calibre14', [DoubleDeepTypeL2JoistController::class, 'caliber14_calc'])->name('double_deep_typel2joists_caliber14.calc');
-
-    Route::get('/double_deep_vigas_tipo_L_2_5/{id}', [DoubleDeepTypeL25JoistController::class, 'show'])->name('double_deep_typel25joists.show');
-    Route::post('/double_deep_vigas_tipo_L_2_5/', [DoubleDeepTypeL25JoistController::class, 'store'])->name('double_deep_typel25joists.store');
-    
-    Route::get('/double_deep_vigas_tipo_L_2_5/calibre14/{id}', [DoubleDeepTypeL25JoistController::class, 'caliber14_show'])->name('double_deep_typel25joists_caliber14.show');
-    Route::post('/double_deep_vigas_tipo_L_2_5/calibre14', [DoubleDeepTypeL25JoistController::class, 'caliber14_calc'])->name('double_deep_typel25joists_caliber14.calc');
-
-    Route::get('/double_deep_vigas_tipo_Box_2/{id}', [DoubleDeepTypeBox2JoistController::class, 'show'])->name('double_deep_typebox2joists.show');
-    Route::post('/double_deep_vigas_tipo_Box_2/', [DoubleDeepTypeBox2JoistController::class, 'store'])->name('double_deep_typebox2joists.store');
-    
-    Route::get('/double_deep_vigas_tipo_Box_2/calibre14/{id}', [DoubleDeepTypeBox2JoistController::class, 'caliber14_show'])->name('double_deep_typebox2joists_caliber14.show');
-    Route::post('/double_deep_vigas_tipo_Box_2/calibre14', [DoubleDeepTypeBox2JoistController::class, 'caliber14_calc'])->name('double_deep_typebox2joists_caliber14.calc');
-
-    Route::get('/double_deep_vigas_tipo_Box_25/{id}', [DoubleDeepTypeBox25JoistController::class, 'show'])->name('double_deep_typebox25joists.show');
-    Route::post('/double_deep_vigas_tipo_Box_25/', [DoubleDeepTypeBox25JoistController::class, 'store'])->name('double_deep_typebox25joists.store');
-    
-    Route::get('/double_deep_vigas_tipo_Box_25/calibre14/{id}', [DoubleDeepTypeBox25JoistController::class, 'caliber14_show'])->name('double_deep_typebox25joists_caliber14.show');
-    Route::post('/double_deep_vigas_tipo_Box_25/calibre14', [DoubleDeepTypeBox25JoistController::class, 'caliber14_calc'])->name('double_deep_typebox25joists_caliber14.calc');
-
-    Route::get('/double_deep_vigas_tipo_Structural/{id}', [DoubleDeepTypeStructuralJoistController::class, 'show'])->name('double_deep_typestructuraljoists.show');
-    Route::post('/double_deep_vigas_tipo_Structural/', [DoubleDeepTypeStructuralJoistController::class, 'store'])->name('double_deep_typestructuraljoists.store');
-    
-    Route::get('/double_deep_vigas_tipo_Structural/calibre14/{id}', [DoubleDeepTypeStructuralJoistController::class, 'caliber14_show'])->name('double_deep_typestructuraljoists_caliber14.show');
-    Route::post('/double_deep_vigas_tipo_Structural/calibre14', [DoubleDeepTypeStructuralJoistController::class, 'caliber14_calc'])->name('double_deep_typestructuraljoists_caliber14.calc');
-
-    Route::get('/double_deep_vigas_tipo_C2/{id}', [DoubleDeepTypeC2JoistController::class, 'show'])->name('double_deep_typec2joists.show');
-    Route::post('/double_deep_vigas_tipo_C2/', [DoubleDeepTypeC2JoistController::class, 'store'])->name('double_deep_typec2joists.store');
-    
-    Route::get('/double_deep_vigas_tipo_C2/calibre14/{id}', [DoubleDeepTypeC2JoistController::class, 'caliber14_show'])->name('double_deep_typec2joists_caliber14.show');
-    Route::post('/double_deep_vigas_tipo_C2/calibre14', [DoubleDeepTypeC2JoistController::class, 'caliber14_calc'])->name('double_deep_typec2joists_caliber14.calc');
-
-    Route::get('/double_deep_vigas_tipo_LR/{id}', [DoubleDeepTypeLRJoistController::class, 'show'])->name('double_deep_typelrjoists.show');
-    Route::post('/double_deep_vigas_tipo_LR/', [DoubleDeepTypeLRJoistController::class, 'store'])->name('double_deep_typelrjoists.store');
-    
-    Route::get('/double_deep_vigas_tipo_LR/calibre14/{id}', [DoubleDeepTypeLRJoistController::class, 'caliber14_show'])->name('double_deep_typelrjoists_caliber14.show');
-    Route::post('/double_deep_vigas_tipo_LR/calibre14', [DoubleDeepTypeLRJoistController::class, 'caliber14_calc'])->name('double_deep_typelrjoists_caliber14.calc');
-
-    Route::get('/double_deep_vigas_tipo_Chair/{id}', [DoubleDeepTypeChairJoistController::class, 'show'])->name('double_deep_typechairjoists.show');
-    Route::post('/double_deep_vigas_tipo_Chair/', [DoubleDeepTypeChairJoistController::class, 'store'])->name('double_deep_typechairjoists.store');
-    
-    Route::get('/double_deep_vigas_tipo_Chair/calibre14/{id}', [DoubleDeepTypeChairJoistController::class, 'caliber14_show'])->name('double_deep_typechairjoists_caliber14.show');
-    Route::post('/double_deep_vigas_tipo_Chair/calibre14', [DoubleDeepTypeChairJoistController::class, 'caliber14_calc'])->name('double_deep_typechairjoists_caliber14.calc');
-
-    Route::get('/double_deep_quotations/{id}', [QuotationController::class, 'doubledeep'])->name('double_deep_quotations.show');
-
-    Route::get('/double_deep_panels/{id}', [PanelController::class, 'double_deep_panels'])->name('double_deep_panels');
-    Route::get('/double_deep_two_in_joist_l_galvanized_panels/{id}', [PanelController::class, 'double_deep_two_in_joist_l_galvanized_panels'])->name('double_deep_two_in_joist_l_galvanized_panels');
-    Route::get('/double_deep_two_in_joist_l_painted_panels/{id}', [PanelController::class, 'double_deep_two_in_joist_l_painted_panels'])->name('double_deep_two_in_joist_l_painted_panels');
-    Route::get('/double_deep_two_point_five_in_joist_l_galvanized_panels/{id}', [PanelController::class, 'double_deep_two_point_five_in_joist_l_galvanized_panels'])->name('double_deep_two_point_five_in_joist_l_galvanized_panels');
-    Route::get('/double_deep_two_point_five_in_joist_l_painted_panels/{id}', [PanelController::class, 'double_deep_two_point_five_in_joist_l_painted_panels'])->name('double_deep_two_point_five_in_joist_l_painted_panels');
-    Route::get('/double_deep_chair_joist_galvanized_panels/{id}', [PanelController::class, 'double_deep_chair_joist_galvanized_panels'])->name('double_deep_chair_joist_galvanized_panels');
-    Route::get('/double_deep_chair_joist_l_painted_panels/{id}', [PanelController::class, 'double_deep_chair_joist_l_painted_panels'])->name('double_deep_chair_joist_l_painted_panels');
-    Route::post('/double_deep_two_in_joist_l_galvanized_panels/store', [PanelController::class, 'double_deep_two_in_joist_l_galvanized_panels_store'])->name('double_deep_two_in_joist_l_galvanized_panels.store');
-    Route::post('/double_deep_two_in_joist_l_painted_panels/store', [PanelController::class, 'double_deep_two_in_joist_l_painted_panels_store'])->name('double_deep_two_in_joist_l_painted_panels.store');
-    Route::post('/double_deep_two_point_five_in_joist_l_galvanized_panels/store', [PanelController::class, 'double_deep_two_point_five_in_joist_l_galvanized_panels_store'])->name('double_deep_two_point_five_in_joist_l_galvanized_panels.store');
-    Route::post('/double_deep_two_point_five_in_joist_l_painted_panels/store', [PanelController::class, 'double_deep_two_point_five_in_joist_l_painted_panels_store'])->name('double_deep_two_point_five_in_joist_l_painted_panels.store');
-    Route::post('/double_deep_chair_joist_galvanized_panels/store', [PanelController::class, 'double_deep_chair_joist_galvanized_panels_store'])->name('double_deep_chair_joist_galvanized_panels.store');
-    Route::post('/double_deep_chair_joist_l_painted_panels/store', [PanelController::class, 'double_deep_chair_joist_l_painted_panels_store'])->name('double_deep_chair_joist_l_painted_panels.store');
-
-    Route::get('/double_deep_grills/{id}', [GrillController::class, 'double_deep_grills_index'])->name('double_deep_grills.index');
-    Route::post('/double_deep_grills/store', [GrillController::class, 'double_deep_grills_store'])->name('double_deep_grills.store');
-    Route::get('/double_deep_woods/{id}', [WoodController::class, 'double_deep_woods_index'])->name('double_deep_woods.index');
-    Route::post('/double_deep_woods/store', [WoodController::class, 'double_deep_woods_store'])->name('double_deep_woods.store');
-    Route::get('/double_deep_special/{id}', [QuotationSpecialController::class, 'double_deep_special_index'])->name('double_deep_special.index');
-    Route::post('/double_deep_special/store', [QuotationSpecialController::class, 'double_deep_special_store'])->name('double_deep_special.store');
-    Route::get('/double_deep_administratives/{id}', [QuotationAdministrativeController::class, 'double_deep_administratives_index'])->name('double_deep_administratives.index');
-    Route::post('/double_deep_administratives/store', [QuotationAdministrativeController::class, 'double_deep_administratives_store'])->name('double_deep_administratives.store');
-
-    Route::get('/double_deep_protectors/{id}', [QuotationProtectorController::class, 'double_deep_protectors_index'])->name('double_deep_protectors.index');
-    Route::get('/double_deep_protectors_create/{id}', [QuotationProtectorController::class, 'double_deep_protectors_create'])->name('double_deep_protectors.create');
-    Route::post('/double_deep_protectors/store', [QuotationProtectorController::class, 'double_deep_protectors_store'])->name('double_deep_protectors.store');
-    
 
     Route::get('/selectivo_freights/{id}', [FreightController::class, 'selectivo_show'])->name('selectivo_freights.show');
     Route::get('/selectivo_transports/{id}', [FreightController::class, 'selectivo_transports'])->name('selectivo_transports');
@@ -324,15 +219,7 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     Route::get('quotation_uninstalls_double_deep_show/{id}', [QuotationUninstallController::class, 'double_deep_show'])->name('quotation_uninstalls_double_deep_show');
     Route::post('quotation_uninstalls_double_deep_store', [QuotationUninstallController::class, 'double_deep_store'])->name('quotation_uninstalls_double_deep_store');
 
-    Route::get('/double_deep_freights/{id}', [FreightController::class, 'double_deep_show'])->name('double_deep_freights.show');
-    Route::get('/double_deep_transports/{id}', [FreightController::class, 'double_deep_transports'])->name('double_deep_transports');
-    Route::post('/double_deep_transports_add', [FreightController::class, 'double_deep_transports_add'])->name('double_deep_transports_add');
-    Route::get('/double_deep_travel_assignments/{id}', [FreightController::class, 'double_deep_travel_assignments'])->name('double_deep_travel_assignments');
-    Route::get('/double_deep_quotation_travel_assignments/{id}', [FreightController::class, 'double_deep_quotation_travel_assignments'])->name('double_deep_quotation_travel_assignments');
-    Route::get('/double_deep_installs/{id}', [FreightController::class, 'double_deep_installs'])->name('double_deep_installs');
-    Route::post('/double_deep_travel_assignments_add', [FreightController::class, 'double_deep_travel_assignments_add'])->name('double_deep_travel_assignments_add');
-    Route::post('/double_deep_fiut_add', [FreightController::class, 'double_deep_fiut_add'])->name('double_deep_fiut_add');
-
+    
     Route::get('/singlepieces/{id}', [SinglePieceController::class, 'show'])->name('singlepieces.show');
     Route::post('/singlepieces/calc', [SinglePieceController::class, 'calc'])->name('singlepieces.calc');
 
@@ -377,14 +264,6 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     Route::get('shopping_cart/add_selectivo_vigas_tipo_Chair/{id}', [TypeChairJoistController::class, 'add_carrito'])->name('typechairjoists.add_carrito');
     Route::get('shopping_cart/add_selectivo_vigas_tipo_Chair/calibre14/{id}', [TypeChairJoistController::class, 'add_carrito14'])->name('typechairjoists_caliber14.add_carrito');
 
-    // Route::get('shopping_cart/selectivo_freights/{id}', [FreightController::class, 'selectivo_show'])->name('selectivo_freights.show');
-    // Route::get('shopping_cart/selectivo_transports/{id}', [FreightController::class, 'selectivo_transports'])->name('selectivo_transports');
-    // Route::post('shopping_cart/selectivo_transports_add', [FreightController::class, 'selectivo_transports_add'])->name('selectivo_transports_add');
-    // Route::get('shopping_cart/selectivo_travel_assignments/{id}', [FreightController::class, 'selectivo_travel_assignments'])->name('selectivo_travel_assignments');
-    // Route::get('shopping_cart/selectivo_quotation_travel_assignments/{id}', [FreightController::class, 'selectivo_quotation_travel_assignments'])->name('selectivo_quotation_travel_assignments');
-    // Route::get('shopping_cart/selectivo_installs/{id}', [FreightController::class, 'selectivo_installs'])->name('selectivo_installs');
-    // Route::post('shopping_cart/selectivo_travel_assignments_add', [FreightController::class, 'selectivo_travel_assignments_add'])->name('selectivo_travel_assignments_add');
-    // Route::post('shopping_cart/selectivo_fiut_add', [FreightController::class, 'selectivo_fiut_add'])->name('selectivo_fiut_add');
     
     Route::get('shopping_cart/selectivo_two_in_joist_l_galvanized_panels/{id}', [PanelController::class, 'selectivo_two_in_joist_l_galvanized_panels_add'])->name('selectivo_two_in_joist_l_galvanized_panels_add');
     Route::get('shopping_cart/selectivo_two_in_joist_l_painted_panels/{id}', [PanelController::class, 'selectivo_two_in_joist_l_painted_panels_add'])->name('selectivo_two_in_joist_l_painted_panels_add');
