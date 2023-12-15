@@ -120,7 +120,7 @@ costo_flete=precios.loc[precios['tabla'].isin(fletes_tables)].sum(axis=1,numeric
 costo_instalacion=precios.loc[(precios['tabla'].isin(instalacion_tables))&(precios['print']=='Sí')].sum(axis=1,numeric_only=True).sum()
 costo_instalacion_incluida=precios.loc[(precios['tabla'].isin(instalacion_tables))&(precios['print']=='In')].sum(axis=1,numeric_only=True).sum()
 
-text=str(questionario['ndib'].values[0])
+text=str(questionario['ndib'].values[0])+','
 dibujos=[]
 while(',' in text):
     print('entra iteracion')
