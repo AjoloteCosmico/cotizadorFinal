@@ -17,12 +17,12 @@
                         <h3 class="text-center font-bold h-5">CUESTIONARIO PARA CERRAR</h3>
                     </div>
                     <div class="card-body text-sm">
-                    <p class="card-text mb-3">CANTIDAD DE DIBUJOS </p>
+                    <p class="card-text mb-3">CANTIDAD DE DIBUJOS (separe por comas) </p>
                         <div class="row">
                             <div class="col-xs-12 col-sm-3">&nbsp;</div>
                             <div class="col-xs-12 col-sm-9">
                                 <div class="form-group">
-                                    <textarea name="ndib" rows="1" class="inputjet text-sm w-flex uppercase">  {{old('ndib') }} </textarea>
+                                    <textarea name="ndib" rows="5" class="inputjet text-sm w-flex uppercase">  {{old('ndib') }} </textarea>
                                     <x-jet-input-error for='ndib' />
                                 </div>
                             </div>

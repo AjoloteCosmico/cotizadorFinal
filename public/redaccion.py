@@ -151,7 +151,9 @@ context={
     'a27': questionario['a27'].values[0], #explosivo
     'a28': questionario['a28'].values[0], #corrosivo
 #Reactivos extra
-    'ndib':  questionario['ndib'].values[0], #numero de dibujos
+    'ndib':  str(questionario['ndib'].values[0]).replace(',',"""
+"""), #numero de dibujos
+'primer_dibujo':str(questionario['ndib'].values[0])[0:str(questionario['ndib'].values[0]).index(',')] ,
     'npos':  questionario['npos'].values[0], #numero de posiciones
     'vigas':  questionario['vigas'].values[0], #vigas
     'tiempo':  questionario['tiempo'].values[0], #tiempo de entrega
