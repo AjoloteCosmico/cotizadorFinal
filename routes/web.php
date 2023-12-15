@@ -93,7 +93,7 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     Route::post('product_menu', [DashboardController::class, 'product_menu'])->name('product_menu');
 
     Route::get('/selectivo', [SelectivoController::class, 'index'])->name('selectivo.index');
-    Route::get('/selectivo/{id}', [SelectivoController::class, 'show'])->name('selectivo.show');
+    Route::get('/system_menu/{id}/{double?}', [SelectivoController::class, 'show'])->name('selectivo.show');
 
     Route::get('/selectivo_marcos/{id}', [MenuFrameController::class, 'show'])->name('menuframes.show');
     Route::get('/selectivo_vigas/{id}', [MenuJoistController::class, 'show'])->name('menujoists.show');

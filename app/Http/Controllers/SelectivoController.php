@@ -7,14 +7,21 @@ use Illuminate\Http\Request;
 
 class SelectivoController extends Controller
 {
-    public function show($id)
+    public function show($id,$double=0)
     {
+        if($double==0){
+            $System="SELECTIVO";
+        }else{
+
+            $System="DOBLE PROFUNDIDAD";
+        }
         $Quotation_Id = $id;
         $Quotations = Quotation::find($id);
-        $Quotations->type = "SELECTIVO";
+        
+        $Quotations->type = $System;
         $Quotations->save();
 
-        return view('quotes.selectivo.index', compact('Quotation_Id'));
+        return view('quotes.selectivo.index', compact('Quotation_Id','System'));
     }
 
     public function index()
