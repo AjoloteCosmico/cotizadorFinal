@@ -129,7 +129,10 @@ while(',' in text):
     dibujos.append(text[0:myindex])
     text=text[myindex+1:]
 
-
+if(len(dibujos)>0):
+    primer_dibujo=dibujos[0]
+else:
+    primer_dibujo=' '
 context={
     'cliente':cliente['customer'].values[0],
     'direccion':cliente['address'].values[0]+' '+cliente['outdoor'].values[0]+', '+cliente['city'].values[0]+' '+cliente['suburb'].values[0]+' '+cliente['state'].values[0]+', cp: '+str(cliente['zip_code'].values[0]),
@@ -164,7 +167,7 @@ context={
 #     'ndib':  str(questionario['ndib'].values[0]).replace(',',"""
 # """), #numero de dibujos
 'ndib':  str(questionario['ndib'].values[0]).replace(',','O'),
-'primer_dibujo':str(questionario['ndib'].values[0])[0:str(questionario['ndib'].values[0]).index(',')] ,
+'primer_dibujo':primer_dibujo ,
     'npos':  questionario['npos'].values[0], #numero de posiciones
     'vigas':  questionario['vigas'].values[0], #vigas
     'tiempo':  questionario['tiempo'].values[0], #tiempo de entrega
