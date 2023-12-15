@@ -6,7 +6,7 @@ use App\Models\Grill;
 use App\Models\Joist;
 use App\Models\PriceListAuxiliar;
 use Illuminate\Http\Request;
-
+use App\Models\Quotation;
 class GrillController extends Controller
 {
     public function selectivo_grills_index($id)
