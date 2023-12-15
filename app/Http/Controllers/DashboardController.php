@@ -373,6 +373,8 @@ class DashboardController extends Controller
             $Questionary->a25 = $request->a25;
             $Questionary->a26 = $request->a26;
             $Questionary->a27 = $request->a27;
+            
+            $Questionary->a28 = $request->a28;
             $Questionary->save();
             return redirect()->route('quotations',$Quotation->id);
             
