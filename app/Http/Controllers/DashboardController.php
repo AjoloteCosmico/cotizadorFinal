@@ -339,7 +339,7 @@ class DashboardController extends Controller
         public function closing_questionary($id){
             $Quotation = Quotation::find($id);
             $Questionary = Questionary::where('quotation_id',$Quotation->id)->first();
-            if($Questionary->count()==0){
+            if(!$Questionary){
                 
                 $Questionary=new Questionary();
                 $Questionary->quotation_id=$Quotation->id;
