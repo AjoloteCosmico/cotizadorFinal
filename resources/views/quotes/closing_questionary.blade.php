@@ -85,7 +85,7 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <x-jet-label value="TIENE UN ALTO DE:" />
-                                                    <x-jet-input type="text" name="a20" value="{{$Questionary->a20}}"class="w-flex uppercase"/>
+                                                    <x-jet-input type="text" name="a20" value="{{$Questionary->a20}}" class="w-flex uppercase"/>
                                                     <x-jet-input-error for='a20' />
                                                 </div>
                                                 <div class="card-title bg-gray-300 m-2 p-2">
