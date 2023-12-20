@@ -37,6 +37,11 @@
                                 </div>
                             </div>
                         </div>
+                        <p class="card-text mb-3">SECCION:</p>
+                        <div class="form-group">
+                                            <x-jet-input type="text" name="section" value="{{old('section')}}" class="w-flex uppercase"/>
+                                            <x-jet-input-error for='section' />
+                                        </div>
                         <p class="card-text mb-3">ESTE PRODUCTO TIENE LAS DIMENSIONES :  (NIVEL)</p>
                         <div class="row">
                             <div class="col">

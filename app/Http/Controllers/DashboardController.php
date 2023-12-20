@@ -361,6 +361,9 @@ class DashboardController extends Controller
             $Questionary->ndib = $request->ndib;
             $Questionary->vigas = $request->vigas;
             $Questionary->tiempo = $request->tiempo;
+            
+            // $Questionary->color = $request->color;
+            $Questionary->section = $request->section;
             $Questionary->a8 = $request->a8;
             $Questionary->a9 = $request->a9;
             $Questionary->a10 = $request->a10;

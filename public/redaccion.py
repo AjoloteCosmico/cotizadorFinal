@@ -102,14 +102,28 @@ instalacion_tables=['quotation_installs','quotation_uninstalls']
 productos=[]
 print(products.columns)
 for i in range(len(products)):
+    this_color=' '
+    seccion=np.nan
+    altura=0
+    ancho=0
     if(products['tabla'].values[i] not in instalacion_tables):
+        if(products['tabla'].values[i]=='selective_heavy_load_frames'):
+            this_color='Azul'
+            seccion=questionario['section'].values[0]
+        if('joist' in products['tabla'].values[i]):
+            this_color='Anaranjado'
+        
         productos.append({'nombre':redact[products['tabla'].values[i]],
                         'precio':products[price_cols].sum(axis=1).values[i],
                         'cantidad':products['amount'].values[i],
+                        'color': this_color,
                         'largo': products[largo_cols].sum(axis=1).values[i],
+                        
+                        'altura': products[largo_cols].sum(axis=1).values[i],
                         'ancho': products[ancho_cols].sum(axis=1).values[i],
                         'depth': products['depth'].values[i],
-                        'model': products['model'].values[i]})
+                        'model': products['model'].values[i],
+                        'seccion':seccion})
                                   
 precio_total=products[price_cols].sum(axis=1).sum()
 kilos_totales=products[cols_kg].sum(axis=1).sum()
@@ -172,6 +186,6 @@ context={
     'vigas':  questionario['vigas'].values[0], #vigas
     'tiempo':  questionario['tiempo'].values[0], #tiempo de entrega
     'dibujos': dibujos,
-    } 
+    }
 doc.render(context) 
 doc.save("storage/Cotizacion"+str(id)+".docx")
