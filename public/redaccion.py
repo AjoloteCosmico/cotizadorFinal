@@ -103,7 +103,7 @@ productos=[]
 print(products.columns)
 for i in range(len(products)):
     this_color=' '
-    seccion=np.nan
+    seccion=None
     altura=0
     ancho=0
     if(products['tabla'].values[i] not in instalacion_tables):
