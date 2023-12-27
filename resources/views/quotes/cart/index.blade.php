@@ -60,7 +60,12 @@
             <a href="{{route('shopping_cart.vaciar')}}">
                 <button type="button" class="btn btn-danger btn-block">Vaciar Carrito</button>
             </a>
-            <br> <br>
+            <br>
+            @if($QuotationId != 0)
+            <a href="{{route('selectivo.show',$QuotationId)}}">
+                <button type="button" class="btn btn-primary btn-block">Continuar Cotizacion</button>
+            </a>
+            @endif() <br>
             @if($QuotationId != 0)
             <a href="{{route('closing_questionary',$QuotationId)}}">
                 <button type="button" class="btn btn-success btn-block">Cerrar Cotizacion</button>

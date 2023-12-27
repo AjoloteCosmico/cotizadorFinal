@@ -139,7 +139,7 @@ class CrossbarController extends Controller
         $Cart_product->name='CROSSBAR';
         $Cart_product->type='SCB';
         $Cart_product->unit_price=$SJL2->total_price;
-        $Cart_product->total_price=$SJL2->total_price;
+        $Cart_product->total_price=$SJL2->total_price/$SJL2->amount;
         $Cart_product->quotation_id=$Quotation_Id;
         $Cart_product->user_id=Auth::user()->id;
         $Cart_product->amount=$SJL2->amount;

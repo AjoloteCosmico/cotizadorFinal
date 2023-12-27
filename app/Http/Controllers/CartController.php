@@ -92,12 +92,12 @@ public function add_selectivo_carga_pesada($id){
     $Cart_product= new Cart_product();
     $Cart_product->name='MARCO SELECTIVO CARGA PESADA '.$SHLF->model;
     $Cart_product->type='SHLF';
-    $Cart_product->unit_price=$SHLF->total_price;
+    $Cart_product->unit_price=$SHLF->total_price / $SHLF->amount ;
     $Cart_product->total_price=$SHLF->total_price;
     $Cart_product->sku=$SHLF->sku;
     $Cart_product->quotation_id=$Quotation_Id;
     $Cart_product->user_id=Auth::user()->id;
-    $Cart_product->amount=1;
+    $Cart_product->amount=$SHLF->amount;
     $Cart_product->save();
     
     return redirect()->route('menuframes.show',$Quotation_Id);
@@ -117,11 +117,10 @@ public function add_selectivo_marcos_estructurales($id){
     $Cart_product= new Cart_product();
     $Cart_product->name='MARCO SELECTIVO ESTRUCTURAL  '.$SF->model;
     $Cart_product->type='SF';
-    $Cart_product->unit_price=$SF->total_price;
-    $Cart_product->total_price=$SF->total_price;
+    $Cart_product->unit_price=$SF->total_price/$SF->amount;
     $Cart_product->quotation_id=$Quotation_Id;
     $Cart_product->user_id=Auth::user()->id;
-    $Cart_product->amount=1;
+    $Cart_product->amount=$SF->amount;
     $Cart_product->save();
     
     return redirect()->route('menuframes.show',$Quotation_Id);
