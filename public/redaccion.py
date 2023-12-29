@@ -43,6 +43,7 @@ year = date.strftime("%Y")
 
 from tablas_dict import tablas
 from tablas_dict import redact
+from tablas_dict import extras
 aceros=pd.read_sql('select * from steels ',cnx)
 aceros.loc[aceros['caliber']=='EST 3 IN','caliber']='EST3'
 
@@ -104,6 +105,7 @@ print(products.columns)
 for i in range(len(products)):
     this_color=' '
     seccion=None
+    carga=None
     altura=0
     ancho=0
     if(products['tabla'].values[i] not in instalacion_tables):
@@ -112,13 +114,14 @@ for i in range(len(products)):
             seccion=questionario['section'].values[0]
         if('joist' in products['tabla'].values[i]):
             this_color='Anaranjado'
-        
+            carga='{0:.2f}'.format(products['weight_kg'].values[i])
         productos.append({'nombre':redact[products['tabla'].values[i]],
+                          'extra':extras[products['tabla'].values[i]],
                         'precio':products[price_cols].sum(axis=1).values[i],
                         'cantidad':products['amount'].values[i],
                         'color': this_color,
                         'largo': products[largo_cols].sum(axis=1).values[i],
-                        
+                        'carga': carga,
                         'altura': products[largo_cols].sum(axis=1).values[i],
                         'ancho': products[ancho_cols].sum(axis=1).values[i],
                         'depth': products['depth'].values[i],
@@ -134,6 +137,12 @@ costo_flete=precios.loc[precios['tabla'].isin(fletes_tables)].sum(axis=1,numeric
 costo_instalacion=precios.loc[(precios['tabla'].isin(instalacion_tables))&(precios['print']=='Sí')].sum(axis=1,numeric_only=True).sum()
 costo_instalacion_incluida=precios.loc[(precios['tabla'].isin(instalacion_tables))&(precios['print']=='In')].sum(axis=1,numeric_only=True).sum()
 
+if(costo_instalacion>0):
+    print('la instalacion se desglosa')
+    print(precios.loc[(precios['tabla'].isin(instalacion_tables))&(precios['print']=='Sí')])
+    des_inst=1
+else:
+    des_inst=0
 text=str(questionario['ndib'].values[0])+','
 dibujos=[]
 while(',' in text):
@@ -154,12 +163,12 @@ context={
     'fecha': today,
     'asesor': user['name'].values[0],
     'productos': productos,
-    'precio_total': precio_total,
-    'kilos_totales': kilos_totales,
-    'costo_flete':costo_flete,
-    'costo_instalacion':costo_instalacion,
-    'costo_instalacion_incluida':costo_instalacion_incluida,
-    'costo_selectivo':precio_total - costo_flete -costo_instalacion,
+    'precio_total': '{0:.2f}'.format(precio_total),
+    'kilos_totales': '{0:.2f}'.format(kilos_totales),
+    'costo_flete':'{0:.2f}'.format(costo_flete),
+    'costo_instalacion':'{0:.2f}'.format(costo_instalacion),
+    'costo_instalacion_incluida':'{0:.2f}'.format(costo_instalacion_incluida),
+    'costo_selectivo':'{0:.2f}'.format(precio_total - costo_flete -costo_instalacion),
     'estado': cliente['state'].values[0],
     'a5': questionario['a5'].values[0], #que productos e almacena
    #reativos de nivel
@@ -186,6 +195,7 @@ context={
     'vigas':  questionario['vigas'].values[0], #vigas
     'tiempo':  questionario['tiempo'].values[0], #tiempo de entrega
     'dibujos': dibujos,
+    'des_inst': des_inst
     }
 doc.render(context) 
 doc.save("storage/Cotizacion"+str(id)+".docx")
