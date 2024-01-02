@@ -97,7 +97,10 @@ quotation_shlf=pd.read_sql('select * from selective_heavy_load_frames where quot
 materials=pd.read_sql('select * from (materials left join price_list_screws on materials.price_list_screw_id= price_list_screws.id)left join price_lists on price_lists.id=materials.price_list_id',cnx)
 materials['type']=materials['type'].fillna('')
 
-doc = DocxTemplate("plantilla.docx")
+if(cotizacion['type'].values[0]=='DOBLE PROFUNDIDAD'):
+    doc= DocxTemplate("plantilla_d.docx")
+else:
+    doc = DocxTemplate("plantilla.docx")
 
 instalacion_tables=['quotation_installs','quotation_uninstalls']
 productos=[]
