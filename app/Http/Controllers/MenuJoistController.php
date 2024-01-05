@@ -11,4 +11,9 @@ class MenuJoistController extends Controller
         $Quotation_Id = $id;
         return view('quotes.selectivo.joists.index', compact('Quotation_Id'));
     }
+    public function drive_show($id)
+    {
+        $Quotation_Id = $id;
+        return view('quotes.drivein.joists.index', compact('Quotation_Id'));
+    }
 }

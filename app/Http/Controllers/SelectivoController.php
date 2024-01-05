@@ -7,14 +7,11 @@ use Illuminate\Http\Request;
 
 class SelectivoController extends Controller
 {
-    public function show($id,$double=0)
+    public function show($id,$type='SELECTIVO')
     {
-        if($double==0){
-            $System="SELECTIVO";
-        }else{
-
-            $System="DOBLE PROFUNDIDAD";
-        }
+        
+        $System=$type;
+        
         $Quotation_Id = $id;
         $Quotations = Quotation::find($id);
         

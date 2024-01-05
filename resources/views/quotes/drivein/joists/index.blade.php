@@ -7,50 +7,134 @@
 @stop
 
 @section('content')
-    <div class="container w-full bg-white p-3 rounded-xl shadow-xl">
+    <div class="container bg-white p-3 rounded-xl shadow-xl">
         <div class="row m-3">
-            <div class="row">
-                <div class="col-sm-6 col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Piezas</h5>
-                            <p class="card-text">Cotizador x Piezas</p>
-                            <a href="{{ route('singlepieces.show', $Quotation_Id)}}" class="btn btn-primary">
-                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
-                                    <path fill-rule="evenodd"
-                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"></path>
-                                </svg>&nbsp;
-                                Entrar
-                            </a>
-                        </div>
+            <div class="row mb-3">
+                <nav class="navbar bg-light rounded-full">
+                    <div class="container-fluid items-center">
+                        <span class="navbar-brand mb-0 h3 font-bold">Drive In / Vigas</span>
                     </div>
-                </div>
-                <div class="col-sm-6 col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Selectivo</h5>
-                            <p class="card-text">Cotizador Selectivo</p>
-                            <a href="{{ route('selectivo.show', $Quotation_Id) }}" class="btn btn-primary">
-                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
-                                    <path fill-rule="evenodd"
-                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"></path>
-                                </svg>&nbsp;
-                                Entrar
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                </nav>
             </div>
-            <div class="w-100">&nbsp;</div>
             <div class="row">
+                <!-- <div class="col-sm-6 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tipo L 2.0 Calibre 14</h5>
+                            <p class="card-text">Cotizador de Vigas</p>
+                            <a href="{{ route('typel2joists_caliber14.show', $Quotation_Id) }}" class="btn btn-primary">
+                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                                    <path fill-rule="evenodd"
+                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>&nbsp;
+                                Entrar
+                            </a>
+                        </div>
+                    </div>
+                </div> -->
                 <div class="col-sm-6 col-xs-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Pasarela</h5>
-                            <p class="card-text">Cotizador Pasarela</p>
-                            <a href="#" class="btn btn-primary">
+                            <h5 class="card-title">Tipo L 2.0 Calibres: 12 </h5>
+                            <p class="card-text">Cotizador de Vigas</p>
+                            <a href="{{ route('typel2joists.drive_show', $Quotation_Id) }}" class="btn btn-primary">
+                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                                    <path fill-rule="evenodd"
+                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>&nbsp;
+                                Entrar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-sm-6 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tipo L 2.5 Calibre 14</h5>
+                            <p class="card-text">Cotizador de Vigas</p>
+                            <a href="{{ route('typel25joists_caliber14.show', $Quotation_Id) }}" class="btn btn-primary">
+                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                                    <path fill-rule="evenodd"
+                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>&nbsp;
+                                Entrar
+                            </a>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-sm-6 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tipo L 2.5 Calibre 12 </h5>
+                            <p class="card-text">Cotizador de Vigas</p>
+                            <a href="{{ route('typel25joists.drive_show', $Quotation_Id) }}" class="btn btn-primary">
+                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                                    <path fill-rule="evenodd"
+                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>&nbsp;
+                                Entrar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-sm-6 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tipo Caja 2.0 Calibre 14</h5>
+                            <p class="card-text">Cotizador de Vigas</p>
+                            <a href="{{ route('typebox2joists_caliber14.show', $Quotation_Id) }}" class="btn btn-primary">
+                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                                    <path fill-rule="evenodd"
+                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>&nbsp;
+                                Entrar
+                            </a>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-sm-6 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tipo Caja 2.0 Calibre 12</h5>
+                            <p class="card-text">Cotizador de Vigas</p>
+                            <a href="{{ route('typebox2joists.drive_show', $Quotation_Id) }}" class="btn btn-primary">
+                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                                    <path fill-rule="evenodd"
+                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>&nbsp;
+                                Entrar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-sm-6 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tipo Caja 2.5 Calibre 14</h5>
+                            <p class="card-text">Cotizador de Vigas</p>
+                            <a href="{{ route('typebox25joists_caliber14.show', $Quotation_Id) }}" class="btn btn-primary">
+                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                                    <path fill-rule="evenodd"
+                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>&nbsp;
+                                Entrar
+                            </a>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-sm-6 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tipo Caja 2.5 Calibre 12 </h5>
+                            <p class="card-text">Cotizador de Vigas</p>
+                            <a href="{{ route('typebox25joists.drive_show', $Quotation_Id) }}" class="btn btn-primary">
                                 <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
                                     <path fill-rule="evenodd"
                                         d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
@@ -64,9 +148,9 @@
                 <div class="col-sm-6 col-xs-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Doble Profundidad</h5>
-                            <p class="card-text">Cotizador Doble Profundidad</p>
-                            <a href="{{ route('selectivo.show', [$Quotation_Id,'DOBLE PROFUNDIDAD']) }}" class="btn btn-primary">
+                            <h5 class="card-title">Tipo Estructural</h5>
+                            <p class="card-text">Cotizador de Vigas</p>
+                            <a href="{{ route('typestructuraljoists.drive_show', $Quotation_Id) }}" class="btn btn-primary">
                                 <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
                                     <path fill-rule="evenodd"
                                         d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
@@ -77,147 +161,70 @@
                         </div>
                     </div>
                 </div>
+                <!-- <div class="col-sm-6 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tipo C2</h5>
+                            <p class="card-text">Cotizador de Vigas</p>
+                            <a href="{{ route('typec2joists.show', $Quotation_Id) }}" class="btn btn-primary">
+                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                                    <path fill-rule="evenodd"
+                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>&nbsp;
+                                Entrar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tipo LR</h5>
+                            <p class="card-text">Cotizador de Vigas</p>
+                            <a href="{{ route('typelrjoists.show', $Quotation_Id) }}" class="btn btn-primary">
+                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                                    <path fill-rule="evenodd"
+                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>&nbsp;
+                                Entrar
+                            </a>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- <div class="col-sm-6 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tipo Silla</h5>
+                            <p class="card-text">Cotizador de Vigas</p>
+                            <a href="{{ route('typechairjoists.show', $Quotation_Id) }}" class="btn btn-primary">
+                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                                    <path fill-rule="evenodd"
+                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>&nbsp;
+                                Entrar
+                            </a>
+                        </div>
+                    </div>
+                </div> -->
             </div>
-            <div class="w-100">&nbsp;</div>
-            <div class="row">
-                <div class="col-sm-6 col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Drive In / Thru</h5>
-                            <p class="card-text">Cotizador Drive In / Thru</p>
-                            <a href="{{ route('drivein.show', $Quotation_Id) }}"  class="btn btn-primary">
-                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
-                                    <path fill-rule="evenodd"
-                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"></path>
-                                </svg>&nbsp;
-                                Entrar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Estantería</h5>
-                            <p class="card-text">Cotizador Estantería</p>
-                            <a href="#" class="btn btn-primary">
-                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
-                                    <path fill-rule="evenodd"
-                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"></path>
-                                </svg>&nbsp;
-                                Entrar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="w-100">&nbsp;</div>
-            <div class="row">
-                <div class="col-sm-6 col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Cantilever</h5>
-                            <p class="card-text">Cotizador Cantilever</p>
-                            <a href="#" class="btn btn-gray">
-                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
-                                    <path fill-rule="evenodd"
-                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"></path>
-                                </svg>&nbsp;
-                                Entrar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Mini Rack</h5>
-                            <p class="card-text">Cotizador Mini Rack</p>
-                            <a href="#" class="btn btn-gray">
-                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
-                                    <path fill-rule="evenodd"
-                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"></path>
-                                </svg>&nbsp;
-                                Entrar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="w-100">&nbsp;</div>
-            <div class="row">
-                <div class="col-sm-6 col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Push Back</h5>
-                            <p class="card-text">Cotizador Push Back</p>
-                            <a href="#" class="btn btn-gray">
-                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
-                                    <path fill-rule="evenodd"
-                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"></path>
-                                </svg>&nbsp;
-                                Entrar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Dinámico</h5>
-                            <p class="card-text">Cotizador Dinámico</p>
-                            <a href="#" class="btn btn-gray">
-                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
-                                    <path fill-rule="evenodd"
-                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"></path>
-                                </svg>&nbsp;
-                                Entrar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="w-100">&nbsp;</div>
-            <div class="row">
-                <div class="col-sm-6 col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Carton Flow</h5>
-                            <p class="card-text">Cotizador Carton Flow</p>
-                            <a href="#" class="btn btn-gray">
-                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
-                                    <path fill-rule="evenodd"
-                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"></path>
-                                </svg>&nbsp;
-                                Entrar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Entrepiso</h5>
-                            <p class="card-text">Cotizador Entrepiso</p>
-                            <a href="#" class="btn btn-gray">
-                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
-                                    <path fill-rule="evenodd"
-                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"></path>
-                                </svg>&nbsp;
-                                Entrar
-                            </a>
-                        </div>
-                    </div>
-                </div>
+        </div>
+        <div class="row text-end">
+            <div class="container">
+                {!! Form::open(['method'=>'GET','route'=>['drivein.show', $Quotation_Id]]) !!}
+                <button type="submit" class="btn btn-black mb-2">
+                    <i class="fa-solid fa-rotate-left fa-xl"></i>&nbsp; Menú
+                </button>
+                {!! Form::close() !!}
             </div>
         </div>
     </div>
+@stop
+
+@section('js')
+    @if (session('no_existe') == 'ok')
+        <script type="text/javascript" src="{{ asset('vendor/mystylesjs/js/no_existe.js') }}"></script>
+    @endif
 @stop

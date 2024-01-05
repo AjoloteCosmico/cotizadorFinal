@@ -27,6 +27,8 @@ use App\Http\Controllers\FreightController;
 use App\Http\Controllers\GrillController;
 use App\Http\Controllers\MenuFrameController;
 use App\Http\Controllers\MenuJoistController;
+
+use App\Http\Controllers\DriveInController;
 // use App\Http\Controllers\MiniatureFrameController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\QuestionaryChartController;
@@ -93,7 +95,7 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     Route::post('product_menu', [DashboardController::class, 'product_menu'])->name('product_menu');
 
     Route::get('/selectivo', [SelectivoController::class, 'index'])->name('selectivo.index');
-    Route::get('/system_menu/{id}/{double?}', [SelectivoController::class, 'show'])->name('selectivo.show');
+    Route::get('/system_menu/{id}/{type?}', [SelectivoController::class, 'show'])->name('selectivo.show');
 
     Route::get('/cot_marcos/{id}', [MenuFrameController::class, 'show'])->name('menuframes.show');
     Route::get('/cot_vigas/{id}', [MenuJoistController::class, 'show'])->name('menujoists.show');
@@ -218,8 +220,44 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     
     Route::get('quotation_uninstalls_double_deep_show/{id}', [QuotationUninstallController::class, 'double_deep_show'])->name('quotation_uninstalls_double_deep_show');
     Route::post('quotation_uninstalls_double_deep_store', [QuotationUninstallController::class, 'double_deep_store'])->name('quotation_uninstalls_double_deep_store');
-
+    Route::get('/selectivo_minimarcos/{id}', [MiniatureFrameController::class, 'show'])->name('miniatureframe.show');
+    Route::post('/selectivo_minimarcos', [MiniatureFrameController::class, 'store'])->name('miniatureframe.store');
     
+    #________________Drive in
+    #Menu
+    Route::get('/drivein', [DriveInController::class, 'index'])->name('drivein.index');
+    Route::get('/drivein/{id}', [DriveInController::class, 'show'])->name('drivein.show');
+    #Menu de marcos
+    Route::get('/drivein/frames/{id}', [MenuFrameController::class, 'drive_show'])->name('menuframes.drive_show');
+    #Menu de vigas
+    Route::get('/drives/joist/{id}', [MenuJoistController::class, 'drive_show'])->name('menujoists.drive_show');
+    #MArcos
+    Route::get('/drivein_carga_pesada/{id}', [FramesController::class, 'drive_show'])->name('frames.drive_show');
+    Route::post('/drivein_carga_pesada', [FramesController::class, 'drive_store'])->name('frames.drive_store');
+
+    Route::get('/drivein_marcos_estructurales/{id}', [StructuralFrameworksController::class, 'drive_show'])->name('structuralframeworks.drive_show');
+    Route::post('/drive_marcos_estructurales', [StructuralFrameworksController::class, 'drive_store'])->name('structuralframeworks.drive_store');
+    #vigas
+    Route::get('/drivein_vigas_tipo_L_2/{id}', [TypeL2JoistController::class, 'drive_show'])->name('typel2joists.drive_show');
+    Route::post('/drivein_vigas_tipo_L_2/', [TypeL2JoistController::class, 'drive_store'])->name('typel2joists.drive_store');
+
+    Route::get('/drivein_vigas_tipo_L_2_5/{id}', [TypeL25JoistController::class, 'drive_show'])->name('typel25joists.drive_show');
+    Route::post('/drivein_vigas_tipo_L_2_5/', [TypeL25JoistController::class, 'drive_store'])->name('typel25joists.drive_store');
+    
+
+    Route::get('/drivein_vigas_tipo_Box_2/{id}', [TypeBox2JoistController::class, 'drive_show'])->name('typebox2joists.drive_show');
+    Route::post('/drivein_vigas_tipo_Box_2/', [TypeBox2JoistController::class, 'drive_store'])->name('typebox2joists.drive_store');
+    
+    Route::get('/drivein_vigas_tipo_Box_25/{id}', [TypeBox25JoistController::class, 'drive_show'])->name('typebox25joists.drive_show');
+    Route::post('/drivein_vigas_tipo_Box_25/', [TypeBox25JoistController::class, 'drive_store'])->name('typebox25joists.drive_store');
+    
+
+    Route::get('/drivein_vigas_tipo_Structural/{id}', [TypeStructuralJoistController::class, 'drive_show'])->name('typestructuraljoists.drive_show');
+    Route::post('/drivein_vigas_tipo_Structural/', [TypeStructuralJoistController::class, 'drive_store'])->name('typestructuraljoists.drive_store');
+    
+    #________________END Drive IN
+
+
     Route::get('/singlepieces/{id}', [SinglePieceController::class, 'show'])->name('singlepieces.show');
     Route::post('/singlepieces/calc', [SinglePieceController::class, 'calc'])->name('singlepieces.calc');
 

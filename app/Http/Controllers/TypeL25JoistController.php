@@ -244,6 +244,116 @@ class TypeL25JoistController extends Controller
         ));
     }
 
+    public function drive_store(Request $request)
+    {
+        $rules = [
+            'amount' => 'required',
+            'caliber' => 'required',
+            'length' => 'required',
+            'camber' => 'required',
+            'skate' => 'required',
+            'weight' => 'required',
+            'joist_type' => 'required',
+        ];
+        $messages = [
+            'amount.required' => 'Capture una cantidad válida',
+            'caliber.required' => 'Seleccione el Calibre de la Viga',
+            'lenght.required' => 'Seleccione el Largo',
+            'camber.required' => 'Seleccione el Peralte',
+            'skate.required' => 'Capture el Patín',
+            'weight.required' => 'Capture la Capacidad de carga',            
+            'joist_type.required' => 'Seleccione el tipo de Viga',
+        ];
+        $request->validate($rules, $messages);
+
+        $Quotation_Id = $request->Quotation_Id;
+        $Amount = $request->amount;
+        $Caliber = $request->caliber;
+        $Length = $request->length;
+        $Camber = $request->camber;
+        $Skate = $request->skate;
+        $Weight = $request->weight;
+        $JoistType = $request->joist_type;
+        $Increment = $Weight * 0.07;
+        $WeightIncrement = $Weight + $Increment;
+        
+        $TypeLJoists = TypeL25Joist::where('caliber',$Caliber)->where('camber', $Camber)->where('length', $Length)->first();
+        $Import = $Amount * $TypeLJoists->price;
+
+        $SJL25 = SelectiveJoistL25::where('quotation_id', $Quotation_Id)->first();
+        if($SJL25){
+            $SJL25->amount = $Amount;
+            $SJL25->caliber = $Caliber;
+            $SJL25->skate = $Skate;
+            $SJL25->loading_capacity = $Weight;
+            $SJL25->type_joist = $JoistType;
+            $SJL25->length_meters = $Length;
+            $SJL25->camber = $TypeLJoists->camber;
+            $SJL25->weight_kg = $TypeLJoists->weight;
+            $SJL25->m2 = $TypeLJoists->m2;
+            $SJL25->length = $TypeLJoists->length;
+            $SJL25->sku = $TypeLJoists->sku;
+            $SJL25->unit_price = $TypeLJoists->price;
+            $SJL25->total_price = $Import;
+            $SJL25->save();
+        }else{
+            $SJL25 = new SelectiveJoistL25();
+            $SJL25->quotation_id = $Quotation_Id;
+            $SJL25->amount = $Amount;
+            $SJL25->caliber = $Caliber;
+            $SJL25->skate = $Skate;
+            $SJL25->loading_capacity = $Weight;
+            $SJL25->type_joist = $JoistType;
+            $SJL25->length_meters = $Length;
+            $SJL25->camber = $TypeLJoists->camber;
+            $SJL25->weight_kg = $TypeLJoists->weight;
+            $SJL25->m2 = $TypeLJoists->m2;
+            $SJL25->length = $TypeLJoists->length;
+            $SJL25->sku = $TypeLJoists->sku;
+            $SJL25->unit_price = $TypeLJoists->price;
+            $SJL25->total_price = $Import;
+            $SJL25->save();
+        }
+
+        return view('quotes.drivein.joists.typel25joists.store', compact(
+            'Amount',
+            'Caliber',
+            'Length',
+            'Camber',
+            'Skate',
+            'Weight',
+            'JoistType',
+            'Increment',
+            'WeightIncrement',
+            'TypeLJoists',
+            'Import',
+            'Quotation_Id'
+        ));
+    }
+
+    public function drive_show($id)
+    {
+        $Quotation_Id = $id;
+        $Joists = Joist::where('joist', 'Tipo L 2.5')->first();
+        $Calibers = TypeL25JoistCaliber::where('caliber', '<>', '14')->get();
+        $Lengths = TypeL25JoistLength::all();
+        $Cambers = TypeL25JoistCamber::all();
+        $CrossbarLengths = TypeL25JoistCrossbarLength::all();
+        $LoadingCapacities = TypeL25JoistLoadingCapacity::all();
+        $TypeLJoists = TypeL25Joist::all();
+
+        return view('quotes.drivein.joists.typel25joists.index', compact(
+            'Joists',
+            'Calibers',
+            'Lengths',
+            'Cambers',
+            'CrossbarLengths',
+            'LoadingCapacities',
+            'TypeLJoists',
+            'Quotation_Id'
+        ));
+    }
+
     public function index()
     {
         //
