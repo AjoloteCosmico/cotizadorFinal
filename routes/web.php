@@ -275,7 +275,11 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     Route::get('shopping_cart/add_carga_pesada/{id}', [CartController::class, 'add_selectivo_carga_pesada'])->name('shopping_cart.add_selectivo_carga_pesada');
     Route::get('shopping_cart/add_marcos_estructurales/{id}', [CartController::class, 'add_selectivo_marcos_estructurales'])->name('shopping_cart.add_selectivo_marcos_estructurales');
     Route::get('shopping_cart/add_minimarcos/{id}', [CartController::class, 'add_selectivo_minimarcos'])->name('shopping_cart.add_selectivo_minimarcos');
-
+    
+    //agregar al carrito drive in
+    Route::get('shopping_cart/add_drive_frames/{id}', [CartController::class, 'add_drive_frames'])->name('shopping_cart.add_drive_frames');
+    Route::get('shopping_cart/add_drive_structural_frames/{id}', [CartController::class, 'add_drive_sframes'])->name('shopping_cart.add_drive_sframes');
+    Route::get('shopping_cart/add_drive_box2/{id}', [TypeBox2JoistController::class, 'add_carrito'])->name('shopping_cart.add_drive_box2');
     
     Route::get('shopping_cart/cot_floors/{id}', [FloorController::class, 'add_carrito'])->name('floors.add_carrito');
 

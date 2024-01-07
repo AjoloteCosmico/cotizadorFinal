@@ -61,7 +61,7 @@
                         <a href="{{route('typebox25joists.drive_show', $Quotation_Id)}}" class="btn btn-blue mb-2">
                             <i class="fa-solid fa-right-left fa-xl"></i>&nbsp; Corregir
                         </a>
-                        <a href="{{route('menujoists.drive_show', $Quotation_Id)}}" class="btn btn-black mb-2">
+                        <a href="{{route('typebox25joists.add_carrito', $Quotation_Id)}}" class="btn btn-black mb-2">
                             <i class="fa-solid fa-rotate-left fa-xl"></i>&nbsp; Guardar
                         </a>
                     </div>
