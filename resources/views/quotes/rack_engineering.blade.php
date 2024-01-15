@@ -518,7 +518,64 @@
                     <div class="card-body">
                         <p class="card-text mb-3">LISTADO DE MATERIALES:</p>
                         <div class="row">
-                            <div class="col-xs-12 col-sm-3">&nbsp;</div>
+                            <table>
+                                <thead>
+                                    <th>DESCRIPCION</th>
+                                    <th>CANTIDAD</th>
+                                    <th>DIMENSIONES</th>
+                                    <th>CALIBRE</th>
+                                    <th>ACABADO</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td> 
+                                        
+                                        </td>
+
+                                        <td>
+                                        <div class="form-group">
+                                            <x-jet-label value="DESCRIPCIÓN:" />
+                                            <x-jet-input type="text" name="a39" value="{{old('a39')}}" class="w-flex uppercase"/>
+                                            <x-jet-input-error for='a39' />
+                                        </div>
+                                        <div class="form-group">
+                                        </td>
+
+                                        <td>
+                                        <div class="form-group">
+                                            <x-jet-label value="CANTIDAD:" />
+                                            <x-jet-input type="text" name="a40" value="{{old('a40')}}" class="w-flex uppercase"/>
+                                            <x-jet-input-error for='a40' />
+                                        </div>
+                                        </td>
+
+                                        <td>
+                                        <div class="form-group">
+                                            <x-jet-label value="DIMENSIONES:" />
+                                            <x-jet-input type="text" name="a41" value="{{old('a41')}}" class="w-flex uppercase"/>
+                                            <x-jet-input-error for='a41' />
+                                        </div>
+                                        </td>
+
+                                        <td>
+                                        <div class="form-group">
+                                            <x-jet-label value="CALIBRE:" />
+                                            <x-jet-input type="text" name="a42" value="{{old('a42')}}" class="w-flex uppercase"/>
+                                            <x-jet-input-error for='a42' />
+                                        </div>
+                                        </td>
+
+                                        <td>
+                                        <div class="form-group">
+                                            <x-jet-label value="ACABADO:" />
+                                            <x-jet-input type="text" name="a43" value="{{old('a43')}}" class="w-flex uppercase"/>
+                                            <x-jet-input-error for='a43' />
+                                        </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- <div class="col-xs-12 col-sm-3">&nbsp;</div>
                             <div class="col-xs-12 col-sm-9">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-3">&nbsp;</div>
@@ -550,7 +607,7 @@
                                         </div>
                                     </div>
                                 </div>      
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

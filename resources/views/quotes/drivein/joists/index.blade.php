@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </div> -->
-                <div class="col-sm-6 col-xs-12">
+                <!-- <div class="col-sm-6 col-xs-12">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Tipo L 2.0 Calibres: 12 </h5>
@@ -48,7 +48,7 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- <div class="col-sm-6 col-xs-12">
                     <div class="card">
                         <div class="card-body">
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                 </div> -->
-                <div class="col-sm-6 col-xs-12">
+                <!-- <div class="col-sm-6 col-xs-12">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Tipo L 2.5 Calibre 12 </h5>
@@ -80,7 +80,7 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- <div class="col-sm-6 col-xs-12">
                     <div class="card">
                         <div class="card-body">
@@ -161,7 +161,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-6 col-xs-12">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Tipo C2</h5>
@@ -176,7 +176,7 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                </div><!-- 
                 <div class="col-sm-6 col-xs-12">
                     <div class="card">
                         <div class="card-body">
