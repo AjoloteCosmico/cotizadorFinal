@@ -533,7 +533,7 @@
                                         <td>
                                         <div class="form-group">
                                             
-                                            <x-jet-input type="text" name="a39" value="{{old('a39')}}" style="width:18%;" class=" uppercase"/>
+                                            <x-jet-input type="text" name="a39" value="{{old('a39')}}" style="width:30%;" class=" uppercase"/>
                                             <x-jet-input-error for='a39' />
                                         </div>
                                         <div class="form-group">
@@ -542,7 +542,7 @@
                                         <td>
                                         <div class="form-group">
                                         
-                                            <x-jet-input type="text" name="a40" value="{{old('a40')}}" style="width:18%;" class=" uppercase"/>
+                                            <x-jet-input type="text" name="a40" value="{{old('a40')}}" style="width:30%;" class=" uppercase"/>
                                             <x-jet-input-error for='a40' />
                                         </div>
                                         </td>
@@ -550,7 +550,7 @@
                                         <td>
                                         <div class="form-group">
                                             
-                                            <x-jet-input type="text" name="a41" value="{{old('a41')}}" style="width:18%;" class=" uppercase"/>
+                                            <x-jet-input type="text" name="a41" value="{{old('a41')}}" style="width:30%;" class=" uppercase"/>
                                             <x-jet-input-error for='a41' />
                                         </div>
                                         </td>
@@ -558,7 +558,7 @@
                                         <td>
                                         <div class="form-group">
                                 
-                                            <x-jet-input type="text" name="a42" value="{{old('a42')}}" style="width:18%;" class=" uppercase"/>
+                                            <x-jet-input type="text" name="a42" value="{{old('a42')}}" style="width:30%;" class=" uppercase"/>
                                             <x-jet-input-error for='a42' />
                                         </div>
                                         </td>
@@ -566,7 +566,7 @@
                                         <td>
                                         <div class="form-group">
                                             
-                                            <x-jet-input type="text" name="a43" value="{{old('a43')}}" style="width:18%;" class=" uppercase"/>
+                                            <x-jet-input type="text" name="a43" value="{{old('a43')}}" style="width:30%;" class=" uppercase"/>
                                             <x-jet-input-error for='a43' />
                                         </div>
                                         </td>
