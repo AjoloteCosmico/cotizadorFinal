@@ -528,9 +528,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td> 
                                         
-                                        </td>
 
                                         <td>
                                         <div class="form-group">
