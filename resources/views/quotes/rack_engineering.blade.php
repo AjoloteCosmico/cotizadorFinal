@@ -518,7 +518,7 @@
                     <div class="card-body">
                         <p class="card-text mb-3">LISTADO DE MATERIALES:</p>
                         <div class="row">
-                            <table>
+                            <table table-responsive text-xs>
                                 <thead>
                                     <th>DESCRIPCION</th>
                                     <th>CANTIDAD</th>
@@ -534,7 +534,7 @@
 
                                         <td>
                                         <div class="form-group">
-                                            <x-jet-label value="DESCRIPCIÓN:" />
+                                            
                                             <x-jet-input type="text" name="a39" value="{{old('a39')}}" class="w-flex uppercase"/>
                                             <x-jet-input-error for='a39' />
                                         </div>
@@ -543,7 +543,7 @@
 
                                         <td>
                                         <div class="form-group">
-                                            <x-jet-label value="CANTIDAD:" />
+                                        
                                             <x-jet-input type="text" name="a40" value="{{old('a40')}}" class="w-flex uppercase"/>
                                             <x-jet-input-error for='a40' />
                                         </div>
@@ -551,7 +551,7 @@
 
                                         <td>
                                         <div class="form-group">
-                                            <x-jet-label value="DIMENSIONES:" />
+                                            
                                             <x-jet-input type="text" name="a41" value="{{old('a41')}}" class="w-flex uppercase"/>
                                             <x-jet-input-error for='a41' />
                                         </div>
@@ -559,7 +559,7 @@
 
                                         <td>
                                         <div class="form-group">
-                                            <x-jet-label value="CALIBRE:" />
+                                
                                             <x-jet-input type="text" name="a42" value="{{old('a42')}}" class="w-flex uppercase"/>
                                             <x-jet-input-error for='a42' />
                                         </div>
@@ -567,7 +567,7 @@
 
                                         <td>
                                         <div class="form-group">
-                                            <x-jet-label value="ACABADO:" />
+                                            
                                             <x-jet-input type="text" name="a43" value="{{old('a43')}}" class="w-flex uppercase"/>
                                             <x-jet-input-error for='a43' />
                                         </div>
