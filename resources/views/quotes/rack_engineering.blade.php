@@ -533,7 +533,7 @@
                                         <td>
                                         <div class="form-group">
                                             
-                                            <x-jet-input type="text" name="a39" value="{{old('a39')}}" class="w-flex uppercase"/>
+                                            <x-jet-input type="text" name="a39" value="{{old('a39')}}" class=" uppercase"/>
                                             <x-jet-input-error for='a39' />
                                         </div>
                                         <div class="form-group">
@@ -542,7 +542,7 @@
                                         <td>
                                         <div class="form-group">
                                         
-                                            <x-jet-input type="text" name="a40" value="{{old('a40')}}" class="w-flex uppercase"/>
+                                            <x-jet-input type="text" name="a40" value="{{old('a40')}}" class=" uppercase"/>
                                             <x-jet-input-error for='a40' />
                                         </div>
                                         </td>
@@ -550,7 +550,7 @@
                                         <td>
                                         <div class="form-group">
                                             
-                                            <x-jet-input type="text" name="a41" value="{{old('a41')}}" class="w-flex uppercase"/>
+                                            <x-jet-input type="text" name="a41" value="{{old('a41')}}" class=" uppercase"/>
                                             <x-jet-input-error for='a41' />
                                         </div>
                                         </td>
@@ -558,7 +558,7 @@
                                         <td>
                                         <div class="form-group">
                                 
-                                            <x-jet-input type="text" name="a42" value="{{old('a42')}}" class="w-flex uppercase"/>
+                                            <x-jet-input type="text" name="a42" value="{{old('a42')}}" class=" uppercase"/>
                                             <x-jet-input-error for='a42' />
                                         </div>
                                         </td>
@@ -566,7 +566,7 @@
                                         <td>
                                         <div class="form-group">
                                             
-                                            <x-jet-input type="text" name="a43" value="{{old('a43')}}" class="w-flex uppercase"/>
+                                            <x-jet-input type="text" name="a43" value="{{old('a43')}}" class="uppercase"/>
                                             <x-jet-input-error for='a43' />
                                         </div>
                                         </td>
