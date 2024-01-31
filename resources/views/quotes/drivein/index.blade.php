@@ -282,7 +282,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Soporte para tarimas</h5>
                             <p class="card-text">Cotizador de soportes para tarimas de drive in.</p>
-                            <a href="{{ route('selectivo_administratives.index', $Quotation_Id) }}" class="btn btn-primary">
+                            <a href="{{ route('drive_in_soportes.index', $Quotation_Id) }}" class="btn btn-primary">
                                 <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
                                     <path fill-rule="evenodd"
                                         d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
@@ -299,7 +299,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Guias para montacargas</h5>
                             <p class="card-text">Cotizador de Guias para montacargas.</p>
-                            <a href="{{ route('selectivo_administratives.index', $Quotation_Id) }}" class="btn btn-primary">
+                            <a href="{{ route('drive_in_guias.index', $Quotation_Id) }}" class="btn btn-primary">
                                 <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
                                     <path fill-rule="evenodd"
                                         d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
@@ -316,7 +316,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Brazo para Drive In</h5>
                             <p class="card-text">Cotizador de Brazo para drive in.</p>
-                            <a href="{{ route('selectivo_administratives.index', $Quotation_Id) }}" class="btn btn-primary">
+                            <a href="{{ route('drive_in_brazos.index', $Quotation_Id) }}" class="btn btn-primary">
                                 <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
                                     <path fill-rule="evenodd"
                                         d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
@@ -333,7 +333,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Arriostrados</h5>
                             <p class="card-text">Cotizador de Arriostrados para drive in.</p>
-                            <a href="{{ route('selectivo_administratives.index', $Quotation_Id) }}" class="btn btn-primary">
+                            <a href="{{ route('drive_in_arrioslados.index', $Quotation_Id) }}" class="btn btn-primary">
                                 <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
                                     <path fill-rule="evenodd"
                                         d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"

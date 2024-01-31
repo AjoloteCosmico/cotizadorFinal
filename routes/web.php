@@ -255,6 +255,15 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     Route::get('/drivein_vigas_tipo_Structural/{id}', [TypeStructuralJoistController::class, 'drive_show'])->name('typestructuraljoists.drive_show');
     Route::post('/drivein_vigas_tipo_Structural/', [TypeStructuralJoistController::class, 'drive_store'])->name('typestructuraljoists.drive_store');
     
+    Route::get('/drive_in_soportes/{id}', [DriveInPiezasController::class, 'soportes_index'])->name('drive_in_soportes.index');
+    Route::post('/drive_in_soportes/store', [DriveInPiezasController::class, 'soportes_store'])->name('drive_in_soportes.store');
+    Route::get('/drive_in_guias/{id}', [DriveInPiezasController::class, 'guias_index'])->name('drive_in_guias.index');
+    Route::post('/drive_in_guias/store', [DriveInPiezasController::class, 'guias_store'])->name('drive_in_guias.store');
+    Route::get('/drive_in_brazos/{id}', [DriveInPiezasController::class, 'brazos_index'])->name('drive_in_brazos.index');
+    Route::post('/drive_in_brazos/store', [DriveInPiezasController::class, 'brazos_store'])->name('drive_in_brazos.store');
+    Route::get('/drive_in_arrioslados/{id}', [DriveInPiezasController::class, 'arrioslados_index'])->name('drive_in_arrioslados.index');
+    Route::post('/drive_in_arrioslados/store', [DriveInPiezasController::class, 'arrioslados_store'])->name('drive_in_arrioslados.store');
+    
     #________________END Drive IN
 
 
