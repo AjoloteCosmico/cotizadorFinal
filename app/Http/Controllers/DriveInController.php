@@ -10,7 +10,7 @@ class DriveInController extends Controller
     {
         $Quotation_Id = $id;
         $Quotations = Quotation::find($id);
-        $Quotations->type = "SELECTIVO";
+        $Quotations->type = "DRIVE IN";
         $Quotations->save();
 
         return view('quotes.drivein.index', compact('Quotation_Id'));

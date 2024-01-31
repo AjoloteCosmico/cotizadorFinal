@@ -29,6 +29,7 @@ use App\Http\Controllers\MenuFrameController;
 use App\Http\Controllers\MenuJoistController;
 
 use App\Http\Controllers\DriveInController;
+use App\Http\Controllers\DriveInPiezasController;
 // use App\Http\Controllers\MiniatureFrameController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\QuestionaryChartController;
@@ -255,7 +256,9 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     Route::get('/drivein_vigas_tipo_Structural/{id}', [TypeStructuralJoistController::class, 'drive_show'])->name('typestructuraljoists.drive_show');
     Route::post('/drivein_vigas_tipo_Structural/', [TypeStructuralJoistController::class, 'drive_store'])->name('typestructuraljoists.drive_store');
     
-    Route::get('/drive_in_soportes/{id}', [DriveInPiezasController::class, 'soportes_index'])->name('drive_in_soportes.index');
+    Route::get('/drive_in_soportes_menu/{id}', [DriveInPiezasController::class, 'soportes_menu'])->name('drive_in_soportes.menu');
+    Route::get('/drive_in_soportes/{id}/{calibre}', [DriveInPiezasController::class, 'soportes_index'])->name('drive_in_soportes.index');
+    
     Route::post('/drive_in_soportes/store', [DriveInPiezasController::class, 'soportes_store'])->name('drive_in_soportes.store');
     Route::get('/drive_in_guias/{id}', [DriveInPiezasController::class, 'guias_index'])->name('drive_in_guias.index');
     Route::post('/drive_in_guias/store', [DriveInPiezasController::class, 'guias_store'])->name('drive_in_guias.store');
