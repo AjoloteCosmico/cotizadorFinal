@@ -11,14 +11,17 @@
         <div class="row m-3">
             <div  class="row bg-white p-4 shadow-lg rounded-lg">
                 <div class="col-sm-6 col-xs-12">
-                    <h2><i class="fa-solid fa-crop-simple"></i>&nbsp;PARRILLAS</h2>
+                    <h2><i class="fa-solid fa-crop-simple"></i>&nbsp;SOPORTES PARA TARIMAS DE DRIVE IN</h2>
                     <span>Los datos de su cotización se muestran a continuación.</span>
                     <div class="card-body text-center">
                         <div class="container">
                             <img src="{{asset('vendor/img/postes/logo.png')}}" class="img-thumbnail img-fluid max-h-80 rounded mx-auto d-block" alt="">
+                              
                             <div class="row mt-2 flex-col items-center">
-                                {{-- {!! DNS1D::getBarcodeHTML($Grills->sku, "C128",2,30) !!}
-                                {{$Grills->sku}} --}}
+                                {!! DNS1D::getBarcodeHTML($Soporte->sku, "C128",2,30) !!}
+            
+                                {{$Soporte->sku}}
+                            
                             </div>
                         </div>
                     </div>
@@ -30,34 +33,31 @@
                                 <th colspan="2">Datos de Cotización</th>
                             </tr>
                             <tr class="text-right">
-                                <td>Cantidad: {{$Grills->amount}}</td>
-                                <td>Frente: {{$Grills->front}}</td>
+                                <td>sku: {{$QuotSoporte->sku}}</td>
+                                <td>cantidad: {{$QuotSoporte->amount}}</td>
                             </tr>
                             <tr class="text-right">
-                                <td>Acabado: {{$Grills->color}}</td>
-                                <td>Fondo: {{$Grills->background}}</td>
+                                <td>largo: {{$Soporte->length}}</td>
+                                <td>peso: {{$Soporte->weight}}</td>
                             </tr>
                             <tr class="text-right">
-                                {{-- <td>Costo: ${{number_format($Grills->cost, 2)}}</td> --}}
-                                <td colspan="2">Dimensiones cuadro in: {{$Grills->dimensions}}</td>
+                                <td>M2: {{$Soporte->m2}}</td>
+                                <td>calibre: {{$Soporte->caliber}} </td>
                             </tr>
-                            <tr class="text-right">
-                                <td>Capacidad de Carga: {{$Grills->loading_capacity}}</td>
-                                <td>Tipo de Viga: {{$Grills->joist_type}}</td>
+                            
+                            <tr class="font-bold text-right text-1xl">
+                                <td colspan="2">Costo x Unidad: ${{number_format($QuotSoporte->unit_price, 2)}}</td>
                             </tr>
                             <tr class="font-bold text-right text-1xl">
-                                <td colspan="2">Costo x Unidad: ${{number_format($Grills->unit_price, 2)}}</td>
-                            </tr>
-                            <tr class="font-bold text-right text-1xl">
-                                <td colspan="3">Costo Total: ${{number_format($Grills->total_price, 2)}}</td>
+                                <td colspan="3">Costo Total: ${{number_format($QuotSoporte->total_price, 2)}}</td>
                             </tr>
                         </table>
                     </div>
                     <div class="form-group p-2 gap-2 flex items-center">
-                        <a href="{{route('selectivo_grills.index', $Grills->quotation_id)}}" class="btn btn-blue mb-2">
+                        <a href="{{route('drive_in_soportes.index', [$QuotSoporte->quotation_id,$Soporte->caliber])}}" class="btn btn-blue mb-2">
                             <i class="fa-solid fa-right-left fa-xl"></i>&nbsp; Corregir
                         </a>
-                        <a href="{{route('selectivo_grills.add_carrito', $Grills->quotation_id)}}" class="btn btn-black mb-2">
+                        <a href="{{route('drive_in_soportes.add_carrito', [$QuotSoporte->quotation_id,$Soporte->caliber])}}" class="btn btn-black mb-2">
                             <i class="fa-solid fa-rotate-left fa-xl"></i>&nbsp; Guardar
                         </a>
                     </div>
