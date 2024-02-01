@@ -29,7 +29,7 @@
                         
                         <x-jet-label value="* Largo" />
                         <input type="number" step="0.01" min= "0.01" max="12.00" name="length" class="inputjet w-full text-xs uppercase" value="{{ old('cost') }}" />
-                        <x-jet-input-error for='cost' /><br>
+                        <x-jet-input-error for='length' /><br>
 
                        
                     </div>
