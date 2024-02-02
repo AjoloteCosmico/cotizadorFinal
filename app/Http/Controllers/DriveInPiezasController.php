@@ -105,12 +105,12 @@ class DriveInPiezasController extends Controller
 
         return view('quotes.drivein.guias.store',compact('QuotGuia','Guia'));
     }
-    public function guias_add_carrito($id,$caliber){
+    public function guias_add_carrito($id){
         $Quotation_Id = $id;
         $Quotation=Quotation::find($id);
         
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
-        $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','DSop'.$caliber)->first();
+        $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','Dguia')->first();
         if($cartl2){
             Cart_product::destroy($cartl2->id);
         }
@@ -118,8 +118,8 @@ class DriveInPiezasController extends Controller
         $SJL2 = quotation_drive_in_soporte::where('quotation_id', $Quotation_Id)->first();
         //guardar en el carrito
         $Cart_product= new Cart_product();
-        $Cart_product->name='SOPORTE PARA TARIMA';
-        $Cart_product->type='DSop'.$caliber;
+        $Cart_product->name='GUIA PARA MONTACARGAS';
+        $Cart_product->type='Dguia';
         $Cart_product->unit_price=$SJL2->total_price/$SJL2->amount;
         $Cart_product->total_price=$SJL2->total_price;
         $Cart_product->quotation_id=$Quotation_Id;
