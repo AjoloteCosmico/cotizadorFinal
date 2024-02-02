@@ -5,7 +5,7 @@ use App\Models\Quotation;
 use App\Models\PriceList;
 use App\Models\drive_in_soporte;
 use App\Models\quotation_drive_in_soporte;
-
+use App\Models\quotation_drive_in_arriostrado;
 use App\Models\drive_in_guia;
 use App\Models\quotation_drive_in_guia;
 use Illuminate\Http\Request;
@@ -136,8 +136,99 @@ class DriveInPiezasController extends Controller
         return view('quotes.drivein.brazos.index',compact('Quotation_Id'));
     }
     public function arriostrados_index($id){
+        $Rolados=quotation_drive_in_arriostrado::where('quotation_id','=',$id)->where('description','ROLADO C-12')->first();
+        
+        $Estructurales=quotation_drive_in_arriostrado::where('quotation_id','=',$id)->where('description','ESTRUCTURAL')->first();
+        
+        if($Rolados){
+            $n_rolados=$Rolados->amount;
+        }else{
+            $n_rolados=0;
+        }
+        
+        if($Estructurales){
+            $n_rolados=$Estructurales->amount;
+        }else{
+            $n_est=0;
+        }
         $Quotation_Id=$id;
-        return view('quotes.drivein.arriostrados.index',compact('Quotation_Id'));
+        
+        return view('quotes.drivein.arriostrados.index',compact('Quotation_Id','n_est','n_rolados'));
+    }
+    public function arriostrados_store(Request $request){
+        $rules=[ 'rolados_amount' => 'required',
+        'est_amount' => 'required'];
+        $request->validate($rules);
+        $PrecioLaminaRC=PriceList::where('description','LAMINA NEGRA RC')->where('caliber','12')->first();
+        $PrecioLaminaEst=PriceList::where('description','CANAL ESTTRUCTURAL 6.1 KG / ML')->where('caliber','EST 3 IN')->first();
+        //  dd($PrecioLamina); 
+        $Rolados=quotation_drive_in_arriostrado::where('quotation_id','=',$request->Quotation_Id)->where('description','ROLADO C-12')->first();
+        
+        $Estructurales=quotation_drive_in_arriostrado::where('quotation_id','=',$request->Quotation_Id)->where('description','ESTRUCTURAL')->first();
+        if(!$Rolados){
+            $Rolados = new  quotation_drive_in_arriostrado();
+            $Rolados->quotation_id=$request->Quotation_Id;
+            $Rolados->description='ROLADO C-12';
+            $Rolados->sku=$request->Quotation_Id;
+            $Rolados->desarrollo=0.76;
+            $Rolados->length=1.75;
+            $Rolados->caliber='12';
+            $Rolados->piezas_nec=1;
+            $Rolados->weight=21.25;
+            $Rolados->piece_weight=2.83;
+            $Rolados->m2=0.13;
+            $Rolados->sku='TC0000122057';
+        }
+        $Rolados->unit_price=$PrecioLaminaRC->cost*$PrecioLaminaRC->f_total;
+        $Rolados->total_price=$PrecioLaminaRC->cost*$PrecioLaminaRC->f_total * $request->rolados_amount;
+        $Rolados->amount=$request->rolados_amount;
+        $Rolados->save();
+        if(!$Estructurales){
+            $Estructurales = new  quotation_drive_in_arriostrado();
+            $Estructurales->quotation_id=$request->Quotation_Id;
+            $Estructurales->description='ESTRUCTURAL';
+            $Estructurales->sku=$request->Quotation_Id;
+            $Estructurales->sku=$request->Quotation_Id;
+            $Estructurales->desarrollo=0.76;
+            $Estructurales->length=1.75;
+            $Estructurales->weight=1.83;
+            $Estructurales->caliber='1/8';
+            $Estructurales->piezas_nec=1;
+            $Estructurales->piece_weight=3.20;
+            $Estructurales->m2=0.27;
+            $Estructurales->sku='TC0000122058';
+        }
+        $Estructurales->unit_price=$PrecioLaminaEst->cost*$PrecioLaminaEst->f_total;
+        $Estructurales->total_price=$PrecioLaminaEst->cost*$PrecioLaminaEst->f_total * $request->est_amount;
+        $Estructurales->amount=$request->est_amount;
+        $Estructurales->save();
+
+        return view('quotes.drivein.arriostrados.store',compact('Rolados','Estructurales'));
+    }
+    public function arriostrados_add_carrito($id){
+        $Quotation_Id = $id;
+        $Quotation=Quotation::find($id);
+        
+        //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
+        $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','Dguia')->first();
+        if($cartl2){
+            Cart_product::destroy($cartl2->id);
+        }
+        //agregar el nuevo al carrito, lo que este en 
+        $SJL2 = quotation_drive_in_soporte::where('quotation_id', $Quotation_Id)->first();
+        //guardar en el carrito
+        $Cart_product= new Cart_product();
+        $Cart_product->name='GUIA PARA MONTACARGAS';
+        $Cart_product->type='Dguia';
+        $Cart_product->unit_price=$SJL2->total_price/$SJL2->amount;
+        $Cart_product->total_price=$SJL2->total_price;
+        $Cart_product->quotation_id=$Quotation_Id;
+        $Cart_product->user_id=Auth::user()->id;
+        $Cart_product->amount=$SJL2->amount;
+        $Cart_product->sku=$SJL2->sku;
+        $Cart_product->save();
+        
+        return redirect()->route('selectivo.show',$Quotation_Id);
     }
 
 }
