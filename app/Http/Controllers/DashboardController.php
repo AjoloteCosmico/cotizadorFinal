@@ -52,7 +52,7 @@ class DashboardController extends Controller
         if($Quoters){
             $Invoice = $Quoters->invoice + 1;
         }else{
-            $Invoice = '1000';
+            $Invoice = '0001';
         }
 
         $User = auth()->user();

@@ -263,7 +263,7 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     
     Route::get('/drive_in_guias/{id}', [DriveInPiezasController::class, 'guias_index'])->name('drive_in_guias.index');
     Route::post('/drive_in_guias/store', [DriveInPiezasController::class, 'guias_store'])->name('drive_in_guias.store');
-    Route::get('/drive_in_guias_carrito/{id}/{caliber}', [DriveInPiezasController::class, 'guias_add_carrito'])->name('drive_in_guias.add_carrito');
+    Route::get('/drive_in_guias_carrito/{id}/', [DriveInPiezasController::class, 'guias_add_carrito'])->name('drive_in_guias.add_carrito');
     
     Route::get('/drive_in_brazos/{id}', [DriveInPiezasController::class, 'brazos_index'])->name('drive_in_brazos.index');
     Route::post('/drive_in_brazos/store', [DriveInPiezasController::class, 'brazos_store'])->name('drive_in_brazos.store');

@@ -5,6 +5,9 @@ use App\Models\Quotation;
 use App\Models\PriceList;
 use App\Models\drive_in_soporte;
 use App\Models\quotation_drive_in_soporte;
+
+use App\Models\drive_in_guia;
+use App\Models\quotation_drive_in_guia;
 use Illuminate\Http\Request;
 use App\Models\Cart_product;
 use Illuminate\Support\Facades\Auth;
@@ -83,24 +86,24 @@ class DriveInPiezasController extends Controller
         'length' => 'required|min:0.01|max:12',];
         $request->validate($rules);
         //buscar los datos de soporte que concidan con los parametros de usuario(en este caso solo largo)
-        $Soporte=drive_in_soporte::where('caliber',$request->caliber)->where('length','<=',$request->length+0.0001)->orderBy('drive_in_soportes.length', 'desc')->first();
+        $Guia=drive_in_guia::where('length','<=',$request->length+0.0001)->orderBy('drive_in_guias.length', 'desc')->first();
         //buscar los precios de lamina y factores
         //TODO: ACOMODAR LAMINAS EN PRICELIST
-        $PrecioLamina=PriceList::where('description','LAMINA NEGRA RC')->where('caliber',$request->caliber)->first();
-        // dd($Soporte->weight,$PrecioLamina);
-        $UnitPrice=$Soporte->weight* $PrecioLamina->cost*$PrecioLamina->f_total; 
-        $QuotSoporte=quotation_drive_in_soporte::where('quotation_id','=',$request->Quotation_Id)->first();
-        if(!$QuotSoporte){
-            $QuotSoporte = new  quotation_drive_in_soporte();
-            $QuotSoporte->quotation_id=$request->Quotation_Id;
+        $PrecioLamina=PriceList::where('description','CANAL ESTTRUCTURAL 6.1 KG / ML')->where('caliber','EST 3 IN')->first();
+        //  dd($PrecioLamina);
+        $UnitPrice=$Guia->weight* $PrecioLamina->cost*$PrecioLamina->f_total; 
+        $QuotGuia=quotation_drive_in_guia::where('quotation_id','=',$request->Quotation_Id)->first();
+        if(!$QuotGuia){
+            $QuotGuia = new  quotation_drive_in_guia();
+            $QuotGuia->quotation_id=$request->Quotation_Id;
         }
-        $QuotSoporte->unit_price=$UnitPrice;
-        $QuotSoporte->total_price=$UnitPrice * $request->amount;
-        $QuotSoporte->amount=$request->amount;
-        $QuotSoporte->sku=$Soporte->sku;
-        $QuotSoporte->save();
+        $QuotGuia->unit_price=$UnitPrice;
+        $QuotGuia->total_price=$UnitPrice * $request->amount;
+        $QuotGuia->amount=$request->amount;
+        $QuotGuia->sku=$Guia->sku;
+        $QuotGuia->save();
 
-        return view('quotes.drivein.soportes.store',compact('QuotSoporte','Soporte'));
+        return view('quotes.drivein.guias.store',compact('QuotGuia','Guia'));
     }
     public function guias_add_carrito($id,$caliber){
         $Quotation_Id = $id;
