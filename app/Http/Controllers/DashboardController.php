@@ -48,7 +48,7 @@ class DashboardController extends Controller
         $Customers = Customer::find($customer_id);
 
         $Quoters = Quotation::orderBy('id', 'DESC')->first();
-        $Quoters->invoice;
+        
         if($Quoters){
             $Invoice = $Quoters->invoice + 1;
         }else{
