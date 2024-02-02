@@ -74,7 +74,7 @@ class DriveInPiezasController extends Controller
         $Cart_product->sku=$SJL2->sku;
         $Cart_product->save();
         
-        return redirect()->route('selectivo.show',$Quotation_Id);
+        return redirect()->route('drivein.show',$Quotation_Id);
     }
 
     public function guias_index($id){
@@ -128,9 +128,10 @@ class DriveInPiezasController extends Controller
         $Cart_product->sku=$SJL2->sku;
         $Cart_product->save();
         
-        return redirect()->route('selectivo.show',$Quotation_Id);
+        return redirect()->route('drivein.show',$Quotation_Id);
     }
 
+    // TODO: TERMINAR BRAZOS
     public function brazos_index($id){
         $Quotation_Id=$id;
         return view('quotes.drivein.brazos.index',compact('Quotation_Id'));
@@ -205,6 +206,8 @@ class DriveInPiezasController extends Controller
 
         return view('quotes.drivein.arriostrados.store',compact('Rolados','Estructurales'));
     }
+
+    //TODO: IMPORTANT CORREGIR ESTA FUNCION
     public function arriostrados_add_carrito($id){
         $Quotation_Id = $id;
         $Quotation=Quotation::find($id);
@@ -228,7 +231,7 @@ class DriveInPiezasController extends Controller
         $Cart_product->sku=$SJL2->sku;
         $Cart_product->save();
         
-        return redirect()->route('selectivo.show',$Quotation_Id);
+        return redirect()->route('drivein.show',$Quotation_Id);
     }
 
 }
