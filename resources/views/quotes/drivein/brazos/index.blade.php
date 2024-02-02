@@ -20,12 +20,23 @@
                     </div>
                 </div>
                 <div class="col-sm-6 col-xs-12">
-                   
+                    <div class="form-group p-2">
+                        <x-jet-label value="* Arriostrados Rolados C-12 Cantidad" />
+                        <input type="number" name="rolados_amount" class="inputjet w-full text-xs uppercase" value="" />
+                        <x-jet-input-error for='rolados_amount' /><br>
+
+                        <x-jet-label value="* Brazos Estructurales 3 EST IN Cantidad" />
+                        <input type="number" name="rolados_amount" class="inputjet w-full text-xs uppercase" value="" />
+                        <x-jet-input-error for='rolados_amount' /><br>
+
+                        <x-jet-label value="* Brazos Estructurales 3 EST IN Cantidad" />
+                        <input type="number" name="est_amount" class="inputjet w-full text-xs uppercase" value="" />
+                        <x-jet-input-error for='est_amount' /><br>
                     <div class="form-group p-2 gap-2 flex items-center">
                         <button type="submit" class="btn btn-blue mb-2">
                             <i class="fa-solid fa-calculator fa-xl"></i>&nbsp; Calcular
                         </button>
-                        <a href="{{route('selectivo.show', $Quotation_Id)}}" class="btn btn-black mb-2">
+                        <a href="{{route('drivein.show', $Quotation_Id)}}" class="btn btn-black mb-2">
                             <i class="fa-solid fa-rotate-left fa-xl"></i>&nbsp; Cancelar
                         </a>
                     </div>
