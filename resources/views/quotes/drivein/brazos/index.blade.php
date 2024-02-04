@@ -22,15 +22,15 @@
                 <div class="col-sm-6 col-xs-12">
                     <div class="form-group p-2">
                         <x-jet-label value="* Arriostrados Rolados C-12 Cantidad" />
-                        <input type="number" name="rolados_amount" class="inputjet w-full text-xs uppercase" value="" />
+                        <input type="number" name="rolados_amount" class="inputjet w-full text-xs uppercase" @if($Rolados)value="{{$Rolados->amount}}" @else value="0" @endif />
                         <x-jet-input-error for='rolados_amount' /><br>
 
                         <x-jet-label value="* Brazos Estructurales 3 EST IN Cantidad" />
-                        <input type="number" name="rolados_amount" class="inputjet w-full text-xs uppercase" value="" />
+                        <input type="number" name="est3_amount" class="inputjet w-full text-xs uppercase" @if($Est3In)value="{{$Est3In->amount}}" @else value="0" @endif/>
                         <x-jet-input-error for='est3_amount' /><br>
 
                         <x-jet-label value="* Brazos Estructurales 4 EST IN Cantidad" />
-                        <input type="number" name="est4_amount" class="inputjet w-full text-xs uppercase" value="" />
+                        <input type="number" name="est4_amount" class="inputjet w-full text-xs uppercase" @if($Est4In)value="{{$Est4In->amount}}" @else value="0" @endif />
                         <x-jet-input-error for='est_amount' /><br>
                     <div class="form-group p-2 gap-2 flex items-center">
                         <button type="submit" class="btn btn-blue mb-2">
