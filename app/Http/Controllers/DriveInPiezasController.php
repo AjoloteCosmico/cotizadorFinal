@@ -92,8 +92,7 @@ class DriveInPiezasController extends Controller
         
         //buscar los precios de lamina y factores
         //TODO: ACOMODAR LAMINAS EN PRICELIST
-        $PrecioLamina=PriceList::where('description','CANAL ESTTRUCTURAL 6.1 KG / ML')->where('caliber','EST 3 IN')->first();
-        $PrecioLaminaEST3=PriceList::where('description','LAMINA')->where('caliber','EST 3 IN')->where('type','ESTRUCTURAL')->first();
+        $PrecioLamina=PriceList::where('description','LAMINA')->where('caliber','EST 3 IN')->where('type','ESTRUCTURAL')->first();
         
         //  dd($PrecioLamina);
         $UnitPrice=$Guia->weight* $PrecioLamina->cost*$PrecioLamina->f_total; 
