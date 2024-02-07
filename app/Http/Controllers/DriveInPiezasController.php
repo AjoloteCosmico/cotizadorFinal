@@ -37,7 +37,12 @@ class DriveInPiezasController extends Controller
         $Soporte=drive_in_soporte::where('caliber',$request->caliber)->where('length','<=',$request->length+0.0001)->orderBy('drive_in_soportes.length', 'desc')->first();
         //buscar los precios de lamina y factores
         //TODO: ACOMODAR LAMINAS EN PRICELIST
-        $PrecioLamina=PriceList::where('description','LAMINA NEGRA RC')->where('caliber',$request->caliber)->first();
+        if($request->caliber=='12'|$request->caliber=='10'){
+            $PrecioLamina=PriceList::where('description','LAMINA')->where('caliber',$request->caliber)->where('type'=='RC')->first(); 
+        }else{
+            $PrecioLamina=PriceList::where('description','LAMINA')->where('caliber',$request->caliber)->where('type'=='ESTRUCTURAL')->first();
+        }
+        $PrecioLamina=PriceList::where('description','LAMINA')->where('caliber',$request->caliber)->first();
         // dd($Soporte->weight,$PrecioLamina);
         $UnitPrice=$Soporte->weight* $PrecioLamina->cost*$PrecioLamina->f_total; 
         $QuotSoporte=quotation_drive_in_soporte::where('quotation_id','=',$request->Quotation_Id)->first();
@@ -294,9 +299,10 @@ class DriveInPiezasController extends Controller
         $rules=[ 'rolados_amount' => 'required',
         'est_amount' => 'required'];
         $request->validate($rules);
-        $PrecioLaminaRC=PriceList::where('description','LAMINA NEGRA RC')->where('caliber','12')->first();
-        $PrecioLaminaEst=PriceList::where('description','CANAL ESTTRUCTURAL 6.1 KG / ML')->where('caliber','EST 3 IN')->first();
-        //  dd($PrecioLamina); 
+        $PrecioLaminaRC=PriceList::where('description','LAMINA')->where('caliber','12')->where('type'=='RC')->first();
+        
+        $PrecioLaminaEst=PriceList::where('description','LAMINA')->where('caliber','1.5')->where('type'=='RC ESTRUCTURAL ANGULO')->first();
+         
         $Rolados=quotation_drive_in_arriostrado::where('quotation_id','=',$request->Quotation_Id)->where('description','ROLADO C-12')->first();
         $Estructurales=quotation_drive_in_arriostrado::where('quotation_id','=',$request->Quotation_Id)->where('description','ESTRUCTURAL')->first();
         if(!$Rolados){
