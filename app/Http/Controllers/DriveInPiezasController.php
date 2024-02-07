@@ -38,12 +38,10 @@ class DriveInPiezasController extends Controller
         //buscar los precios de lamina y factores
         //TODO: ACOMODAR LAMINAS EN PRICELIST
         if($request->caliber=='12'|$request->caliber=='10'){
-            $PrecioLamina=PriceList::where('description','LAMINA')->where('caliber',$request->caliber)->where('type'=='RC')->first(); 
+            $PrecioLamina=PriceList::where('description','LAMINA')->where('caliber',$request->caliber)->where('type','RC')->first(); 
         }else{
-            $PrecioLamina=PriceList::where('description','LAMINA')->where('caliber',$request->caliber)->where('type'=='ESTRUCTURAL')->first();
+            $PrecioLamina=PriceList::where('description','LAMINA')->where('caliber',$request->caliber)->where('type','ESTRUCTURAL')->first();
         }
-        $PrecioLamina=PriceList::where('description','LAMINA')->where('caliber',$request->caliber)->first();
-        // dd($Soporte->weight,$PrecioLamina);
         $UnitPrice=$Soporte->weight* $PrecioLamina->cost*$PrecioLamina->f_total; 
         $QuotSoporte=quotation_drive_in_soporte::where('quotation_id','=',$request->Quotation_Id)->first();
         if(!$QuotSoporte){
