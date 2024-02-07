@@ -69,7 +69,7 @@ class DriveInPiezasController extends Controller
         $SJL2 = quotation_drive_in_soporte::where('quotation_id', $Quotation_Id)->first();
         //guardar en el carrito
         $Cart_product= new Cart_product();
-        $Cart_product->name='SOPORTE PARA TARIMA CAL'.$caliber;
+        $Cart_product->name='SOPORTE PARA TARIMA CAL. '.$caliber;
         $Cart_product->type='DSop'.$caliber;
         $Cart_product->unit_price=$SJL2->total_price/$SJL2->amount;
         $Cart_product->total_price=$SJL2->total_price;
