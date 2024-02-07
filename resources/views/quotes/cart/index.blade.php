@@ -62,16 +62,24 @@
             </a> 
             <br>
             @if($QuotationId != 0)
+
             <br>
+            @if($Quotation->type=='DRIVE IN')
+            <a href="{{route('drivein.show',[$QuotationId,$Type])}}">
+                <button type="button" class="btn btn-primary btn-block">Continuar Cotizacion</button>
+            </a>
+            @else
             <a href="{{route('selectivo.show',[$QuotationId,$Type])}}">
                 <button type="button" class="btn btn-primary btn-block">Continuar Cotizacion</button>
-            </a><br>
-            @endif() <br> 
+            </a>
+            @endif
+            <br>
+            @endif<br> 
             @if($QuotationId != 0)
             <a href="{{route('closing_questionary',$QuotationId)}}">
                 <button type="button" class="btn btn-success btn-block">Cerrar Cotizacion</button>
             </a>
-            @endif()
+            @endif
         </div>
     </div>
 @stop
