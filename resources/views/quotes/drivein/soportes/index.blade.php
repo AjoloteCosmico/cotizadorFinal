@@ -30,7 +30,7 @@
                         <x-jet-label value="* Largo" />               
                         <select name="length" class="inputjet w-full text-xs uppercase">
                             @for($i=0.01;$i<=12;$i+=0.01)
-                            <option value="$i" @if(old('lenght')==number_format($i,2)) selected @endif>{{number_format($i,2)}}</option>
+                            <option value="{{$i}}" @if(old('lenght')==number_format($i,2)) selected @endif>{{number_format($i,2)}}</option>
                             @endfor
                          </select>
                          <x-jet-input-error for='length' /><br>

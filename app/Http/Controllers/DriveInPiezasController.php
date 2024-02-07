@@ -34,7 +34,7 @@ class DriveInPiezasController extends Controller
         'length' => 'required|min:0.01|max:12',];
         $request->validate($rules);
         //buscar los datos de soporte que concidan con los parametros de usuario(en este caso solo largo)
-        $Soporte=drive_in_soporte::where('caliber',$request->caliber)->where('length','<=',$request->length+0.0001)->orderBy('drive_in_soportes.length', 'desc')->first();
+        $Soporte=drive_in_soporte::where('caliber',$request->caliber)->where('length','<=',(float)$request->length+0.0001)->orderBy('drive_in_soportes.length', 'desc')->first();
         //buscar los precios de lamina y factores
         //TODO: ACOMODAR LAMINAS EN PRICELIST
         if($request->caliber=='12'|$request->caliber=='10'){
