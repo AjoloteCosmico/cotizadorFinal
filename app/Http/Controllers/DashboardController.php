@@ -50,7 +50,7 @@ class DashboardController extends Controller
         $Quoters = Quotation::orderBy('id', 'DESC')->first();
         
         if($Quoters){
-            $Invoice = $Quoters->invoice + 1;
+            $Invoice = str_pad($Quoters->invoice + 1, 4, "0", STR_PAD_LEFT);
         }else{
             $Invoice = '0001';
         }
