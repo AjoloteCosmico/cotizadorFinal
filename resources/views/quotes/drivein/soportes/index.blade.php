@@ -27,11 +27,13 @@
                         <x-jet-input-error for='amount' /><br>
 
                         
-                        <x-jet-label value="* Largo" />
-                        <input type="number" step="0.01" min= "0.01" max="12.00" name="length" class="inputjet w-full text-xs uppercase" value="{{ old('cost') }}" />
-                        <x-jet-input-error for='length' /><br>
-
-                       
+                        <x-jet-label value="* Largo" />               
+                        <select name="length" class="inputjet w-full text-xs uppercase">
+                            @for($i=0.01;$i<=12;$i+=0.01)
+                            <option value="$i" @if(old('lenght')==number_format($i,2)) selected @endif>{{number_format($i,2)}}</option>
+                            @endfor
+                         </select>
+                         <x-jet-input-error for='length' /><br>
                     </div>
                     <div class="form-group p-2 gap-2 flex items-center">
                         <button type="submit" class="btn btn-blue mb-2">

@@ -258,7 +258,7 @@ class DriveInPiezasController extends Controller
     
         }
         
-        return redirect()->route('drive_in_brazos.index',$Quotation_Id);
+        return redirect()->route('drivein.show',$Quotation_Id);
     }
 
     //arriostrados---------------
