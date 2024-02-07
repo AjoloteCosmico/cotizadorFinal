@@ -117,7 +117,7 @@
                         </h1>
                     </div>
                     <div class="form-group p-2 gap-2 flex items-center">
-                        <a href="{{route('drivein.index', $Rolados->quotation_id)}}" class="btn btn-blue mb-2">
+                        <a href="{{route('drivein_brazos.index', $Rolados->quotation_id)}}" class="btn btn-blue mb-2">
                             <i class="fa-solid fa-right-left fa-xl"></i>&nbsp; Corregir
                         </a>
                         <a href="{{route('drive_in_brazos.add_carrito', $Rolados->quotation_id)}}" class="btn btn-black mb-2">

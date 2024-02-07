@@ -94,6 +94,7 @@ class DriveInPiezasController extends Controller
         $request->validate($rules);
         //buscar los datos de soporte que concidan con los parametros de usuario(en este caso solo largo)
         $Guia=drive_in_guia::where('length','<=',$request->length+0.0001)->orderBy('drive_in_guias.length', 'desc')->first();
+        
         //buscar los precios de lamina y factores
         //TODO: ACOMODAR LAMINAS EN PRICELIST
         $PrecioLamina=PriceList::where('description','LAMINA')->where('caliber','EST 3 IN')->where('type','ESTRUCTURAL')->first();
@@ -258,20 +259,8 @@ class DriveInPiezasController extends Controller
             }
     
         }
-        //guardar en el carrito
         
-        // $Cart_product= new Cart_product();
-        // $Cart_product->name='BRAZO ESTRUCTURAL';
-        // $Cart_product->type='Darr-est';
-        // $Cart_product->unit_price=$Estructurales->total_price/$Rolados->amount;
-        // $Cart_product->total_price=$Estructurales->total_price;
-        // $Cart_product->quotation_id=$Estructurales->quotation_id;
-        // $Cart_product->user_id=Auth::user()->id;
-        // $Cart_product->amount=$Estructurales->amount;
-        // $Cart_product->sku=$Estructurales->sku;
-        // $Cart_product->save();
-        
-        return redirect()->route('drivein.show',$Quotation_Id);
+        return redirect()->route('drive_in_brazos.index',$Quotation_Id);
     }
 
     //arriostrados---------------
@@ -287,7 +276,7 @@ class DriveInPiezasController extends Controller
         }
         
         if($Estructurales){
-            $n_rolados=$Estructurales->amount;
+            $n_est=$Estructurales->amount;
         }else{
             $n_est=0;
         }
@@ -359,8 +348,8 @@ class DriveInPiezasController extends Controller
             Cart_product::destroy($cartest->id);
         }
         //agregar el nuevo al carrito, lo que este en 
-        $Rolados=quotation_drive_in_arriostrado::where('quotation_id','=',$request->Quotation_Id)->where('description','ROLADO C-12')->first();
-        $Estructurales=quotation_drive_in_arriostrado::where('quotation_id','=',$request->Quotation_Id)->where('description','ESTRUCTURAL')->first();
+        $Rolados=quotation_drive_in_arriostrado::where('quotation_id','=',$Quotation_Id)->where('description','ROLADO C-12')->first();
+        $Estructurales=quotation_drive_in_arriostrado::where('quotation_id','=',$Quotation_Id)->where('description','ESTRUCTURAL')->first();
         
         //guardar en el carrito
         $Cart_product= new Cart_product();
