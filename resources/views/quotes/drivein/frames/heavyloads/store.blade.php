@@ -84,10 +84,10 @@
                         </table>
                     </div>
                     <div class="form-group p-2 gap-2 flex items-center">
-                        <a href="{{route('frames.show', $Quotation_Id)}}" class="btn btn-blue mb-2">
+                        <a href="{{route('menuframes.drive_show', $Quotation_Id)}}" class="btn btn-blue mb-2">
                             <i class="fa-solid fa-right-left fa-xl"></i>&nbsp; Corregir
                         </a>
-                        <a href="{{route('shopping_cart.add_selectivo_carga_pesada', $Quotation_Id)}}"  class="btn btn-black mb-2">
+                        <a href="{{route('shopping_cart.add_drivein_carga_pesada', $Quotation_Id)}}"  class="btn btn-black mb-2">
                             <i class="fa-solid fa-rotate-left fa-xl"></i>&nbsp; Guardar
                         </a>
                     </div>

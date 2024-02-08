@@ -235,7 +235,8 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     #MArcos
     Route::get('/drivein_carga_pesada/{id}', [FramesController::class, 'drive_show'])->name('frames.drive_show');
     Route::post('/drivein_carga_pesada', [FramesController::class, 'drive_store'])->name('frames.drive_store');
-
+    Route::get('drivein/shopping_cart/add_carga_pesada/{id}', [FramesController::class, 'drive_add_carrito'])->name('shopping_cart.add_drivein_carga_pesada');
+    
     Route::get('/drivein_marcos_estructurales/{id}', [StructuralFrameworksController::class, 'drive_show'])->name('structuralframeworks.drive_show');
     Route::post('/drive_marcos_estructurales', [StructuralFrameworksController::class, 'drive_store'])->name('structuralframeworks.drive_store');
     #vigas

@@ -10,10 +10,10 @@ use App\Models\Height;
 use App\Models\PriceList;
 use App\Models\PriceListScrew;
 use App\Models\SelectiveHeavyLoadFrame;
-
+use App\Models\Quotation;
 use App\Models\Cart_product;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class FramesController extends Controller
 {
     public function show($id)
@@ -320,6 +320,32 @@ class FramesController extends Controller
         else{
             return redirect()->route('frames.show',$Quotation_Id)->with('no_existe', 'ok');
         }
+    }
+
+
+    public function drive_add_carrito($id){
+        $Quotation_Id = $id;
+        $Quotation=Quotation::find($id);
+        //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
+        $cartSHLF = Cart_product::where('quotation_id', $Quotation_Id)->where('type','DHLF')->first();
+        if($cartSHLF){
+            Cart_product::destroy($cartSHLF->id);
+        }
+        //agregar el nuevo al carrito, lo que este en 
+        $SHLF = SelectiveHeavyLoadFrame::where('quotation_id', $Quotation_Id)->first();
+        //guardar en el carrito
+        $Cart_product= new Cart_product();
+        $Cart_product->name='MARCO DRIVE IN CARGA PESADA'.$SHLF->model;
+        $Cart_product->type='DHLF';
+        $Cart_product->unit_price=$SHLF->total_price / $SHLF->amount ;
+        $Cart_product->total_price=$SHLF->total_price;
+        $Cart_product->sku=$SHLF->sku;
+        $Cart_product->quotation_id=$Quotation_Id;
+        $Cart_product->user_id=Auth::user()->id;
+        $Cart_product->amount=$SHLF->amount;
+        $Cart_product->save();
+        
+        return redirect()->route('drivein.show',$Quotation_Id);
     }
 
     public function index()
