@@ -286,9 +286,9 @@ class DriveInPiezasController extends Controller
         $rules=[ 'rolados_amount' => 'required',
         'est_amount' => 'required'];
         $request->validate($rules);
-        $PrecioLaminaRC=PriceList::where('description','LAMINA')->where('caliber','12')->where('type'=='RC')->first();
+        $PrecioLaminaRC=PriceList::where('description','LAMINA')->where('caliber','12')->where('type','RC')->first();
         
-        $PrecioLaminaEst=PriceList::where('description','LAMINA')->where('caliber','1.5')->where('type'=='RC ESTRUCTURAL ANGULO')->first();
+        $PrecioLaminaEst=PriceList::where('description','LAMINA')->where('caliber','1.5')->where('type','RC ESTRUCTURAL ANGULO')->first();
          
         $Rolados=quotation_drive_in_arriostrado::where('quotation_id','=',$request->Quotation_Id)->where('description','ROLADO C-12')->first();
         $Estructurales=quotation_drive_in_arriostrado::where('quotation_id','=',$request->Quotation_Id)->where('description','ESTRUCTURAL')->first();
