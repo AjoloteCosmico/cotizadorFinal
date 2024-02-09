@@ -27,8 +27,12 @@
 
                         
                         <x-jet-label value="* Largo" />
-                        <input type="number" step="0.01" min= "0.01" max="12.00" name="length" class="inputjet w-full text-xs uppercase" value="{{ old('lenght') }}" />
-                        <x-jet-input-error for='length' /><br>
+                        <select name="length" class="inputjet w-full text-xs uppercase">
+                            @for($i=0.01;$i<=12;$i+=0.01)
+                            <option value="{{$i}}" @if(old('lenght')==number_format($i,2)) selected @endif>{{number_format($i,2)}}</option>
+                            @endfor
+                         </select>
+                          <x-jet-input-error for='length' /><br>
 
                        
                     </div>

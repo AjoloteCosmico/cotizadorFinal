@@ -91,7 +91,7 @@ class DriveInPiezasController extends Controller
         'length' => 'required|min:0.01|max:12',];
         $request->validate($rules);
         //buscar los datos de soporte que concidan con los parametros de usuario(en este caso solo largo)
-        $Guia=drive_in_guia::where('length','<=',$request->length+0.0001)->orderBy('drive_in_guias.length', 'desc')->first();
+        $Guia=drive_in_guia::where('length','<=',(float)$request->length+0.0001)->orderBy('drive_in_guias.length', 'desc')->first();
         
         //buscar los precios de lamina y factores
         //TODO: ACOMODAR LAMINAS EN PRICELIST
