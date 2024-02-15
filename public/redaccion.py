@@ -100,7 +100,12 @@ materials['type']=materials['type'].fillna('')
 if(cotizacion['type'].values[0]=='DOBLE PROFUNDIDAD'):
     doc= DocxTemplate("plantilla_d.docx")
 else:
-    doc = DocxTemplate("plantilla.docx")
+    if(cotizacion['type'].values[0]=='DRIVE IN'):
+        doc= DocxTemplate("plantilla_drivein.docx")
+    else:
+        doc = DocxTemplate("plantilla.docx")
+
+
 
 instalacion_tables=['quotation_installs','quotation_uninstalls']
 productos=[]
