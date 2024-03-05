@@ -114,38 +114,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4 col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Especial</h5>
-                            <p class="card-text">Cotizador de Especial.</p>
-                            <a href="{{ route('selectivo_special.index', $Quotation_Id) }}" class="btn btn-primary">
-                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
-                                    <path fill-rule="evenodd"
-                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"></path>
-                                </svg>&nbsp;
-                                Entrar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Administrativo</h5>
-                            <p class="card-text">Cotizador de Administrativo.</p>
-                            <a href="{{ route('selectivo_administratives.index', $Quotation_Id) }}" class="btn btn-primary">
-                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
-                                    <path fill-rule="evenodd"
-                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"></path>
-                                </svg>&nbsp;
-                                Entrar
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="col-sm-4 col-xs-12">
                     <div class="card">
                         <div class="card-body">
@@ -194,6 +163,39 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-4 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Administrativo</h5>
+                            <p class="card-text">Cotizador de Administrativo.</p>
+                            <a href="{{ route('selectivo_administratives.index', $Quotation_Id) }}" class="btn btn-primary">
+                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                                    <path fill-rule="evenodd"
+                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>&nbsp;
+                                Entrar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Especial</h5>
+                            <p class="card-text">Cotizador de Especial.</p>
+                            <a href="{{ route('selectivo_special.index', $Quotation_Id) }}" class="btn btn-primary">
+                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                                    <path fill-rule="evenodd"
+                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>&nbsp;
+                                Entrar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- <div class="col-sm-4 col-xs-12">
                     <div class="card">
                         <div class="card-body">

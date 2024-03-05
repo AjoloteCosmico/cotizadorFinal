@@ -285,7 +285,7 @@ class DriveInPiezasController extends Controller
     public function arriostrados_store(Request $request){
         $rules=[ 'rolados_amount' => 'required',
         'est_amount' => 'required'];
-        $request->validate($rules);
+        // $request->validate($rules);
         $PrecioLaminaRC=PriceList::where('description','LAMINA')->where('caliber','12')->where('type','RC')->first();
         
         $PrecioLaminaEst=PriceList::where('description','LAMINA')->where('caliber','1.5')->where('type','RC ESTRUCTURAL ANGULO')->first();

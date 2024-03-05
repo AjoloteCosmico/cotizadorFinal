@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-sm-6 col-xs-12">
                     <div class="form-group p-2">
-                        <x-jet-label value="* Arriostrados Rolados C-12 Cantidad" />
+                        <x-jet-label value="* Brazos Rolados Cantidad" />
                         <input type="number" name="rolados_amount" class="inputjet w-full text-xs uppercase" @if($Rolados)value="{{$Rolados->amount}}" @else value="0" @endif />
                         <x-jet-input-error for='rolados_amount' /><br>
 
