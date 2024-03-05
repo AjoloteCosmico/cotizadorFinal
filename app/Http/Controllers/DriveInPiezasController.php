@@ -307,7 +307,11 @@ class DriveInPiezasController extends Controller
         }
         $Rolados->unit_price=$PrecioLaminaRC->cost*$PrecioLaminaRC->f_total;
         $Rolados->total_price=$PrecioLaminaRC->cost*$PrecioLaminaRC->f_total * $request->rolados_amount;
-        $Rolados->amount=$request->rolados_amount;
+        if($request->filled('rolados_amount')){
+        $Rolados->amount=$request->rolados_amount;}
+        else{
+            $Rolados->amount=0;
+        }
         $Rolados->save();
         if(!$Estructurales){
             $Estructurales = new  quotation_drive_in_arriostrado();
@@ -324,7 +328,12 @@ class DriveInPiezasController extends Controller
         }
         $Estructurales->unit_price=$PrecioLaminaEst->cost*$PrecioLaminaEst->f_total;
         $Estructurales->total_price=$PrecioLaminaEst->cost*$PrecioLaminaEst->f_total * $request->est_amount;
-        $Estructurales->amount=$request->est_amount;
+        if($request->filled('est_amount')){
+            $Estructurales->amount=$request->est_amount;}
+            else{
+                $Estructurales->amount=0;
+            }
+        
         $Estructurales->save();
 
         return view('quotes.drivein.arriostrados.store',compact('Rolados','Estructurales'));
