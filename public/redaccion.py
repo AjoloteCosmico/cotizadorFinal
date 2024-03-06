@@ -80,6 +80,7 @@ for i in tablas:
             p=p.assign(cost=costo*p.long)
         
     products=products.append(p,ignore_index=True)
+print(products)
 cols_to_fill_str=['description','protector','model','sku']
 products[cols_to_fill_str]=products[cols_to_fill_str].fillna('')
 cols_kg=['weight','total_kg','total_weight','weight_kg']
