@@ -117,6 +117,10 @@ redact={
 'selective_structural_frames' : 'Marco de Rack Estructu ral con poste ',
 'uninstalls' : 'DESINSTALACION',
 'wood' : 'Panel de Madera',
+'quotation_drive_in_soportes':'Soportes para tarima',
+'quotation_drive_in_guias':'Guia para montacargas',
+'quotation_drive_in_arriostrados':'Arriostrado tipo "L" modelo',
+'quotation_drive_in_brazos':'Brazo para drive in modelo',
 }
 
 
