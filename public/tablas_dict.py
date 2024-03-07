@@ -54,7 +54,11 @@ tablas={'double_deep_crossbars' : 'VIGA TIPO CAJA DE DOBLE PROFUNDIDAD DE 2.5',
 'selective_spacers' : 'DISTANCIADORES',
 'selective_structural_frames' : 'MARCOS ESTRUCTURALES',
 'uninstalls' : 'DESINSTALACION',
-'wood' : 'MADERAS',}
+'wood' : 'MADERAS',
+'drive_in_soportes' : 'Soportes para tarimas',
+'drive_in_guias' : 'Guias para montacargas',
+'drive_in_arriostrados' : 'Arriostrados tipo "L" modelo',
+'drive_in_brazos' : 'Brazos para drive in modelo',}
 
 
 
@@ -117,6 +121,11 @@ redact={
 'selective_structural_frames' : 'Marco de Rack Estructu ral con poste ',
 'uninstalls' : 'DESINSTALACION',
 'wood' : 'Panel de Madera',
+
+'drive_in_soportes' : 'Soportes para tarimas',
+'drive_in_guias' : 'Guias para montacargas',
+'drive_in_arriostrados' : 'Arriostrados tipo "L" modelo',
+'drive_in_brazos' : 'Brazos para drive in modelo',
 }
 
 
@@ -177,4 +186,9 @@ extras={
 'selective_structural_frames' : ' ',
 'uninstalls' : '',
 'wood' : '',
+
+'drive_in_soportes' : '',
+'drive_in_guias' : '',
+'drive_in_arriostrados' : '',
+'drive_in_brazos' : 'peralte: 0.10m',
 }
