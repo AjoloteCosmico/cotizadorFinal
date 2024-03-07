@@ -124,7 +124,8 @@ for i in range(len(products)):
         if('joist' in products['tabla'].values[i]):
             this_color='Anaranjado'
             carga='{0:.2f}'.format(products['weight_kg'].values[i])
-        productos.append({'nombre':redact[products['tabla'].values[i]],
+        if(products['amount'].values[i]>0):
+            productos.append({'nombre':redact[products['tabla'].values[i]],
                           'extra':extras[products['tabla'].values[i]],
                         'precio':products[price_cols].sum(axis=1).values[i],
                         'cantidad':products['amount'].values[i],
