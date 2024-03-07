@@ -79,8 +79,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
+           
                 <div class="col-sm-4 col-xs-12">
                     <div class="card">
                         <div class="card-body">
