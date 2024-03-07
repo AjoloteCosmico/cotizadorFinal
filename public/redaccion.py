@@ -124,7 +124,7 @@ for i in range(len(products)):
             seccion=questionario['section'].values[0]
         if('joist' in products['tabla'].values[i]):
             this_color='Anaranjado'
-        if('brazo' in products['tabla'].values[i]|'arrios' in products['tabla'].values[i]):
+        if(('brazo' in products['tabla'].values[i])|('arrios' in products['tabla'].values[i])):
             this_color='Anaranjado'
 
             
