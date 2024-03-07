@@ -44,6 +44,7 @@ year = date.strftime("%Y")
 from tablas_dict import tablas
 from tablas_dict import redact
 from tablas_dict import extras
+from tablas_dict import ref
 aceros=pd.read_sql('select * from steels ',cnx)
 aceros.loc[aceros['caliber']=='EST 3 IN','caliber']='EST3'
 
@@ -123,9 +124,16 @@ for i in range(len(products)):
             seccion=questionario['section'].values[0]
         if('joist' in products['tabla'].values[i]):
             this_color='Anaranjado'
+        if(('brazo' in products['tabla'].values[i])|('arrios' in products['tabla'].values[i])):
+            this_color='Anaranjado'
+
+            
             carga='{0:.2f}'.format(products['weight_kg'].values[i])
-        productos.append({'nombre':redact[products['tabla'].values[i]],
+        if(products['amount'].values[i]>0):
+            productos.append({'nombre':redact[products['tabla'].values[i]],
                           'extra':extras[products['tabla'].values[i]],
+                          
+                          'ref':ref[products['tabla'].values[i]],
                         'precio':products[price_cols].sum(axis=1).values[i],
                         'cantidad':products['amount'].values[i],
                         'color': this_color,
