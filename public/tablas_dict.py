@@ -55,10 +55,10 @@ tablas={'double_deep_crossbars' : 'VIGA TIPO CAJA DE DOBLE PROFUNDIDAD DE 2.5',
 'selective_structural_frames' : 'MARCOS ESTRUCTURALES',
 'uninstalls' : 'DESINSTALACION',
 'wood' : 'MADERAS',
-'drive_in_soportes' : 'Soportes para tarimas',
-'drive_in_guias' : 'Guias para montacargas',
-'drive_in_arriostrados' : 'Arriostrados tipo "L" modelo',
-'drive_in_brazos' : 'Brazos para drive in modelo',}
+'quotation_drive_in_soportes' : 'Soportes para tarimas',
+'quotation_drive_in_guias' : 'Guias para montacargas',
+'quotation_drive_in_arriostrados' : 'Arriostrados tipo "L" modelo',
+'quotation_drive_in_brazos' : 'Brazos para drive in modelo',}
 
 
 
@@ -122,10 +122,10 @@ redact={
 'uninstalls' : 'DESINSTALACION',
 'wood' : 'Panel de Madera',
 
-'drive_in_soportes' : 'Soportes para tarimas',
-'drive_in_guias' : 'Guias para montacargas',
-'drive_in_arriostrados' : 'Arriostrados tipo "L" modelo',
-'drive_in_brazos' : 'Brazos para drive in modelo',
+'quotation_drive_in_soportes' : 'Soportes para tarimas',
+'quotation_drive_in_guias' : 'Guias para montacargas',
+'quotation_drive_in_arriostrados' : 'Arriostrados tipo "L" modelo',
+'quotation_drive_in_brazos' : 'Brazos para drive in modelo',
 }
 
 
@@ -187,8 +187,8 @@ extras={
 'uninstalls' : '',
 'wood' : '',
 
-'drive_in_soportes' : '',
-'drive_in_guias' : '',
-'drive_in_arriostrados' : '',
-'drive_in_brazos' : 'peralte: 0.10m',
+'quotation_drive_in_soportes' : '',
+'quotation_drive_in_guias' : '',
+'quotation_drive_in_arriostrados' : '',
+'quotation_drive_in_brazos' : 'peralte: 0.10m',
 }
