@@ -27,7 +27,7 @@ use App\Http\Controllers\FreightController;
 use App\Http\Controllers\GrillController;
 use App\Http\Controllers\MenuFrameController;
 use App\Http\Controllers\MenuJoistController;
-
+use App\Http\Controllers\PasarelaController;
 use App\Http\Controllers\DriveInController;
 use App\Http\Controllers\DriveInPiezasController;
 // use App\Http\Controllers\MiniatureFrameController;
@@ -276,7 +276,12 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     
     #________________END Drive IN
 
-
+        // RUTAS PARAS PASARELA 
+    Route::get('/pasarela_angulos_menu/{id}', [PasarelaController::class, 'angulos_menu'])->name('pasarela_angulos.menu');
+    Route::get('/pasarela_angulos/{id}/{calibre}', [PasarelaController::class, 'angulos_index'])->name('pasarela_angulos.index');
+    Route::post('/pasarela_angulos/store', [PasarelaController::class, 'angulos_store'])->name('pasarela_angulos.store');
+    Route::get('/pasarela_angulos_carrito/{id}/{caliber}', [PasarelaController::class, 'angulos_add_carrito'])->name('pasarela_angulos.add_carrito');
+    // END PASARELA
     Route::get('/singlepieces/{id}', [SinglePieceController::class, 'show'])->name('singlepieces.show');
     Route::post('/singlepieces/calc', [SinglePieceController::class, 'calc'])->name('singlepieces.calc');
 

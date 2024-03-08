@@ -18,74 +18,77 @@ use App\Models\Quotation;
 
 class TypeC2JoistController extends Controller
 {
-    // public function caliber14_show($id)
-    // {
-    //     $Quotation_Id = $id;
-    //     $Joists = Joist::where('joist', 'Tipo C2')->first();
-    //     $Calibers = TypeC2JoistCaliber::where('caliber', '14')->get();
-    //     $Lengths = TypeC2JoistLength::all();
-    //     $Cambers = TypeC2JoistCamber::all();
-    //     $CrossbarLengths = TypeC2JoistCrossbarLength::all();
-    //     $LoadingCapacities = TypeC2JoistLoadingCapacity::all();
-    //     $TypeLJoists = TypeC2Joist::where('caliber', '14')->get();
+    public function caliber14_show($id)
+    {
+        $Quotation_Id = $id;
+        
+        $Quotation=Quotation::find($id);
+        $Joists = Joist::where('joist', 'Tipo C2')->first();
+        $Calibers = TypeC2JoistCaliber::where('caliber', '14')->get();
+        $Lengths = TypeC2JoistLength::all();
+        $Cambers = TypeC2JoistCamber::all();
+        $CrossbarLengths = TypeC2JoistCrossbarLength::all();
+        $LoadingCapacities = TypeC2JoistLoadingCapacity::all();
+        $TypeLJoists = TypeC2Joist::where('caliber', '14')->get();
 
-    //     return view('quotes.selectivo.joists.typec2joists.caliber14.index', compact(
-    //         'Joists',
-    //         'Calibers',
-    //         'Lengths',
-    //         'Cambers',
-    //         'CrossbarLengths',
-    //         'LoadingCapacities',
-    //         'TypeLJoists',
-    //         'Quotation_Id'
-    //     ));
-    // }
+        return view('quotes.selectivo.joists.typec2joists.caliber14.index', compact(
+            'Joists',
+            'Calibers',
+            'Lengths',
+            'Cambers',
+            'CrossbarLengths',
+            'LoadingCapacities',
+            'TypeLJoists',
+            'Quotation_Id',
+            'Quotation'
+        ));
+    }
 
-    // public function caliber14_calc(Request $request)
-    // {
-    //     $rules = [
-    //         'amount' => 'required',
-    //         'weight' => 'required',
-    //         'joist_type' => 'required',
-    //         'caliber' => 'required',
-    //     ];
-    //     $messages = [
-    //         'amount.required' => 'Capture una cantidad válida',
-    //         'weight.required' => 'Capture la carga requerida',
-    //         'joist_type.required' => 'Elija el tipo de Viga',
-    //         'caliber.required' => 'Elija el Calibre de la Viga',
-    //     ];
-    //     $request->validate($rules, $messages);
+    public function caliber14_calc(Request $request)
+    {
+        $rules = [
+            'amount' => 'required',
+            'weight' => 'required',
+            'joist_type' => 'required',
+            'caliber' => 'required',
+        ];
+        $messages = [
+            'amount.required' => 'Capture una cantidad válida',
+            'weight.required' => 'Capture la carga requerida',
+            'joist_type.required' => 'Elija el tipo de Viga',
+            'caliber.required' => 'Elija el Calibre de la Viga',
+        ];
+        $request->validate($rules, $messages);
 
-    //     $Quotation_Id = $request->Quotation_Id;
-    //     $Amount = $request->amount;
-    //     $Weight = $request->weight;
-    //     $JoistType = $request->joist_type;
-    //     $Length = $request->length;
-    //     $Caliber = $request->caliber;
-    //     $Increment = $Weight * 0.07;
-    //     $WeightIncrement = $Weight + $Increment;
-    //     $Cambers = TypeC2JoistLoadingCapacity::where('crossbar_length', '>=', $Length)->where('loading_capacity', '>=', $WeightIncrement)->first();
-    //     if($Cambers){
-    //         $TypeLJoists = TypeC2Joist::where('caliber','14')->where('camber', $Cambers->camber)->where('length', $Length)->first();
-    //         $Import = $request->amount * $TypeLJoists->price;
+        $Quotation_Id = $request->Quotation_Id;
+        $Amount = $request->amount;
+        $Weight = $request->weight;
+        $JoistType = $request->joist_type;
+        $Length = $request->length;
+        $Caliber = $request->caliber;
+        $Increment = $Weight * 0.07;
+        $WeightIncrement = $Weight + $Increment;
+        $Cambers = TypeC2JoistLoadingCapacity::where('crossbar_length', '>=', $Length)->where('loading_capacity', '>=', $WeightIncrement)->first();
+        if($Cambers){
+            $TypeLJoists = TypeC2Joist::where('caliber','14')->where('camber', $Cambers->camber)->where('length', $Length)->first();
+            $Import = $request->amount * $TypeLJoists->price;
 
-    //         return view('quotes.selectivo.joists.typec2joists.caliber14.store', compact(
-    //             'Amount',
-    //             'Weight',
-    //             'JoistType',
-    //             'Length',
-    //             'Caliber',
-    //             'WeightIncrement',
-    //             'Cambers',
-    //             'TypeLJoists',
-    //             'Import',
-    //             'Quotation_Id'
-    //         ));
-    //     }else{
-    //         return redirect()->route('menujoists.show')->with('no_existe', 'ok');
-    //     }        
-    // }
+            return view('quotes.selectivo.joists.typec2joists.caliber14.store', compact(
+                'Amount',
+                'Weight',
+                'JoistType',
+                'Length',
+                'Caliber',
+                'WeightIncrement',
+                'Cambers',
+                'TypeLJoists',
+                'Import',
+                'Quotation_Id'
+            ));
+        }else{
+            return redirect()->route('menujoists.show')->with('no_existe', 'ok');
+        }        
+    }
 
     public function index()
     {
@@ -192,6 +195,7 @@ class TypeC2JoistController extends Controller
     public function show($id)
     {
         $Quotation_Id = $id;
+        $Quotation=Quotation::find($id);
         $Joists = Joist::where('joist', 'Tipo C2')->first();
         $Calibers = TypeC2JoistCaliber::where('caliber', '<>', '14')->get();
         $Lengths = TypeC2JoistLength::all();
@@ -208,7 +212,8 @@ class TypeC2JoistController extends Controller
             'CrossbarLengths',
             'LoadingCapacities',
             'TypeLJoists',
-            'Quotation_Id'
+            'Quotation_Id',
+            'Quotation'
         ));
     }
 
