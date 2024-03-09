@@ -36,7 +36,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Barandal</h5>
                             <p class="card-text">Cotizador de Barandales.</p>
-                            <a href="" class="btn btn-primary">
+                            <a href="{{ route('typec2joists_caliber14.show', $Quotation_Id) }}"  class="btn btn-primary">
                                 <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
                                     <path fill-rule="evenodd"
                                         d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
@@ -212,9 +212,9 @@
                 <div class="col-sm-4 col-xs-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Angulos ranurados</h5>
-                            <p class="card-text">Cotizar angulos cal14 o cal16.</p>
-                            <a href="{{ route('selectivo_installs', $Quotation_Id) }}" class="btn btn-primary">
+                            <h5 class="card-title">ANGULO RANURADO</h5>
+                            <p class="card-text">Cotizar angulos.</p>
+                            <a href="{{ route('pasarela_angulos.menu', $Quotation_Id) }}" class="btn btn-primary">
                                 <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
                                     <path fill-rule="evenodd"
                                         d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
