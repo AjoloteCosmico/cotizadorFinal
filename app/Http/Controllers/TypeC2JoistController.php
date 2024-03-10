@@ -46,6 +46,7 @@ class TypeC2JoistController extends Controller
 
     public function caliber14_calc(Request $request)
     {
+
         $rules = [
             'amount' => 'required',
             'weight' => 'required',
@@ -61,18 +62,46 @@ class TypeC2JoistController extends Controller
         $request->validate($rules, $messages);
 
         $Quotation_Id = $request->Quotation_Id;
+        $System=Quotation::find($request->Quotation_Id)->type;
         $Amount = $request->amount;
         $Weight = $request->weight;
         $JoistType = $request->joist_type;
         $Length = $request->length;
         $Caliber = $request->caliber;
+        $Clavijas = PriceListScrew::where('description', 'CLAVIJA DE SEGURIDAD PARA VIGAS')->first();
+        $CostoClavija = $Clavijas->cost * $Clavijas->f_total;
+        $CantidadClavijas = $Amount * 2;
+        $CostoTotalClavijas = $CantidadClavijas * $CostoClavija;
+
         $Increment = $Weight * 0.07;
         $WeightIncrement = $Weight + $Increment;
         $Cambers = TypeC2JoistLoadingCapacity::where('crossbar_length', '>=', $Length)->where('loading_capacity', '>=', $WeightIncrement)->first();
         if($Cambers){
             $TypeLJoists = TypeC2Joist::where('caliber','14')->where('camber', $Cambers->camber)->where('length', $Length)->first();
             $Import = $request->amount * $TypeLJoists->price;
-
+            $SJC2 = SelectiveJoistC2::where('quotation_id', $Quotation_Id)->first();
+            if(!$SJC2){
+                $SJC2 = new SelectiveJoistC2();
+                $SJC2->quotation_id = $Quotation_Id;
+               }
+            $SJC2->amount = $Amount;
+            $SJC2->caliber = $Caliber;
+            $SJC2->loading_capacity = $Weight;
+            if($System=="PASARELA"){
+                $SJC2->type_joist = "PASARELA";
+            }else {
+                $SJC2->type_joist = $JoistType;   # code...
+            }
+            $SJC2->length_meters = $Length;
+            $SJC2->camber = $TypeLJoists->camber;
+            $SJC2->weight_kg = $TypeLJoists->weight;
+            $SJC2->m2 = $TypeLJoists->m2;
+            $SJC2->length = $TypeLJoists->length;
+            $SJC2->sku = $TypeLJoists->sku; 
+            $SJC2->unit_price =  ($Import + $CostoTotalClavijas)/$Amount;
+            $SJC2->total_price = $Import + $CostoTotalClavijas;
+            $SJC2->save();
+        
             return view('quotes.selectivo.joists.typec2joists.caliber14.store', compact(
                 'Amount',
                 'Weight',
@@ -83,10 +112,19 @@ class TypeC2JoistController extends Controller
                 'Cambers',
                 'TypeLJoists',
                 'Import',
-                'Quotation_Id'
+                'Quotation_Id',
+                'CantidadClavijas',
+                'CostoTotalClavijas',
+                'CostoClavija',
+                'System'
             ));
         }else{
+            if($System=="PASARELA"){
+                return redirect()->route('selectivo.show',[$Quotation_Id,$System])->with('no_existe', 'ok');
+            }
+            else{
             return redirect()->route('menujoists.show')->with('no_existe', 'ok');
+            }
         }        
     }
 
@@ -153,7 +191,7 @@ class TypeC2JoistController extends Controller
             $SJC2->m2 = $TypeLJoists->m2;
             $SJC2->length = $TypeLJoists->length;
             $SJC2->sku = $TypeLJoists->sku;
-            $SJC2->unit_price = $TypeLJoists->price;
+            $SJC2->unit_price =  ($Import + $CostoTotalClavijas)/$Amount;
             $SJC2->total_price = $Import + $CostoTotalClavijas;
             $SJC2->save();
         }else{
@@ -170,7 +208,7 @@ class TypeC2JoistController extends Controller
             $SJC2->m2 = $TypeLJoists->m2;
             $SJC2->length = $TypeLJoists->length;
             $SJC2->sku = $TypeLJoists->sku;
-            $SJC2->unit_price = $TypeLJoists->price;
+            $SJC2->unit_price =  ($Import + $CostoTotalClavijas)/$Amount;
             $SJC2->total_price = $Import + $CostoTotalClavijas;
             $SJC2->save();
         }
@@ -234,6 +272,12 @@ class TypeC2JoistController extends Controller
     public function add_carrito($id){
         $Quotation_Id = $id;
         $Quotation=Quotation::find($id);
+        
+        if($Quotation->type=="PASARELA"){
+            $ProductType="BARANDAL";
+        }
+        else{    $ProductType="VIGA TIPO C 2";
+        }
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
         $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','SJC2')->first();
         if($cartl2){
@@ -243,7 +287,7 @@ class TypeC2JoistController extends Controller
         $SJB2 = SelectiveJoistC2::where('quotation_id', $Quotation_Id)->first();
         //guardar en el carrito
         $Cart_product= new Cart_product();
-        $Cart_product->name='VIGA TIPO C 2'.$SJB2->model;
+        $Cart_product->name=$ProductType.$SJB2->model.' cal.'.$SJB2->caliber;
         $Cart_product->type='SJC2';
         $Cart_product->unit_price=$SJB2->unit_price;
         $Cart_product->total_price=$SJB2->total_price;

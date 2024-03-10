@@ -16,12 +16,8 @@ class CartController extends Controller
     $user_id=Auth::user()->id;
     $Quotation = Quotation::where('user_id','=',$user_id)->where('status','Iniciada')->orderBy('created_at', 'desc')->first();
     // dd($Quotation);
-    if($Quotation->type =='SELECTIVO'){
-        $Type = 0;
-        }else{
-            $Type = 1;
-        }
-
+    $Type=$Quotation->type;
+// dd($Type);
     if($Quotation->id){
         $QuotationId=$Quotation->id;
     }else{

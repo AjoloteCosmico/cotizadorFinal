@@ -212,8 +212,8 @@
                 <div class="col-sm-4 col-xs-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">ANGULO RANURADO</h5>
-                            <p class="card-text">Cotizar angulos.</p>
+                            <h5 class="card-title">Angulos ranurados</h5>
+                            <p class="card-text">Cotizar angulos cal. 14 o cal. 16.</p>
                             <a href="{{ route('pasarela_angulos.menu', $Quotation_Id) }}" class="btn btn-primary">
                                 <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
                                     <path fill-rule="evenodd"

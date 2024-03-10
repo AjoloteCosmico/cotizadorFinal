@@ -11,7 +11,13 @@
         <div class="row m-3">
             <div  class="row bg-white p-4 shadow-lg rounded-lg">
                 <div class="col-sm-6 col-xs-12">
-                    <h2><i class="fa-solid fa-crop-simple"></i>&nbsp;Vigas Tipo C2 Calibre 14</h2>
+                    <h2><i class="fa-solid fa-crop-simple"></i>&nbsp;
+                    @if($System=='PASARELA')
+                    Barandales para Pasarela
+                    @else
+                    Vigas Tipo C2 Calibre 14
+                    @endif
+                    </h2>
                     <span>Los datos de su cotización se muestran a continuación.</span>
                     <div class="card-body text-center">
                         <div class="container">
@@ -64,7 +70,7 @@
                         <a href="{{route('typec2joists_caliber14.show', $Quotation_Id)}}" class="btn btn-blue mb-2">
                             <i class="fa-solid fa-right-left fa-xl"></i>&nbsp; Corregir
                         </a>
-                        <a href="{{route('typec2joists_caliber14.add_carrito', $Quotation_Id)}}" class="btn btn-black mb-2">
+                        <a href="{{route('typec2joists.add_carrito', $Quotation_Id)}}" class="btn btn-black mb-2">
                             <i class="fa-solid fa-rotate-left fa-xl"></i>&nbsp; Guardar
                         </a>
                     </div>

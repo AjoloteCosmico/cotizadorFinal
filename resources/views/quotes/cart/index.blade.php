@@ -62,6 +62,8 @@
             </a> 
             <br>
             @if($QuotationId != 0)
+            <br>
+            {{$Type}}
 
             <br>
             @if($Quotation->type=='DRIVE IN')

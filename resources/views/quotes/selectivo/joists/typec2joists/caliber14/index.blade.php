@@ -36,7 +36,7 @@
                         <x-jet-input-error for='weight' /><br>
 
                         <x-jet-label value="* Tipo de Viga" />
-                        <input type="text" name="joist_type" class="inputjet w-full text-xs uppercase" value="{{$Joists->joist}}" />
+                        <input type="text" name="joist_type" class="inputjet w-full text-xs uppercase" @if($Quotation->type=="PASARELA") value="Barandal" @else value="{{$Joists->joist}}" @endif  />
                         <x-jet-input-error for='joist_type' /><br>
 
                         <x-jet-label value="* Largo en metros" />
