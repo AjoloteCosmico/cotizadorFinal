@@ -98,7 +98,7 @@ class TypeC2JoistController extends Controller
             $SJC2->m2 = $TypeLJoists->m2;
             $SJC2->length = $TypeLJoists->length;
             $SJC2->sku = $TypeLJoists->sku; 
-            $SJC2->unit_price =  ($Import + $CostoTotalClavijas)/$Amount;
+            $SJC2->unit_price =  $TypeLJoists->price;
             $SJC2->total_price = $Import + $CostoTotalClavijas;
             $SJC2->save();
         

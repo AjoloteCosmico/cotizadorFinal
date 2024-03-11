@@ -34,7 +34,9 @@ class PasarelaController extends Controller
         
         $PrecioLamina=PriceList::where('description','LAMINA')->where('caliber',$request->caliber)->where('type','RC')->first();
        
-        $UnitPrice=$Soporte->weight* $PrecioLamina->cost*$PrecioLamina->f_total; 
+        $UnitPrice=$Soporte->weight* $PrecioLamina->cost*$PrecioLamina->f_total;
+        
+        dd($Soporte->weight,$PrecioLamina->cost,$PrecioLamina->f_total,$UnitPrice); 
         $QuotSoporte=quotation_gangplank_angle::where('quotation_id','=',$request->Quotation_Id)->first();
         if(!$QuotSoporte){
             $QuotSoporte = new  quotation_gangplank_angle();
