@@ -281,6 +281,12 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     Route::get('/pasarela_angulos/{id}/{calibre}', [PasarelaController::class, 'angulos_index'])->name('pasarela_angulos.index');
     Route::post('/pasarela_angulos/store', [PasarelaController::class, 'angulos_store'])->name('pasarela_angulos.store');
     Route::get('/pasarela_angulos_carrito/{id}/{caliber}', [PasarelaController::class, 'angulos_add_carrito'])->name('pasarela_angulos.add_carrito');
+    
+    Route::get('/pasarela_galleta/{id}', [PasarelaController::class, 'galleta_show'])->name('pasarela_galleta.show');
+    Route::post('/store_galleta/{id}', [PasarelaController::class, 'galleta_store'])->name('pasarela_galleta.store');
+    Route::get('/pasarela_galleta_carrito/{id}', [PasarelaController::class, 'galleta_add_carrito'])->name('pasarela_galleta.add_carrito');
+    Route::get('/pasarela_galleta_carrito/{id}', [PasarelaController::class, 'galleta_add_carrito'])->name('pasarela_galleta.add_carrito');
+    
     // END PASARELA
     Route::get('/singlepieces/{id}', [SinglePieceController::class, 'show'])->name('singlepieces.show');
     Route::post('/singlepieces/calc', [SinglePieceController::class, 'calc'])->name('singlepieces.calc');

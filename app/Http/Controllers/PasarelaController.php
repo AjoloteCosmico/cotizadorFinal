@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Quotation;
 use App\Models\PriceList;
+
+use App\Models\quotation_galleta;
 use App\Models\gangplank_angle;
 use App\Models\quotation_gangplank_angle;
 use App\Models\Cart_product;
@@ -75,4 +77,41 @@ class PasarelaController extends Controller
         
         return redirect()->route('selectivo.show',[$Quotation_Id,'PASARELA']);
     }
+
+
+    //galleta
+    public function galleta_show($id){
+     $Quotation=Quotation::find($id);
+     $Quotation_Id=$id;
+     return view('quotes.pasarela.galleta.show',compact('Quotation_Id'));
+    }
+
+    public function galleta_store(Request $request){
+        $rules=[ 'amount' => 'required'];
+        $request->validate($rules);
+
+        $PrecioLaminaRC14=PriceList::where('description','LAMINA')->where('caliber','14')->where('type','RC')->first();
+        //  dd($PrecioLamina);
+        $UnitPrice=0.12* $PrecioLaminaRC14->cost*$PrecioLaminaRC14->f_total; 
+        $QuotGalleta=quotation_galleta::where('quotation_id','=',$request->Quotation_Id)->first();
+        if(!$QuotGalleta){
+            $QuotGalleta = new  quotation_galleta();
+            $QuotGalleta->quotation_id=$request->Quotation_Id;
+        }
+        $QuotGalleta->unit_price=$UnitPrice;
+        $QuotGalleta->total_price=$UnitPrice * $request->amount;
+        $QuotGalleta->amount=$request->amount;
+        $QuotGalleta->sku='TC0000127668';
+        $QuotGalleta->development=0.069;
+        $QuotGalleta->length=0.085;
+        $QuotGalleta->caliber='12';
+        $QuotGalleta->m2=0.01;
+        $QuotGalleta->peso=0.12;
+        $QuotGalleta->kg_m2=21.25;
+        $QuotGalleta->save();
+
+        return view('quotes.pasarela.galleta.store',compact('QuotGalleta'));
+    }
 }
+
+
