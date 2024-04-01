@@ -250,7 +250,7 @@ class SteelController extends Controller
         ];
 
         $request->validate($rules, $messages);
-        ini_set('max_execution_time', 300);
+        ini_set('max_execution_time', 400);
         $Steels = Steel::find($id);
         $Steels->caliber = $request->caliber;
         $Steels->type = $request->type;
