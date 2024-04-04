@@ -288,6 +288,15 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     Route::get('/pasarela_galleta_carrito/{id}', [PasarelaController::class, 'galleta_add_carrito'])->name('pasarela_galleta.add_carrito');
     
     // END PASARELA
+
+    // RUTAS PARAS ESTANTERIA 
+    Route::get('/pasarela_angulos_menu/{id}', [EstanteriaController::class, 'angulos_menu'])->name('pasarela_angulos.menu');
+    // Route::get('/pasarela_angulos/{id}/{calibre}', [PasarelaController::class, 'angulos_index'])->name('pasarela_angulos.index');
+    // Route::post('/pasarela_angulos/store', [PasarelaController::class, 'angulos_store'])->name('pasarela_angulos.store');
+    // Route::get('/pasarela_angulos_carrito/{id}/{caliber}', [PasarelaController::class, 'angulos_add_carrito'])->name('pasarela_angulos.add_carrito');
+    
+   //END ESTANTERIA
+
     Route::get('/singlepieces/{id}', [SinglePieceController::class, 'show'])->name('singlepieces.show');
     Route::post('/singlepieces/calc', [SinglePieceController::class, 'calc'])->name('singlepieces.calc');
 
