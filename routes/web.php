@@ -30,6 +30,7 @@ use App\Http\Controllers\MenuJoistController;
 use App\Http\Controllers\PasarelaController;
 use App\Http\Controllers\DriveInController;
 use App\Http\Controllers\DriveInPiezasController;
+use App\Http\Controllers\EstanteriaController;
 // use App\Http\Controllers\MiniatureFrameController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\QuestionaryChartController;
@@ -290,7 +291,7 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     // END PASARELA
 
     // RUTAS PARAS ESTANTERIA 
-    Route::get('/pasarela_angulos_menu/{id}', [EstanteriaController::class, 'angulos_menu'])->name('pasarela_angulos.menu');
+    Route::get('/pasarela_angulos_menu/{id}', [EstanteriaController::class, 'entrepaños_pintados_index'])->name('entrepaños_pintados.index');
     // Route::get('/pasarela_angulos/{id}/{calibre}', [PasarelaController::class, 'angulos_index'])->name('pasarela_angulos.index');
     // Route::post('/pasarela_angulos/store', [PasarelaController::class, 'angulos_store'])->name('pasarela_angulos.store');
     // Route::get('/pasarela_angulos_carrito/{id}/{caliber}', [PasarelaController::class, 'angulos_add_carrito'])->name('pasarela_angulos.add_carrito');

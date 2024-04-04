@@ -8,7 +8,7 @@ class EstanteriaController extends Controller
 {
     public function entrepaños_pintados_index($id){
         $Quotation_Id=$id;
-        return view('quotes.estanteria.entrepaño_pintado.index',compact('Quotation_Id'));
+        return view('quotes.estanteria.ent_pintado.index',compact('Quotation_Id'));
 
 
     }

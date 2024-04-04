@@ -13,7 +13,7 @@
             <input type="hidden" name="Quotation_Id" value="{{$Quotation_Id}}">
             <div  class="row bg-white p-4 shadow-lg rounded-lg">
                 <div class="col-sm-6 col-xs-12">
-                    <h2><i class="fa-solid fa-crop-simple"></i>&nbsp;GALLETA PARA PASARELA</h2>
+                    <h2><i class="fa-solid fa-crop-simple"></i>&nbsp;ENTREÁÑO PINTADO PAPRA ESTANTERIA</h2>
                     <span>Favor de Seleccionar y llenar los campos solicitados para realizar la cotización.</span>
                     <div class="card-body text-center">
                         <img src="{{asset('vendor/img/postes/logo.png')}}" class="img-thumbnail img-fluid max-h-80 rounded mx-auto d-block" alt="">
@@ -25,8 +25,32 @@
                         <input type="number" name="amount" class="inputjet w-full text-xs uppercase" value="{{ old('amount') }}" />
                         <x-jet-input-error for='amount' /><br>
 
-                       
+                        <x-jet-label value="* Seleccione el Calibre" />
+                        <select name="caliber" class="inputjet w-full text-xs uppercase">
+                            <option value="12" >26</option>
+                            <option value="12" >12</option>
+                            <option value="12" >12</option>
+                        </select>
+                        <x-jet-input-error for='caliber' /><br>
+                    
+                        <x-jet-label value="* Seleccione el Largo" />
+                        <select name="caliber" class="inputjet w-full text-xs uppercase">
+                            <option value="12" >0.83</option>
+                            <option value="12" >12</option>
+                            <option value="12" >12</option>
+                        </select>
+                        <x-jet-input-error for='caliber' /><br>
+                    
+                        <x-jet-label value="* Seleccione el Fondo" />
+                        <select name="caliber" class="inputjet w-full text-xs uppercase">
+                            <option value="12" >0.3</option>
+                            <option value="12" >12</option>
+                            <option value="12" >12</option>
+                        </select>
+                        <x-jet-input-error for='caliber' /><br>
+                    
                     </div>
+                    
                     <div class="form-group p-2 gap-2 flex items-center">
                         <button type="submit" class="btn btn-blue mb-2">
                             <i class="fa-solid fa-calculator fa-xl"></i>&nbsp; Calcular
