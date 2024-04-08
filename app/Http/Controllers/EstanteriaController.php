@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\estanteria_entrepanio;
 use Illuminate\Http\Request;
 
 class EstanteriaController extends Controller
 {
-    public function entrepaños_pintados_index($id){
+    public function entrepanios_index($id,$type){
         $Quotation_Id=$id;
-        return view('quotes.estanteria.ent_pintado.index',compact('Quotation_Id'));
+        $Largos=estanteria_entrepanio::all()->unique('length');
+        $Fondos=estanteria_entrepanio::all()->unique('deep');
+        $Calibres=estanteria_entrepanio::all()->unique('caliber');
+         $Type=$type;
+       
+        // dd($Largos);
+        return view('quotes.estanteria.entrepanio.index',compact('Quotation_Id','Largos','Fondos','Calibres','Type'));
 
 
     }

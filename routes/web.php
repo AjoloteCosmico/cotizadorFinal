@@ -291,9 +291,8 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     // END PASARELA
 
     // RUTAS PARAS ESTANTERIA 
-    Route::get('/pasarela_angulos_menu/{id}', [EstanteriaController::class, 'entrepaños_pintados_index'])->name('entrepaños_pintados.index');
-    // Route::get('/pasarela_angulos/{id}/{calibre}', [PasarelaController::class, 'angulos_index'])->name('pasarela_angulos.index');
-    // Route::post('/pasarela_angulos/store', [PasarelaController::class, 'angulos_store'])->name('pasarela_angulos.store');
+    Route::get('/estanteria/entrepanios/{id}/{type}', [EstanteriaController::class, 'entrepanios_index'])->name('entrepanios.index');
+    Route::post('/estanteria/store', [EstanteriaController::class, 'entrepanios_store'])->name('entrepanios.store');
     // Route::get('/pasarela_angulos_carrito/{id}/{caliber}', [PasarelaController::class, 'angulos_add_carrito'])->name('pasarela_angulos.add_carrito');
     
    //END ESTANTERIA
