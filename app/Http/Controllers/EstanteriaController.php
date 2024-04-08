@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\estanteria_entrepanio;
+use App\Models\quotation_estanteria_entrepanio;
+use App\Models\PriceList;
+use App\Models\Quotation;
+use App\Models\Cart_product;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 
 class EstanteriaController extends Controller
@@ -20,47 +26,78 @@ class EstanteriaController extends Controller
 
     }
     
-    public function angulos_store(Request $request){
+    public function entrepanios_store(Request $request){
         $rules=[ 'amount' => 'required',
-        'length' => 'required|min:0.01|max:12',];
+        'length' => 'required',
+        'deep' => 'required',
+        'caliber' => 'required',];
         $request->validate($rules);
         //buscar los datos de anguloque concidan con los parametros de usuario(en este caso solo largo)
-        $Soporte=gangplank_angle::where('caliber',$request->caliber)->where('length','<=',(float)$request->length+0.0001)->orderBy('gangplank_angles.length', 'desc')->first();
+        $Ent=estanteria_entrepanio::where('caliber',$request->caliber)
+             ->where('length','<=',(float)$request->length+0.0001)
+             ->where('deep','<=',(float)$request->deep+0.0001)
+             ->where('type',$request->type)
+             ->orderBy('estanteria_entrepanioS.length', 'desc')->first();
         
         
-        $PrecioLamina=PriceList::where('description','LAMINA')->where('caliber',$request->caliber)->where('type','RC')->first();
+        $PrecioLamina=PriceList::where('description','LAMINA')
+        // ->where('caliber',$request->caliber)
+        ->where('caliber','24')
+        ->where('type','RC')->first(); 
        
-        $UnitPrice=$Soporte->weight* $PrecioLamina->cost*$PrecioLamina->f_total;
+        $UnitPrice=$Ent->weight* $PrecioLamina->cost*$PrecioLamina->f_total;
         
-        dd($Soporte->weight,$PrecioLamina->cost,$PrecioLamina->f_total,$UnitPrice); 
-        $QuotSoporte=quotation_gangplank_angle::where('quotation_id','=',$request->Quotation_Id)->first();
-        if(!$QuotSoporte){
-            $QuotSoporte = new  quotation_gangplank_angle();
-            $QuotSoporte->quotation_id=$request->Quotation_Id;
+        // dd($Ent); 
+        $QuotEnt=quotation_estanteria_entrepanio::where('quotation_id','=',$request->Quotation_Id)->first();
+        if(!$QuotEnt){
+            $QuotEnt = new quotation_estanteria_entrepanio();
+            $QuotEnt->quotation_id=$request->Quotation_Id;
         }
-        $QuotSoporte->unit_price=$UnitPrice;
-        $QuotSoporte->total_price=$UnitPrice * $request->amount;
-        $QuotSoporte->amount=$request->amount;
-        $QuotSoporte->sku=$Soporte->sku;
-        $QuotSoporte->save();
+        $QuotEnt->unit_price=$UnitPrice;
+        $QuotEnt->total_price=$UnitPrice * $request->amount;
+        $QuotEnt->amount=$request->amount;
+        $QuotEnt->sku=$Ent->sku;
+        $QuotEnt->caliber=$Ent->caliber;
+        $QuotEnt->type=$Ent->type;
+        $QuotEnt->refuerzos=0;
+        $QuotEnt->save();
 
-        return view('quotes.selectivo.angulos.store',compact('QuotSoporte','Soporte'));
+        $PrecioEscuadra= 0.06*$PrecioLamina->cost*$PrecioLamina->f_total;
+
+        return view('quotes.estanteria.entrepanio.store',compact('QuotEnt','Ent','PrecioEscuadra'));
     }
-    public function angulos_add_carrito($id,$caliber){
+    public function entrepanios_refuerzos(Request $request){
+        $QuotEnt=quotation_estanteria_entrepanio::where('quotation_id','=',$request->Quotation_Id)->first();
+        // dd($request);
+        $QuotEnt->refuerzos=$request->amount;
+        $QuotEnt->save();
+        
+        $Ent=estanteria_entrepanio::where('sku',$QuotEnt->sku)
+             ->where('type',$QuotEnt->type)
+             ->first();
+        $PrecioLamina=PriceList::where('description','LAMINA')
+             // ->where('caliber',$request->caliber)
+             ->where('caliber','24')
+             ->where('type','RC')->first(); 
+        $PrecioEscuadra= 0.06*$PrecioLamina->cost*$PrecioLamina->f_total;
+        return view('quotes.estanteria.entrepanio.store',compact('QuotEnt','Ent','PrecioEscuadra'));
+   
+    }
+    public function entrepanio_add_carrito($id,$type){
         $Quotation_Id = $id;
         $Quotation=Quotation::find($id);
         
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
-        $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','Pang'.$caliber)->first();
+        $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','Eent'.$type)->first();
         if($cartl2){
             Cart_product::destroy($cartl2->id);
         }
         //agregar el nuevo al carrito, lo que este en 
-        $SJL2 = quotation_gangplank_angle::where('quotation_id', $Quotation_Id)->first();
+        $SJL2 = quotation_estanteria_entrepanio::where('quotation_id', $Quotation_Id)->first();
         //guardar en el carrito
         $Cart_product= new Cart_product();
-        $Cart_product->name='ANGULO RANURADO CAL. '.$caliber;
-        $Cart_product->type='Pang'.$caliber;
+        $Cart_product->name='ENTREPAÑO.'.$type.'ESTANTERIA CAL. '.$SJL2->caliber.' con '.$SJL2->refuerzos.'refuerzos' ;
+        $Cart_product->type='Eent'.$type;
         $Cart_product->unit_price=$SJL2->total_price/$SJL2->amount;
         $Cart_product->total_price=$SJL2->total_price;
         $Cart_product->quotation_id=$Quotation_Id;
@@ -69,7 +106,7 @@ class EstanteriaController extends Controller
         $Cart_product->sku=$SJL2->sku;
         $Cart_product->save();
         
-        return redirect()->route('selectivo.show',[$Quotation_Id,'PASARELA']);
+        return redirect()->route('selectivo.show',[$Quotation_Id,'ESTANTERIA']);
     }
 
     

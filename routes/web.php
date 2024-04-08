@@ -293,7 +293,8 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     // RUTAS PARAS ESTANTERIA 
     Route::get('/estanteria/entrepanios/{id}/{type}', [EstanteriaController::class, 'entrepanios_index'])->name('entrepanios.index');
     Route::post('/estanteria/store', [EstanteriaController::class, 'entrepanios_store'])->name('entrepanios.store');
-    // Route::get('/pasarela_angulos_carrito/{id}/{caliber}', [PasarelaController::class, 'angulos_add_carrito'])->name('pasarela_angulos.add_carrito');
+    Route::post('/estanteria/refuerzos', [EstanteriaController::class, 'entrepanios_refuerzos'])->name('entrepanios.update_reforcement');
+    Route::get('/estanteria_entrepanios_carrito/{id}/{type}', [EstanteriaController::class, 'entrepanio_add_carrito'])->name('entrepanios.add_carrito');
     
    //END ESTANTERIA
 
