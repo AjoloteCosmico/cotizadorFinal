@@ -37,7 +37,7 @@ class EstanteriaController extends Controller
              ->where('length','<=',(float)$request->length+0.0001)
              ->where('deep','<=',(float)$request->deep+0.0001)
              ->where('type',$request->type)
-             ->orderBy('estanteria_entrepanioS.length', 'desc')->first();
+             ->orderBy('estanteria_entrepanio.length', 'desc')->first();
         
         
         $PrecioLamina=PriceList::where('description','LAMINA')
