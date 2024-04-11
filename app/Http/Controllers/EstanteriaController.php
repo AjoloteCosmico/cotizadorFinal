@@ -109,6 +109,12 @@ class EstanteriaController extends Controller
         return redirect()->route('selectivo.show',[$Quotation_Id,'ESTANTERIA']);
     }
 
+
+    public function respaldo_show($id){
+        $Quotation_Id=$id;
+        return view('quotes.estanteria.respaldos.index',compact('Quotation_Id'));
+    }
+
     
 
 }

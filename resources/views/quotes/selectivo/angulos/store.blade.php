@@ -11,7 +11,7 @@
         <div class="row m-3">
             <div  class="row bg-white p-4 shadow-lg rounded-lg">
                 <div class="col-sm-6 col-xs-12">
-                    <h2><i class="fa-solid fa-crop-simple"></i>&nbsp;ANGULOS RANURADOS PASARELA</h2>
+                    <h2><i class="fa-solid fa-crop-simple"></i>&nbsp;ANGULOS RANURADOS </h2>
                     <span>Los datos de su cotización se muestran a continuación.</span>
                     <div class="card-body text-center">
                         <div class="container">
@@ -41,7 +41,7 @@
                                 <td>peso: {{$Soporte->weight}}</td>
                             </tr>
                             <tr class="text-right">
-                                <td>M2: {{$Soporte->m2}}</td>
+                                <td>Ancho: 0.38x{{$Soporte->deep}}</td>
                                 <td>calibre: {{$Soporte->caliber}} </td>
                             </tr>
                             

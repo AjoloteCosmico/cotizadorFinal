@@ -278,14 +278,13 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     #________________END Drive IN
 
         // RUTAS PARAS PASARELA 
-    Route::get('/pasarela_angulos_menu/{id}', [PasarelaController::class, 'angulos_menu'])->name('pasarela_angulos.menu');
-    Route::get('/pasarela_angulos/{id}/{calibre}', [PasarelaController::class, 'angulos_index'])->name('pasarela_angulos.index');
-    Route::post('/pasarela_angulos/store', [PasarelaController::class, 'angulos_store'])->name('pasarela_angulos.store');
-    Route::get('/pasarela_angulos_carrito/{id}/{caliber}', [PasarelaController::class, 'angulos_add_carrito'])->name('pasarela_angulos.add_carrito');
+    Route::get('/angulos_menu/{id}', [PasarelaController::class, 'angulos_menu'])->name('pasarela_angulos.menu');
+    Route::get('/angulos/{id}/{calibre}', [PasarelaController::class, 'angulos_index'])->name('pasarela_angulos.index');
+    Route::post('/angulos/store', [PasarelaController::class, 'angulos_store'])->name('pasarela_angulos.store');
+    Route::get('/angulos_carrito/{id}/{caliber}', [PasarelaController::class, 'angulos_add_carrito'])->name('pasarela_angulos.add_carrito');
     
     Route::get('/pasarela_galleta/{id}', [PasarelaController::class, 'galleta_show'])->name('pasarela_galleta.show');
     Route::post('/store_galleta/{id}', [PasarelaController::class, 'galleta_store'])->name('pasarela_galleta.store');
-    Route::get('/pasarela_galleta_carrito/{id}', [PasarelaController::class, 'galleta_add_carrito'])->name('pasarela_galleta.add_carrito');
     Route::get('/pasarela_galleta_carrito/{id}', [PasarelaController::class, 'galleta_add_carrito'])->name('pasarela_galleta.add_carrito');
     
     // END PASARELA
@@ -295,6 +294,10 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     Route::post('/estanteria/store', [EstanteriaController::class, 'entrepanios_store'])->name('entrepanios.store');
     Route::post('/estanteria/refuerzos', [EstanteriaController::class, 'entrepanios_refuerzos'])->name('entrepanios.update_reforcement');
     Route::get('/estanteria_entrepanios_carrito/{id}/{type}', [EstanteriaController::class, 'entrepanio_add_carrito'])->name('entrepanios.add_carrito');
+    
+    Route::get('/estanteria_respaldos/{id}', [EstanteriaController::class, 'respaldo_show'])->name('estanteria_respaldos.show');
+    Route::post('/estanteria_respaldos/store/{id}', [EstanteriaController::class, 'respaldo_store'])->name('estanteria_respaldos.store');
+    Route::get('/estanteria_respaldos/carrito/{id}', [EstanteriaController::class, 'respaldo_add_carrito'])->name('estanteria_respaldos.add_carrito');
     
    //END ESTANTERIA
 

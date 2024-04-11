@@ -30,10 +30,14 @@ class PasarelaController extends Controller
         $rules=[ 'amount' => 'required',
         'length' => 'required|min:0.01|max:12',];
         $request->validate($rules);
+        
         //buscar los datos de anguloque concidan con los parametros de usuario(en este caso solo largo)
-        $Soporte=gangplank_angle::where('caliber',$request->caliber)->where('length','<=',(float)$request->length+0.0001)->orderBy('gangplank_angles.length', 'desc')->first();
+        $Soporte=gangplank_angle::where('caliber',$request->caliber)
+        ->where('length','<=',(float)$request->length+0.0001)
+        ->where('deep','<=',(float)$request->deep+0.0001)
+        ->orderBy('gangplank_angles.length', 'desc')->first();
         
-        
+        // dd(number_format((float)$request->deep,2),$Soporte);
         $PrecioLamina=PriceList::where('description','LAMINA')->where('caliber',$request->caliber)->where('type','RC')->first();
        
         $UnitPrice=$Soporte->weight* $PrecioLamina->cost*$PrecioLamina->f_total;
@@ -64,8 +68,9 @@ class PasarelaController extends Controller
         //agregar el nuevo al carrito, lo que este en 
         $SJL2 = quotation_gangplank_angle::where('quotation_id', $Quotation_Id)->first();
         //guardar en el carrito
+        $Soporte=gangplank_angle::where('sku',$SJL2->sku)->first();
         $Cart_product= new Cart_product();
-        $Cart_product->name='ANGULO RANURADO CAL. '.$caliber;
+        $Cart_product->name='ANGULO RANURADO CAL. '.$caliber.' 0.38x'. $Soporte->deep;;
         $Cart_product->type='Pang'.$caliber;
         $Cart_product->unit_price=$SJL2->total_price/$SJL2->amount;
         $Cart_product->total_price=$SJL2->total_price;
@@ -75,7 +80,7 @@ class PasarelaController extends Controller
         $Cart_product->sku=$SJL2->sku;
         $Cart_product->save();
         
-        return redirect()->route('selectivo.show',[$Quotation_Id,'PASARELA']);
+        return redirect()->route('selectivo.show',[$Quotation_Id,$Quotation->type]);
     }
 
 
@@ -111,6 +116,35 @@ class PasarelaController extends Controller
         $QuotGalleta->save();
 
         return view('quotes.pasarela.galleta.store',compact('QuotGalleta'));
+    }
+
+    public function galleta_add_carrito($id){
+        $Quotation_Id = $id;
+        $Quotation=Quotation::find($id);
+        
+        //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
+        $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','Pgall'.$caliber)->first();
+        if($cartl2){
+            Cart_product::destroy($cartl2->id);
+        }
+        //agregar el nuevo al carrito, lo que este en 
+        $SJL2 = quotation_galleta::where('quotation_id', $Quotation_Id)->first();
+        //guardar en el carrito
+        // $Soporte=gangplank_angle::where('sku',$SJL2->sku)->first();
+        $Cart_product= new Cart_product();
+        $Cart_product->name='GALLETA';
+        $Cart_product->type='Pgall';
+        $Cart_product->unit_price=$SJL2->total_price/$SJL2->amount;
+        $Cart_product->total_price=$SJL2->total_price;
+        $Cart_product->quotation_id=$Quotation_Id;
+        $Cart_product->user_id=Auth::user()->id;
+        $Cart_product->amount=$SJL2->amount;
+        $Cart_product->sku=$SJL2->sku;
+        $Cart_product->save();
+        
+        return redirect()->route('selectivo.show',[$Quotation_Id,$Quotation->type]);
+   
+
     }
 }
 
