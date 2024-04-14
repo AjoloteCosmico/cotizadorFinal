@@ -15,7 +15,7 @@
             
             <div  class="row bg-white p-4 shadow-lg rounded-lg">
                 <div class="col-sm-6 col-xs-12">
-                    <h2><i class="fa-solid fa-crop-simple"></i>&nbsp;ENTREÁÑO PINTADO PARA ESTANTERIA</h2>
+                    <h2><i class="fa-solid fa-crop-simple"></i>&nbsp;ENTREPAÑO {{$Type}} PARA ESTANTERIA</h2>
                     <span>Favor de Seleccionar y llenar los campos solicitados para realizar la cotización.</span>
                     <div class="card-body text-center">
                         <img src="{{asset('vendor/img/postes/logo.png')}}" class="img-thumbnail img-fluid max-h-80 rounded mx-auto d-block" alt="">
@@ -57,7 +57,7 @@
                         <button type="submit" class="btn btn-blue mb-2">
                             <i class="fa-solid fa-calculator fa-xl"></i>&nbsp; Calcular
                         </button>
-                        <a href="{{route('selectivo.show', $Quotation_Id)}}" class="btn btn-black mb-2">
+                        <a href="{{route('selectivo.show', [$Quotation_Id,'ESTANTERIA'])}}" class="btn btn-black mb-2">
                             <i class="fa-solid fa-rotate-left fa-xl"></i>&nbsp; Cancelar
                         </a>
                     </div>

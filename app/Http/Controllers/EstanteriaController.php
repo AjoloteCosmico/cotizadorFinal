@@ -7,6 +7,10 @@ use App\Models\quotation_estanteria_entrepanio;
 use App\Models\PriceList;
 use App\Models\Quotation;
 use App\Models\Cart_product;
+
+use App\Models\QuotationRespaldo;
+
+use App\Models\Respaldo;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
@@ -112,8 +116,50 @@ class EstanteriaController extends Controller
 
     public function respaldo_show($id){
         $Quotation_Id=$id;
-        return view('quotes.estanteria.respaldos.index',compact('Quotation_Id'));
+        $Frentes=Respaldo::all()->unique('front');
+        $Anchos=Respaldo::all()->unique('deep');
+       
+        return view('quotes.estanteria.respaldos.index',compact('Quotation_Id','Frentes','Anchos'));
     }
+    public function respaldo_store(Request $request,$id){
+        $rules=[ 'amount' => 'required',
+        'front' => 'required',
+        'deep' => 'required',
+        'caliber' => 'required',];
+        $request->validate($rules);
+        //buscar los datos de anguloque concidan con los parametros de usuario(en este caso solo largo)
+        $Respaldo=Respaldo::where('front','<=',(float)$request->front+0.0001)
+            ->where('deep','<=',(float)$request->deep+0.0001)
+            ->orderBy('respaldos.front', 'desc')
+            
+            ->orderBy('respaldos.deep', 'desc')
+             ->first();
+        // dd($Respaldo);
+        
+        $PrecioLamina=PriceList::where('description','LAMINA')
+        // ->where('caliber',$request->caliber)
+        ->where('caliber','24')
+        ->where('type','RC')->first(); 
+       
+        $UnitPrice=$Respaldo->weight* $PrecioLamina->cost*$PrecioLamina->f_total;
+        
+        // dd($Ent); 
+        $QuotEnt=QuotationRespaldo::where('quotation_id','=',$request->Quotation_Id)->first();
+        if(!$QuotEnt){
+            $QuotEnt = new QuotationRespaldo();
+            $QuotEnt->quotation_id=$request->Quotation_Id;
+        }
+        $QuotEnt->unit_price=$UnitPrice;
+        $QuotEnt->total_price=$UnitPrice * $request->amount;
+        $QuotEnt->amount=$request->amount;
+        $QuotEnt->sku=$Respaldo->sku;
+        $QuotEnt->save();
+
+
+        return view('quotes.estanteria.respaldos.store',compact('QuotEnt','Respaldo',));
+    
+    }
+
 
     
 
