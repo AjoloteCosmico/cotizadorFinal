@@ -161,6 +161,16 @@ class EstanteriaController extends Controller
     }
 
 
+    public function respaldos_add_carrito(){
+
+    } 
+    public function escuadras_show($id){
+        $Quotation_Id=$id;
+       
+        return view('quotes.estanteria.escuadras.index',compact('Quotation_Id'));
+    }
+
+
     
 
 }

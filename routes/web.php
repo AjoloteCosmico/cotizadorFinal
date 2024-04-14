@@ -299,6 +299,10 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     Route::post('/estanteria_respaldos/store/{id}', [EstanteriaController::class, 'respaldo_store'])->name('estanteria_respaldos.store');
     Route::get('/estanteria_respaldos/carrito/{id}', [EstanteriaController::class, 'respaldo_add_carrito'])->name('estanteria_respaldos.add_carrito');
     
+    Route::get('/estanteria_escuadras/{id}', [EstanteriaController::class, 'escuadras_show'])->name('estanteria_escuadras.show');
+    Route::post('/estanteria_escuadras/store/{id}', [EstanteriaController::class, 'escuadras_store'])->name('estanteria_escuadras.store');
+    Route::get('/estanteria_escuadras/carrito/{id}', [EstanteriaController::class, 'escuadras_add_carrito'])->name('estanteria_escuadras.add_carrito');
+    
    //END ESTANTERIA
 
     Route::get('/singlepieces/{id}', [SinglePieceController::class, 'show'])->name('singlepieces.show');
