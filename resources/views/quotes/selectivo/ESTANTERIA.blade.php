@@ -65,6 +65,8 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="col-sm-4 col-xs-12">
                     <div class="card">
                         <div class="card-body">
                             

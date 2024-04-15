@@ -10,6 +10,8 @@ use App\Models\Cart_product;
 
 use App\Models\QuotationRespaldo;
 
+use App\Models\quotation_escuadra;
+
 use App\Models\Respaldo;
 use Illuminate\Support\Facades\Auth;
 
@@ -161,13 +163,98 @@ class EstanteriaController extends Controller
     }
 
 
-    public function respaldos_add_carrito(){
+    public function respaldo_add_carrito($id){
+        $Quotation_Id = $id;
+        $Quotation=Quotation::find($id);
+        
+        //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
+        $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','Eresp')->first();
+        if($cartl2){
+            Cart_product::destroy($cartl2->id);
+        }
+        //agregar el nuevo al carrito, lo que este en 
+        $SJL2 = QuotationRespaldo::where('quotation_id', $Quotation_Id)->first();
+        //guardar en el carrito
+        $Cart_product= new Cart_product();
+        $Cart_product->name='RESPALDO ESTANTERIA';
+        $Cart_product->type='Eresp';
+        $Cart_product->unit_price=$SJL2->total_price/$SJL2->amount;
+        $Cart_product->total_price=$SJL2->total_price;
+        $Cart_product->quotation_id=$Quotation_Id;
+        $Cart_product->user_id=Auth::user()->id;
+        $Cart_product->amount=$SJL2->amount;
+        $Cart_product->sku=$SJL2->sku;
+        $Cart_product->save();
+        
+        return redirect()->route('selectivo.show',[$Quotation_Id,'ESTANTERIA']);
+    
 
     } 
     public function escuadras_show($id){
         $Quotation_Id=$id;
        
         return view('quotes.estanteria.escuadras.index',compact('Quotation_Id'));
+    }
+
+    public function escuadras_store(Request $request,$id){
+        $rules=[ 'amount' => 'required',
+        ];
+        $request->validate($rules);
+        //buscar los datos de anguloque concidan con los parametros de usuario(en este caso solo largo)
+        
+        // dd($Respaldo);
+        
+        $PrecioLamina=PriceList::where('description','LAMINA')
+        // ->where('caliber',$request->caliber)
+        ->where('caliber','24')
+        ->where('type','RC')->first(); 
+       
+        $UnitPrice= 0.06*$PrecioLamina->cost*$PrecioLamina->f_total;
+
+        // dd($Ent); 
+        $QuotEnt=quotaion_escuadra::where('quotation_id','=',$request->Quotation_Id)->first();
+        if(!$QuotEnt){
+            $QuotEnt = new QuotationRespaldo();
+            $QuotEnt->quotation_id=$request->Quotation_Id;
+        }
+        $QuotEnt->unit_price=$UnitPrice;
+        $QuotEnt->total_price=$UnitPrice * $request->amount;
+        $QuotEnt->amount=$request->amount;
+        $QuotEnt->sku='TC0000127669';
+        $QuotEnt->save();
+
+
+        return view('quotes.estanteria.respaldos.store',compact('QuotEnt','Respaldo',));
+    
+    }
+
+
+    public function escuadras_add_carrito($id){
+        $Quotation_Id = $id;
+        $Quotation=Quotation::find($id);
+        
+        //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
+        $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','Eescref')->first();
+        if($cartl2){
+            Cart_product::destroy($cartl2->id);
+        }
+        //agregar el nuevo al carrito, lo que este en 
+        $SJL2 = quotation_escuadra::where('quotation_id', $Quotation_Id)->first();
+        //guardar en el carrito
+        $Cart_product= new Cart_product();
+        $Cart_product->name='ESCUADRAS DE REFUERZO';
+        $Cart_product->type='Eescref';
+        $Cart_product->unit_price=$SJL2->total_price/$SJL2->amount;
+        $Cart_product->total_price=$SJL2->total_price;
+        $Cart_product->quotation_id=$Quotation_Id;
+        $Cart_product->user_id=Auth::user()->id;
+        $Cart_product->amount=$SJL2->amount;
+        $Cart_product->sku='TC0000127669';
+        $Cart_product->save();
+        
+        return redirect()->route('selectivo.show',[$Quotation_Id,'ESTANTERIA']);
+    
+
     }
 
 
