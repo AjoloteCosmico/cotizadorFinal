@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Joist;
+use App\Models\PriceList;
 use App\Models\PriceListScrew;
 use App\Models\SelectiveJoistChair;
 use App\Models\TypeChairJoist;
@@ -133,7 +134,7 @@ class TypeChairJoistController extends Controller
         $TypeLJoists = TypeChairJoist::where('caliber',$Caliber)->where('camber', $Camber)->where('length', $Length)->first();
         //optimzed
         $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $Caliber)->first();
-        $Import = $Amount * $PriceList->cost * $PriceList->f_total;
+        $Import = $PriceList->cost * $PriceList->f_total *$TypeLJoists->weight;
         $Clavijas = PriceListScrew::where('description', 'CLAVIJA DE SEGURIDAD PARA VIGAS')->first();
         $CostoClavija = $Clavijas->cost * $Clavijas->f_total;
         $CantidadClavijas = $Amount * 2;
@@ -152,8 +153,8 @@ class TypeChairJoistController extends Controller
             $SJC->m2 = $TypeLJoists->m2;
             $SJC->length = $TypeLJoists->length;
             $SJC->sku = $TypeLJoists->sku;
-            $SJC->unit_price = $TypeLJoists->price;
-            $SJC->total_price = $Import + $CostoTotalClavijas;
+            $SJC->unit_price = $Import;
+            $SJC->total_price = $Import*$Amount + $CostoTotalClavijas;
             $SJC->save();
         }else{
             $SJC = new SelectiveJoistChair();
@@ -169,8 +170,8 @@ class TypeChairJoistController extends Controller
             $SJC->m2 = $TypeLJoists->m2;
             $SJC->length = $TypeLJoists->length;
             $SJC->sku = $TypeLJoists->sku;
-            $SJC->unit_price = $TypeLJoists->price;
-            $SJC->total_price = $Import + $CostoTotalClavijas;
+            $SJC->unit_price = $Import;
+            $SJC->total_price = $Import*$Amount + $CostoTotalClavijas;
             $SJC->save();
         }
 

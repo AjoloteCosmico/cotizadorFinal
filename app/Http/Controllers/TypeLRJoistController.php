@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Joist;
+use App\Models\PriceList;
 use App\Models\PriceListScrew;
 use App\Models\SelectiveJoistLr;
 use App\Models\TypeLRJoist;
@@ -68,7 +69,9 @@ class TypeLRJoistController extends Controller
         $Cambers = TypeLRJoistLoadingCapacity::where('crossbar_length', '>=', $Length)->where('loading_capacity', '>=', $WeightIncrement)->first();
         if($Cambers){
             $TypeLJoists = TypeLRJoist::where('caliber','14')->where('camber', $Cambers->camber)->where('length', $Length)->first();
-            $Import = $request->amount * $TypeLJoists->price;
+            //Optimized
+            $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', '14')->first();
+            $Import =  $PriceList->cost * $PriceList->f_total * $TypeLJoists->weight;
             $Clavijas = PriceListScrew::where('description', 'CLAVIJA DE SEGURIDAD PARA VIGAS')->first();
             $CostoClavija = $Clavijas->cost * $Clavijas->f_total;
             $CantidadClavijas = $Amount * 2;
@@ -86,8 +89,8 @@ class TypeLRJoistController extends Controller
                 $SJLR->m2 = $TypeLJoists->m2;
                 $SJLR->length = $TypeLJoists->length;
                 $SJLR->sku = $TypeLJoists->sku;
-                $SJLR->unit_price = $TypeLJoists->price;
-                $SJLR->total_price = $Import + $CostoTotalClavijas;
+                $SJLR->unit_price = $Import;
+                $SJLR->total_price = $Import*$Amount + $CostoTotalClavijas;
                 $SJLR->save();
             }else{
                 $SJLR = new SelectiveJoistLr();
@@ -102,8 +105,8 @@ class TypeLRJoistController extends Controller
                 $SJLR->m2 = $TypeLJoists->m2;
                 $SJLR->length = $TypeLJoists->length;
                 $SJLR->sku = $TypeLJoists->sku;
-                $SJLR->unit_price = $TypeLJoists->price;
-                $SJLR->total_price = $Import + $CostoTotalClavijas;
+                $SJLR->unit_price = $Import;
+                $SJLR->total_price = $Import*$Amount + $CostoTotalClavijas;
                 $SJLR->save();
             }
 
@@ -157,7 +160,10 @@ class TypeLRJoistController extends Controller
             $Camber=$Cambers->camber;
             $TypeLJoists = TypeLRJoist::where('caliber',$Caliber)->where('camber', $Cambers->camber)->where('length', $Length)->first();
             // dd($Cambers,$WeightIncrement,$Length,$TypeLJoists);
-            $Import = $Amount * $TypeLJoists->price;
+            //Optimized
+            $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $Caliber)->first();
+            $Import =  $PriceList->cost * $PriceList->f_total * $TypeLJoists->weight;
+            
             $Clavijas = PriceListScrew::where('description', 'CLAVIJA DE SEGURIDAD PARA VIGAS')->first();
             $CostoClavija = $Clavijas->cost * $Clavijas->f_total;
             $CantidadClavijas = $Amount * 2;
@@ -175,8 +181,8 @@ class TypeLRJoistController extends Controller
                 $SJLR->m2 = $TypeLJoists->m2;
                 $SJLR->length = $TypeLJoists->length;
                 $SJLR->sku = $TypeLJoists->sku;
-                $SJLR->unit_price = $TypeLJoists->price;
-                $SJLR->total_price = $Import + $CostoTotalClavijas;
+                $SJLR->unit_price = $Import;
+                $SJLR->total_price = $Import*$Amount + $CostoTotalClavijas;
                 $SJLR->save();
             }else{
                 $SJLR = new SelectiveJoistLr();
@@ -191,8 +197,8 @@ class TypeLRJoistController extends Controller
                 $SJLR->m2 = $TypeLJoists->m2;
                 $SJLR->length = $TypeLJoists->length;
                 $SJLR->sku = $TypeLJoists->sku;
-                $SJLR->unit_price = $TypeLJoists->price;
-                $SJLR->total_price = $Import + $CostoTotalClavijas;
+                $SJLR->unit_price = $Import;
+                $SJLR->total_price = $Import*$Amount + $CostoTotalClavijas;
                 $SJLR->save();
             }
     

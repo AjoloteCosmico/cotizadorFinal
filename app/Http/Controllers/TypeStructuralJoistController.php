@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Joist;
+use App\Models\PriceList;
 use App\Models\PriceListScrew;
 use App\Models\SelectiveJoistStructural;
 use App\Models\TypeStructuralJoist;
@@ -68,7 +69,9 @@ class TypeStructuralJoistController extends Controller
         $Cambers = TypeStructuralJoistLoadingCapacity::where('crossbar_length', '>=', $Length)->where('loading_capacity', '>=', $WeightIncrement)->first();
         if($Cambers){
             $TypeLJoists = TypeStructuralJoist::where('caliber','14')->where('camber', $Cambers->camber)->where('length', $Length)->first();
-            $Import = $request->amount * $TypeLJoists->price;
+            //Optimized
+            $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', '14')->first();
+            $Import =  $PriceList->cost * $PriceList->f_total * $TypeLJoists->weight;
             $Tornillos = PriceListScrew::where('description', 'TORNILLO Y TUERCA 1/2 IN X 1 IN G5 GALV')->first();
             $CostoTornillos = $Tornillos->cost * $Tornillos->f_total;
             $CantidadTornillos = $Amount * 4;
@@ -86,8 +89,8 @@ class TypeStructuralJoistController extends Controller
                 $SJS->m2 = $TypeLJoists->m2;
                 $SJS->length = $TypeLJoists->length;
                 $SJS->sku = $TypeLJoists->sku;
-                $SJS->unit_price = $TypeLJoists->price;
-                $SJS->total_price = $Import + $CostoTotalTornillos;
+                $SJS->unit_price = $Import;
+                $SJS->total_price = $Import*$Amount + $CostoTotalTornillos;
                 $SJS->save();
             }else{
                 $SJS = new SelectiveJoistStructural();
@@ -102,8 +105,8 @@ class TypeStructuralJoistController extends Controller
                 $SJS->m2 = $TypeLJoists->m2;
                 $SJS->length = $TypeLJoists->length;
                 $SJS->sku = $TypeLJoists->sku;
-                $SJS->unit_price = $TypeLJoists->price;
-                $SJS->total_price = $Import + $CostoTotalTornillos;
+                $SJS->unit_price = $Import;
+                $SJS->total_price = $Import*$Amount + $CostoTotalTornillos;
                 $SJS->save();
             }
 
@@ -163,7 +166,10 @@ class TypeStructuralJoistController extends Controller
         
         $TypeLJoists = TypeStructuralJoist::where('caliber',$Caliber)->where('camber', $Camber)->where('length', $Length)->first();
         if($TypeLJoists){
-            $Import = $Amount * $TypeLJoists->price;
+            //Optimized
+            $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $Caliber)->first();
+            $Import =  $PriceList->cost * $PriceList->f_total * $TypeLJoists->weight;
+            
             $Tornillos = PriceListScrew::where('description', 'TORNILLO Y TUERCA 1/2 IN X 1 IN G5 GALV')->first();
             $CostoTornillos = $Tornillos->cost * $Tornillos->f_total;
             $CantidadTornillos = $Amount * 4;
@@ -182,8 +188,8 @@ class TypeStructuralJoistController extends Controller
                 $SJS->m2 = $TypeLJoists->m2;
                 $SJS->length = $TypeLJoists->length;
                 $SJS->sku = $TypeLJoists->sku;
-                $SJS->unit_price = $TypeLJoists->price;
-                $SJS->total_price = $Import + $CostoTotalTornillos;
+                $SJS->unit_price = $Import;
+                $SJS->total_price = $Import*$Amount + $CostoTotalTornillos;
                 $SJS->save();
             }else{
                 $SJS = new SelectiveJoistStructural();
@@ -199,8 +205,8 @@ class TypeStructuralJoistController extends Controller
                 $SJS->m2 = $TypeLJoists->m2;
                 $SJS->length = $TypeLJoists->length;
                 $SJS->sku = $TypeLJoists->sku;
-                $SJS->unit_price = $TypeLJoists->price;
-                $SJS->total_price = $Import + $CostoTotalTornillos;
+                $SJS->unit_price = $Import;
+                $SJS->total_price = $Import*$Amount + $CostoTotalTornillos;
                 $SJS->save();
             }
 
@@ -284,8 +290,10 @@ class TypeStructuralJoistController extends Controller
         
         $TypeLJoists = TypeStructuralJoist::where('caliber',$Caliber)->where('camber', $Camber)->where('length', $Length)->first();
         if($TypeLJoists){
-            $Import = $Amount * $TypeLJoists->price;
-
+            //Optimized
+            $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $Caliber)->first();
+            $Import =  $PriceList->cost * $PriceList->f_total * $TypeLJoists->weight;
+            
             $SJS = SelectiveJoistStructural::where('quotation_id', $Quotation_Id)->first();
             if($SJS){
                 $SJS->amount = $Amount;
@@ -299,8 +307,8 @@ class TypeStructuralJoistController extends Controller
                 $SJS->m2 = $TypeLJoists->m2;
                 $SJS->length = $TypeLJoists->length;
                 $SJS->sku = $TypeLJoists->sku;
-                $SJS->unit_price = $TypeLJoists->price;
-                $SJS->total_price = $Import;
+                $SJS->unit_price = $Import;
+                $SJS->total_price = $Import*$Amount;
                 $SJS->save();
             }else{
                 $SJS = new SelectiveJoistStructural();
@@ -316,8 +324,8 @@ class TypeStructuralJoistController extends Controller
                 $SJS->m2 = $TypeLJoists->m2;
                 $SJS->length = $TypeLJoists->length;
                 $SJS->sku = $TypeLJoists->sku;
-                $SJS->unit_price = $TypeLJoists->price;
-                $SJS->total_price = $Import;
+                $SJS->unit_price = $Import;
+                $SJS->total_price = $Import*$Amount;
                 $SJS->save();
             }
 

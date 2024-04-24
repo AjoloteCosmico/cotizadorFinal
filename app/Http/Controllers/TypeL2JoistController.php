@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Joist;
+use App\Models\PriceList;
 use App\Models\PriceListScrew;
 use App\Models\SelectiveJoistL2;
 use App\Models\SelectiveJoistL2Caliber14;
@@ -72,7 +73,9 @@ class TypeL2JoistController extends Controller
         $Cambers = TypeL2JoistLoadingCapacity::where('crossbar_length', '>=', $Length)->where('loading_capacity', '>=', $WeightIncrement)->first();
         if($Cambers){
             $TypeLJoists = TypeL2Joist::where('caliber','14')->where('camber', $Cambers->camber)->where('length', $Length)->first();
-            $Import = $request->amount * $TypeLJoists->price;
+            //optimzed
+            $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', '14')->first();
+            $Import = $PriceList->cost * $PriceList->f_total *$TypeLJoists->weight;
             $Clavijas = PriceListScrew::where('description', 'CLAVIJA DE SEGURIDAD PARA VIGAS')->first();
             $CostoClavija = $Clavijas->cost * $Clavijas->f_total;
             $CantidadClavijas = $Amount * 2;
@@ -90,8 +93,8 @@ class TypeL2JoistController extends Controller
                 $SJL2->m2 = $TypeLJoists->m2;
                 $SJL2->length = $TypeLJoists->length;
                 $SJL2->sku = $TypeLJoists->sku;
-                $SJL2->unit_price = $TypeLJoists->price;
-                $SJL2->total_price = $Import + $CostoTotalClavijas;
+                $SJL2->unit_price = $Import;
+                $SJL2->total_price = $Import*$Amount + $CostoTotalClavijas;
                 $SJL2->save();
             }else{
                 $SJL2 = new SelectiveJoistL2Caliber14();
@@ -106,8 +109,8 @@ class TypeL2JoistController extends Controller
                 $SJL2->m2 = $TypeLJoists->m2;
                 $SJL2->length = $TypeLJoists->length;
                 $SJL2->sku = $TypeLJoists->sku;
-                $SJL2->unit_price = $TypeLJoists->price;
-                $SJL2->total_price = $Import + $CostoTotalClavijas;
+                $SJL2->unit_price = $Import;
+                $SJL2->total_price = $Import*$Amount + $CostoTotalClavijas;
                 $SJL2->save();
             }
 
@@ -164,7 +167,9 @@ class TypeL2JoistController extends Controller
         $WeightIncrement = $Weight + $Increment;
         
         $TypeLJoists = TypeL2Joist::where('caliber',$Caliber)->where('camber', $Camber)->where('length', $Length)->first();
-        $Import = $Amount * $TypeLJoists->price;
+        //optimzed
+        $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $Caliber)->first();
+        $Import = $PriceList->cost * $PriceList->f_total *$TypeLJoists->weight;
         $Clavijas = PriceListScrew::where('description', 'CLAVIJA DE SEGURIDAD PARA VIGAS')->first();
         $CostoClavija = $Clavijas->cost * $Clavijas->f_total;
         $CantidadClavijas = $Amount * 2;
@@ -183,8 +188,8 @@ class TypeL2JoistController extends Controller
             $SJL2->m2 = $TypeLJoists->m2;
             $SJL2->length = $TypeLJoists->length;
             $SJL2->sku = $TypeLJoists->sku;
-            $SJL2->unit_price = $TypeLJoists->price;
-            $SJL2->total_price = $Import + $CostoTotalClavijas;
+            $SJL2->unit_price = $Import;
+            $SJL2->total_price = $Import*$Amount + $CostoTotalClavijas;
             $SJL2->save();
         }else{
             $SJL2 = new SelectiveJoistL2();
@@ -200,8 +205,8 @@ class TypeL2JoistController extends Controller
             $SJL2->m2 = $TypeLJoists->m2;
             $SJL2->length = $TypeLJoists->length;
             $SJL2->sku = $TypeLJoists->sku;
-            $SJL2->unit_price = $TypeLJoists->price;
-            $SJL2->total_price = $Import + $CostoTotalClavijas;
+            $SJL2->unit_price = $Import;
+            $SJL2->total_price = $Import*$Amount + $CostoTotalClavijas;
             $SJL2->save();
         }
         
@@ -301,8 +306,10 @@ class TypeL2JoistController extends Controller
         $WeightIncrement = $Weight + $Increment;
         
         $TypeLJoists = TypeL2Joist::where('caliber',$Caliber)->where('camber', $Camber)->where('length', $Length)->first();
-        $Import = $Amount * $TypeLJoists->price;
-
+        //optimzed
+        $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $Caliber)->first();
+        $Import = $PriceList->cost * $PriceList->f_total *$TypeLJoists->weight;
+        
         $SJL2 = SelectiveJoistL2::where('quotation_id', $Quotation_Id)->first();
         if($SJL2){
             $SJL2->amount = $Amount;
@@ -316,8 +323,8 @@ class TypeL2JoistController extends Controller
             $SJL2->m2 = $TypeLJoists->m2;
             $SJL2->length = $TypeLJoists->length;
             $SJL2->sku = $TypeLJoists->sku;
-            $SJL2->unit_price = $TypeLJoists->price;
-            $SJL2->total_price = $Import;
+            $SJL2->unit_price = $Import;
+            $SJL2->total_price = $Import*$Amount;
             $SJL2->save();
         }else{
             $SJL2 = new SelectiveJoistL2();
@@ -333,8 +340,8 @@ class TypeL2JoistController extends Controller
             $SJL2->m2 = $TypeLJoists->m2;
             $SJL2->length = $TypeLJoists->length;
             $SJL2->sku = $TypeLJoists->sku;
-            $SJL2->unit_price = $TypeLJoists->price;
-            $SJL2->total_price = $Import;
+            $SJL2->unit_price = $Import;
+            $SJL2->total_price = $Import *$Amount;
             $SJL2->save();
         }
         
