@@ -69,7 +69,10 @@ class TypeBox25JoistController extends Controller
         $Cambers = TypeBox25JoistLoadingCapacity::where('crossbar_length', '>=', $Length)->where('loading_capacity', '>=', $WeightIncrement)->first();
         if($Cambers){
             $TypeLJoists = TypeBox25Joist::where('caliber','14')->where('camber', $Cambers->camber)->where('length', $Length)->first();
-            $Import = $request->amount * $TypeLJoists->price;
+            //optimized
+            $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', '14')->first();
+        //         
+            $Import = $request->amount * $PriceList->f_total *$PriceList->cost;
             $Clavijas = PriceListScrew::where('description', 'CLAVIJA DE SEGURIDAD PARA VIGAS')->first();
             $CostoClavija = $Clavijas->cost * $Clavijas->f_total;
             $CantidadClavijas = $Amount * 2;
@@ -160,7 +163,9 @@ class TypeBox25JoistController extends Controller
         $WeightIncrement = $Weight + $Increment;
         
         $TypeLJoists = TypeBox25Joist::where('caliber',$Caliber)->where('camber', $Camber)->where('length', $Length)->first();
-        $Import = $Amount * $TypeLJoists->price;
+        //optimzed
+        $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $Caliber)->first();
+        $Import = $Amount * $PriceList->cost * $PriceList->f_total;
         $Clavijas = PriceListScrew::where('description', 'CLAVIJA DE SEGURIDAD PARA VIGAS')->first();
         $CostoClavija = $Clavijas->cost * $Clavijas->f_total;
         $CantidadClavijas = $Amount * 2;
@@ -274,7 +279,9 @@ class TypeBox25JoistController extends Controller
         $WeightIncrement = $Weight + $Increment;
         
         $TypeLJoists = TypeBox25Joist::where('caliber',$Caliber)->where('camber', $Camber)->where('length', $Length)->first();
-        $Import = $Amount * $TypeLJoists->price;
+        //optimzed
+        $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $Caliber)->first();
+        $Import = $Amount * $PriceList->cost * $PriceList->f_total;
 
         $SJB25 = SelectiveJoistBox25::where('quotation_id', $Quotation_Id)->first();
         if($SJB25){

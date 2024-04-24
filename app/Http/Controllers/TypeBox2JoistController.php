@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Joist;
+
+use App\Models\PriceList;
 use App\Models\PriceListScrew;
 use App\Models\SelectiveJoistBox2;
 use App\Models\SelectiveJoistBox2Caliber14;
@@ -69,7 +71,9 @@ class TypeBox2JoistController extends Controller
         $Cambers = TypeBox2JoistLoadingCapacity::where('crossbar_length', '>=', $Length)->where('loading_capacity', '>=', $WeightIncrement)->first();
         if($Cambers){
             $TypeLJoists = TypeBox2Joist::where('caliber','14')->where('camber', $Cambers->camber)->where('length', $Length)->first();
-            $Import = $request->amount * $TypeLJoists->price;
+           //Optimized
+            $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', '14')->first();
+            $Import = $request->amount * $PriceList->cost * $PriceList->f_total;
             $Clavijas = PriceListScrew::where('description', 'CLAVIJA DE SEGURIDAD PARA VIGAS')->first();
             $CostoClavija = $Clavijas->cost * $Clavijas->f_total;
             $CantidadClavijas = $Amount * 2;
@@ -161,7 +165,12 @@ class TypeBox2JoistController extends Controller
         $WeightIncrement = $Weight + $Increment;
         
         $TypeLJoists = TypeBox2Joist::where('caliber',$Caliber)->where('camber', $Camber)->where('length', $Length)->first();
-        $Import = $Amount * $TypeLJoists->price;
+        //Optimized
+        $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $Caliber)->first();
+        $Import = $request->amount * $PriceList->cost * $PriceList->f_total * $TypeLJoists->weight;
+        // $Import = $Amount * $TypeLJoists->price;
+        // dd($TypeLJoists->price,$PriceList);
+        
         $Clavijas = PriceListScrew::where('description', 'CLAVIJA DE SEGURIDAD PARA VIGAS')->first();
         $CostoClavija = $Clavijas->cost * $Clavijas->f_total;
         $CantidadClavijas = $Amount * 2;
@@ -276,8 +285,9 @@ class TypeBox2JoistController extends Controller
         $WeightIncrement = $Weight + $Increment;
         
         $TypeLJoists = TypeBox2Joist::where('caliber',$Caliber)->where('camber', $Camber)->where('length', $Length)->first();
-        $Import = $Amount * $TypeLJoists->price;
-
+        //Optimized
+        $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $Caliber)->first();
+        $Import = $request->amount * $PriceList->cost * $PriceList->f_total;
         $SJB2 = SelectiveJoistBox2::where('quotation_id', $Quotation_Id)->first();
             if($SJB2){
                 $SJB2->amount = $Amount;

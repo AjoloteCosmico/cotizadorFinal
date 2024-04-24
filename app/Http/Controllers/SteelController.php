@@ -267,18 +267,18 @@ class SteelController extends Controller
             }
         }
         
-        $PriceFrames = PriceFrame::where('caliber', $Steels->caliber)->get();
-        if($PriceFrames->count() > 0){
-            foreach($PriceFrames as $row){
-                $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'MARCO')->where('caliber', $row->caliber)->first();
-                if($PriceList){
-                    $Price = $PriceList->cost * $PriceList->f_total;
-                    $TotalPrice = $row->total_kg * $Price;
-                    $row->price = $TotalPrice;
-                    $row->save();
-                }
-            }
-        }
+        // $PriceFrames = PriceFrame::where('caliber', $Steels->caliber)->get();
+        // if($PriceFrames->count() > 0){
+        //     foreach($PriceFrames as $row){
+        //         $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'MARCO')->where('caliber', $row->caliber)->first();
+        //         if($PriceList){
+        //             $Price = $PriceList->cost * $PriceList->f_total;
+        //             $TotalPrice = $row->total_kg * $Price;
+        //             $row->price = $TotalPrice;
+        //             $row->save();
+        //         }
+        //     }
+        // }
 
         $PriceMiniatureFrames = PriceMiniatureFrame::where('caliber', $Steels->caliber)->get();
         if($PriceMiniatureFrames->count() > 0){
@@ -334,134 +334,134 @@ class SteelController extends Controller
                 }
             }
         }
-        $TypeBox2Joists = TypeBox2Joist::where('caliber', $Steels->caliber)->get();
-        if($TypeBox2Joists->count() > 0){
-            foreach($TypeBox2Joists as $row){
-                $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
-                if($PriceList){
-                    $Price = $PriceList->cost * $PriceList->f_total;
-                    $TotalPrice = $row->weight * $Price;
-                    $row->price = $TotalPrice;
-                    $row->save();
-                }
-            }
-        }
+        // $TypeBox2Joists = TypeBox2Joist::where('caliber', $Steels->caliber)->get();
+        // if($TypeBox2Joists->count() > 0){
+        //     foreach($TypeBox2Joists as $row){
+        //         $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
+        //         if($PriceList){
+        //             $Price = $PriceList->cost * $PriceList->f_total;
+        //             $TotalPrice = $row->weight * $Price;
+        //             $row->price = $TotalPrice;
+        //             $row->save();
+        //         }
+        //     }
+        // }
         
-        $TypeBox25Joists = TypeBox25Joist::where('caliber', $Steels->caliber)->get();
-        if($TypeBox25Joists->count() > 0){
-            foreach($TypeBox25Joists as $row){
-                $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
-                if($PriceList){
-                    $Price = $PriceList->cost * $PriceList->f_total;
-                    $TotalPrice = $row->weight * $Price;
-                    $row->price = $TotalPrice;
-                    $row->save();
-                }
-            }
-        }
+        // $TypeBox25Joists = TypeBox25Joist::where('caliber', $Steels->caliber)->get();
+        // if($TypeBox25Joists->count() > 0){
+        //     foreach($TypeBox25Joists as $row){
+        //         $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
+        //         if($PriceList){
+        //             $Price = $PriceList->cost * $PriceList->f_total;
+        //             $TotalPrice = $row->weight * $Price;
+        //             $row->price = $TotalPrice;
+        //             $row->save();
+        //         }
+        //     }
+        // }
      
-        $TypeC2Joists = TypeC2Joist::where('caliber', $Steels->caliber)->get();
-        if($TypeC2Joists->count() > 0){
-            foreach($TypeC2Joists as $row){
-                $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
-                if($PriceList){
-                    $Price = $PriceList->cost * $PriceList->f_total;
-                    $TotalPrice = $row->weight * $Price;
-                    $row->price = $TotalPrice;
-                    $row->save();
-                }
-            }
-        }
+        // $TypeC2Joists = TypeC2Joist::where('caliber', $Steels->caliber)->get();
+        // if($TypeC2Joists->count() > 0){
+        //     foreach($TypeC2Joists as $row){
+        //         $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
+        //         if($PriceList){
+        //             $Price = $PriceList->cost * $PriceList->f_total;
+        //             $TotalPrice = $row->weight * $Price;
+        //             $row->price = $TotalPrice;
+        //             $row->save();
+        //         }
+        //     }
+        // }
         
-        $TypeChairJoists = TypeChairJoist::where('caliber', $Steels->caliber)->get();
-        if($TypeChairJoists->count() > 0){
-            foreach($TypeChairJoists as $row){
-                $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
-                if($PriceList){
-                    $Price = $PriceList->cost * $PriceList->f_total;
-                    $TotalPrice = $row->weight * $Price;
-                    $row->price = $TotalPrice;
-                    $row->save();
-                }
-            }
-        }
+        // $TypeChairJoists = TypeChairJoist::where('caliber', $Steels->caliber)->get();
+        // if($TypeChairJoists->count() > 0){
+        //     foreach($TypeChairJoists as $row){
+        //         $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
+        //         if($PriceList){
+        //             $Price = $PriceList->cost * $PriceList->f_total;
+        //             $TotalPrice = $row->weight * $Price;
+        //             $row->price = $TotalPrice;
+        //             $row->save();
+        //         }
+        //     }
+        // }
 
-        $TypeL2Joists = TypeL2Joist::where('caliber', $Steels->caliber)->get();
-        if($TypeL2Joists->count() > 0){
-            foreach($TypeL2Joists as $row){
-                $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
-                if($PriceList){
-                    $Price = $PriceList->cost * $PriceList->f_total;
-                    $TotalPrice = $row->weight * $Price;
-                    $row->price = $TotalPrice;
-                    $row->save();
-                }
-            }
-        }
+        // $TypeL2Joists = TypeL2Joist::where('caliber', $Steels->caliber)->get();
+        // if($TypeL2Joists->count() > 0){
+        //     foreach($TypeL2Joists as $row){
+        //         $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
+        //         if($PriceList){
+        //             $Price = $PriceList->cost * $PriceList->f_total;
+        //             $TotalPrice = $row->weight * $Price;
+        //             $row->price = $TotalPrice;
+        //             $row->save();
+        //         }
+        //     }
+        // }
 
-        $TypeL25Joists = TypeL25Joist::where('caliber', $Steels->caliber)->get();
-        if($TypeL25Joists->count() > 0){
-            foreach($TypeL25Joists as $row){
-                $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
-                if($PriceList){
-                    $Price = $PriceList->cost * $PriceList->f_total;
-                    $TotalPrice = $row->weight * $Price;
-                    $row->price = $TotalPrice;
-                    $row->save();
-                }
-            }
-        }
+        // $TypeL25Joists = TypeL25Joist::where('caliber', $Steels->caliber)->get();
+        // if($TypeL25Joists->count() > 0){
+        //     foreach($TypeL25Joists as $row){
+        //         $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
+        //         if($PriceList){
+        //             $Price = $PriceList->cost * $PriceList->f_total;
+        //             $TotalPrice = $row->weight * $Price;
+        //             $row->price = $TotalPrice;
+        //             $row->save();
+        //         }
+        //     }
+        // }
 
-        $TypeLJoists = TypeLJoist::where('caliber', $Steels->caliber)->get();
-        if($TypeLJoists->count() > 0){
-            foreach($TypeLJoists as $row){
-                $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
-                if($PriceList){
-                    $Price = $PriceList->cost * $PriceList->f_total;
-                    $TotalPrice = $row->weight * $Price;
-                    $row->price = $TotalPrice;
-                    $row->save();
-                }
-            }
-        }
+        // $TypeLJoists = TypeLJoist::where('caliber', $Steels->caliber)->get();
+        // if($TypeLJoists->count() > 0){
+        //     foreach($TypeLJoists as $row){
+        //         $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
+        //         if($PriceList){
+        //             $Price = $PriceList->cost * $PriceList->f_total;
+        //             $TotalPrice = $row->weight * $Price;
+        //             $row->price = $TotalPrice;
+        //             $row->save();
+        //         }
+        //     }
+        // }
 
-        $TypeLRJoists = TypeLRJoist::where('caliber', $Steels->caliber)->get();
-        if($TypeLRJoists->count() > 0){
-            foreach($TypeLRJoists as $row){
-                $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
-                if($PriceList){
-                    $Price = $PriceList->cost * $PriceList->f_total;
-                    $TotalPrice = $row->weight * $Price;
-                    $row->price = $TotalPrice;
-                    $row->save();
-                }
-            }
-        }
+        // $TypeLRJoists = TypeLRJoist::where('caliber', $Steels->caliber)->get();
+        // if($TypeLRJoists->count() > 0){
+        //     foreach($TypeLRJoists as $row){
+        //         $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
+        //         if($PriceList){
+        //             $Price = $PriceList->cost * $PriceList->f_total;
+        //             $TotalPrice = $row->weight * $Price;
+        //             $row->price = $TotalPrice;
+        //             $row->save();
+        //         }
+        //     }
+        // }
        
-        $TypeStructuralJoists = TypeStructuralJoist::where('caliber', $Steels->caliber)->get();
-        if($TypeStructuralJoists->count() > 0){
-            foreach($TypeStructuralJoists as $row){
-                $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
-                if($PriceList){
-                    $Price = $PriceList->cost * $PriceList->f_total;
-                    $TotalPrice = $row->weight * $Price;
-                    $row->price = $TotalPrice;
-                    $row->save();
-                }
-            }
-        }
-        $Floors = Floor::where('caliber', $Steels->caliber)->get();
-        if($Floors->count() > 0){
-            foreach($Floors as $row){
-                $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
-                if($PriceList){
-                    $Price = $PriceList->cost * $PriceList->f_total;
-                    $TotalPrice = $row->weight * $Price;
-                    $row->price = $TotalPrice;
-                    $row->save();
-                }
-            }
-        }
+        // $TypeStructuralJoists = TypeStructuralJoist::where('caliber', $Steels->caliber)->get();
+        // if($TypeStructuralJoists->count() > 0){
+        //     foreach($TypeStructuralJoists as $row){
+        //         $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
+        //         if($PriceList){
+        //             $Price = $PriceList->cost * $PriceList->f_total;
+        //             $TotalPrice = $row->weight * $Price;
+        //             $row->price = $TotalPrice;
+        //             $row->save();
+        //         }
+        //     }
+        // }
+        // $Floors = Floor::where('caliber', $Steels->caliber)->get();
+        // if($Floors->count() > 0){
+        //     foreach($Floors as $row){
+        //         $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
+        //         if($PriceList){
+        //             $Price = $PriceList->cost * $PriceList->f_total;
+        //             $TotalPrice = $row->weight * $Price;
+        //             $row->price = $TotalPrice;
+        //             $row->save();
+        //         }
+        //     }
+        // }
         
        
         return redirect()->route('steels.index')->with('update_reg', 'ok');

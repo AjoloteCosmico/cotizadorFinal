@@ -63,7 +63,13 @@ class FramesController extends Controller
             $Altura = $request->height;
 
             $Data = PriceFrame::where('caliber', $Calibre)->where('model', $Modelo)->where('depth', $Profundidad)->where('height', $Altura)->first();
+            $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'MARCO')->where('caliber', $Calibre)->first();
+            // dd($PriceList);
+            
             if($Data){
+                $Price = $PriceList->cost * $PriceList->f_total;
+                $TotalPrice = $Data->total_kg * $Price;
+            
                 $Postes = $Data->poles;
                 $Travesanos = $Data->crossbars;
                 $Diagonales = $Data->diagonals;
@@ -80,7 +86,7 @@ class FramesController extends Controller
                 $CostTornPlacas = $TornPlacas * $PriceListScrewCostPlacas;
                 $TotTornPlacas = $Cantidad * $TornPlacas;
                 $TotCostTornPlacas = $Cantidad * $CostTornPlacas;
-                $Precio = $Data->price + $CostTornPlacas + $CostTornTravDiag;
+                $Precio = $TotalPrice + $CostTornPlacas + $CostTornTravDiag;
                 $Precio_Total = $Cantidad * $Precio;
                 $Calzas = 4;
                 $CostoCalzas = PriceList::where('piece', 'CALZAS')->first();
@@ -246,13 +252,15 @@ class FramesController extends Controller
             $Altura = $request->height;
 
             $Data = PriceFrame::where('caliber', $Calibre)->where('model', $Modelo)->where('depth', $Profundidad)->where('height', $Altura)->first();
+            $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'MARCO')->where('caliber', $Calibre)->first();
+            
             if($Data){
                 $Total_Peso = $Cantidad * $Peso;
                 $Total_Postes = $Cantidad * $Data->poles;
                 $Total_Travesanos = $Cantidad * $Data->crossbars;
                 $Total_Diagonales = $Cantidad * $Data->diagonals;
                 $Total_Placas = $Cantidad * $Data->plates;
-                $Precio_Total = $Cantidad * $Data->price;
+                $Precio_Total = $Cantidad * $PriceList->cost * $PriceList->f_total;
                 $Total_Acero_Kg = $Cantidad * $Data->steel_weight_kg;
                 $Total_Solera_Kg = $Cantidad * $Data->solera_weight_kg;
                 $Total_Kg = $Cantidad * $Data->total_kg;
