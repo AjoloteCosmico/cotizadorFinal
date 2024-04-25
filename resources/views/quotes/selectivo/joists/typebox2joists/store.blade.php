@@ -54,10 +54,10 @@
                                 <td class="font-bold text-right text-1xl"> Costo Total Clavija de Seguridad: ${{number_format($CostoTotalClavijas, 2)}}</td>
                             </tr>
                             <tr class="font-bold text-right text-1xl">
-                                <td colspan="2">Costo x Unidad: ${{number_format($TypeLJoists->price, 2)}}</td>
+                                <td colspan="2">Costo x Unidad: ${{number_format($Import, 2)}}</td>
                             </tr>
                             <tr class="font-bold text-right text-1xl">
-                                <td colspan="3">Costo Total: ${{number_format($Import, 2)}}</td>
+                                <td colspan="3">Costo Total: ${{number_format($Amount*$Import, 2)}}</td>
                             </tr>
                         </table>
                     </div>
