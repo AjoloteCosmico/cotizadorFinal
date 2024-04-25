@@ -450,18 +450,18 @@ class SteelController extends Controller
         //         }
         //     }
         // }
-        // $Floors = Floor::where('caliber', $Steels->caliber)->get();
-        // if($Floors->count() > 0){
-        //     foreach($Floors as $row){
-        //         $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
-        //         if($PriceList){
-        //             $Price = $PriceList->cost * $PriceList->f_total;
-        //             $TotalPrice = $row->weight * $Price;
-        //             $row->price = $TotalPrice;
-        //             $row->save();
-        //         }
-        //     }
-        // }
+        $Floors = Floor::where('caliber', $Steels->caliber)->get();
+        if($Floors->count() > 0){
+            foreach($Floors as $row){
+                $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $row->caliber)->first();
+                if($PriceList){
+                    $Price = $PriceList->cost * $PriceList->f_total;
+                    $TotalPrice = $row->weight * $Price;
+                    $row->price = $TotalPrice;
+                    $row->save();
+                }
+            }
+        }
         
        
         return redirect()->route('steels.index')->with('update_reg', 'ok');
