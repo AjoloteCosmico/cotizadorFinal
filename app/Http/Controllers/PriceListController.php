@@ -217,8 +217,12 @@ class PriceListController extends Controller
             }
             if($Steels){
                 $Cost = $Steels->cost;
-                $F_Total = ($request->f_vta * $request->f_desp * $request->f_emb) / $request->f_desc;
-    
+                if($request->f_vta * $request->f_desp * $request->f_emb * $request->f_desc > 0){
+                    $F_Total = ($request->f_vta * $request->f_desp * $request->f_emb) / $request->f_desc;
+                }
+                else{
+                    $F_Total=$PriceLists->f_total;
+                }
                 $PriceLists = PriceList::find($id);
                 $PriceLists->description = $request->description;
                 $PriceLists->caliber = $request->caliber;
