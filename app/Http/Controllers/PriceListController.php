@@ -210,7 +210,11 @@ class PriceListController extends Controller
             $request->validate($rules, $messages);
     
             $Steels = Steel::where('caliber', $request->caliber)->where('type', $request->type)->first();
-             
+            if(str_contains($request->type,'RC')||str_contains($request->type,'ESCTRUCTURAL')){
+
+            $Steels = Steel::where('caliber', $request->caliber)->where('type', 'NEGRA')->first();
+            
+            }
             if($Steels){
                 $Cost = $Steels->cost;
                 $F_Total = ($request->f_vta * $request->f_desp * $request->f_emb) / $request->f_desc;
