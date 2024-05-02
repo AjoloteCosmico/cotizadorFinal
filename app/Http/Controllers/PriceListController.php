@@ -210,7 +210,7 @@ class PriceListController extends Controller
             $request->validate($rules, $messages);
     
             $Steels = Steel::where('caliber', $request->caliber)->where('type', $request->type)->first();
-            if(str_contains($request->type,'RC')||str_contains($request->type,'ESCTRUCTURAL')){
+            if(str_contains($request->type,'RC')||str_contains($request->type,'ESTRUCTURAL')){
 
             $Steels = Steel::where('caliber', $request->caliber)->where('type', 'NEGRA')->first();
             
