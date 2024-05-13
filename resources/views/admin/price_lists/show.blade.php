@@ -104,11 +104,13 @@
                     {!! Form::text('piece',$PriceLists->piece, ['class'=>'inputjet w-full text-xs uppercase']) !!}
                     <x-jet-input-error for='piece' />
                 </div>
-                {{-- <div class="form-group">
+                <div class="form-group">
+                @if($PriceLists->steel==0)
                     <x-jet-label value="* Costo" />
                     {!! Form::number('cost',$PriceLists->cost, ['class'=>'inputjet w-full text-xs', 'step'=>'0.01']) !!}
                     <x-jet-input-error for='cost' />
-                </div> --}}
+                </div> 
+                @endif
                 <div class="form-group">
                     <x-jet-label value="* F. Vta." />
                     {!! Form::number('f_vta',$PriceLists->f_vta, ['class'=>'inputjet w-full text-xs', 'step'=>'0.001']) !!}
