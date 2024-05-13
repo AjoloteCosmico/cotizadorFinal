@@ -165,6 +165,8 @@ class PriceListController extends Controller
                
                 $PriceLists->f_vta = $request->f_vta;
                 $PriceLists->f_desp = $request->f_desp;
+                
+                $PriceLists->cost = $request->cost;
                 $PriceLists->f_emb = $request->f_emb;
                 $PriceLists->f_desc = $request->f_desc;
                 $PriceLists->f_total = $F_Total;
@@ -239,8 +241,36 @@ class PriceListController extends Controller
     
                 return redirect()->route('price_lists.index')->with('update_reg', 'ok');
             }else{
-                return redirect()->route('price_lists.edit', $id)->with('no_existe_acero', 'ok');
-            }
+
+                  if($PriceLists->steel==0){
+                    $Cost = $request->cost;
+                if($request->f_vta * $request->f_desp * $request->f_emb * $request->f_desc > 0){
+                    $F_Total = ($request->f_vta * $request->f_desp * $request->f_emb) / $request->f_desc;
+                }
+                else{
+                    $F_Total=$PriceLists->f_total;
+                }
+                $PriceLists = PriceList::find($id);
+                $PriceLists->description = $request->description;
+                $PriceLists->caliber = $request->caliber;
+                $PriceLists->type = $request->type;
+                $PriceLists->system = $request->system;
+                $PriceLists->piece = $request->piece;
+                $PriceLists->cost = $Cost;
+                $PriceLists->f_vta = $request->f_vta;
+                $PriceLists->f_desp = $request->f_desp;
+                $PriceLists->f_emb = $request->f_emb;
+                $PriceLists->f_desc = $request->f_desc;
+                $PriceLists->f_total = $F_Total;
+                $PriceLists->save();
+    
+                return redirect()->route('price_lists.index')->with('update_reg', 'ok');
+           
+
+                  }else{
+                    return redirect()->route('price_lists.edit', $id)->with('no_existe_acero', 'ok');
+                   }  
+                }
         }}
                 
     }
