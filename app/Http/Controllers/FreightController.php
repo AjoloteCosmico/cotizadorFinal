@@ -190,8 +190,8 @@ class FreightController extends Controller
         if($request->install == 'SI'){
             if($request->uninstall == 'SI'){
                 $rules = [
-                    'TotalImportInstall' => 'required|not_in:0',
-                    'TotalImportUninstall' => 'required|not_in:0',
+                    'TotalImportInstall' => 'required_without_all:TotalImportUninstall|not_in:0',
+                    'TotalImportUninstall' => 'required_without_all:TotalImportInstall|not_in:0',
                 ];
                 $messages = [
                     'TotalImportInstall.required' => 'Agregue informacióm de la Instalación',
