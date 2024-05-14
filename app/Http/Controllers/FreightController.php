@@ -190,8 +190,8 @@ class FreightController extends Controller
         if($request->install == 'SI'){
             if($request->uninstall == 'SI'){
                 $rules = [
-                    'TotalImportInstall' => 'required_without_all:TotalImportUninstall|not_in:0',
-                    'TotalImportUninstall' => 'required_without_all:TotalImportInstall|not_in:0',
+                    'TotalImportInstall' => 'required_without_all: TotalImportUninstall ',
+                    'TotalImportUninstall' => 'required_without_all: TotalImportInstall ',
                 ];
                 $messages = [
                     'TotalImportInstall.required' => 'Agregue informacióm de la Instalación',
@@ -238,9 +238,9 @@ class FreightController extends Controller
         }elseif($request->install == 'INCLUIDA'){
             if($request->uninstall == 'INCLUIDA'){
                 $rules = [
-                    'TotalImportInstall' => 'required|not_in:0',
-                    'TotalImportUninstall' => 'required|not_in:0',
-                ];
+                    'TotalImportInstall' => 'required_without_all: TotalImportUninstall ',
+                    'TotalImportUninstall' => 'required_without_all: TotalImportInstall ',
+               ];
                 $messages = [
                     'TotalImportInstall.required' => 'Agregue informacióm de la Instalación',
                     'TotalImportInstall.not_in' => 'Agregue por lo menos un concepto a la Instalación',
@@ -292,9 +292,9 @@ class FreightController extends Controller
         if($request->uninstall == 'SI'){
             if($request->install == 'SI'){
                 $rules = [
-                    'TotalImportInstall' => 'required|not_in:0',
-                    'TotalImportUninstall' => 'required|not_in:0',
-                ];
+                    'TotalImportInstall' => 'required_without_all: TotalImportUninstall ',
+                    'TotalImportUninstall' => 'required_without_all: TotalImportInstall ',
+               ];
                 $messages = [
                     'TotalImportInstall.required' => 'Agregue informacióm de la Instalación',
                     'TotalImportInstall.not_in' => 'Agregue por lo menos un concepto a la Instalación',
