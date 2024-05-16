@@ -212,9 +212,9 @@ class EstanteriaController extends Controller
         $UnitPrice= 0.06*$PrecioLamina->cost*$PrecioLamina->f_total;
 
         // dd($Ent); 
-        $QuotEnt=quotaion_escuadra::where('quotation_id','=',$request->Quotation_Id)->first();
+        $QuotEnt=quotation_escuadra::where('quotation_id','=',$request->Quotation_Id)->first();
         if(!$QuotEnt){
-            $QuotEnt = new QuotationRespaldo();
+            $QuotEnt = new quotation_escuadra();
             $QuotEnt->quotation_id=$request->Quotation_Id;
         }
         $QuotEnt->unit_price=$UnitPrice;
@@ -224,7 +224,7 @@ class EstanteriaController extends Controller
         $QuotEnt->save();
 
 
-        return view('quotes.estanteria.respaldos.store',compact('QuotEnt',));
+        return view('quotes.estanteria.escuadras.store',compact('QuotEnt',));
     
     }
 

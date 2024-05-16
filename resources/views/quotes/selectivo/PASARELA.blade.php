@@ -228,7 +228,7 @@
                 <div class="col-sm-4 col-xs-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">GALLETA</h5>
+                            <h5 class="card-title">Galleta</h5>
                             <p class="card-text">Cotizador de galletas.</p>
                             <a href="{{route('pasarela_galleta.show',$Quotation_Id)}}" class="btn btn-primary">
                                 <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">

@@ -34,7 +34,7 @@
                             @endfor
                          </select>
                          <x-jet-input-error for='length' /><br>
-                    </div>
+
                     <x-jet-label value="* Ancho" />               
                         <select name="deep" class="inputjet w-full text-xs uppercase">
                             
@@ -44,6 +44,7 @@
                          </select>
                          <x-jet-input-error for='length' /><br>
                     </div>
+                
                     <div class="form-group p-2 gap-2 flex items-center">
                         <button type="submit" class="btn btn-blue mb-2">
                             <i class="fa-solid fa-calculator fa-xl"></i>&nbsp; Calcular
