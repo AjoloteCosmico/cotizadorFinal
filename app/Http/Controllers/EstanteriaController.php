@@ -214,7 +214,7 @@ class EstanteriaController extends Controller
         // dd($Ent); 
         $QuotEnt=quotation_escuadra::where('quotation_id','=',$request->Quotation_Id)->first();
         if(!$QuotEnt){
-            $QuotEnt = new QuotationRespaldo();
+            $QuotEnt = new quotation_escuadra();
             $QuotEnt->quotation_id=$request->Quotation_Id;
         }
         $QuotEnt->unit_price=$UnitPrice;
@@ -224,7 +224,7 @@ class EstanteriaController extends Controller
         $QuotEnt->save();
 
 
-        return view('quotes.estanteria.respaldos.store',compact('QuotEnt','Respaldo',));
+        return view('quotes.estanteria.escuadras.store',compact('QuotEnt','Respaldo',));
     
     }
 

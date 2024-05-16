@@ -7,16 +7,23 @@ use Illuminate\Http\Request;
 
 class SelectivoController extends Controller
 {
-    public function show($id,$type='SELECTIVO')
+    public function show($id,$type='')
     {
         
-        $System=$type;
+        
         
         $Quotation_Id = $id;
         $Quotations = Quotation::find($id);
         
-        $Quotations->type = $System;
-        $Quotations->save();
+        if($type!=''){
+            $System=$type;
+            $Quotations->type = $System;
+            $Quotations->save();
+        }
+        else{
+            $System=$Quotations->type;
+            
+        }
 
         return view('quotes.selectivo.index', compact('Quotation_Id','System'));
     }
