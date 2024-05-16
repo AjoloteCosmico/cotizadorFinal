@@ -18,7 +18,7 @@
                             <img src="{{asset('vendor/img/postes/logo.png')}}" class="img-thumbnail img-fluid max-h-80 rounded mx-auto d-block" alt="">
                               
                             <div class="row mt-2 flex-col items-center">
-                                {!! DNS1D::getBarcodeHTML($Respaldo->sku, "C128",2,30) !!}
+                                {!! DNS1D::getBarcodeHTML($QuotEnt->sku, "C128",2,30) !!}
             
                                 {{$QuotEnt->sku}}
                             
@@ -36,14 +36,7 @@
                                 <td>sku: {{$QuotEnt->sku}}</td>
                                 <td>cantidad: {{$QuotEnt->amount}}</td>
                             </tr>
-                            <tr class="text-right">
-                                <td>frente: {{$Respaldo->front}}</td>
-                                
-                                <td>ancho: {{$Respaldo->deep}}</td>
-                            </tr>
-                            <tr class="text-right">
-                                <td>KG/M2: {{$Respaldo->kgm2}}</td>
-                                <td>peso: {{$Respaldo->weight}} </td>
+                            
                             </tr>
                             
                             <tr class="font-bold text-right text-1xl">
@@ -57,10 +50,10 @@
                     </div>
                     
                     <div class="form-group p-2 gap-2 flex items-center">
-                        <a href="{{route('estanteria_respaldos.show', $QuotEnt->quotation_id)}}" class="btn btn-blue mb-2">
+                        <a href="{{route('estanteria_escuadras.show', $QuotEnt->quotation_id)}}" class="btn btn-blue mb-2">
                             <i class="fa-solid fa-right-left fa-xl"></i>&nbsp; Corregir
                         </a>
-                        <a href="{{route('estanteria_respaldos.add_carrito', $QuotEnt->quotation_id)}}" class="btn btn-black mb-2">
+                        <a href="{{route('estanteria_escuadras.add_carrito', $QuotEnt->quotation_id)}}" class="btn btn-black mb-2">
                             <i class="fa-solid fa-rotate-left fa-xl"></i>&nbsp; Guardar
                         </a>
                     </div>

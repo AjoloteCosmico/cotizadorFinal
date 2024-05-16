@@ -71,7 +71,7 @@
                 <button type="button" class="btn btn-primary btn-block">Continuar Cotizacion</button>
             </a>
             @else
-            <a href="{{route('selectivo.show',[$QuotationId,$Type])}}">
+            <a href="{{route('selectivo.show',$QuotationId)}}">
                 <button type="button" class="btn btn-primary btn-block">Continuar Cotizacion</button>
             </a>
             @endif

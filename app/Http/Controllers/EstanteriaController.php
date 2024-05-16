@@ -224,7 +224,7 @@ class EstanteriaController extends Controller
         $QuotEnt->save();
 
 
-        return view('quotes.estanteria.respaldos.store',compact('QuotEnt','Respaldo',));
+        return view('quotes.estanteria.respaldos.store',compact('QuotEnt',));
     
     }
 
