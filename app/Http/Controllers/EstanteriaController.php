@@ -212,7 +212,7 @@ class EstanteriaController extends Controller
         $UnitPrice= 0.06*$PrecioLamina->cost*$PrecioLamina->f_total;
 
         // dd($Ent); 
-        $QuotEnt=quotaion_escuadra::where('quotation_id','=',$request->Quotation_Id)->first();
+        $QuotEnt=quotation_escuadra::where('quotation_id','=',$request->Quotation_Id)->first();
         if(!$QuotEnt){
             $QuotEnt = new QuotationRespaldo();
             $QuotEnt->quotation_id=$request->Quotation_Id;
