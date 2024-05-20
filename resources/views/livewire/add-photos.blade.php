@@ -17,7 +17,7 @@
                         <div class=" items-center text-sm text-gray-800">
                             <div class="mb-3">
                                 <i class="fas fa-camera"></i>&nbsp; Tomar o Subir Foto
-                                <input wire:model="photo" name="photo" type="file" accept="image/x-png, image/gif, image/jpeg"
+                                <input wire:model="photo" name="photo" type="file" 
                                     class="w-full p-2 shadow-lg cursor-pointer bg-blue-500 rounded-md font-medium text-white hover:text-gray-700 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-gray-800">
                                 <x-jet-input-error for='photo' />
                             </div>

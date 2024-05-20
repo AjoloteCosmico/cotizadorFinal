@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\MaterialListEngineering;
 use App\Models\Questionary;
@@ -9,9 +10,7 @@ use App\Models\QuestionaryChart;
 use App\Models\QuestionaryLayout;
 use App\Models\Quotation;
 use App\Models\vcustomers;
-use Illuminate\Http\Request;
 use League\CommonMark\Extension\SmartPunct\Quote;
-
 class DashboardController extends Controller
 {
     public function index()
@@ -307,10 +306,15 @@ class DashboardController extends Controller
     {
         $Quotation_Id = $id;
         if ($request->has('photo')) {
-            $invoiceFile = $request->file('photo');
-            $invoiceFile->storeAs('photo', $invoiceFile->getClientOriginalName(), 's3');
-       
-            dd('hago algo',$request);
+            $Photo=$request->photo;
+            $FileName='img/img'.$Quotation_Id.'.'.$request->file('photo')->extension();
+            // dd('hago algo',$request);    
+            \Storage::disk('public')->put($FileName,\File::get($request->photo));
+           
+            $Quotation=Quotation::find($id);
+            $Quotation->img=$FileName;
+            $Quotation->save();
+            
         }
 
 

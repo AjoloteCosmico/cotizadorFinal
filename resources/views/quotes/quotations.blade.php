@@ -57,6 +57,12 @@
                                             <a href="{{route('rpt_rack_engineering', $row->id)}}" class="btn btn-green w-9 h-9">
                                                 <i class="fa fa-wpforms"></i></a>                
                                         </div>
+                                        @if($row->img)
+                                            <div class="col-6 text-center w-10">
+                                            <a href="{{asset('storage/'.$row->img)}}" class="btn btn-green w-9 h-9">
+                                                <i class="fas fa-camera"></i> photo</a>                
+                                        </div>
+                                        @endif
                                         {{--  <div class="col-6 text-center w-10">
                                             <form class="DeleteReg" action=" " method="POST">
                                                 @csrf
