@@ -303,9 +303,16 @@ class DashboardController extends Controller
         return view('quotes.photos_quoter', compact('Quotation_Id'));
     }
 
-    public function addphotos($id)
+    public function addphotos(Request $request, $id)
     {
         $Quotation_Id = $id;
+        if ($request->has('photo')) {
+            $invoiceFile = $request->file('photo');
+            $invoiceFile->storeAs('photo', $invoiceFile->getClientOriginalName(), 's3');
+       
+            dd('hago algo',$request);
+        }
+
 
         return view('quotes.menu', compact('Quotation_Id'));
     }
