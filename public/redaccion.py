@@ -174,7 +174,7 @@ if(len(dibujos)>0):
 else:
     primer_dibujo=' '
 if(cotizacion['img'].values[0]):
-    photo=InlineImage(doc,'/storage'+cotizacion['img'].values[0],width=Mm(50))
+    photo=InlineImage(doc,'/storage/'+cotizacion['img'].values[0],width=Mm(50))
 else:
     photo=''
 context={
