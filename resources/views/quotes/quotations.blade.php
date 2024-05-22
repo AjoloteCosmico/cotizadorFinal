@@ -60,7 +60,7 @@
                                         @if($row->img)
                                             <div class="col-6 text-center w-10">
                                             <a href="{{asset('storage/'.$row->img)}}" class="btn btn-green w-9 h-9">
-                                                <i class="fas fa-camera"></i> photo</a>                
+                                                <i class="fas fa-camera"></i></a>                
                                         </div>
                                         @endif
                                         {{--  <div class="col-6 text-center w-10">

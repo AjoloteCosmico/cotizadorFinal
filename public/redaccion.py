@@ -173,6 +173,10 @@ if(len(dibujos)>0):
     primer_dibujo=dibujos[0]
 else:
     primer_dibujo=' '
+if(cotizacion['img'].values[0]):
+    photo=InlineImage(doc,'/storage'+cotizacion['img'].values[0],width=Mm(50))
+else:
+    photo=''
 context={
     'cliente':cliente['customer'].values[0],
     'direccion':cliente['address'].values[0]+' '+cliente['outdoor'].values[0]+', '+cliente['city'].values[0]+' '+cliente['suburb'].values[0]+' '+cliente['state'].values[0]+', cp: '+str(cliente['zip_code'].values[0]),
@@ -208,6 +212,7 @@ context={
 # """), #numero de dibujos
 'ndib':  str(questionario['ndib'].values[0]).replace(',','O'),
 'primer_dibujo':primer_dibujo ,
+'photo':photo,
     'npos':  questionario['npos'].values[0], #numero de posiciones
     'vigas':  questionario['vigas'].values[0], #vigas
     'tiempo':  questionario['tiempo'].values[0], #tiempo de entrega
