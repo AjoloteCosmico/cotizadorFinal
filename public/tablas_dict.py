@@ -30,6 +30,9 @@ tablas={'double_deep_crossbars' : 'VIGA TIPO CAJA DE DOBLE PROFUNDIDAD DE 2.5',
 'quotation_installs' : 'INSTALACION',
 'quotation_protectors' : 'PROTECTORES',
 'quotation_specials' : 'ESPECIAL',
+'quotation_escuadras' : 'ESCUADRA DE SOPORTE',
+'quotation_gangplank_angles' : 'ANGULO RANURADO',
+'quotation_respaldos':'RESPALDOS ',
 'quotation_travel_assignments' : 'VIATICOS ',
 'quotation_uninstalls' : 'DESINTALACION',
 'quot_chair_j_galvanized_panels' : 'PANELES GALVANIZADOS SILLA',
@@ -58,7 +61,9 @@ tablas={'double_deep_crossbars' : 'VIGA TIPO CAJA DE DOBLE PROFUNDIDAD DE 2.5',
 'quotation_drive_in_soportes' : 'Soportes para tarimas',
 'quotation_drive_in_guias' : 'Guias para montacargas',
 'quotation_drive_in_arriostrados' : 'Arriostrados tipo "L" modelo',
-'quotation_drive_in_brazos' : 'Brazos para drive in modelo',}
+'quotation_drive_in_brazos' : 'Brazos para drive in modelo',
+
+}
 
 
 
@@ -95,6 +100,10 @@ redact={
 'quotation_administratives' : 'ADMINISTRATIVO',
 'quotation_installs' : 'INSTALACION',
 'quotation_protectors' : 'Protector ',
+
+'quotation_escuadras' : 'ESCUADRA DE SOPORTE',
+'quotation_gangplank_angles' : 'ANGULO RANURADO',
+'quotation_respaldos':'RESPALDO ',
 'quotation_specials' : 'ESPECIAL',
 'quotation_travel_assignments' : 'VIATICOS ',
 'quotation_uninstalls' : 'DESINTALACION',
@@ -191,6 +200,10 @@ extras={
 'quotation_drive_in_guias' : '',
 'quotation_drive_in_arriostrados' : '',
 'quotation_drive_in_brazos' : 'peralte: 0.10m',
+
+'quotation_escuadras' : '',
+'quotation_gangplank_angles' : '',
+'quotation_respaldos':'',
 }
 
 ref={
@@ -255,4 +268,8 @@ ref={
 'quotation_drive_in_guias' : 'GU-1',
 'quotation_drive_in_arriostrados' : 'AR-1',
 'quotation_drive_in_brazos' : 'BR-1',
+
+'quotation_escuadras' : '',
+'quotation_gangplank_angles' : '',
+'quotation_respaldos':'',
 }
