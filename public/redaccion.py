@@ -131,9 +131,8 @@ for i in range(len(products)):
             carga='{0:.2f}'.format(products['weight_kg'].values[i])
         if(products['amount'].values[i]>0):
             productos.append({'nombre':redact[products['tabla'].values[i]],
-                          'extra':extras[products['tabla'].values[i]],
-                          
-                          'ref':ref[products['tabla'].values[i]],
+                          'extra':extras[products['tabla'].values[i]],                          
+                        'ref':ref[products['tabla'].values[i]],
                         'precio':products[price_cols].sum(axis=1).values[i],
                         'cantidad':products['amount'].values[i],
                         'color': this_color,
@@ -144,8 +143,11 @@ for i in range(len(products)):
                         'depth': products['depth'].values[i],
                         'model': products['model'].values[i],
                         'seccion':seccion})
-                                  
-precio_total=products[price_cols].sum(axis=1).sum()
+
+print('X-X-X-X-X-X-X calculado el total',products[price_cols]) 
+
+precio_total=products[price_cols].max(axis=1).sum()
+print(precio_total)
 kilos_totales=products[cols_kg].sum(axis=1).sum()
 fletes_tables=['packagings','quotation_travel_assignments']
 instalacion_tables=['quotation_installs','quotation_uninstalls']
@@ -179,10 +181,14 @@ else:
     photo=''
 context={
     'cliente':cliente['customer'].values[0],
+    
     'direccion':cliente['address'].values[0]+' '+cliente['outdoor'].values[0]+', '+cliente['city'].values[0]+' '+cliente['suburb'].values[0]+' '+cliente['state'].values[0]+', cp: '+str(cliente['zip_code'].values[0]),
     'folio': cotizacion['invoice'].values[0],
     'fecha': today,
     'asesor': user['name'].values[0],
+    
+    'mayus_type':cotizacion['type'].values[0],
+    'type':cotizacion['type'].values[0].capitalize(),
     'productos': productos,
     'precio_total': '{0:.2f}'.format(precio_total),
     'kilos_totales': '{0:.2f}'.format(kilos_totales),
