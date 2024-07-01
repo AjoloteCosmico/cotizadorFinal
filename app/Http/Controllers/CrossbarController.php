@@ -33,7 +33,7 @@ class CrossbarController extends Controller
         $Amount = $request->amount;
         $Piece = Crossbar::find($request->piece);
         $PriceList = PriceList::where('piece', 'CROSS BAR')->where('caliber', 14)->first();
-        dd($PriceList,$Piece);
+        
         if($request->conector == 4){
             $Conector = Crossbar::where('type', 'CONECTOR DE CROSS BAR')->first();
             $SubTotal = ($Amount * $Piece->weight * $PriceList->cost * $PriceList->f_total)+$Conector->price;
@@ -45,7 +45,7 @@ class CrossbarController extends Controller
         }
 
         $ConConnector;
-
+        dd($PriceList,$Piece,$SubTotal);
         $SCB = SelectiveCrossbar::where('quotation_id', $Quotation_Id)->first();
         if($SCB){
             $SCB->amount = $Amount;
