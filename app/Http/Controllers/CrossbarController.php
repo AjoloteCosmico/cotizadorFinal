@@ -6,6 +6,7 @@ use App\Models\Crossbar;
 use App\Models\SelectiveCrossbar;
 use Illuminate\Http\Request;
 use App\Models\Cart_product;
+use App\Models\PriceList;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Quotation;
 
@@ -31,13 +32,14 @@ class CrossbarController extends Controller
         $Quotation_Id = $request->Quotation_Id;
         $Amount = $request->amount;
         $Piece = Crossbar::find($request->piece);
+        $PriceList = PriceList::where('piece', 'CROSS BAR')->where('caliber', 14)->first();
         if($request->conector == 4){
             $Conector = Crossbar::where('type', 'CONECTOR DE CROSS BAR')->first();
-            $SubTotal = ($Amount * $Piece->price)+$Conector->price;
+            $SubTotal = ($Amount * $Piece->weight * $PriceList->cost * $PriceList->f_total)+$Conector->price;
             $ConConnector = 'Yes';
         }else{
             $Conector = '';
-            $SubTotal = $Amount * $Piece->price;
+            $SubTotal = $Amount *  $Piece->weight * $PriceList->cost * $PriceList->f_total;
             $ConConnector = 'No';
         }
 
