@@ -33,7 +33,7 @@ class SpacerController extends Controller
         $Amount = $request->amount;
         $Piece = Spacer::find($request->piece);
         $PriceLists = PriceList::where('piece', 'DISTANCIADORES')->where('description', 'LAMINA GALVANIZADA RC')->where('caliber', '12')->where('type','Galvanizada')->first();
-        $Price = $Piece->price;
+        $Price = $Piece->weight * $PriceLists->cost;
         $F_Total = $PriceLists->f_total;
         $PriceUnit = $Price * $F_Total;
         $SubTotal = $Amount * $PriceUnit;
