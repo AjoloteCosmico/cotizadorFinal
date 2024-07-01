@@ -45,7 +45,7 @@ class CrossbarController extends Controller
         }
 
         $ConConnector;
-        dd($PriceList,$Piece,$SubTotal);
+        dd($PriceList,$Piece,$SubTotal,$ConConnector);
         $SCB = SelectiveCrossbar::where('quotation_id', $Quotation_Id)->first();
         if($SCB){
             $SCB->amount = $Amount;
