@@ -96,7 +96,9 @@ class EstanteriaController extends Controller
              // ->where('caliber',$request->caliber)
              ->where('caliber','24')
              ->where('type','RC')->first(); 
-        $PrecioEscuadra= 0.06*$PrecioLamina->cost*$PrecioLamina->f_total;
+        $F_total=PriceList::where('piece','ESCUADRA')
+             ->first()->f_total;
+        $PrecioEscuadra= 0.06*$PrecioLamina->cost*$F_total;
         return view('quotes.estanteria.entrepanio.store',compact('QuotEnt','Ent','PrecioEscuadra'));
    
     }
@@ -153,8 +155,9 @@ class EstanteriaController extends Controller
         // ->where('caliber',$request->caliber)
         ->where('caliber','24')
         ->where('type','RC')->first(); 
-       
-        $UnitPrice=$Respaldo->weight* $PrecioLamina->cost*$PrecioLamina->f_total;
+        $F_total=PriceList::where('piece','RESPALDO')
+        ->first()->f_total;
+        $UnitPrice=$Respaldo->weight* $PrecioLamina->cost*$F_total;
         
         // dd($Ent); 
         $QuotEnt=QuotationRespaldo::where('quotation_id','=',$request->Quotation_Id)->first();
@@ -219,8 +222,10 @@ class EstanteriaController extends Controller
         // ->where('caliber',$request->caliber)
         ->where('caliber','24')
         ->where('type','RC')->first(); 
+        $F_total=PriceList::where('piece','ESCUADRA')
+             ->first()->f_total;
        
-        $UnitPrice= 0.06*$PrecioLamina->cost*$PrecioLamina->f_total;
+        $UnitPrice= 0.06*$PrecioLamina->cost*$PrecioLamina->F_total;
 
         // dd($Ent); 
         $QuotEnt=quotation_escuadra::where('quotation_id','=',$request->Quotation_Id)->first();
