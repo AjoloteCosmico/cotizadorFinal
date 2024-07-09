@@ -225,7 +225,7 @@ class EstanteriaController extends Controller
         $F_total=PriceList::where('piece','ESCUADRA')
              ->first()->f_total;
        
-        $UnitPrice= 0.06*$PrecioLamina->cost*$PrecioLamina->F_total;
+        $UnitPrice= 0.06*$PrecioLamina->cost*$F_total;
 
         // dd($Ent); 
         $QuotEnt=quotation_escuadra::where('quotation_id','=',$request->Quotation_Id)->first();
