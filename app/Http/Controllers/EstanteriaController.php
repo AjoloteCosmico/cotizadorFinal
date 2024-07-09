@@ -50,8 +50,19 @@ class EstanteriaController extends Controller
         // ->where('caliber',$request->caliber)
         ->where('caliber','24')
         ->where('type','RC')->first(); 
-       
-        $UnitPrice=$Ent->weight* $PrecioLamina->cost*$PrecioLamina->f_total;
+        if($Ent->type='GALVANIZADO'){
+            $F_total=PriceList::where('piece','ENTREPAÑO')
+            ->where('type','Galvanizada')
+            ->where('caliber',$Ent->caliber)
+            ->first()->f_total;    
+        }else{
+            
+            $F_total=PriceList::where('piece','ENTREPAÑO')
+            ->where('type','Negra')
+            ->where('caliber',$Ent->caliber)
+            ->first()->f_total;
+        }
+        $UnitPrice=$Ent->weight* $PrecioLamina->cost*$F_total;
         
         // dd($Ent); 
         $QuotEnt=quotation_estanteria_entrepanio::where('quotation_id','=',$request->Quotation_Id)->first();
