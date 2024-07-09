@@ -39,8 +39,9 @@ class PasarelaController extends Controller
         
         // dd(number_format((float)$request->deep,2),$Soporte);
         $PrecioLamina=PriceList::where('description','LAMINA')->where('caliber',$request->caliber)->where('type','RC')->first();
-       
-        $UnitPrice=$Soporte->weight* $PrecioLamina->cost*$PrecioLamina->f_total;
+        $System=Quotation::find($request->Quotation_Id)->type;
+        $F_total=PriceList::where('piece','ANGULO')->where('system',$System)->first()->f_total;
+        $UnitPrice=$Soporte->weight* $PrecioLamina->cost*$F_total;
         
         // dd($Soporte->weight,$PrecioLamina->cost,$PrecioLamina->f_total,$UnitPrice); 
         $QuotSoporte=quotation_gangplank_angle::where('quotation_id','=',$request->Quotation_Id)->first();
@@ -96,8 +97,10 @@ class PasarelaController extends Controller
         $request->validate($rules);
 
         $PrecioLaminaRC14=PriceList::where('description','LAMINA')->where('caliber','14')->where('type','RC')->first();
+        $F_total=PriceList::where('piece','GALLETA')->first()->f_total;
+        
         //  dd($PrecioLamina);
-        $UnitPrice=0.12* $PrecioLaminaRC14->cost*$PrecioLaminaRC14->f_total; 
+        $UnitPrice=0.12* $PrecioLaminaRC14->cost*$F_total; 
         $QuotGalleta=quotation_galleta::where('quotation_id','=',$request->Quotation_Id)->first();
         if(!$QuotGalleta){
             $QuotGalleta = new  quotation_galleta();
