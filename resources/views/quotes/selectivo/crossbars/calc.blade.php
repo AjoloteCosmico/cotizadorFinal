@@ -70,7 +70,7 @@
                             @if ($Conector)
                             <tr>
                                 <td class="text-left font-bold">Conector: </td>
-                                <td>${{number_format($Conector->price,2)}}</td>
+                                <td>${{number_format($ConectorPrice,2)}}</td>
                             </tr>
                             @endif
                             <tr>

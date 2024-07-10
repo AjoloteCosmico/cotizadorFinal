@@ -95,7 +95,8 @@ class CrossbarController extends Controller
             'Piece',
             'SubTotal',
             'Conector',
-            'Quotation_Id'
+            'Quotation_Id',
+            'ConectorPrice'
         ));
     }
 
