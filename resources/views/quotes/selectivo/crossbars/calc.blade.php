@@ -75,7 +75,7 @@
                             @endif
                             <tr>
                                 <td class="text-left font-bold">Costo x Unidad: </td>
-                                <td>${{number_format($Piece->price, 2)}}</td>
+                                <td>${{number_format($SubTotal/$Amount, 2)}}</td>
                             </tr>
                             <tr>
                                 <td class="text-left font-bold text-lg">Costo Total: </td>
