@@ -37,7 +37,7 @@ class CrossbarController extends Controller
         $ConectorPrice=0.42*$PriceConector->f_total *$PriceConector->cost;
         if($request->conector == 4){
             $Conector = Crossbar::where('type', 'CONECTOR DE CROSS BAR')->first();
-            $SubTotal = $Amount * ($Piece->weight * $PriceList->cost * $PriceList->f_total +$Conector->price);
+            $SubTotal = $Amount * ($Piece->weight * $PriceList->cost * $PriceList->f_total +$ConectorPrice);
             $ConConnector = 'Yes';
         }else{
             $Conector = '';
