@@ -258,7 +258,7 @@ class SteelController extends Controller
         $Steels->save();
 
         $ListPrices = PriceList::where('caliber', $Steels->caliber)
-        // ->where('type', $Steels->type)
+        ->where('type', $Steels->type)
         ->get();
         if($ListPrices->count() > 0){
             foreach($ListPrices as $row){

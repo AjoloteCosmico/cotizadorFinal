@@ -42,7 +42,7 @@ class FloorController extends Controller
         $Piece = Floor::where('length', $request->length)->where('camber', $request->camber)->first();
         if($Piece){
             $PriceLists = PriceList::where('piece', 'PISO')->where('description', 'LAMINA GALVANIZADA RC')->where('caliber', '14')->where('type','Galvanizada')->first();
-            $Price = $Piece->price;
+            $Price = $Piece->weight *  $PriceLists->cost;
             $F_Total = $PriceLists->f_total;
             $PriceUnit = $Price * $F_Total;
             $LargoPiso = $Piece->length;
