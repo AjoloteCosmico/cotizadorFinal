@@ -35,7 +35,7 @@ class FloorReinforcementController extends Controller
         $Amount = $request->amount;
         $Piece = FloorReinforcement::find($request->piece);
         $PriceLists = PriceList::where('piece', 'REFUERZO DE PISO')->where('description', 'LAMINA GALVANIZADA RC')->where('caliber', '14')->where('type','Galvanizada')->first();
-        $Price = $Piece->price;
+        $Price = $Piece->weight *$PriceLists->cost;
         $F_Total = $PriceLists->f_total;
         $PriceUnit = $Price * $F_Total;
         $SubTotal = $Amount * $PriceUnit;
