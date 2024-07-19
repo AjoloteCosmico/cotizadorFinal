@@ -34,7 +34,7 @@ class CrossbarController extends Controller
         $Piece = Crossbar::find($request->piece);
         $PriceList = PriceList::where('piece', 'CROSS BAR')->where('caliber', 14)->first();
         $PriceConector=Pricelist::where('piece','CONECTOR CROSSBAR')->first();
-        $ConectorPrice=0.42*$PriceConector->f_total *$PriceConector->cost;
+        $ConectorPrice=0.84*$PriceConector->f_total *$PriceConector->cost;
         if($request->conector == 4){
             $Conector = Crossbar::where('type', 'CONECTOR DE CROSS BAR')->first();
             $SubTotal = $Amount * ($Piece->weight * $PriceList->cost * $PriceList->f_total +$ConectorPrice);
