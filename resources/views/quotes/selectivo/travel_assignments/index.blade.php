@@ -19,23 +19,27 @@
                             <div class="card-body">
                                 
                                 <div class="form-group">
-                                <h3>Informacion General</h3>
-                                <table>
+                                    
+                                <x-jet-label value="* Información General" />
+                                
+                                <div class="col-sm-12 table-responsive text-xs">
+                                <table class="table align-middle">
                                     <tr>
-                                        <th>Dias</th>
+                                        <td>Dias: </td>
                                         <td>0</td>
                                         
-                                        <th>Posiciones a armar</th>
+                                        <td>Posiciones a armar: </td>
                                         <td>0</td>
                                     </tr>
                                     <tr>
-                                        <th>Operarios</th>
+                                        <td>Operarios: </td>
                                         <td>0</td>
                                         
-                                        <th>Posiciones por dia</th>
+                                        <td>Posiciones por dia: </td>
                                         <td>0</td>
                                     </tr>
                                 </table>
+                                </div>
                                 <div class="form-group p-2 gap-2 flex items-center">
                             <a href="{{route('selectivo_quotation_travel_assignments.add_carrito', $Quotation_Id)}}" class="btn btn-black mb-2">
                                 <i class="fa-solid fa-rotate-left fa-xl"></i>&nbsp; Actualizar Datos
