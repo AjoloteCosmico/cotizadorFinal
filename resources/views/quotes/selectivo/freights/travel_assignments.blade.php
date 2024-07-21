@@ -14,9 +14,14 @@
                 <div class="col-xs-12 p-2 gap-2">
                     <input type="hidden" name="Quotation_Id" value="{{$Quotation_Id}}">
                     <div class="form-group">
-                        <x-jet-label value="* Cantidad" />
-                        <x-jet-input type="number" name="amount" value="{{old('amount')}}" class="text-xs uppercase"/>
-                        <x-jet-input-error for='amount' />
+                        <x-jet-label value="* Cantidad de dias" />
+                        <x-jet-input type="number" name="dias" value="{{old('dias')}}" class="text-xs uppercase"/>
+                        <x-jet-input-error for='dias' />
+                    </div>
+                    <div class="form-group">
+                        <x-jet-label value="* Cantidad de personas" />
+                        <x-jet-input type="number" name="operarios" value="{{old('operarios')}}" class="text-xs uppercase"/>
+                        <x-jet-input-error for='operarios' />
                     </div>
                     <div class="form-group">
                         <x-jet-label value="* Descripción" />
@@ -27,6 +32,12 @@
                         </select>
                         <x-jet-input-error for='description' />
                     </div>
+                    <div class="form-group">
+                        <x-jet-label value="* Costo x operacion" />
+                        <x-jet-input type="number" name="cost" value="{{old('cost')}}" class="text-xs uppercase"/>
+                        <x-jet-input-error for='cost' />
+                    </div>
+
                 </div>
                 <div class="col-12 text-right p-2 gap-2">
                     <a href="{{ route('selectivo_freights.show', $Quotation_Id)}}" class="btn btn-green mb-2">

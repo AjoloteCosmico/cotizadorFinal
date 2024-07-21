@@ -26,22 +26,22 @@
                                 <table class="table align-middle">
                                     <tr>
                                         <td>Dias: </td>
-                                        <td>0</td>
+                                        <td>{{$Quotation->dias}}</td>
                                         
                                         <td>Posiciones a armar: </td>
-                                        <td>0</td>
+                                        <td>{{$Quotation->npos}}</td>
                                     </tr>
                                     <tr>
                                         <td>Operarios: </td>
-                                        <td>0</td>
+                                        <td>{{$Quotation->operarios}}</td>
                                         
                                         <td>Posiciones por dia: </td>
-                                        <td>0</td>
+                                        <td>{{$Quotation->posxdia}}</td>
                                     </tr>
                                 </table>
                                 </div>
                                 <div class="form-group p-2 gap-2 flex items-center">
-                            <a href="{{route('selectivo_quotation_travel_assignments.add_carrito', $Quotation_Id)}}" class="btn btn-black mb-2">
+                            <a href="{{route('selectivo_travel_assignments_general', $Quotation_Id)}}" class="btn btn-black mb-2">
                                 <i class="fa-solid fa-rotate-left fa-xl"></i>&nbsp; Actualizar Datos
                             </a>
                         </div>
@@ -59,17 +59,20 @@
                                         <table class="table tabletravelassignments table-striped align-middle">
                                             <thead class="text-center">
                                                 <tr>
-                                                    <th>Cantidad</th>
+                                                    <th>Dias</th>
+                                                    <th>Personas</th>
                                                     <th>Unidad</th>
                                                     <th>Descripcion</th>
-                                                    <th>Costo</th>
-                                                    <th>Importe</th>
+                                                    <th>Costo por Operacion </th>
+                                                    <th>Costo total</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($QuotationTravelAssignments as $row)
                                                 <tr>
-                                                    <td>{{$row->amount}}</td>
+                                                    <td>{{$row->dias}}</td>
+                                                    
+                                                    <td>{{$row->operarios}}</td>
                                                     <td>{{$row->unit}}</td>
                                                     <td>{{$row->description}}</td>
                                                     <td class="text-end">$ {{number_format(($row->cost),2)}}</td>
@@ -93,7 +96,7 @@
                         </div>
                         <div class="form-group p-2 gap-2 flex items-center">
                             <a href="{{route('selectivo_quotation_travel_assignments.add_carrito', $Quotation_Id)}}" class="btn btn-black mb-2">
-                                <i class="fa-solid fa-rotate-left fa-xl"></i>&nbsp; Guardar
+                                <i class="fa-solid fa-save fa-xl"></i>&nbsp; Guardar
                             </a>
                         </div>
                     </div>

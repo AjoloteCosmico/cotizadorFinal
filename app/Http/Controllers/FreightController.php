@@ -92,6 +92,8 @@ class FreightController extends Controller
     public function selectivo_quotation_travel_assignments($id)
     {
         $Quotation_Id = $id;
+        $Quotation=Quotation::find($id);
+        
         $QuotationTravelAssignments = QuotationTravelAssignment::where('quotation_id', $Quotation_Id)->get();
         if(count($QuotationTravelAssignments)>0){
             $TotalTravelAssignments = 0;
@@ -107,6 +109,7 @@ class FreightController extends Controller
             'Quotation_Id',
             'QuotationTravelAssignments',
             'TotalTravelAssignments',
+            'Quotation',
         ));
     }
 
@@ -120,17 +123,57 @@ class FreightController extends Controller
             'Descriptions'
         ));
     }
+    public function selectivo_travel_assignments_general($id)
+    {
+        $Quotation_Id = $id;
+        $Quotation=Quotation::find($id);
 
+        return view('quotes.selectivo.freights.travel_assignments_general', compact(
+            'Quotation_Id',
+            'Quotation'
+        ));
+    }
+    public function selectivo_travel_assignments_general_update(Request $request)
+    {
+        $rules = [
+            'dias' => 'required',
+            'npos' => 'required',
+            'operarios' => 'required',
+            'posxdia' => 'required',
+        ];
+
+        $messages = [
+            
+            'dias.required' => 'Por favor capture el número de dias',
+            'npos.required' => 'Por favor capture el número de posiciones',
+            'operarios.required' => 'Por favor capture el número de operarios',
+            'posxdia.required' => 'Por favor capture el número de posiciones por dia',
+        ];
+        $Quotation=Quotation::find($request->Quotation_Id);
+        $Quotation->npos=$request->npos;
+        $Quotation->dias=$request->dias;
+        $Quotation->posxdia=$request->posxdia;
+        $Quotation->operarios=$request->operarios;
+        $Quotation->save();
+        return redirect()->route('selectivo_quotation_travel_assignments', $request->Quotation_Id);
+    
+    }
     public function selectivo_travel_assignments_add(Request $request)
     {
         $rules = [
-            'amount' => 'required',
+            'dias' => 'required',
+            
+            'operarios' => 'required',
+            'cost' => 'required',
             'description' => 'required',
         ];
 
         $messages = [
-            'amount.required' => 'Por favor capture la cantidad',
+            'dias.required' => 'Por favor capture la cantidad de dias',
             'description.required' => 'Por favor seleccione una descripción',
+            'cost.required' => 'Por favor capture el costo por operacion',
+            'operarios.required' => 'Por favor capture la cantidad de personas',
+            
         ];
 
         $request->validate($rules,$messages);
@@ -138,13 +181,15 @@ class FreightController extends Controller
         $TravelAssignments = TravelAssignment::where('description', $request->description)->first();
         if($TravelAssignments){
             $Cost = $TravelAssignments->cost * $TravelAssignments->f_total;
-            $Import = $request->amount * $Cost;
+            $Import = $request->cost * $request->dias*$request->operarios*$TravelAssignments->f_total;
             $QuotationTravelAssignments = new QuotationTravelAssignment();
             $QuotationTravelAssignments->quotation_id = $request->Quotation_Id;
-            $QuotationTravelAssignments->amount = $request->amount;
+            $QuotationTravelAssignments->dias = $request->dias;
+            $QuotationTravelAssignments->amount = $request->dias;
+            $QuotationTravelAssignments->operarios = $request->operarios;
             $QuotationTravelAssignments->description = $TravelAssignments->description;
             $QuotationTravelAssignments->unit = $TravelAssignments->unit;
-            $QuotationTravelAssignments->cost = $Cost;
+            $QuotationTravelAssignments->cost = $request->cost;
             $QuotationTravelAssignments->import = $Import;
             $QuotationTravelAssignments->save();
         }        

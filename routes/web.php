@@ -177,9 +177,13 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     Route::get('/cot_transports/{id}', [FreightController::class, 'selectivo_transports'])->name('selectivo_transports');
     Route::post('/cot_transports_add', [FreightController::class, 'selectivo_transports_add'])->name('selectivo_transports_add');
     Route::get('/cot_travel_assignments/{id}', [FreightController::class, 'selectivo_travel_assignments'])->name('selectivo_travel_assignments');
+    
+    Route::get('/cot_travel_assignments_general/{id}', [FreightController::class, 'selectivo_travel_assignments_general'])->name('selectivo_travel_assignments_general');
     Route::get('/cot_quotation_travel_assignments/{id}', [FreightController::class, 'selectivo_quotation_travel_assignments'])->name('selectivo_quotation_travel_assignments');
     Route::get('/cot_installs/{id}', [FreightController::class, 'selectivo_installs'])->name('selectivo_installs');
     Route::post('/cot_travel_assignments_add', [FreightController::class, 'selectivo_travel_assignments_add'])->name('selectivo_travel_assignments_add');
+    Route::post('/cot_travel_assignments_general_update', [FreightController::class, 'selectivo_travel_assignments_general_update'])->name('selectivo_travel_assignments_general_update');
+    
     Route::post('/cot_fiut_add', [FreightController::class, 'selectivo_fiut_add'])->name('selectivo_fiut_add');
     
     Route::get('/cot_panels/{id}', [PanelController::class, 'selectivo_panels'])->name('selectivo_panels');
