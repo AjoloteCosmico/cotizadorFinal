@@ -17,6 +17,32 @@
                                 <h3>Viáticos</h3>
                             </div>
                             <div class="card-body">
+                                
+                                <div class="form-group">
+                                <h3>Informacion General</h3>
+                                <table>
+                                    <tr>
+                                        <th>Dias</th>
+                                        <td>0</td>
+                                        
+                                        <th>Posiciones a armar</th>
+                                        <td>0</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Operarios</th>
+                                        <td>0</td>
+                                        
+                                        <th>Posiciones por dia</th>
+                                        <td>0</td>
+                                    </tr>
+                                </table>
+                                <div class="form-group p-2 gap-2 flex items-center">
+                            <a href="{{route('selectivo_quotation_travel_assignments.add_carrito', $Quotation_Id)}}" class="btn btn-black mb-2">
+                                <i class="fa-solid fa-rotate-left fa-xl"></i>&nbsp; Actualizar Datos
+                            </a>
+                        </div>
+
+                                </div>
                                 <div class="form-group">
                                     <x-jet-label value="* Viáticos" />
                                     <div class="col-sm-12 text-right">
