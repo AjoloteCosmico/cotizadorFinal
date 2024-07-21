@@ -189,7 +189,7 @@ class FreightController extends Controller
             $QuotationTravelAssignments->operarios = $request->operarios;
             $QuotationTravelAssignments->description = $TravelAssignments->description;
             $QuotationTravelAssignments->unit = $TravelAssignments->unit;
-            $QuotationTravelAssignments->cost = $request->cost;
+            $QuotationTravelAssignments->cost = $request->cost*$TravelAssignments->f_total;
             $QuotationTravelAssignments->import = $Import;
             $QuotationTravelAssignments->save();
         }        

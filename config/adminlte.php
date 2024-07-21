@@ -292,6 +292,14 @@ return [
     'menu' => [
         // Navbar items:
         [
+            'text' => 'Version1.1',
+            
+            'topnav_right' => true,
+            'url' => 'dashboard',
+        ],        
+        
+        [
+            
             'text' => ' CARRITO',
             'type' => 'navbar-notification',
             'id'           => 'my-notification',
@@ -327,6 +335,7 @@ return [
             'text' => 'CATÁLOGOS',
             'icon' => 'fas fa-fw fa-list',
             'submenu' => [
+                
                 [
                     'text' => ' ROLES',
                     'icon' => 'fas fa-fw fa-user-lock',
