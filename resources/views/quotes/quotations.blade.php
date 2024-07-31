@@ -39,11 +39,11 @@
                                     <div class="row">
                                         <div class="col-6 text-center w-10" title="Editar Cuestionario">
                                             <a href="{{route('rack_engineering_form', $row->id)}}" class="btn btn-blue w-9 h-9">
-                                                <i class="fas fa-form"></i></span>
+                                                <i class="fas fa-file-alt"></i></span>
                                             </a>
                                         </div>
                                         <div class="col-6 text-center w-10" title="Editar Cotizacion">
-                                            <a href="{{route('selectivo.show', [$row->id,'$row->type'])}}" class="btn btn-blue w-9 h-9">
+                                            <a href="{{route('selectivo.show', [$row->id,$row->type])}}" class="btn btn-blue w-9 h-9">
                                                 <i class="fas fa-edit"></i></span>
                                             </a>
                                         </div>
