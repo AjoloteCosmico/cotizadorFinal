@@ -63,7 +63,7 @@
                                                 <i class="fa fa-wpforms"></i></a>                
                                         </div>
                                         @if($row->img)
-                                            <div class="col-6 text-center w-10" title="Ver imagen (Diegrama)">
+                                            <div class="col-6 text-center w-10" title="Ver imagen (Diagrama)">
                                             <a href="{{asset('storage/'.$row->img)}}" class="btn btn-green w-9 h-9">
                                                 <i class="fas fa-camera"></i></a>                
                                         </div>
