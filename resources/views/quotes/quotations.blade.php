@@ -35,7 +35,7 @@
                                 <td>{{$row->type}}</td>
                                 <td>{{ date('d-m-Y', strtotime($row->created_at)) }}</td>
                                 <td>{{$row->customer->customer}}</td>
-                                <td class="w-30">
+                                <td class="w-40">
                                     <div class="row">
                                         <div class="col-6 text-center w-10">
                                             <a href="{{route('rack_engineering_form', $row->id)}}" class="btn btn-blue w-9 h-9">
