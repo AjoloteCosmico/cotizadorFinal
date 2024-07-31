@@ -35,10 +35,15 @@
                                 <td>{{$row->type}}</td>
                                 <td>{{ date('d-m-Y', strtotime($row->created_at)) }}</td>
                                 <td>{{$row->customer->customer}}</td>
-                                <td class="w-40">
+                                <td class="w-30">
                                     <div class="row">
-                                        <div class="col-6 text-center w-10">
+                                        <div class="col-6 text-center w-10" title="Editar Cuestionario">
                                             <a href="{{route('rack_engineering_form', $row->id)}}" class="btn btn-blue w-9 h-9">
+                                                <i class="fas fa-form"></i></span>
+                                            </a>
+                                        </div>
+                                        <div class="col-6 text-center w-10" title="Editar Cotizacion">
+                                            <a href="{{route('selectivo.show', [$row->id,'$row->type'])}}" class="btn btn-blue w-9 h-9">
                                                 <i class="fas fa-edit"></i></span>
                                             </a>
                                         </div>
