@@ -35,30 +35,35 @@
                                 <td>{{$row->type}}</td>
                                 <td>{{ date('d-m-Y', strtotime($row->created_at)) }}</td>
                                 <td>{{$row->customer->customer}}</td>
-                                <td class="w-20">
+                                <td class="w-30">
                                     <div class="row">
-                                        <div class="col-6 text-center w-10">
+                                        <div class="col-6 text-center w-10" title="Editar Cuestionario">
                                             <a href="{{route('rack_engineering_form', $row->id)}}" class="btn btn-blue w-9 h-9">
+                                                <i class="fas fa-file-alt"></i></span>
+                                            </a>
+                                        </div>
+                                        <div class="col-6 text-center w-10" title="Editar Cotizacion">
+                                            <a href="{{route('selectivo.show', [$row->id,$row->type])}}" class="btn btn-blue w-9 h-9">
                                                 <i class="fas fa-edit"></i></span>
                                             </a>
                                         </div>
-                                        <div class="col-6 text-center w-10">
+                                        <div class="col-6 text-center w-10" title="Redaccion en word">
                                             <a href="{{route('redaccion', $row->id)}}" class="btn btn-green w-9 h-9" id="{{'quot'.$row->id}}">
                                                 <i class="fa-solid fa-file-word "></i></span>
                                             </a>
                                         </div>
                                         
-                                        <div class="col-6 text-center w-10">
+                                        <div class="col-6 text-center w-10" title="Redaccion en pdf">
                                             <a href="{{route('redaccion', $row->id)}}" class="btn btn-green w-9 h-9" id="{{'quot'.$row->id}}">
                                                 <i class="fa-solid fa-file-pdf "></i></span>
                                             </a>
                                         </div>
-                                        <div class="col-6 text-center w-10">
+                                        <div class="col-6 text-center w-10" title="Descargar cuestionario">
                                             <a href="{{route('rpt_rack_engineering', $row->id)}}" class="btn btn-green w-9 h-9">
                                                 <i class="fa fa-wpforms"></i></a>                
                                         </div>
                                         @if($row->img)
-                                            <div class="col-6 text-center w-10">
+                                            <div class="col-6 text-center w-10" title="Ver imagen (Diagrama)">
                                             <a href="{{asset('storage/'.$row->img)}}" class="btn btn-green w-9 h-9">
                                                 <i class="fas fa-camera"></i></a>                
                                         </div>
