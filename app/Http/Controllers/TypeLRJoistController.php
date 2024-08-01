@@ -158,6 +158,7 @@ class TypeLRJoistController extends Controller
 
         if($Cambers){
             $Camber=$Cambers->camber;
+           
             $TypeLJoists = TypeLRJoist::where('caliber',$Caliber)->where('camber', $Cambers->camber)->where('length', $Length)->first();
             // dd($Cambers,$WeightIncrement,$Length,$TypeLJoists);
             //Optimized
@@ -182,7 +183,7 @@ class TypeLRJoistController extends Controller
                 $SJLR->length = $TypeLJoists->length;
                 $SJLR->sku = $TypeLJoists->sku;
                 $SJLR->unit_price = $Import;
-                $SJLR->total_price = $Import*$Amount + $CostoTotalClavijas;
+                $SJLR->total_price = $Import*$Amount + $CostoTotalClavijas/2;
                 $SJLR->save();
             }else{
                 $SJLR = new SelectiveJoistLr();
@@ -198,7 +199,7 @@ class TypeLRJoistController extends Controller
                 $SJLR->length = $TypeLJoists->length;
                 $SJLR->sku = $TypeLJoists->sku;
                 $SJLR->unit_price = $Import;
-                $SJLR->total_price = $Import*$Amount + $CostoTotalClavijas;
+                $SJLR->total_price = $Import*$Amount + $CostoTotalClavijas/2;
                 $SJLR->save();
             }
     
@@ -216,7 +217,7 @@ class TypeLRJoistController extends Controller
                 'Quotation_Id',
                 'CantidadClavijas',
                 'CostoTotalClavijas',
-                'CostoTotal'
+                'CostoTotal','SJLR'
             ));
         }else{
             return redirect()->route('menujoists.show')->with('no_existe', 'ok');
