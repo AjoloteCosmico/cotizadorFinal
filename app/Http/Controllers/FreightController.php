@@ -93,7 +93,8 @@ class FreightController extends Controller
     {
         $Quotation_Id = $id;
         $Quotation=Quotation::find($id);
-        
+        $Descriptions = TravelAssignment::distinct()->get('description');
+
         $QuotationTravelAssignments = QuotationTravelAssignment::where('quotation_id', $Quotation_Id)->get();
         if(count($QuotationTravelAssignments)>0){
             $TotalTravelAssignments = 0;
@@ -109,7 +110,7 @@ class FreightController extends Controller
             'Quotation_Id',
             'QuotationTravelAssignments',
             'TotalTravelAssignments',
-            'Quotation',
+            'Quotation','Descriptions',
         ));
     }
 
