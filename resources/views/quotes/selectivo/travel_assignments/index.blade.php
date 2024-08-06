@@ -73,9 +73,10 @@
                                 <option value="{{$d->description}}" @if ($d->description == $row->description) selected @endif >{{$d->description}}</option>
                             @endforeach
                         </select></td>
-                                                    <td class="text-end">$ {{number_format(($row->cost),2)}}</td>
-                                                    <td class="text-end">$ {{number_format(($row->import),2)}}</td>
-                                                    <td> <button class="btn btn-danger" type="button" onclick="deleteRow(this)"> <i class="fas fa-trash"></i> </button>    </td>
+                                                    <td class="text-end" style="white-space: nowrap;"> $ <input class='form-control'  name ='cost[{{$loop->index}}]' type="number"  value='{{$row->cost}}' onchange='change_cost({{$loop->index}})' > </td>
+                                                    </td>
+                                                    <td class="text-end"> $<input class='form-control'  id ='import{{$loop->index}}' type="number" value='{{$row->import}}' dishabled > </td>
+                                                    </td><td> <button class="btn btn-danger" type="button" onclick="deleteRow(this)"> <i class="fas fa-trash"></i> </button>    </td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>
@@ -142,6 +143,10 @@
 
         nviaticos+=1;
         console.log(nviaticos);
+    }
+
+    function change_cost(i){
+      document.getElementById('import'+i).value=
     }
 </script>
 @stop
