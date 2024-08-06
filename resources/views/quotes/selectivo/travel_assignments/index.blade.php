@@ -83,7 +83,7 @@
                                                         </table>
                                                         </td>
                                                     </td>
-                                                    <td class="text-end"> $<input class='form-control'  id ='import{{$loop->index}}' type="number" value='{{$row->import}}' dishabled > </td>
+                                                    <td class="text-end"> $ {{$row->import}} </td>
                                                     </td><td> <button class="btn btn-danger" type="button" onclick="deleteRow(this)"> <i class="fas fa-trash"></i> </button>    </td>
                                                 </tr>
                                                 @endforeach
@@ -105,6 +105,11 @@
                                     </button>
                                     </div>
                                 </div>
+                                <div class="form-group p-2 gap-2 flex items-center">
+                            <button class="btn btn-blue mb-2">
+                                <i class="fa-solid fa-calculator fa-xl"></i>&nbsp; Calcular
+                            </button>
+                        </div>
                             </div>
                             {!! Form::close() !!}
                         </div>
@@ -142,19 +147,21 @@
         var cell4 = row.insertCell(4);
         var cell5 = row.insertCell(5);
         var cell6 = row.insertCell(6);
-        cell1.innerHTML = "NEW CELL1";
-        cell2.innerHTML = "NEW CELL2";
-        cell1.innerHTML = "NEW CELL1";
-        cell2.innerHTML = "NEW CELL2";
-        cell1.innerHTML = "NEW CELL1";
+        cell0.innerHTML = "<input class='form-control'  name ='dia["+nviaticos+"]' type='number' step='1'  >";
+        cell1.innerHTML = "<input class='form-control'  name ='operario["+nviaticos+"]' type='number' step='1' >";
+        cell2.innerHTML = " ";
+        cell3.innerHTML = "<select class='form-capture uppercase w-full text-xs' name='description[]'> \
+                            @foreach ($Descriptions as $d) \
+                                <option value='{{$d->description}}' >{{$d->description}}</option> \
+                            @endforeach \
+                        </select>";
+        cell4.innerHTML = "<input class='form-control'  name ='cost["+nviaticos+"]' type='number'> ";
         cell6.innerHTML = "<button class='btn btn-danger' type='button' onclick='deleteRow(this)'> <i class='fas fa-trash'></i> </button> ";
 
         nviaticos+=1;
         console.log(nviaticos);
     }
 
-    function change_cost(i){
-      document.getElementById('import'+i).value=
-    }
+   
 </script>
 @stop
