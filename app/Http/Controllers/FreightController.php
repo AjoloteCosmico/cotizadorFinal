@@ -150,12 +150,34 @@ class FreightController extends Controller
             'operarios.required' => 'Por favor capture el número de operarios',
             'posxdia.required' => 'Por favor capture el número de posiciones por dia',
         ];
+        $request->validate($rules);
         $Quotation=Quotation::find($request->Quotation_Id);
         $Quotation->npos=$request->npos;
         $Quotation->dias=$request->dias;
         $Quotation->posxdia=$request->posxdia;
         $Quotation->operarios=$request->operarios;
         $Quotation->save();
+        
+       
+        foreach(array_keys($request->dia) as $i){
+            $TravelAssignments = TravelAssignment::where('description', $request->description[$i])->first();
+            if($TravelAssignments){
+                    $Cost = $TravelAssignments->cost * $TravelAssignments->f_total;
+                    $Import = $request->cost[$i] * $request->dia[$i]*$request->operario[$i]*$TravelAssignments->f_total;
+                    $QuotationTravelAssignments = new QuotationTravelAssignment();
+                    $QuotationTravelAssignments->quotation_id = $request->Quotation_Id;
+                    $QuotationTravelAssignments->dias = $request->dia[$i];
+                    $QuotationTravelAssignments->amount = $request->dia[$i];
+                    $QuotationTravelAssignments->operarios = $request->operario[$i];
+                    $QuotationTravelAssignments->description = $TravelAssignments->description;
+                    $QuotationTravelAssignments->unit = $TravelAssignments->unit;
+                    $QuotationTravelAssignments->cost = $request->cost[$i]*$TravelAssignments->f_total;
+                    $QuotationTravelAssignments->import = $Import;
+                    $QuotationTravelAssignments->save();
+                } 
+        }
+
+
         return redirect()->route('selectivo_quotation_travel_assignments', $request->Quotation_Id);
     
     }
@@ -898,7 +920,7 @@ class FreightController extends Controller
         //guardar en el carrito
         foreach($productos as $p){
             $Cart_product= new Cart_product();
-            $Cart_product->name='VIATICO';
+            $Cart_product->name='VIATICO '.$p->description;
             $Cart_product->type='SVIAT';
             $Cart_product->unit_price=$p->cost;
             $Cart_product->total_price=$p->import;

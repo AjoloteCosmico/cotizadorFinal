@@ -19,7 +19,12 @@ class ReportsController extends Controller
 {
     public function index(){
         
-        $Quotations = Quotation::all();
+        $User = auth()->user();
+        if(auth()->user()->can('VER TODAS LAS COTIZACIONES')){
+            $Quotations = Quotation::all();
+        }else{
+            $Quotations = Quotation::where('user_id',$User->id);
+        }
         return view('reports.index',compact('Quotations'));
     }
 

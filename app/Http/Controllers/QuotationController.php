@@ -60,8 +60,14 @@ class QuotationController extends Controller
 {
     public function index($id)
     {
-        $Quotations = Quotation::all();
+        
         $QuotationId=$id;
+        $User = auth()->user();
+        if(auth()->user()->can('VER TODAS LAS COTIZACIONES')){
+            $Quotations = Quotation::all();
+        }else{
+            $Quotations = Quotation::where('user_id',$User->id);
+        }
         // if($QuotationId!=0){
         // $Quotation = Quotation::find($id);
         // $Quotation->status='terminada';

@@ -14,7 +14,8 @@
                     <div class="col-sm-12">
                         <div class="card">
                         {!! Form::open(['method'=>'POST','route'=>['selectivo_travel_assignments_general_update']]) !!}
-               
+                        <input type="hidden" name="Quotation_Id" value="{{$Quotation_Id}}">
+                   
                             <div class="card-header">
                                 <h3>Viáticos</h3>
                             </div>
@@ -28,17 +29,21 @@
                                 <table class="table align-middle">
                                     <tr>
                                         <td>Dias: </td>
-                                        <td> <input class="form-control" name="dias" type="number" step="1" value="{{$Quotation->dias}}" ></td>
+                                        <td> <input class="form-control" name="dias" type="number" step="1" value="{{$Quotation->dias}}" >
+                                        <x-jet-input-error for='dias' /></td>
                                         
                                         <td>Posiciones a armar: </td>
-                                        <td> <input class='form-control'  name ='npos' type="number" step='1' value='{{$Quotation->npos}}' > </td>
+                                        <td> <input class='form-control'  name ='npos' type="number" step='1' value='{{$Quotation->npos}}' > 
+                                        <x-jet-input-error for='npos' /></td>
                                     </tr>
                                     <tr>
                                         <td>Operarios: </td>
-                                        <td><input class='form-control'  name ='operarios' type="number" step='1' value='{{$Quotation->operarios}}' > </td>
+                                        <td><input class='form-control'  name ='operarios' type="number" step='1' value='{{$Quotation->operarios}}' > 
+                                        <x-jet-input-error for='operarios' /></td>
                                         
                                         <td>Posiciones por dia: </td>
-                                        <td><input class='form-control'  name ='posxdia' type="number" step='1' value='{{$Quotation->posxdia}}' > </td>
+                                        <td><input class='form-control'  name ='posxdia' type="number" step='1' value='{{$Quotation->posxdia}}' >
+                                        <x-jet-input-error for='posxdia' /> </td>
                                     </tr>
                                 </table>
                                 </div>
@@ -65,10 +70,10 @@
                                             <tbody>
                                                 @foreach ($QuotationTravelAssignments as $row)
                                                 <tr>
-                                                    <td><input class='form-control'  name ='dia[{{$loop->index}}]' type="number" step='1' value='{{$row->dias}}' > </td>
+                                                    <td><input class='form-control'  name ='dia[{{$loop->index}}]' type="number" pattern="[0-9]" step='1' value='{{$row->dias}}' > </td>
                                                     <td><input class='form-control'  name ='operario[{{$loop->index}}]' type="number" step='1' value='{{$row->operarios}}' > </td>
                                                     <td>{{$row->unit}}</td>
-                                                    <td><select class="form-capture uppercase w-full text-xs" name="description">
+                                                    <td><select class="form-capture uppercase w-full text-xs" name="description[{{$loop->index}}]">
                             @foreach ($Descriptions as $d)
                                 <option value="{{$d->description}}" @if ($d->description == $row->description) selected @endif >{{$d->description}}</option>
                             @endforeach
@@ -130,6 +135,7 @@
 
 <script>
     var nviaticos=0+{{$QuotationTravelAssignments->count()}};
+    var indexviaticos=0+{{$QuotationTravelAssignments->count()}}
     console.log(nviaticos);
     function deleteRow(r) {
         var i = r.parentNode.parentNode.rowIndex;
@@ -147,18 +153,19 @@
         var cell4 = row.insertCell(4);
         var cell5 = row.insertCell(5);
         var cell6 = row.insertCell(6);
-        cell0.innerHTML = "<input class='form-control'  name ='dia["+nviaticos+"]' type='number' step='1'  >";
-        cell1.innerHTML = "<input class='form-control'  name ='operario["+nviaticos+"]' type='number' step='1' >";
+        cell0.innerHTML = "<input class='form-control'  name ='dia["+indexviaticos+"]' type='number' step='1'  >";
+        cell1.innerHTML = "<input class='form-control'  name ='operario["+indexviaticos+"]' type='number' step='1' >";
         cell2.innerHTML = " ";
-        cell3.innerHTML = "<select class='form-capture uppercase w-full text-xs' name='description[]'> \
+        cell3.innerHTML = "<select class='form-capture uppercase w-full text-xs' name='description["+indexviaticos+"]'> \
                             @foreach ($Descriptions as $d) \
                                 <option value='{{$d->description}}' >{{$d->description}}</option> \
                             @endforeach \
                         </select>";
-        cell4.innerHTML = "<input class='form-control'  name ='cost["+nviaticos+"]' type='number'> ";
+        cell4.innerHTML = "<input class='form-control'  name ='cost["+indexviaticos+"]' type='number'> ";
         cell6.innerHTML = "<button class='btn btn-danger' type='button' onclick='deleteRow(this)'> <i class='fas fa-trash'></i> </button> ";
 
         nviaticos+=1;
+        indexviaticos+=1;
         console.log(nviaticos);
     }
 
