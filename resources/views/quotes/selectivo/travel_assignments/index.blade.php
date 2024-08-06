@@ -73,7 +73,15 @@
                                 <option value="{{$d->description}}" @if ($d->description == $row->description) selected @endif >{{$d->description}}</option>
                             @endforeach
                         </select></td>
-                                                    <td class="text-end" style="white-space: nowrap;"> $ <input class='form-control'  name ='cost[{{$loop->index}}]' type="number"  value='{{$row->cost}}' onchange='change_cost({{$loop->index}})' > </td>
+                                                    <td class="text-end" style="white-space: nowrap;">
+                                                        <table>
+                                                            <tr>
+                                                                <td>$</td>
+                                                                <td>  <input class='form-control'  name ='cost[{{$loop->index}}]' type="number"  value='{{$row->cost}}' onchange='change_cost({{$loop->index}})' > 
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        </td>
                                                     </td>
                                                     <td class="text-end"> $<input class='form-control'  id ='import{{$loop->index}}' type="number" value='{{$row->import}}' dishabled > </td>
                                                     </td><td> <button class="btn btn-danger" type="button" onclick="deleteRow(this)"> <i class="fas fa-trash"></i> </button>    </td>
