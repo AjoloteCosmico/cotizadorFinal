@@ -49,7 +49,11 @@
                                         <td></td>
                                         <td></td>
                                         <td>Dias Sugeridos:</td>
-                                        <td> {{$Quotation->npos / $Quotation->posxdia}}</td>
+                                        <td> 
+                                        @if($Quotation->posxdia>0)        
+                                            {{$Quotation->npos / $Quotation->posxdia}}
+                                        @endif
+                                        </td>
                                     </tr>
                                 </table>
                                 </div>
