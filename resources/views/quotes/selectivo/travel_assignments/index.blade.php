@@ -45,6 +45,12 @@
                                         <td><input class='form-control'  name ='posxdia' type="number" step='1' value='{{$Quotation->posxdia}}' >
                                         <x-jet-input-error for='posxdia' /> </td>
                                     </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Dias Sugeridos:</td>
+                                        <td> {{$Quotation->npos / $Quotation->posxdia}}</td>
+                                    </tr>
                                 </table>
                                 </div>
                     
