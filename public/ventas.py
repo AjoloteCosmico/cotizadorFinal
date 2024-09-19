@@ -277,12 +277,13 @@ for i in tablas:
             p=p.assign(cost=costo*p.long)
         print(i)
     products=products.append(p,ignore_index=True)
+
 cols_to_fill_str=['description','protector','model','sku']
 products[cols_to_fill_str]=products[cols_to_fill_str].fillna('')
 cols_kg=['weight','total_kg','total_weight','weight_kg']
 cols_m2=['m2','total_m2']
 price_cols=['price','total_price','import','unit_price']
-products[cols_kg+cols_m2+price_cols]=products[cols_kg+cols_m2+price_cols].fillna(0)
+products[cols_kg+cols_m2+price_cols+['amount']]=products[cols_kg+cols_m2+price_cols+['amount']].fillna(0)
 
 pricelist_protectors=pd.read_sql('select * from price_list_protectors',cnx)
 quotation_protectors=pd.read_sql('select quotation_protectors.*, protectors.sku from quotation_protectors  inner join protectors on protectors.protector=quotation_protectors.protector where quotation_id ='+str(id),cnx)
@@ -365,6 +366,7 @@ for i in range(0,len(products)):
     worksheet.write('H'+str(row_count), products['amount'].values[i]*products[price_cols].sum(axis=1, numeric_only=True)[i], formato)
     #calibre
     worksheet.write('I'+str(row_count), ret_na(products['caliber'].values[i]), formato)
+    print('a punto de krakear',products['amount'].values[i],' ------------------')
     #pesos
     worksheet.write('J'+str(row_count),(num(products['total_weight'].values[i])+num(products['total_kg'].values[i])+products['weight'].values[i]+products['weight_kg'].values[i])/products['amount'].values[i], formato_unit)
     worksheet.write('K'+str(row_count),(num(products['total_weight'].values[i])+num(products['total_kg'].values[i])+products['weight'].values[i]+products['weight_kg'].values[i]), formato_unit)
