@@ -33,8 +33,10 @@
                         <x-jet-label value="* Altura de Pandeo" />
                         <select name="buckling" class="inputjet w-full text-xs uppercase">
                             @foreach ($buckling as $row)
+                            @if($row->buckling>0.95)
                                 <option value="{{$row->buckling}}" @if (old('buckling')==$row->buckling) selected @endif>{{$row->buckling}}</option>
-                            @endforeach
+                            @endif
+                                @endforeach
                         </select>
                         <x-jet-input-error for='buckling' /><br>
                         <x-jet-label value="* Capacidad de carga por módulo en Kg" />
@@ -50,9 +52,9 @@
                         <x-jet-label value="* Altura" />
                         <select name="height" class="inputjet w-full text-xs uppercase">
                             @foreach ($height as $row)
-                                @if($row->height>0.95)
+                                
                                 <option value="{{$row->height}}" @if (old('height')==$row->height) selected @endif>{{$row->height}}</option>
-                                @endif                            
+                                
                                 @endforeach
                         </select>
                         <x-jet-input-error for='height' /><br>
