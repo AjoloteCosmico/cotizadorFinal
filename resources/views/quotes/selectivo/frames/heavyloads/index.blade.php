@@ -50,8 +50,10 @@
                         <x-jet-label value="* Altura" />
                         <select name="height" class="inputjet w-full text-xs uppercase">
                             @foreach ($height as $row)
+                                @if($row->height>0.95)
                                 <option value="{{$row->height}}" @if (old('height')==$row->height) selected @endif>{{$row->height}}</option>
-                            @endforeach
+                                @endif                            
+                                @endforeach
                         </select>
                         <x-jet-input-error for='height' /><br>
                     </div>
