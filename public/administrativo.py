@@ -282,7 +282,9 @@ cols_to_fill_str=['description','protector','model','sku']
 products[cols_to_fill_str]=products[cols_to_fill_str].fillna('')
 cols_kg=['weight','total_kg','total_weight','weight_kg']
 cols_m2=['m2','total_m2']
-products[cols_kg+cols_m2]=products[cols_kg+cols_m2].fillna(0)
+price_cols=['price','total_price','import','unit_price']
+products[cols_kg+cols_m2+price_cols+['amount']]=products[cols_kg+cols_m2+price_cols+['amount']].fillna(0)
+
 
 pricelist_protectors=pd.read_sql('select * from price_list_protectors',cnx)
 quotation_protectors=pd.read_sql('select quotation_protectors.*, protectors.sku from quotation_protectors  inner join protectors on protectors.protector=quotation_protectors.protector where quotation_id ='+str(id),cnx)
