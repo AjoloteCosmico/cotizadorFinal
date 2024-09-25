@@ -292,7 +292,7 @@ return [
     'menu' => [
         // Navbar items:
         [
-            'text' => 'Version1.1',
+            'text' => 'Version1.02',
             
             'topnav_right' => true,
             'url' => 'dashboard',
