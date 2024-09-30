@@ -129,6 +129,7 @@ for i in range(len(products)):
 
             
             carga='{0:.2f}'.format(products['weight_kg'].values[i])
+            
         if(products['amount'].values[i]>0):
             productos.append({'nombre':redact[products['tabla'].values[i]],
                           'extra':extras[products['tabla'].values[i]],                          

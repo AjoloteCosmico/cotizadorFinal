@@ -308,7 +308,7 @@ worksheet.insert_image("A1", "img/logo/logo.png",{"x_scale": 0.6, "y_scale": 0.6
 worksheet.merge_range('A6:A8', 'PDA', blue_header_format)
 worksheet.merge_range('B6:B8', 'SKU	', blue_header_format)
 worksheet.merge_range('C6:C8', 'CANT', blue_header_format)	
-worksheet.merge_range('D6:E8', 'DESCRIPCION', blue_header_format)	
+worksheet.merge_range('D6:D8', 'DESCRIPCION', blue_header_format)	
 worksheet.merge_range('E6:E8', 'CTO UNIT', blue_header_format)	
 worksheet.merge_range('F6:F8', 'CTO TOTAL', blue_header_format)	
 worksheet.merge_range('G6:G8', 'CALIBRE	', blue_header_format)
