@@ -195,7 +195,7 @@ context={
     'costo_flete':'{0:.2f}'.format(costo_flete),
     'costo_instalacion':'{:2,.2f}'.format(costo_instalacion),
     'costo_instalacion_incluida':'{:2,.2f}'.format(costo_instalacion_incluida),
-    'costo_selectivo':'{0:.2f}'.format(precio_total - costo_flete -costo_instalacion),
+    'costo_selectivo':'{:2,.2f}'.format(precio_total - costo_flete -costo_instalacion),
     'estado': cliente['state'].values[0],
     'a5': questionario['a5'].values[0], #que productos e almacena
    #reativos de nivel
