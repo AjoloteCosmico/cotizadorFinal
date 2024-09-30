@@ -342,7 +342,7 @@ worksheet.merge_range('B29:C29', 'PRECIO PROPUESTO KG', blue_header_format)
 #Fila 2
 worksheet.merge_range('D6:E6', quotation['invoice'].values[0], blue_content)
 worksheet.merge_range('D7:E7', len(used_materials)+len(products), blue_content)
-worksheet.merge_range('D8:E8',int(precio_pintura), blue_content)	
+worksheet.merge_range('D8:E8',str(int(precio_pintura)), blue_content)	
 worksheet.merge_range('D9:E9', 'COT-'+ quotation['invoice'].values[0], blue_content)	
 worksheet.merge_range('D10:E10', quotation['type'].values[0], blue_content)	
 worksheet.merge_range('D11:E11',products.loc[products['caliber'].notna(),'cost'].sum(), blue_content)	
@@ -360,7 +360,7 @@ worksheet.merge_range('D22:E22', precio_venta-costo_total, blue_content)
 worksheet.merge_range('D23:E23', '{:.2f}'.format(cociente((precio_venta-costo_total)*100,precio_venta))+'%', blue_content)
 worksheet.merge_range('D24:E24', cociente(costo_total,(len(used_materials)+len(products))), blue_content)
 
-worksheet.merge_range('D27:E27',products[cols_kg].sum(axis=1,numeric_only=True).sum(), blue_content_unit)	
+worksheet.merge_range('D27:E27',str(products[cols_kg].sum(axis=1,numeric_only=True).sum()), blue_content_unit)	
 worksheet.merge_range('D28:E28', cociente(costo_total,products[cols_kg].sum(axis=1,numeric_only=True).sum()), blue_content)	
 worksheet.merge_range('D29:E29', cociente(precio_venta,products[cols_kg].sum(axis=1,numeric_only=True).sum()), blue_content)
 

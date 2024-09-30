@@ -381,7 +381,7 @@ for i in range(0,len(products)):
         worksheet.write('J'+str(row_count),0, formato)
     #medidas
     worksheet.write('K'+str(row_count),products['m2'].values[i]+products['total_m2'].values[0], formato_unit)
-    worksheet.write('L'+str(row_count),(products['m2'].values[i]+products['total_m2'].values[0])*products['amount'].values[i], formato)
+    worksheet.write('L'+str(row_count),str((products['m2'].values[i]+products['total_m2'].values[0])*products['amount'].values[i]), formato)
     row_count=row_count+1
     #PIEZAS PIEZAS PIEZAS CICLO DE PIEZAS
     for j in range(0,n):

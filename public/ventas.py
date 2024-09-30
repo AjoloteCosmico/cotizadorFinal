@@ -304,15 +304,15 @@ DD/MM/AAAA""", negro_b)
 
 worksheet.write('L2', date, negro_b)
 worksheet.insert_image("A1", "img/logo/logo.png",{"x_scale": 0.6, "y_scale": 0.6})
-worksheet.merge_range('C6:C8', 'PDA', blue_header_format)
-worksheet.merge_range('D6:D8', 'SKU	', blue_header_format)
-worksheet.merge_range('E6:E8', 'CANT', blue_header_format)	
-worksheet.merge_range('F6:F8', 'DESCRIPCION', blue_header_format)	
-worksheet.merge_range('G6:G8', 'PRECIO VNT UNIT', blue_header_format)	
-worksheet.merge_range('H6:H8', 'PRECIO VNT TOTAL', blue_header_format)	
-worksheet.merge_range('I6:I8', 'CALIBRE	', blue_header_format)
-worksheet.merge_range('J6:J8', 'KG UNIT	', blue_header_format)
-worksheet.merge_range('K6:K8', 'KG TOTAL', blue_header_format)	
+worksheet.merge_range('A6:A8', 'PDA', blue_header_format)
+worksheet.merge_range('B6:B8', 'SKU	', blue_header_format)
+worksheet.merge_range('C6:C8', 'CANT', blue_header_format)	
+worksheet.merge_range('D6:D8', 'DESCRIPCION', blue_header_format)	
+worksheet.merge_range('E6:E8', 'PRECIO VNT UNIT', blue_header_format)	
+worksheet.merge_range('F6:F8', 'PRECIO VNT TOTAL', blue_header_format)	
+worksheet.merge_range('G6:G8', 'CALIBRE	', blue_header_format)
+worksheet.merge_range('H6:H8', 'KG UNIT	', blue_header_format)
+worksheet.merge_range('I6:I8', 'KG TOTAL', blue_header_format)	
 
 row_count=9
 def ret_na(value):
@@ -354,22 +354,22 @@ for i in range(0,len(products)):
     piezas['type']=piezas['type'].fillna('')
     print(n,products['tabla'].values[i],row_count,products['cost'].values[i])
     #pda
-    worksheet.write('C'+str(row_count), str(i*n+1), formato)
+    worksheet.write('A'+str(row_count), str(i*n+1), formato)
     #sku
-    worksheet.write('D'+str(row_count), products['sku'].values[i], formato)
-    worksheet.write('E'+str(row_count), str(products['amount'].values[i]), formato)
+    worksheet.write('B'+str(row_count), products['sku'].values[i], formato)
+    worksheet.write('C'+str(row_count), str(products['amount'].values[i]), formato)
     #descripcion
-    worksheet.write('F'+str(row_count), tablas[products['tabla'].values[i]]+products['protector'].values[i]+' '+products['model'].values[i], formato)
+    worksheet.write('D'+str(row_count), tablas[products['tabla'].values[i]]+products['protector'].values[i]+' '+products['model'].values[i], formato)
     #costos
     print(costo_product)
-    worksheet.write('G'+str(row_count), products[price_cols].sum(axis=1, numeric_only=True)[i], formato)
-    worksheet.write('H'+str(row_count), products['amount'].values[i]*products[price_cols].sum(axis=1, numeric_only=True)[i], formato)
+    worksheet.write('E'+str(row_count), products[price_cols].sum(axis=1, numeric_only=True)[i], formato)
+    worksheet.write('F'+str(row_count), products['amount'].values[i]*products[price_cols].sum(axis=1, numeric_only=True)[i], formato)
     #calibre
-    worksheet.write('I'+str(row_count), ret_na(products['caliber'].values[i]), formato)
+    worksheet.write('G'+str(row_count), str(ret_na(products['caliber'].values[i])), formato)
     print('a punto de krakear',products['amount'].values[i],' ------------------')
     #pesos
-    worksheet.write('J'+str(row_count),(num(products['total_weight'].values[i])+num(products['total_kg'].values[i])+products['weight'].values[i]+products['weight_kg'].values[i])/products['amount'].values[i], formato_unit)
-    worksheet.write('K'+str(row_count),(num(products['total_weight'].values[i])+num(products['total_kg'].values[i])+products['weight'].values[i]+products['weight_kg'].values[i]), formato_unit)
+    worksheet.write('H'+str(row_count),(num(products['total_weight'].values[i])+num(products['total_kg'].values[i])+products['weight'].values[i]+products['weight_kg'].values[i])/products['amount'].values[i], formato_unit)
+    worksheet.write('I'+str(row_count),(num(products['total_weight'].values[i])+num(products['total_kg'].values[i])+products['weight'].values[i]+products['weight_kg'].values[i]), formato_unit)
     row_count=row_count+1
     #PIEZAS PIEZAS PIEZAS CICLO DE PIEZAS
     for j in range(0,n):
@@ -378,32 +378,32 @@ for i in range(0,len(products)):
         print(piezas['cost'].fillna(0).values[j],piezas['amount'])
         costo= piezas['cost'].fillna(0).values[j].sum()
         cant= piezas['amount'].fillna(0).values[j].sum()
-        worksheet.write('C'+str(row_count), str(i*n+2+j), formato)
+        worksheet.write('A'+str(row_count), str(i*n+2+j), formato)
         #sku
-        worksheet.write('D'+str(row_count), ''.join(materials['sku'].fillna('').values[0]), formato)
-        worksheet.write('E'+str(row_count), str(piezas['amount'].values[j]), formato)
-        worksheet.write('F'+str(row_count), str(piezas['description'].fillna('').values[j][0])+str(piezas['piece'].fillna('').values[j]), formato)
+        worksheet.write('B'+str(row_count), ''.join(materials['sku'].fillna('').values[0]), formato)
+        worksheet.write('C'+str(row_count), str(piezas['amount'].values[j]), formato)
+        worksheet.write('D'+str(row_count), str(piezas['description'].fillna('').values[j][0])+str(piezas['piece'].fillna('').values[j]), formato)
         #costos
-        worksheet.write('G'+str(row_count),costo, formato)
-        worksheet.write('H'+str(row_count), cant*costo, formato)
+        worksheet.write('E'+str(row_count),costo, formato)
+        worksheet.write('F'+str(row_count), cant*costo, formato)
         #calibre
-        worksheet.write('I'+str(row_count), piezas['type'].values[j][0]+piezas['type'].values[j][1], formato_unit)
+        worksheet.write('G'+str(row_count), piezas['type'].values[j][0]+piezas['type'].values[j][1], formato_unit)
         #pesos
-        worksheet.write('J'+str(row_count),str(0.0), formato_unit)
-        worksheet.write('K'+str(row_count),str(0.0), formato_unit)
+        worksheet.write('H'+str(row_count),str(0.0), formato_unit)
+        worksheet.write('I'+str(row_count),str(0.0), formato_unit)
         row_count=row_count+1
 trow=row_count
 
 
 #TOTALES
 worksheet.merge_range('C'+str(trow+1)+':E'+str(trow), 'TOTAL (EQV M.N)', blue_header_format_bold)
-worksheet.write_formula('H'+str(trow),'{=SUM(H9:H'+str(trow-1)+')}',blue_footer_format_bold)
-worksheet.write_formula('K'+str(trow),'{=SUM(K9:K'+str(trow-1)+')}',blue_footer_format_bold)
+worksheet.write_formula('F'+str(trow),'{=SUM(F9:F'+str(trow-1)+')}',blue_footer_format_bold)
+worksheet.write_formula('I'+str(trow),'{=SUM(I9:I'+str(trow-1)+')}',blue_footer_format_bold)
 
 #subtabla
 worksheet.write('F'+str(trow+5), 'PRECIO DE VENTA POR POSICION', blue_header_format_bold)
-worksheet.write_formula('G'+str(trow+5), '{=(H'+str(trow)+'* '+str(row_count-9)+')}', blue_content)
-worksheet.write_formula('K'+str(trow+5), '{=(H'+str(trow)+'/ K'+str(trow)+')}', blue_content)
+worksheet.write_formula('E'+str(trow+5), '{=(F'+str(trow)+'* '+str(row_count-9)+')}', blue_content)
+worksheet.write_formula('I'+str(trow+5), '{=(H'+str(trow)+'/ I'+str(trow)+')}', blue_content)
 
 
 
