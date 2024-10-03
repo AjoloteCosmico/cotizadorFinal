@@ -8,7 +8,7 @@ import numpy as np
 import os
 from dotenv import load_dotenv
 load_dotenv()
-#ESTE ARGUMENTO NO SE USA EN ESTE REPORTE, SERÁ 0 SIEMPRE UWU
+
 id=str(sys.argv[1])
 #configurar la conexion a la base de datos
 DB_USERNAME = os.getenv('DB_USERNAME')
@@ -28,16 +28,9 @@ cnx = mysql.connector.connect(user=DB_USERNAME,
                               use_pure=False)
 #Seccion para traer informacion de la base
 # join para cobros
-# cobros=pd.read_sql('Select cobros.* ,customers.customer,internal_orders.invoice, users.name from ((cobros inner join internal_orders on internal_orders.id = cobros.order_id) inner join customers on customers.id = internal_orders.customer_id )inner join users on cobros.capturo=users.id',cnx)
+factores=pd.read_sql('select * from price_lists',cnx)
 quotation=pd.read_sql("select * from quotations where id=" +str(id),cnx)
-#traer datos de los pedidos
-# pedidos=pd.read_sql("""Select internal_orders.* ,customers.clave,customers.alias,
-# coins.exchange_sell, coins.coin, coins.symbol,coins.code
-# from ((
-#     internal_orders
-#     inner join customers on customers.id = internal_orders.customer_id )
-#     inner join coins on internal_orders.coin_id = coins.id)
-#      """,cnx)
+
 writer = pd.ExcelWriter('storage/report/administrativo'+str(id)+'.xlsx', engine='xlsxwriter')
 
 workbook = writer.book
@@ -284,8 +277,10 @@ for i in tablas:
           
             p=p.assign(cost=costo*p.weight)
         if('long' in p.columns):
-           
+              
             p=p.assign(cost=costo*p.long)
+        factor=factores.loc[factores['caliber']==p['caliber'].values[0],'f_total'].values[0]
+        p=p.assign(factor=factor)
         print(i)
     products=products.append(p,ignore_index=True)
 
@@ -380,8 +375,8 @@ for i in range(0,len(products)):
     worksheet.write('D'+str(row_count), tablas[products['tabla'].values[i]]+products['protector'].values[i]+' '+products['model'].values[i], formato)
     #costos
     print(costo_product)
-    worksheet.write('E'+str(row_count), (products[price_cols].sum(axis=1, numeric_only=True)[i]), formato)
-    worksheet.write('F'+str(row_count), products['amount'].values[i]*products[price_cols].sum(axis=1, numeric_only=True)[i], formato)
+    worksheet.write('E'+str(row_count), (products[price_cols].sum(axis=1, numeric_only=True)[i])/products['factor'].values[i], formato)
+    worksheet.write('F'+str(row_count), products['amount'].values[i]*products[price_cols].sum(axis=1, numeric_only=True)[i]/products['factor'].values[i], formato)
     #calibre
     worksheet.write('G'+str(row_count), str(ret_na(products['caliber'].values[i])), formato)
     #pesos
