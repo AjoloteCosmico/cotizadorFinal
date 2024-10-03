@@ -114,6 +114,18 @@ blue_footer_format_bold = workbook.add_format({
     'border': 1,
     'num_format': '[$$-409]#,##0.00',
     'font_size':11})
+blue_footer_format_bold_kg = workbook.add_format({
+    'bold': True,
+    'bg_color': a_color,
+    'text_wrap': True,
+    'valign': 'top',
+    'align': 'center',
+    'border_color':'white',
+    'font_color': 'white',
+    'border': 1,
+    'num_format': '#,##0.00',
+    'font_size':11})
+
 red_header_format = workbook.add_format({
     'bold': True,
     'bg_color': b_color,
@@ -398,7 +410,7 @@ trow=row_count
 #TOTALES
 worksheet.merge_range('C'+str(trow+1)+':E'+str(trow), 'TOTAL (EQV M.N)', blue_header_format_bold)
 worksheet.write_formula('F'+str(trow),'{=SUM(F9:F'+str(trow-1)+')}',blue_footer_format_bold)
-worksheet.write_formula('I'+str(trow),'{=SUM(I9:I'+str(trow-1)+')}',blue_footer_format_bold)
+worksheet.write_formula('I'+str(trow),'{=SUM(I9:I'+str(trow-1)+')}',blue_footer_format_bold_kg)
 
 #subtabla
 worksheet.write('F'+str(trow+5), 'PRECIO DE VENTA POR POSICION', blue_header_format_bold)
@@ -408,14 +420,13 @@ worksheet.write_formula('I'+str(trow+5), '{=(H'+str(trow)+'/ I'+str(trow)+')}', 
 
 
 
-worksheet.set_column('A:A',15)
-worksheet.set_column('D:D',20)
-worksheet.set_column('F:F',30)
-worksheet.set_column('L:L',15)
-worksheet.set_column('G:G',15)
-worksheet.set_column('H:H',15)
-worksheet.set_column('I:N',15)
-worksheet.set_column('P:T',15)
+worksheet.set_column('B:B',20)
+worksheet.set_column('D:D',30)
+worksheet.set_column('J:J',15)
+worksheet.set_column('E:E',15)
+worksheet.set_column('F:F',15)
+worksheet.set_column('G:L',15)
+worksheet.set_column('N:R',15)
 
 #worksheet.set_landscape()
 worksheet.set_paper(9)

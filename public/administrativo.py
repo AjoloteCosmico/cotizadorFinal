@@ -114,6 +114,18 @@ blue_footer_format_bold = workbook.add_format({
     'border': 1,
     'num_format': '[$$-409]#,##0.00',
     'font_size':11})
+blue_footer_format_bold_kg = workbook.add_format({
+    'bold': True,
+    'bg_color': a_color,
+    'text_wrap': True,
+    'valign': 'top',
+    'align': 'center',
+    'border_color':'white',
+    'font_color': 'white',
+    'border': 1,
+    'num_format': '#,##0.00',
+    'font_size':11})
+
 red_header_format = workbook.add_format({
     'bold': True,
     'bg_color': b_color,
@@ -381,7 +393,7 @@ for i in range(0,len(products)):
         worksheet.write('J'+str(row_count),0, formato)
     #medidas
     worksheet.write('K'+str(row_count),products['m2'].values[i]+products['total_m2'].values[0], formato_unit)
-    worksheet.write('L'+str(row_count),str((products['m2'].values[i]+products['total_m2'].values[0])*products['amount'].values[i]), formato)
+    worksheet.write('L'+str(row_count),(products['m2'].values[i]+products['total_m2'].values[0])*products['amount'].values[i], formato_unit)
     row_count=row_count+1
     #PIEZAS PIEZAS PIEZAS CICLO DE PIEZAS
     for j in range(0,n):
@@ -414,8 +426,8 @@ trow=row_count
 #TOTALES
 worksheet.merge_range('A'+str(trow+1)+':C'+str(trow), 'TOTAL (EQV M.N)', blue_header_format_bold)
 worksheet.write_formula('F'+str(trow),'{=SUM(F9:F'+str(trow-1)+')}',blue_footer_format_bold)
-worksheet.write_formula('I'+str(trow),'{=SUM(I9:I'+str(trow-1)+')}',blue_footer_format_bold)
-worksheet.write_formula('L'+str(trow),'{=SUM(L9:L'+str(trow-1)+')}',blue_footer_format_bold)
+worksheet.write_formula('I'+str(trow),'{=SUM(I9:I'+str(trow-1)+')}',blue_footer_format_bold_kg)
+worksheet.write_formula('L'+str(trow),'{=SUM(L9:L'+str(trow-1)+')}',blue_footer_format_bold_kg)
 
 
 
@@ -425,10 +437,10 @@ worksheet.write_formula('L'+str(trow),'{=SUM(L9:L'+str(trow-1)+')}',blue_footer_
 
 
 #RESUMEN
-worksheet.merge_range('D'+str(trow+3)+':E'+str(trow+4),'RESUMEN DE KILOS',blue_header_format_bold)
+worksheet.merge_range('B'+str(trow+3)+':C'+str(trow+4),'RESUMEN DE KILOS',blue_header_format_bold)
 #subtabla 1, kilos
-worksheet.write('D'+str(trow+5),'KILOS',blue_header_format)
-worksheet.write('E'+str(trow+5),'CALIBRE',blue_header_format)
+worksheet.write('B'+str(trow+5),'KILOS',blue_header_format)
+worksheet.write('C'+str(trow+5),'CALIBRE',blue_header_format)
 suma_peso=0
 art_i=0
 for i in products['caliber'].fillna('NA').astype(str).unique():
@@ -437,51 +449,51 @@ for i in products['caliber'].fillna('NA').astype(str).unique():
         p=products.loc[products['caliber']==i]
         sum_kg=p['weight'].fillna(0).sum()+p['total_weight'].fillna(0).sum()+p['weight_kg'].fillna(0).sum()+p['total_kg'].fillna(0).sum()
         suma_peso=suma_peso+sum_kg
-        worksheet.write('D'+str(trow+6+art_i),sum_kg,blue_content)
-        worksheet.write('E'+str(trow+6+art_i),i,blue_content)
+        worksheet.write('B'+str(trow+6+art_i),sum_kg,blue_content)
+        worksheet.write('C'+str(trow+6+art_i),i,blue_content)
         art_i=art_i+1
 
-worksheet.write('D'+str(trow+5+len(products['caliber'].unique())),suma_peso,blue_footer_format_bold)
-#subtabla2 costos
-worksheet.merge_range('H'+str(trow+4)+':K'+str(trow+4),'RESUMEN DE COSTOS',blue_header_format_bold)
-worksheet.write('L'+str(trow+4),'POSICION',blue_header_format)
-worksheet.write('M'+str(trow+4),'KILOS',blue_header_format)
-worksheet.write('N'+str(trow+4),'PORCENTAJE',blue_header_format)
+worksheet.write('B'+str(trow+5+len(products['caliber'].unique())),suma_peso,blue_footer_format_bold_kg)
+#subtabla2 costos F-G-H-I-J-K-L-M-N
+#                     F-G-H-I-J-K-L-M-N
+worksheet.merge_range('F'+str(trow+4)+':I'+str(trow+4),'RESUMEN DE COSTOS',blue_header_format_bold)
+worksheet.write('J'+str(trow+4),'POSICION',blue_header_format)
+worksheet.write('K'+str(trow+4),'KILOS',blue_header_format)
+worksheet.write('L'+str(trow+4),'PORCENTAJE',blue_header_format)
 
-worksheet.merge_range('H'+str(trow+5)+':K'+str(trow+5),'CONTRATO UNITARIO SOLO MATERIALES',blue_header_format)
-worksheet.merge_range('H'+str(trow+6)+':K'+str(trow+6),'CONTRATO UNITARIO SOLO ARMADO',blue_header_format)
-worksheet.merge_range('H'+str(trow+7)+':K'+str(trow+7),'CONTRATO UNITARIO SOLO TRASLADO',blue_header_format)
-worksheet.merge_range('H'+str(trow+8)+':K'+str(trow+8),'CONTRATO UNITARIO COMBINADO',blue_header_format)
+worksheet.merge_range('F'+str(trow+5)+':I'+str(trow+5),'CONTRATO UNITARIO SOLO MATERIALES',blue_header_format)
+worksheet.merge_range('F'+str(trow+6)+':I'+str(trow+6),'CONTRATO UNITARIO SOLO ARMADO',blue_header_format)
+worksheet.merge_range('F'+str(trow+7)+':I'+str(trow+7),'CONTRATO UNITARIO SOLO TRASLADO',blue_header_format)
+worksheet.merge_range('F'+str(trow+8)+':I'+str(trow+8),'CONTRATO UNITARIO COMBINADO',blue_header_format)
 
 
 costo_total=products['cost'].sum()+materials['cost'].fillna(0).sum(axis=1, numeric_only=True).sum()
 
-worksheet.write('L'+str(trow+5),materials['cost'].fillna(0).sum(axis=1, numeric_only=True).sum(),blue_content)
-worksheet.write('M'+str(trow+5),0,blue_content)
-worksheet.write('N'+str(trow+5),materials['cost'].fillna(0).sum(axis=1, numeric_only=True).sum()/costo_total*100,blue_content)
+worksheet.write('J'+str(trow+5),materials['cost'].fillna(0).sum(axis=1, numeric_only=True).sum(),blue_content)
+worksheet.write('K'+str(trow+5),0,blue_content_unit)
+worksheet.write('L'+str(trow+5),materials['cost'].fillna(0).sum(axis=1, numeric_only=True).sum()/costo_total*100,blue_content_unit)
 
-worksheet.write('L'+str(trow+6),products.loc[products['tabla'].isin(['quotation_installs','quotation_uninstalls']),'cost'].sum(),blue_content)
-worksheet.write('M'+str(trow+6),products.loc[products['tabla'].isin(['quotation_installs','quotation_uninstalls']),'cost'].sum()/costo_total*100,blue_content)
-worksheet.write('N'+str(trow+6),0,blue_content)
+worksheet.write('J'+str(trow+6),products.loc[products['tabla'].isin(['quotation_installs','quotation_uninstalls']),'cost'].sum(),blue_content)
+worksheet.write('K'+str(trow+6),products.loc[products['tabla'].isin(['quotation_installs','quotation_uninstalls']),'cost'].sum()/costo_total*100,blue_content_unit)
+worksheet.write('L'+str(trow+6),0,blue_content_unit)
 
-worksheet.write('L'+str(trow+7),products.loc[(products['tabla'].isin(['quotation_travel_assignments','packagings'])),'cost'].sum(),blue_content)
-worksheet.write('M'+str(trow+7),0,blue_content)
-worksheet.write('N'+str(trow+7),products.loc[(products['tabla'].isin(['quotation_travel_assignments','packagings'])),'cost'].sum()/costo_total*100,blue_content)
+worksheet.write('J'+str(trow+7),products.loc[(products['tabla'].isin(['quotation_travel_assignments','packagings'])),'cost'].sum(),blue_content)
+worksheet.write('K'+str(trow+7),0,blue_content_unit)
+worksheet.write('L'+str(trow+7),products.loc[(products['tabla'].isin(['quotation_travel_assignments','packagings'])),'cost'].sum()/costo_total*100,blue_content_unit)
 
-worksheet.write('L'+str(trow+8),products['cost'].sum(),blue_content)
-worksheet.write('M'+str(trow+8),products[cols_kg].sum(axis=1, numeric_only=True).sum(),blue_content)
-worksheet.write('N'+str(trow+8),'100%',blue_content)
+worksheet.write('J'+str(trow+8),products['cost'].sum(),blue_content)
+worksheet.write('K'+str(trow+8),products[cols_kg].sum(axis=1, numeric_only=True).sum(),blue_content_unit)
+worksheet.write('L'+str(trow+8),'100%',blue_content)
 #TODO: calcular bien esto, to6al menos iva
 
-worksheet.set_column('A:A',15)
-worksheet.set_column('D:D',20)
-worksheet.set_column('F:F',30)
-worksheet.set_column('L:L',15)
-worksheet.set_column('G:G',15)
-worksheet.set_column('H:H',15)
-worksheet.set_column('I:N',15)
-worksheet.set_column('P:T',15)
 
+worksheet.set_column('B:B',20)
+worksheet.set_column('D:D',30)
+worksheet.set_column('J:J',15)
+worksheet.set_column('E:E',15)
+worksheet.set_column('F:F',15)
+worksheet.set_column('G:L',15)
+worksheet.set_column('N:R',15)
 #worksheet.set_landscape()
 worksheet.set_paper(9)
 worksheet.fit_to_pages(1, 1)  
