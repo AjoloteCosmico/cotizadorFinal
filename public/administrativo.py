@@ -28,7 +28,6 @@ cnx = mysql.connector.connect(user=DB_USERNAME,
                               use_pure=False)
 #Seccion para traer informacion de la base
 # join para cobros
-factores=pd.read_sql('select * from price_lists',cnx)
 quotation=pd.read_sql("select * from quotations where id=" +str(id),cnx)
 
 writer = pd.ExcelWriter('storage/report/administrativo'+str(id)+'.xlsx', engine='xlsxwriter')
@@ -279,13 +278,7 @@ for i in tablas:
         if('long' in p.columns):
               
             p=p.assign(cost=costo*p.long)
-        try: 
-            factor=factores.loc[factores['caliber']==p['caliber'].values[0],'f_total'].values[0]
-        except:
-            print('falló al buscar factor cal',p['caliber'].values[0])
-        
-            factor=4.15
-        p=p.assign(factor=factor)
+
         print(i)
     products=products.append(p,ignore_index=True)
 
@@ -380,8 +373,8 @@ for i in range(0,len(products)):
     worksheet.write('D'+str(row_count), tablas[products['tabla'].values[i]]+products['protector'].values[i]+' '+products['model'].values[i], formato)
     #costos
     print(costo_product)
-    worksheet.write('E'+str(row_count), ret_na((products[price_cols].sum(axis=1, numeric_only=True)[i])/products['factor'].values[i]), formato)
-    worksheet.write('F'+str(row_count), ret_na(products['amount'].values[i]*products[price_cols].sum(axis=1, numeric_only=True)[i]/products['factor'].values[i]), formato)
+    worksheet.write('E'+str(row_count), ret_na((products[price_cols].sum(axis=1, numeric_only=True)[i])), formato)
+    worksheet.write('F'+str(row_count), ret_na(products['amount'].values[i]*products[price_cols].sum(axis=1, numeric_only=True)[i]), formato)
     #calibre
     worksheet.write('G'+str(row_count), str(ret_na(products['caliber'].values[i])), formato)
     #pesos
