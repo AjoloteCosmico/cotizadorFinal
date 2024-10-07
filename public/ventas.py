@@ -293,7 +293,7 @@ for i in tablas:
         try: 
             factor=factores.loc[factores['caliber']==p['caliber'].values[0],'f_total'].values[0]
         except:
-            print('falló al buscar factor cal',p['caliber'].values[0])
+            print('!!<<<<<falló al buscar factor cal',p['caliber'].values[0])
         
             factor=4.15
         p=p.assign(factor=factor)
@@ -383,8 +383,8 @@ for i in range(0,len(products)):
     worksheet.write('D'+str(row_count), tablas[products['tabla'].values[i]]+products['protector'].values[i]+' '+products['model'].values[i], formato)
     #costos
     print(costo_product)
-    worksheet.write('E'+str(row_count), products[price_cols].sum(axis=1, numeric_only=True)[i]/products['factor'].values[i], formato)
-    worksheet.write('F'+str(row_count), products['amount'].values[i]*products[price_cols].sum(axis=1, numeric_only=True)[i]/products['factor'].values[i], formato)
+    worksheet.write('E'+str(row_count),ret_na( products[price_cols].sum(axis=1, numeric_only=True)[i]/products['factor'].values[i]), formato)
+    worksheet.write('F'+str(row_count),ret_na( products['amount'].values[i]*products[price_cols].sum(axis=1, numeric_only=True)[i]/products['factor'].values[i]), formato)
     #calibre
     worksheet.write('G'+str(row_count), str(ret_na(products['caliber'].values[i])), formato)
     print('a punto de krakear',products['amount'].values[i],' ------------------')
