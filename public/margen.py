@@ -360,7 +360,7 @@ worksheet.merge_range('D22:E22', precio_venta-costo_total, blue_content)
 worksheet.merge_range('D23:E23', '{:.2f}'.format(cociente((precio_venta-costo_total)*100,precio_venta))+'%', blue_content)
 worksheet.merge_range('D24:E24', cociente(costo_total,(len(used_materials)+len(products))), blue_content)
 
-worksheet.merge_range('D27:E27',str(products[cols_kg].sum(axis=1,numeric_only=True).sum()), blue_content_unit)	
+worksheet.merge_range('D27:E27',products[cols_kg].sum(axis=1,numeric_only=True).sum(), blue_content_unit)	
 worksheet.merge_range('D28:E28', cociente(costo_total,products[cols_kg].sum(axis=1,numeric_only=True).sum()), blue_content)	
 worksheet.merge_range('D29:E29', cociente(precio_venta,products[cols_kg].sum(axis=1,numeric_only=True).sum()), blue_content)
 

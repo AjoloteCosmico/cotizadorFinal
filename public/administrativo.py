@@ -279,7 +279,12 @@ for i in tablas:
         if('long' in p.columns):
               
             p=p.assign(cost=costo*p.long)
-        factor=factores.loc[factores['caliber']==p['caliber'].values[0],'f_total'].values[0]
+        try: 
+            factor=factores.loc[factores['caliber']==p['caliber'].values[0],'f_total'].values[0]
+        except:
+            print('falló al buscar factor cal',p['caliber'].values[0])
+        
+            factor=4.15
         p=p.assign(factor=factor)
         print(i)
     products=products.append(p,ignore_index=True)
