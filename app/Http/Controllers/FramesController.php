@@ -86,7 +86,8 @@ class FramesController extends Controller
                 $CostTornPlacas = $TornPlacas * $PriceListScrewCostPlacas;
                 $TotTornPlacas = $Cantidad * $TornPlacas;
                 $TotCostTornPlacas = $Cantidad * $CostTornPlacas;
-                $Precio = $TotalPrice + $CostTornPlacas + $CostTornTravDiag;
+                $Precio = $TotalPrice ; 
+                // $Precio = $TotalPrice + $CostTornPlacas + $CostTornTravDiag;
                 $Precio_Total = $Cantidad * $Precio;
                 $Calzas = 4;
                 $CostoCalzas = PriceList::where('piece', 'CALZAS')->first();
@@ -124,6 +125,8 @@ class FramesController extends Controller
                     $SHLF->total_kg = $Total_Kg;
                     $SHLF->total_m2 = $Total_m2;
                     $SHLF->sku = $Sku;
+                    
+                    // $SHLF->total_price = $Precio_Total + $CostoTotalCalza + $CostoTotalTaquete;
                     $SHLF->total_price = $Precio_Total + $CostoTotalCalza + $CostoTotalTaquete;
                     $SHLF->save();
                     
@@ -143,6 +146,8 @@ class FramesController extends Controller
                     $SHLF->total_kg = $Total_Kg;
                     $SHLF->total_m2 = $Total_m2;
                     $SHLF->sku = $Sku;
+                    
+                    // $SHLF->total_price = $Precio_Total + $CostoTotalCalza + $CostoTotalTaquete;
                     $SHLF->total_price = $Precio_Total + $CostoTotalCalza + $CostoTotalTaquete;
                     $SHLF->save();
                     
