@@ -65,7 +65,7 @@ class FramesController extends Controller
             $Data = PriceFrame::where('caliber', $Calibre)->where('model', $Modelo)->where('depth', $Profundidad)->where('height', $Altura)->first();
             $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'MARCO')->where('caliber', $Calibre)->first();
             // dd($PriceList);
-            
+             
             if($Data){
                 $Price = $PriceList->cost * $PriceList->f_total;
                 $TotalPrice = $Data->total_kg * $Price;

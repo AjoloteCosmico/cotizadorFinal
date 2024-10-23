@@ -136,7 +136,7 @@
                         </div>
                         <x-jet-input-error for='a7' />
                         <p class="card-text mb-3">ESTE PRODUCTO TIENE LAS DIMENSIONES:  (PESO Y ALTURA INCLUYE TARIMA)</p>
-                        <div class="row">
+                        <div class="row" style="width:70%">
                             <div class="col">
                                 <div class="row">
                                     <div class="col gap-1 inline-flex">
