@@ -41,7 +41,7 @@ class QuotationInstallController extends Controller
         $QuotationInstalls->description = $request->description;
         $QuotationInstalls->type = $PriceListInstalls->type;
         $QuotationInstalls->system = $PriceListInstalls->system;
-        $QuotationInstalls->cost = $PriceListInstalls->cost;
+        $QuotationInstalls->cost = $PriceListInstalls->cost*$PriceListInstalls->f_total;;
         $QuotationInstalls->f_total = $PriceListInstalls->f_total;
         $QuotationInstalls->import = $Import;
         $QuotationInstalls->print = 'No';

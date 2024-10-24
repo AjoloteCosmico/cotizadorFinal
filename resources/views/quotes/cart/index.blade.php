@@ -63,8 +63,7 @@
             <br>
             @if($QuotationId != 0)
             <br>
-            {{$Type}}
-
+            <!-- {{$Type}} -->
             <br>
             @if($Quotation->type=='DRIVE IN')
             <a href="{{route('drivein.show',[$QuotationId,$Type])}}">

@@ -42,7 +42,7 @@ class QuotationUninstallController extends Controller
         $QuotationUninstalls->description = $request->description;
         $QuotationUninstalls->type = $PriceListUninstalls->type;
         $QuotationUninstalls->system = $PriceListUninstalls->system;
-        $QuotationUninstalls->cost = $PriceListUninstalls->cost;
+        $QuotationUninstalls->cost = $PriceListUninstalls->cost*$PriceListUninstalls->f_total;
         $QuotationUninstalls->f_total = $PriceListUninstalls->f_total;
         $QuotationUninstalls->import = $Import;
         $QuotationUninstalls->print = 'No';
