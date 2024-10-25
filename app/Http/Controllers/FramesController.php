@@ -156,12 +156,12 @@ class FramesController extends Controller
                 
                 $Precio_unit_sn_factor = ($Data->total_kg * $PriceList->cost)+ $CostTornPlacas + $CostTornTravDiag;
                 $Precio_sin_factor = $Cantidad * $Precio_unit_sn_factor ;
-                echo "  /factor: $".$PriceList->f_total;
-                echo " /acero: $".$PriceList->cost;
-                echo " /peso".$Data->total_kg ;
-                echo " /total sn f_total: $".$Precio_sin_factor ;
-                echo "<br> \Costo calzas: ".$CostoTotalCalza;
-                echo "/CostoTaquetes".$CostoTotalTaquete;
+                echo "  //factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
+                echo " //precio acero: $".$PriceList->cost;
+                echo " //peso total: ".$Data->total_kg ;
+                echo " //total sn f_total: $".$Precio_sin_factor ;
+                echo "<br> //Costo calzas: $".$CostoTotalCalza;
+                echo "/CostoTaquetes: $".$CostoTotalTaquete;
                 return view('quotes.selectivo.frames.heavyloads.store', compact(
                     'Cantidad',
                     'Calibre',
