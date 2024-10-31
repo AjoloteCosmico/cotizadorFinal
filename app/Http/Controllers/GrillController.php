@@ -83,6 +83,9 @@ class GrillController extends Controller
             $Grills->total_price = $TotalPrice;
             $Grills->save();
         }
+        echo "  //Factor: ".$PriceListAuxiliars->f_total.' '.$PriceListAuxiliars->description.$PriceListAuxiliars->type; 
+        
+       
 
         $Grills = Grill::where('quotation_id', $request->Quotation_Id)->first();
         return view('quotes.selectivo.grills.store', compact(

@@ -113,7 +113,12 @@ class TypeL2JoistController extends Controller
                 $SJL2->total_price = $Import*$Amount + $CostoTotalClavijas;
                 $SJL2->save();
             }
-
+            echo "  //Factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
+            echo " //precio acero: $".$PriceList->cost;
+            echo " //precio unit sin f_total: $".$Import / $PriceList->f_total ;
+            echo '<br> //Peso: '.$TypeLJoists->weight;
+            echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
+            
             return view('quotes.selectivo.joists.typel2joists.caliber14.store', compact(
                 'Amount',
                 'Weight',
@@ -209,7 +214,12 @@ class TypeL2JoistController extends Controller
             $SJL2->total_price = $Import*$Amount + $CostoTotalClavijas;
             $SJL2->save();
         }
-        
+        echo "  //Factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
+            echo " //precio acero: $".$PriceList->cost;
+            echo " //precio unit sin f_total: $".$Import / $PriceList->f_total ;
+            echo '<br> //Peso: '.$TypeLJoists->weight;
+            echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
+            
         return view('quotes.selectivo.joists.typel2joists.store', compact(
             'Amount',
             'Caliber',
@@ -344,7 +354,12 @@ class TypeL2JoistController extends Controller
             $SJL2->total_price = $Import *$Amount;
             $SJL2->save();
         }
-        
+        echo "  //Factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
+            echo " //precio acero: $".$PriceList->cost;
+            echo " //precio unit sin f_total: $".$Import / $PriceList->f_total ;
+            echo '<br> //Peso: '.$TypeLJoists->weight;
+            echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
+            
         return view('quotes.drivein.joists.typel2joists.store', compact(
             'Amount',
             'Caliber',

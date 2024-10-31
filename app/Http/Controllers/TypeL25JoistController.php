@@ -73,6 +73,7 @@ class TypeL25JoistController extends Controller
             $TypeLJoists = TypeL25Joist::where('caliber','14')->where('camber', $Cambers->camber)->where('length', $Length)->first();
             //Optimized
             $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', '14')->first();
+           
             $Import =  $PriceList->cost * $PriceList->f_total * $TypeLJoists->weight;
             $Clavijas = PriceListScrew::where('description', 'CLAVIJA DE SEGURIDAD PARA VIGAS')->first();
             $CostoClavija = $Clavijas->cost * $Clavijas->f_total;
@@ -111,7 +112,11 @@ class TypeL25JoistController extends Controller
                 $SJL25C14->total_price = $Import*$Amount + $CostoTotalClavijas;
                 $SJL25C14->save();
             }
-
+            echo "  //Factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
+            echo " //precio acero: $".$PriceList->cost;
+            echo " //precio unit sin f_total: $".$Import / $PriceList->f_total ;
+            echo '<br> //Peso: '.$TypeLJoists->weight;
+            echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
             return view('quotes.selectivo.joists.typel25joists.caliber14.store', compact(
                 'Amount',
                 'Weight',
@@ -207,7 +212,12 @@ class TypeL25JoistController extends Controller
             $SJL25->total_price = $Import*$Amount + $CostoTotalClavijas;
             $SJL25->save();
         }
-
+        echo "  //Factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
+        echo " //precio acero: $".$PriceList->cost;
+        echo " //precio unit sin f_total: $".$Import / $PriceList->f_total ;
+        echo '<br> //Peso: '.$TypeLJoists->weight;
+        echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
+        
         return view('quotes.selectivo.joists.typel25joists.store', compact(
             'Amount',
             'Caliber',
@@ -321,7 +331,12 @@ class TypeL25JoistController extends Controller
             $SJL25->total_price = $Import*$Amount;
             $SJL25->save();
         }
-
+        echo "  //Factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
+        echo " //precio acero: $".$PriceList->cost;
+        echo " //precio unit sin f_total: $".$Import / $PriceList->f_total ;
+        echo '<br> //Peso: '.$TypeLJoists->weight;
+        echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
+        
         return view('quotes.drivein.joists.typel25joists.store', compact(
             'Amount',
             'Caliber',

@@ -200,6 +200,11 @@ class PanelController extends Controller
             }
             $LengthDimension= $TwoInJoistLGalvanizedPanel->length_dimension;
             $LoadingCapacity= $TwoInJoistLGalvanizedPanel->loading_capacity;
+            
+            echo "  //Factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
+            echo "  // Costo acero: $". $PriceLists->cost;
+            echo " // Peso: ". $Weight;
+            
             return view('quotes.selectivo.panels.two_in_joist_l_galvanized_panels.store', compact(
                 'Quotation_Id',
                 'Amount',

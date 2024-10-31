@@ -62,6 +62,10 @@ tablas={'double_deep_crossbars' : 'VIGA TIPO CAJA DE DOBLE PROFUNDIDAD DE 2.5',
 'quotation_drive_in_guias' : 'Guias para montacargas',
 'quotation_drive_in_arriostrados' : 'Arriostrados tipo "L" modelo',
 'quotation_drive_in_brazos' : 'Brazos para drive in modelo',
+'quotation_escuadras' : 'Escuadras',
+'quotation_gangplank_angles' : 'Angulo ranurado pasarela',
+'quotation_respaldos':'Resplados',
+'quotation_galleta':'Galletas',
 
 }
 
