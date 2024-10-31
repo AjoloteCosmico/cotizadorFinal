@@ -150,8 +150,6 @@ class FramesController extends Controller
                     // $SHLF->total_price = $Precio_Total + $CostoTotalCalza + $CostoTotalTaquete;
                     $SHLF->total_price = $Precio_Total + $CostoTotalCalza + $CostoTotalTaquete;
                     $SHLF->save();
-                    
-
                 }
                 
                 $Precio_unit_sn_factor = ($Data->total_kg * $PriceList->cost)+ $CostTornPlacas + $CostTornTravDiag;
