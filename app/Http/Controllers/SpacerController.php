@@ -70,8 +70,11 @@ class SpacerController extends Controller
             $SS->total_price = $SubTotal + $CostoTotalTornillos;
             $SS->save();
         }
-        echo "Costo acero ".$PriceLists->caliber.": $".$PriceLists->cost." //Factor ".$PriceLists->description.$PriceLists->caliber.": ".$PriceLists->f_total." //Peso: ".$Piece->weight;
-            
+        if(config('app.show_logs')=='True' ){
+            echo "Costo acero ".$PriceLists->caliber.": $".$PriceLists->cost." //Factor ".$PriceLists->description.$PriceLists->caliber.": ".$PriceLists->f_total." //Peso: ".$Piece->weight;
+         
+        }
+           
         return view('quotes.selectivo.spacers.calc', compact(
             'Amount',
             'Piece',
