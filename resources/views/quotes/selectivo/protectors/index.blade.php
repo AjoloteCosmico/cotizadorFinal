@@ -13,6 +13,11 @@
                 <div class="card-header">
                     <h3 class="font-bold text-lg">Protectores</h3>
                 </div>
+                <div>
+                    @if(session('protector_logs'))
+                    @php Session::get('protector_logs') @endphp
+                    @endif()
+                </div>
                 <div class="card-body">
                     <div class="col-sm-12 text-right">
                         {{--@can('AGREGAR PROTECTORES')--}}

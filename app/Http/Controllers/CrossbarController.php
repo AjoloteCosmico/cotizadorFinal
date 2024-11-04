@@ -89,7 +89,10 @@ class CrossbarController extends Controller
             $SCB->total_price = $SubTotal;
             $SCB->save();
         }
-
+        echo "Costo acero: $".$PriceList->cost." //Factor: ".$PriceList->f_total." //Peso: ".$Piece->weight;
+        if($ConConnector != 'No'){
+            echo "<br> precio conector: $".$PriceConector->cost."//Factor: ".$PriceConector->f_total." //preso conector: 0.84" ;
+        }
         return view('quotes.selectivo.crossbars.calc', compact(
             'Amount',
             'Piece',

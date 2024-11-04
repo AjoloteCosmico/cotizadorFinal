@@ -62,7 +62,8 @@ class FloorReinforcementController extends Controller
             $SFR->total_price = $SubTotal;
             $SFR->save();
         }
-
+        echo "Costo acero: $".$PriceLists->cost." //Factor: ".$PriceLists->f_total." //Peso: ".$Piece->weight;
+            
         return view('quotes.selectivo.floor_reinforcements.calc', compact(
             'Amount',
             'Piece',

@@ -88,7 +88,8 @@ class FloorController extends Controller
                 $SF->total_price = $SubTotal + $CostoTotalTornillos;
                 $SF->save();
             }
-
+            echo "Costo acero: $".$PriceLists->cost." //Factor: ".$PriceLists->f_total." //Peso: ".$Piece->weight;
+            echo "<br> Costo : $".$Tornillos->cost."//Factor tornillo: ".$Tornillos->f_total."Cantidad tornillos: ".$CantidadTornillos;
             return view('quotes.selectivo.floors.calc', compact(
                 'Amount',
                 'Piece',

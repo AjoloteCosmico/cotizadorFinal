@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PriceList;
+use App\Models\PriceListProtector;
 use App\Models\Steel;
 use App\Models\Destination;
 use App\Models\Transport;

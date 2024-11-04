@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\PriceListBar;
+use App\Models\PriceList;
 use App\Models\PriceListProtector;
 use App\Models\Protector;
 use App\Models\QuotationProtector;
-
+use Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,7 @@ class QuotationProtectorController extends Controller
     /* Selectivo */
     public function selectivo_protectors_index($id)
     {
+        echo Session::get('protector_logs');
         $Quotation_Id = $id;
         $QuotationProtectors = QuotationProtector::where('quotation_id', $Quotation_Id)->get();
         if(count($QuotationProtectors)>0){
@@ -50,10 +52,18 @@ class QuotationProtectorController extends Controller
         $Quotation_Id = $request->Quotation_Id;
         $Protector = $request->protector;
         $Amount = $request->amount;
+        $ProtectorComponents = PriceListProtector::all();
         $PostProtectorsCost = PriceListProtector::sum('cost');
         $PostProtectorsSalePrice = PriceListProtector::sum('sale_price');
-        $PostProtectorsWeight = PriceListProtector::sum('weight');
+        $PostProtectorsWeight = PriceListProtector::sum('weight');  
         $user_id=Auth::user()->id;
+        $Logs="";
+        foreach($ProtectorComponents as $row){
+            $PriceList = PriceList::where('system', 'ACCESORIOS')->where('piece', 'PROTECTOR')->where('caliber', $row->caliber)->first();
+            $Logs=$Logs.$row->piece." //Costo acero ".$PriceList->description.$PriceList->caliber.": $".$PriceList->cost." //Factor: ".$row->f_total."//Peso: ".$row->weight."<br>";
+       
+        }
+        Session::put('protector_logs',$Logs);
         if($Protector == 'PROTECTOR DE POSTE')
         {
             $QuotationProtectors = QuotationProtector::where('quotation_id', $Quotation_Id)->where('protector', $Protector)->first();
@@ -90,7 +100,7 @@ class QuotationProtectorController extends Controller
             $TotalWeight = $Amount * $PostProtectorsWeight * 2;
             $UnitPrice = ($PostProtectorsSalePrice * 2) + $PriceListBars->sale_price;
             $TotalPrice = $Amount * $UnitPrice;
-
+               
             $QuotationProtectors = QuotationProtector::where('quotation_id', $Quotation_Id)->where('protector', $Protector)->first();
             if($QuotationProtectors)
             {
