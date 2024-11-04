@@ -62,6 +62,8 @@ class QuotationAdministrativeController extends Controller
         }
 
         $Administratives = QuotationAdministrative::where('quotation_id', $request->Quotation_Id)->first();
+        echo "  //factor auxiliares ADMINISTRATIVO: ". $PriceListAuxiliars->f_total;
+       
         return view('quotes.selectivo.administratives.store', compact(
             'Administratives',
         ));

@@ -124,8 +124,7 @@ class FramesController extends Controller
                     $SHLF->total_plates = $Total_Placas;
                     $SHLF->total_kg = $Total_Kg;
                     $SHLF->total_m2 = $Total_m2;
-                    $SHLF->sku = $Sku;
-                    
+                    $SHLF->sku = $Sku;  
                     // $SHLF->total_price = $Precio_Total + $CostoTotalCalza + $CostoTotalTaquete;
                     $SHLF->total_price = $Precio_Total + $CostoTotalCalza + $CostoTotalTaquete;
                     $SHLF->save();

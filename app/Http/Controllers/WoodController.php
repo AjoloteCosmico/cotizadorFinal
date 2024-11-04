@@ -84,6 +84,7 @@ class WoodController extends Controller
         }
 
         $Woods = Wood::where('quotation_id', $request->Quotation_Id)->first();
+        echo "  //factor auxiliares MADERA: ". $PriceListAuxiliars->f_total;
         return view('quotes.selectivo.woods.store', compact(
             'Woods',
         ));

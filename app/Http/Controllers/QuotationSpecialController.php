@@ -61,6 +61,8 @@ class QuotationSpecialController extends Controller
         }
 
         $Special = QuotationSpecial::where('quotation_id', $request->Quotation_Id)->first();
+        echo "  //factor auxiliares ESPECIAL: ". $PriceListAuxiliars->f_total;
+       
         return view('quotes.selectivo.specials.store', compact(
             'Special',
         ));
