@@ -36,11 +36,12 @@ class DriveInPiezasController extends Controller
         $Soporte=drive_in_soporte::where('caliber',$request->caliber)->where('length','<=',(float)$request->length+0.0001)->orderBy('drive_in_soportes.length', 'desc')->first();
         //buscar los precios de lamina y factores
         //TODO: ACOMODAR LAMINAS EN PRICELIST
-        if($request->caliber=='12'|$request->caliber=='10'){
-            $PrecioLamina=PriceList::where('description','LAMINA')->where('caliber',$request->caliber)->where('type','RC')->first(); 
-        }else{
-            $PrecioLamina=PriceList::where('description','LAMINA')->where('caliber',$request->caliber)->where('type','ESTRUCTURAL')->first();
-        }
+        // if($request->caliber=='12'|$request->caliber=='10'){
+        //     $PrecioLamina=PriceList::where('description','LAMINA')->where('caliber',$request->caliber)->where('type','RC')->first(); 
+        // }else{
+        //     $PrecioLamina=PriceList::where('description','LAMINA')->where('caliber',$request->caliber)->where('type','ESTRUCTURAL')->first();
+        // }
+        $PrecioLamina=PriceList::where('caliber',$request->caliber)->where('system','DRIVE IN')->where('piece','SOPORTE')->first();
         $UnitPrice=$Soporte->weight* $PrecioLamina->cost*$PrecioLamina->f_total; 
         $QuotSoporte=quotation_drive_in_soporte::where('quotation_id','=',$request->Quotation_Id)->first();
         if(!$QuotSoporte){
@@ -52,7 +53,9 @@ class DriveInPiezasController extends Controller
         $QuotSoporte->amount=$request->amount;
         $QuotSoporte->sku=$Soporte->sku;
         $QuotSoporte->save();
-
+        echo "  //factor: ".$PrecioLamina->f_total.' '.$PrecioLamina->description.$PrecioLamina->type.$PrecioLamina->caliber; 
+        echo " //precio acero: $".$PrecioLamina->cost;
+        echo " //peso total: ".$Soporte->weight;
         return view('quotes.drivein.soportes.store',compact('QuotSoporte','Soporte'));
     }
     public function soportes_add_carrito($id,$caliber){
