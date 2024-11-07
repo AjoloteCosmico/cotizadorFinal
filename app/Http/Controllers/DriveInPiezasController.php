@@ -56,6 +56,7 @@ class DriveInPiezasController extends Controller
         echo "  //factor: ".$PrecioLamina->f_total.' '.$PrecioLamina->description.$PrecioLamina->type.$PrecioLamina->caliber; 
         echo " //precio acero: $".$PrecioLamina->cost;
         echo " //peso total: ".$Soporte->weight;
+        echo "////id:".$PrecioLamina->id;
         return view('quotes.drivein.soportes.store',compact('QuotSoporte','Soporte'));
     }
     public function soportes_add_carrito($id,$caliber){
