@@ -63,7 +63,7 @@ class FramesController extends Controller
             $Altura = $request->height;
 
             $Data = PriceFrame::where('caliber', $Calibre)->where('model', $Modelo)->where('depth', $Profundidad)->where('height', $Altura)->first();
-            $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'MARCO')->where('caliber', $Calibre)->first();
+            $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'MARCO')->where('type', 'Negra')->where('caliber', $Calibre)->first();
             // dd($PriceList);
              
             if($Data){
