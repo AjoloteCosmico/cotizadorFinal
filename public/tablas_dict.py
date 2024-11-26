@@ -65,7 +65,7 @@ tablas={'double_deep_crossbars' : 'VIGA TIPO CAJA DE DOBLE PROFUNDIDAD DE 2.5',
 'quotation_escuadras' : 'Escuadras',
 'quotation_gangplank_angles' : 'Angulo ranurado pasarela',
 'quotation_respaldos':'Resplados',
-'quotation_galleta':'Galletas',
+'quotation_galletas':'Galletas',
 
 }
 
