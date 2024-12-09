@@ -202,7 +202,7 @@ class PanelController extends Controller
             $LoadingCapacity= $TwoInJoistLGalvanizedPanel->loading_capacity;
             
             echo "  //Factor: ".$PriceLists->f_total.' '.$PriceLists->description.$PriceLists->type.$PriceLists->caliber; 
-            echo "  // Costo acero ".$PriceLists->caliber.": $". $PriceLists->cost;
+            echo "  // Costo acero ".$PriceLists->type.$PriceLists->caliber.": $". $PriceLists->cost;
             echo " // Peso: ". $Weight;
 
             return view('quotes.selectivo.panels.two_in_joist_l_galvanized_panels.store', compact(
@@ -302,7 +302,7 @@ class PanelController extends Controller
             $LengthDimension= $TwoInJoistLPaintedPanel->length_dimension;
             $LoadingCapacity= $TwoInJoistLPaintedPanel->loading_capacity;
             echo "  //Factor: ".$PriceLists->f_total.' '.$PriceLists->description.$PriceLists->type.$PriceLists->caliber; 
-            echo "  // Costo acero ".$PriceLists->caliber.": $". $PriceLists->cost;
+            echo "  // Costo acero ".$PriceLists->type.$PriceLists->caliber.": $". $PriceLists->cost;
             echo " // Peso: ". $Weight;
             return view('quotes.selectivo.panels.two_in_joist_l_painted_panels.store', compact(
                 'Quotation_Id',
@@ -405,7 +405,7 @@ class PanelController extends Controller
             $LoadingCapacity= $TwoPointFiveInJoistLGalvanizedPanel->loading_capacity;
             
             echo "  //Factor: ".$PriceLists->f_total.' '.$PriceLists->description.$PriceLists->type.$PriceLists->caliber; 
-            echo "  // Costo acero ".$PriceLists->caliber.": $". $PriceLists->cost;
+            echo "  // Costo acero ".$PriceLists->type.$PriceLists->caliber.": $". $PriceLists->cost;
             echo " // Peso: ". $Weight;
             return view('quotes.selectivo.panels.two_point_five_in_joist_l_galvanized_panels.store', compact(
                 'Quotation_Id',
@@ -505,7 +505,7 @@ class PanelController extends Controller
             $LengthDimension= $TwoPointFiveInJoistLPaintedPanel->length_dimension;
             $LoadingCapacity= $TwoPointFiveInJoistLPaintedPanel->loading_capacity;
             echo "  //Factor: ".$PriceLists->f_total.' '.$PriceLists->description.$PriceLists->type.$PriceLists->caliber; 
-            echo "  // Costo acero ".$PriceLists->caliber.": $". $PriceLists->cost;
+            echo "  // Costo acero ".$PriceLists->type.$PriceLists->caliber.": $". $PriceLists->cost;
             echo " // Peso: ". $Weight;
 
             return view('quotes.selectivo.panels.two_point_five_in_joist_l_painted_panels.store', compact(
@@ -606,7 +606,7 @@ class PanelController extends Controller
             $LengthDimension= $ChairJoistGalvanizedPanel->length_dimension;
             $LoadingCapacity= $ChairJoistGalvanizedPanel->loading_capacity;
             echo "  //Factor: ".$PriceLists->f_total.' '.$PriceLists->description.$PriceLists->type.$PriceLists->caliber; 
-            echo "  // Costo acero ".$PriceLists->caliber.": $". $PriceLists->cost;
+            echo "  // Costo acero ".$PriceLists->type.$PriceLists->caliber.": $". $PriceLists->cost;
             echo " // Peso: ". $Weight;
             return view('quotes.selectivo.panels.chair_joist_galvanized_panels.store', compact(
                 'Quotation_Id',
@@ -707,7 +707,7 @@ class PanelController extends Controller
             $LengthDimension= $ChairJoistLPaintedPanel->length_dimension;
             $LoadingCapacity= $ChairJoistLPaintedPanel->loading_capacity;
             echo "  //Factor: ".$PriceLists->f_total.' '.$PriceLists->description.$PriceLists->type.$PriceLists->caliber; 
-            echo "  // Costo acero ".$PriceLists->caliber.": $". $PriceLists->cost;
+            echo "  // Costo acero ".$PriceLists->type.$PriceLists->caliber.": $". $PriceLists->cost;
             echo " // Peso: ". $Weight;
             return view('quotes.selectivo.panels.chair_joist_l_painted_panels.store', compact(
                 'Quotation_Id',
