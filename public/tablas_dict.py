@@ -139,6 +139,7 @@ redact={
 'quotation_drive_in_guias' : 'Guias para montacargas',
 'quotation_drive_in_arriostrados' : 'Arriostrados tipo "L" modelo',
 'quotation_drive_in_brazos' : 'Brazos para drive in modelo',
+'quotation_galletas':'Galletas'
 }
 
 
@@ -208,6 +209,7 @@ extras={
 'quotation_escuadras' : '',
 'quotation_gangplank_angles' : '',
 'quotation_respaldos':'',
+'quotation_galletas':''
 }
 
 ref={
@@ -276,6 +278,7 @@ ref={
 'quotation_escuadras' : '',
 'quotation_gangplank_angles' : '',
 'quotation_respaldos':'',
+'quotation_galletas':''
 }
 
 factores={'double_deep_crossbars' : 2,
@@ -341,5 +344,5 @@ factores={'double_deep_crossbars' : 2,
 'quotation_drive_in_guias' : 'Guias para montacargas',
 'quotation_drive_in_arriostrados' : 'Arriostrados tipo "L" modelo',
 'quotation_drive_in_brazos' : 'Brazos para drive in modelo',
-
+'quotation_galletas':''
 }

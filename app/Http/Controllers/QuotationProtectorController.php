@@ -61,7 +61,6 @@ class QuotationProtectorController extends Controller
         foreach($ProtectorComponents as $row){
             $PriceList = PriceList::where('system', 'ACCESORIOS')->where('piece', 'PROTECTOR')->where('caliber', $row->caliber)->first();
             $Logs=$Logs.$row->piece." //Costo acero ".$PriceList->description.$PriceList->caliber.": $".$PriceList->cost." //Factor: ".$row->f_total."//Peso: ".$row->weight."<br>";
-       
         }
         Session::put('protector_logs',$Logs);
         if($Protector == 'PROTECTOR DE POSTE')
@@ -252,6 +251,13 @@ class QuotationProtectorController extends Controller
         $PostProtectorsSalePrice = PriceListProtector::sum('sale_price');
         $PostProtectorsWeight = PriceListProtector::sum('weight');
         
+        $ProtectorComponents = PriceListProtector::all();
+        $Logs="";
+        foreach($ProtectorComponents as $row){
+            $PriceList = PriceList::where('system', 'ACCESORIOS')->where('piece', 'PROTECTOR')->where('caliber', $row->caliber)->first();
+            $Logs=$Logs.$row->piece." //Costo acero ".$PriceList->description.$PriceList->caliber.": $".$PriceList->cost." //Factor: ".$row->f_total."//Peso: ".$row->weight."<br>";
+        }
+        Session::put('protector_logs',$Logs);
         if($Protector == 'PROTECTOR DE POSTE')
         {
             $QuotationProtectors = QuotationProtector::where('quotation_id', $Quotation_Id)->where('protector', $Protector)->first();
