@@ -251,7 +251,7 @@ ref={
 'selective_crossbars' : ' ',
 'selective_floors' : '',
 'selective_floor_reinforcements' : ' ',
-'selective_heavy_load_frames' : '',
+'selective_heavy_load_frames' : 'TCO',
 'selective_joist_box25s' : '',
 'selective_joist_box25_caliber14s' : '',
 'selective_joist_box2s' : '',
