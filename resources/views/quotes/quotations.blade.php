@@ -48,13 +48,13 @@
                                             </a>
                                         </div>
                                         <div class="col-6 text-center w-10" title="Redaccion en word">
-                                            <a href="{{route('redaccion', $row->id)}}" class="btn btn-green w-9 h-9" id="{{'quot'.$row->id}}">
+                                            <a href="{{route('redaccion',[$row->id,0])}}" class="btn btn-green w-9 h-9" id="{{'quot'.$row->id}}">
                                                 <i class="fa-solid fa-file-word "></i></span>
                                             </a>
                                         </div>
                                         
                                         <div class="col-6 text-center w-10" title="Redaccion en pdf">
-                                            <a href="{{route('redaccion', $row->id)}}" class="btn btn-red w-9 h-9" id="{{'quot'.$row->id}}">
+                                            <a href="{{route('redaccion', [$row->id,1])}}" class="btn btn-red w-9 h-9" id="{{'quot'.$row->id}}">
                                                 <i class="fa-solid fa-file-pdf "></i></span>
                                             </a>
                                         </div>

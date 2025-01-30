@@ -374,7 +374,7 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     Route::get('shopping_cart/cot_freights/{id}', [FreightController::class, 'fletes_add_carrito'])->name('selectivo_freights.add_carrito');
     Route::get('shopping_cart/cot_quotation_travel_assignments/{id}', [FreightController::class, 'viaticos_add_carrito'])->name('selectivo_quotation_travel_assignments.add_carrito');
     Route::get('shopping_cart/cot_installs/{id}', [FreightController::class, 'selectivo_installs_add_carrito'])->name('selectivo_installs.add_carrito');
-    Route::get('redaccion/{id}', [RedaccionController::class, 'generate'])->name('redaccion');
+    Route::get('redaccion/{id}/{pdf}', [RedaccionController::class, 'generate'])->name('redaccion');
     Route::get('reporte/{id}/{report}/{pdf}/{tipo?}', [ReportsController::class, 'generate'])->name('reports.generate');
     Route::get('reporte/index', [ReportsController::class, 'index'])->name('reports.index');
     

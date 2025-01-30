@@ -52,5 +52,6 @@ class ReportsController extends Controller
          return response()->download(public_path('storage/report/'.$report.$id.'.pdf'));
      
      
-    }}
+        }
+    }
 }
