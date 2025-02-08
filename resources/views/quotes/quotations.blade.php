@@ -101,7 +101,7 @@
 <script>
     setTimeout(
   function() {
-    window.location.replace("{{route('redaccion',$QuotationId)}}");
+    window.location.replace("{{route('redaccion',[$QuotationId,1])}}");
     
   }, 10);
   
