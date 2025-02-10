@@ -12,7 +12,7 @@
             <div class="row mb-3">
                 <nav class="navbar bg-light rounded-full">
                     <div class="container-fluid items-center">
-                        <span class="navbar-brand mb-0 h3 font-bold">Selectivo</span>
+                        <span class="navbar-brand mb-0 h3 font-bold">{{$type}}</span>
                     </div>
                 </nav>
             </div>
