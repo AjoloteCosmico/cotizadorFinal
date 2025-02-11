@@ -147,9 +147,9 @@
                         </div>
                     
 
-                        <p class="card-text mb-3">CANTIDAD DE POSICIONES:</p>
+                        <p class="card-text mb-3">CANTIDAD DE POSICIONES (solo numeros):</p>
                         <div class="form-group">
-                                            <x-jet-input type="text" name="npos" value="{{old('npos')}}" class="w-flex uppercase"/>
+                                            <x-jet-input type="number" name="npos" value="{{old('npos')}}" class="w-flex uppercase"/>
                                             <x-jet-input-error for='npos' />
                                         </div>
 

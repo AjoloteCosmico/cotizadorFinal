@@ -103,7 +103,7 @@
   function() {
     window.location.replace("{{route('redaccion',[$QuotationId,1])}}");
     
-  }, 10);
+  }, 2500);
   
 </script>
 <script type="text/javascript" src="{{ asset('vendor/mystylesjs/js/close_quotation.js') }}"></script>
