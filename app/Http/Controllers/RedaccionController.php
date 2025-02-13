@@ -32,7 +32,6 @@ class RedaccionController extends Controller
           $data = $process2->getOutput();
          return response()->download(public_path('storage/'.'Cotizacion'.$QuotationId.'.pdf'));
      
-     
         }
     }
 }

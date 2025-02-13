@@ -386,7 +386,7 @@ for i in range(0,len(products)):
     worksheet.write('E'+str(row_count),ret_na( products[price_cols].sum(axis=1, numeric_only=True)[i]/products['factor'].values[i]), formato)
     worksheet.write('F'+str(row_count),ret_na( products['amount'].values[i]*products[price_cols].sum(axis=1, numeric_only=True)[i]/products['factor'].values[i]), formato)
     #calibre
-    worksheet.write('G'+str(row_count), str(ret_na(products['caliber'].values[i])), formato)
+    worksheet.write('G'+str(row_count), str(ret_na(products['caliber'].values[i]).upper()), formato)
     print('a punto de krakear',products['amount'].values[i],' ------------------')
     #pesos
     worksheet.write('H'+str(row_count),(num(products['total_weight'].values[i])+num(products['total_kg'].values[i])+products['weight'].values[i]+products['weight_kg'].values[i])/products['amount'].values[i], formato_unit)
@@ -408,7 +408,7 @@ for i in range(0,len(products)):
         worksheet.write('E'+str(row_count),costo, formato)
         worksheet.write('F'+str(row_count), cant*costo, formato)
         #calibre
-        worksheet.write('G'+str(row_count), piezas['type'].values[j][0]+piezas['type'].values[j][1], formato_unit)
+        worksheet.write('G'+str(row_count), str(piezas['type'].values[j][0]+piezas['type'].values[j][1]).upper(), formato_unit)
         #pesos
         worksheet.write('H'+str(row_count),str(0.0), formato_unit)
         worksheet.write('I'+str(row_count),str(0.0), formato_unit)

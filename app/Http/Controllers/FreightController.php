@@ -898,6 +898,9 @@ class FreightController extends Controller
             $Cart_product->user_id=Auth::user()->id;
             $Cart_product->amount=$p->amount;
             $Cart_product->save();
+                //ligar las instancias
+            $p->cart_id=$Cart_product->id();
+            $p->save();
         }
         
         
@@ -928,6 +931,9 @@ class FreightController extends Controller
             $Cart_product->user_id=Auth::user()->id;
             $Cart_product->amount=$p->amount;
             $Cart_product->save();
+             //ligar las instancias
+            $p->cart_id=$Cart_product->id();
+            $p->save();
         }
         
         return redirect()->route('selectivo.show',$Quotation_Id);
@@ -962,6 +968,9 @@ class FreightController extends Controller
             $Cart_product->user_id=Auth::user()->id;
             $Cart_product->amount=$p->amount;
             $Cart_product->save();
+             //ligar las instancias
+            $p->cart_id=$Cart_product->id();
+            $p->save();
         }
         $productos = QuotationUninstall::where('quotation_id', $Quotation_Id)->get();
         //guardar en el carrito
@@ -975,6 +984,9 @@ class FreightController extends Controller
             $Cart_product->user_id=Auth::user()->id;
             $Cart_product->amount=$p->amount;
             $Cart_product->save();
+             //ligar las instancias
+            $p->cart_id=$Cart_product->id();
+            $p->save();
         }
         
         

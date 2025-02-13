@@ -311,7 +311,9 @@ class TypeC2JoistController extends Controller
         $Cart_product->user_id=Auth::user()->id;
         $Cart_product->amount=$SJB2->amount;
         $Cart_product->save();
-        
+        //ligar las instancias
+        $SJB2->cart_id=$Cart_product->id();
+        $SJB2->save();
         return redirect()->route('menujoists.show',$Quotation_Id);
     
     }
