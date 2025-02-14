@@ -9,7 +9,7 @@ import os
 from dotenv import load_dotenv
 from datetime import date
 id=sys.argv[1]
-# id=82
+# id=192
 today = date.today()
 load_dotenv()
 
@@ -28,6 +28,8 @@ cnx = mysql.connector.connect(user=DB_USERNAME,
                               database=DB_DATABASE,
                               use_pure=False)
 cotizacion=pd.read_sql("select * from quotations where id ="+str(id),cnx)
+cart_products=pd.read_sql("select * from cart_products where quotation_id ="+str(id),cnx)
+
 cliente=pd.read_sql("""select * from customers where customers.id="""+str(cotizacion['customer_id'].values[0]),cnx)
 user=pd.read_sql("""select * from users where users.id="""+str(cotizacion['user_id'].values[0]),cnx)
 productos=pd.read_sql("""select * from cart_products where cart_products.quotation_id="""+str(cotizacion['id'].values[0]),cnx)
@@ -48,6 +50,7 @@ from tablas_dict import ref
 aceros=pd.read_sql('select * from steels ',cnx)
 aceros.loc[aceros['caliber']=='EST 3 IN','caliber']='EST3'
 
+print('producots en carrito ',len(cart_products))
 products=pd.DataFrame()
 #iterar sobre tablas
 for i in tablas:
@@ -56,7 +59,10 @@ for i in tablas:
     #pertenecientes a la cotizacion pedida por el usuario.
     p=pd.read_sql('select * from '+i+' where quotation_id = '+str(id),cnx)
     p=p.assign(tabla=i)
-    if(('cost' not in p.columns)&(len(p)>0)):
+    if(len(p)>0):
+        cart_reference=cart_products.loc[cart_products['id']==p.cart_id.values[0]]
+    if(('cost' not in p.columns)&(len(p)>0)&(len(cart_reference)>0)):
+        
         if('caliber' not in p.columns):
              #esto es en especifico por un caso en que todas kas piezas son cal 14
              p=p.assign(caliber='14')
@@ -65,23 +71,26 @@ for i in tablas:
         except:
             print(' ')
         costo=aceros.loc[aceros['caliber']==str(p['caliber'].values[0]),'cost'].values[0]
-        if('total_kg' in p.columns):
-            p=p.assign(cost=costo*p.total_kg)
-        if('total_weight' in p.columns):
-           
-            p=p.assign(cost=costo*p.total_weight)
-        if('weight_kg' in p.columns):
+        # if('total_kg' in p.columns):
+        #     p=p.assign(cost=costo*p.total_kg)
+        # if('total_weight' in p.columns):
+        #     p=p.assign(cost=costo*p.total_weight)
+        # if('weight_kg' in p.columns):
          
-            p=p.assign(cost=costo*p.weight_kg)
-        if('weight' in p.columns):
+        #     p=p.assign(cost=costo*p.weight_kg)
+        # if('weight' in p.columns):
           
-            p=p.assign(cost=costo*p.weight)
-        if('long' in p.columns):
+        #     p=p.assign(cost=costo*p.weight)
+        # if('long' in p.columns):
            
-            p=p.assign(cost=costo*p.long)
-        
+        #     p=p.assign(cost=costo*p.long)
+    if(len(p)>0)&(len(cart_reference)>0):
+        p=p.assign(cost_unit=cart_reference['unit_price'].values[0])
+        p=p.assign(cost_total=cart_reference['total_price'].values[0])
+        p=p.assign(cantidad=cart_reference['amount'].values[0])
+    
     products=products.append(p,ignore_index=True)
-print(products)
+# print(products)
 cols_to_fill_str=['description','protector','model','sku']
 products[cols_to_fill_str]=products[cols_to_fill_str].fillna('')
 cols_kg=['weight','total_kg','total_weight','weight_kg']
@@ -118,6 +127,7 @@ for i in range(len(products)):
     carga=None
     altura=0
     ancho=0
+    print(products['tabla'].values[i],products['cantidad'].values[i],products['cost_unit'].values[i])
     if(products['tabla'].values[i] not in instalacion_tables):
         if(products['tabla'].values[i]=='selective_heavy_load_frames'):
             this_color='Azul'
@@ -129,13 +139,14 @@ for i in range(len(products)):
 
             
             carga='{0:.2f}'.format(products['weight_kg'].values[i])
-            
-        if(products['amount'].values[i]>0):
+        
+        if(products['cantidad'].values[i]>0):
+            print('        SI----')
             productos.append({'nombre':redact[products['tabla'].values[i]],
                           'extra':extras[products['tabla'].values[i]],                          
                         'ref':ref[products['tabla'].values[i]],
                         'precio':products[price_cols].sum(axis=1).values[i],
-                        'cantidad':products['amount'].values[i],
+                        'cantidad':products['cantidad'].values[i],
                         'color': this_color,
                         'largo': products[largo_cols].sum(axis=1).values[i],
                         'carga': carga,
@@ -147,7 +158,7 @@ for i in range(len(products)):
 
 print('X-X-X-X-X-X-X calculado el total',products[price_cols]) 
 
-precio_total=products[price_cols].max(axis=1).sum()
+precio_total=cart_products['total_price'].sum()
 print(precio_total)
 kilos_totales=products[cols_kg].sum(axis=1).sum()
 fletes_tables=['packagings','quotation_travel_assignments']
