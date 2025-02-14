@@ -439,7 +439,7 @@ worksheet.write('E'+str(trow+5), 'PRECIO DE VENTA POR POSICION', blue_header_for
 worksheet.write_formula('F'+str(trow+5), '{=(F'+str(trow)+'/ '+str(quotation['npos'].values[0])+')}', blue_content)
 
 worksheet.write('H'+str(trow+5), 'KILOS POR POSICION', blue_header_format_bold)
-worksheet.write_formula('I'+str(trow+5), '{=(I'+str(trow)+'/ '+str(quotation['npos'].values[0])+')}', blue_content)
+worksheet.write_formula('I'+str(trow+5), '{=(I'+str(trow)+'/ '+str(quotation['npos'].values[0])+')}', blue_content_unit)
 
 
 worksheet.set_column('B:B',20)
