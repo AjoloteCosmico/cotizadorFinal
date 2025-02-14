@@ -363,7 +363,7 @@ class FramesController extends Controller
         $Cart_product->amount=$SHLF->amount;
         $Cart_product->save();
         //ligar las instancias
-        $SHLF->cart_id=$Cart_product->id();
+        $SHLF->cart_id=$Cart_product->id;
         $SHLF->save();
         
         return redirect()->route('drivein.show',$Quotation_Id);

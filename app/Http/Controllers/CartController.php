@@ -80,7 +80,7 @@ class CartController extends Controller
             $product->type='SPR';
             $product->save();
             //ligar las instancias
-            $protector->cart_id=$product->id();
+            $protector->cart_id=$product->id;
             $protector->save();
         }
     }
@@ -108,7 +108,7 @@ public function add_selectivo_carga_pesada($id){
     $Cart_product->amount=$SHLF->amount;
     $Cart_product->save();
     //ligar las instancias
-    $SHLF->cart_id=$Cart_product->id();
+    $SHLF->cart_id=$Cart_product->id;
     $SHLF->save();
     return redirect()->route('menuframes.show',$Quotation_Id);
 }
@@ -133,7 +133,7 @@ public function add_selectivo_marcos_estructurales($id){
     $Cart_product->amount=$SF->amount;
     $Cart_product->save();
     //ligar las instancias
-    $SF->cart_id=$Cart_product->id();
+    $SF->cart_id=$Cart_product->id;
     $SF->save();
     return redirect()->route('menuframes.show',$Quotation_Id);
 }

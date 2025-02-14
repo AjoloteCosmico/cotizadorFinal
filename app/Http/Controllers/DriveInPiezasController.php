@@ -82,7 +82,7 @@ class DriveInPiezasController extends Controller
         $Cart_product->sku=$SJL2->sku;
         $Cart_product->save();
         //ligar las instancias
-        $SJL2->cart_id=$Cart_product->id();
+        $SJL2->cart_id=$Cart_product->id;
         $SJL2->save();
         return redirect()->route('drivein.show',$Quotation_Id);
     }
@@ -142,7 +142,7 @@ class DriveInPiezasController extends Controller
         $Cart_product->sku=$SJL2->sku;
         $Cart_product->save();
         //ligar las instancias
-        $SJL2->cart_id=$Cart_product->id();
+        $SJL2->cart_id=$Cart_product->id;
         $SJL2->save();
         return redirect()->route('drivein.show',$Quotation_Id);
     }
@@ -278,7 +278,7 @@ class DriveInPiezasController extends Controller
             $Cart_product->sku=$b->sku;
             $Cart_product->save();
             //ligar las instancias
-            $b->cart_id=$Cart_product->id();
+            $b->cart_id=$Cart_product->id;
             $b->save();
             }
     
@@ -397,7 +397,7 @@ class DriveInPiezasController extends Controller
         $Cart_product->sku=$Rolados->sku;
         $Cart_product->save();
         //ligar las instancias
-        $Rolados->cart_id=$Cart_product->id();
+        $Rolados->cart_id=$Cart_product->id;
         $Rolados->save();
 
         $Cart_product= new Cart_product();
@@ -411,7 +411,7 @@ class DriveInPiezasController extends Controller
         $Cart_product->sku=$Estructurales->sku;
         $Cart_product->save();
          //ligar las instancias
-         $Estructurales->cart_id=$Cart_product->id();
+         $Estructurales->cart_id=$Cart_product->id;
          $Estructurales->save();
 
         return redirect()->route('drivein.show',$Quotation_Id);

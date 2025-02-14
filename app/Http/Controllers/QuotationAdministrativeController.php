@@ -180,7 +180,7 @@ class QuotationAdministrativeController extends Controller
     $Cart_product->amount=1;
     $Cart_product->save();
     //ligar las instancias
-    $SHLF->cart_id=$Cart_product->id();
+    $SHLF->cart_id=$Cart_product->id;
     $SHLF->save();
     return redirect()->route('selectivo.show',$Quotation_Id);
     }

@@ -127,7 +127,7 @@ class FloorController extends Controller
         $Cart_product->save();
         
         //ligar las instancias
-        $SJL2->cart_id=$Cart_product->id();
+        $SJL2->cart_id=$Cart_product->id;
         $SJL2->save();
         return redirect()->route('selectivo.show',$Quotation_Id);
     }

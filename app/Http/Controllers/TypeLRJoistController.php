@@ -303,7 +303,7 @@ class TypeLRJoistController extends Controller
         $Cart_product->amount=$SJL2->amount;
         $Cart_product->save();
         //ligar las instancias
-        $SJL2->cart_id=$Cart_product->id();
+        $SJL2->cart_id=$Cart_product->id;
         $SJL2->save();
         return redirect()->route('menujoists.show',$Quotation_Id);
     
@@ -330,7 +330,7 @@ class TypeLRJoistController extends Controller
         $Cart_product->amount=$SJL2->amount;
         $Cart_product->save();
         //ligar las instancias
-        $SJL2->cart_id=$Cart_product->id();
+        $SJL2->cart_id=$Cart_product->id;
         $SJL2->save();
         return redirect()->route('menujoists.show',$Quotation_Id);
     

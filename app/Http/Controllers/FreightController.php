@@ -899,7 +899,7 @@ class FreightController extends Controller
             $Cart_product->amount=$p->amount;
             $Cart_product->save();
                 //ligar las instancias
-            $p->cart_id=$Cart_product->id();
+            $p->cart_id=$Cart_product->id;
             $p->save();
         }
         
@@ -932,7 +932,7 @@ class FreightController extends Controller
             $Cart_product->amount=$p->amount;
             $Cart_product->save();
              //ligar las instancias
-            $p->cart_id=$Cart_product->id();
+            $p->cart_id=$Cart_product->id;
             $p->save();
         }
         
@@ -969,7 +969,7 @@ class FreightController extends Controller
             $Cart_product->amount=$p->amount;
             $Cart_product->save();
              //ligar las instancias
-            $p->cart_id=$Cart_product->id();
+            $p->cart_id=$Cart_product->id;
             $p->save();
         }
         $productos = QuotationUninstall::where('quotation_id', $Quotation_Id)->get();
@@ -985,7 +985,7 @@ class FreightController extends Controller
             $Cart_product->amount=$p->amount;
             $Cart_product->save();
              //ligar las instancias
-            $p->cart_id=$Cart_product->id();
+            $p->cart_id=$Cart_product->id;
             $p->save();
         }
         
