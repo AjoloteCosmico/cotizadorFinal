@@ -8,7 +8,7 @@ import numpy as np
 import os
 from dotenv import load_dotenv
 load_dotenv()
-#ESTE ARGUMENTO NO SE USA EN ESTE REPORTE, SERÁ 0 SIEMPRE UWU
+# id=192
 id=str(sys.argv[1])
 #configurar la conexion a la base de datos
 DB_USERNAME = os.getenv('DB_USERNAME')
@@ -30,16 +30,9 @@ cnx = mysql.connector.connect(user=DB_USERNAME,
 # join para cobros
 # cobros=pd.read_sql('Select cobros.* ,customers.customer,internal_orders.invoice, users.name from ((cobros inner join internal_orders on internal_orders.id = cobros.order_id) inner join customers on customers.id = internal_orders.customer_id )inner join users on cobros.capturo=users.id',cnx)
 quotation=pd.read_sql("select * from quotations where id=" +str(id),cnx)
-
+cart_products=pd.read_sql("select * from cart_products where quotation_id ="+str(id),cnx)
 factores=pd.read_sql('select * from price_lists',cnx)
-#traer datos de los pedidos
-# pedidos=pd.read_sql("""Select internal_orders.* ,customers.clave,customers.alias,
-# coins.exchange_sell, coins.coin, coins.symbol,coins.code
-# from ((
-#     internal_orders
-#     inner join customers on customers.id = internal_orders.customer_id )
-#     inner join coins on internal_orders.coin_id = coins.id)
-#      """,cnx)
+
 writer = pd.ExcelWriter('storage/report/ventas'+str(id)+'.xlsx', engine='xlsxwriter')
 
 workbook = writer.book
@@ -265,7 +258,9 @@ for i in tablas:
     #pertenecientes a la cotizacion pedida por el usuario.
     p=pd.read_sql('select * from '+i+' where quotation_id = '+str(id),cnx)
     p=p.assign(tabla=i)
-    if(('cost' not in p.columns)&(len(p)>0)):
+    if(len(p)>0):
+        cart_reference=cart_products.loc[cart_products['id']==p.cart_id.values[0]]
+    if(('cost' not in p.columns)&(len(p)>0)&(len(cart_reference)>0)):
         if('caliber' not in p.columns):
              #esto es en especifico por un caso en que todas kas piezas son cal 14
              p=p.assign(caliber='14')
@@ -277,18 +272,20 @@ for i in tablas:
         costo=aceros.loc[aceros['caliber']==str(p['caliber'].values[0]),'cost'].values[0]
         if('total_kg' in p.columns):
             p=p.assign(cost=costo*p.total_kg)
+
         if('total_weight' in p.columns):
-           
             p=p.assign(cost=costo*p.total_weight)
+
         if('weight_kg' in p.columns):
-         
             p=p.assign(cost=costo*p.weight_kg)
+
         if('weight' in p.columns):
-          
             p=p.assign(cost=costo*p.weight)
+
         if('long' in p.columns):
-           
             p=p.assign(cost=costo*p.long)
+
+        
         print(i)
         try: 
             factor=factores.loc[factores['caliber']==p['caliber'].values[0],'f_total'].values[0]
@@ -297,8 +294,12 @@ for i in tablas:
         
             factor=4.15
         p=p.assign(factor=factor)
+    if(len(p)>0)&(len(cart_reference)>0):
+        p=p.assign(cost_unit=cart_reference['unit_price'].values[0])
+        p=p.assign(cost_total=cart_reference['total_price'].values[0])
+        p=p.assign(cantidad=cart_reference['amount'].values[0])
     products=products.append(p,ignore_index=True)
-products=products.loc[products['amount']>0].reset_index(drop=True)
+products=products.loc[products['cantidad']>0].reset_index(drop=True)
 cols_to_fill_str=['description','protector','model','sku']
 products[cols_to_fill_str]=products[cols_to_fill_str].fillna('')
 cols_kg=['weight','total_kg','total_weight','weight_kg']
@@ -370,8 +371,15 @@ for i in range(0,len(products)):
     def my_func(row, table_name):
         return row in table_name
     piezas=materials.loc[materials['product'].apply(my_func,table_name=products['tabla'].values[i])]
+    costo_piezas_unit=0
+    costo_piezas_total=0
     costo_product=products['cost'].values[i]
     n=len(piezas)
+    for j in range(0,n):
+        costo= piezas['cost'].fillna(0).values[j].sum()
+        cant= piezas['amount'].fillna(0).values[j].sum()*products['amount'].values[i]
+        costo_piezas_unit=costo_piezas_unit+costo
+        costo_piezas_total=costo_piezas_total+costo*cant
     piezas['type']=piezas['type'].fillna('')
     print(n,products['tabla'].values[i],row_count,products['cost'].values[i])
     #pda
@@ -382,11 +390,14 @@ for i in range(0,len(products)):
     #descripcion
     worksheet.write('D'+str(row_count), tablas[products['tabla'].values[i]]+products['protector'].values[i]+' '+products['model'].values[i], formato)
     #costos
-    print(costo_product)
-    worksheet.write('E'+str(row_count),ret_na( products[price_cols].sum(axis=1, numeric_only=True)[i]/products['factor'].values[i]), formato)
-    worksheet.write('F'+str(row_count),ret_na( products['amount'].values[i]*products[price_cols].sum(axis=1, numeric_only=True)[i]/products['factor'].values[i]), formato)
-    #calibre
-    worksheet.write('G'+str(row_count), str(ret_na(products['caliber'].values[i]).upper()), formato)
+    print(products['tabla'].values[i],piezas['cost'].sum())
+    # worksheet.write('E'+str(row_count),ret_na( products[price_cols].sum(axis=1, numeric_only=True)[i]/products['factor'].values[i]), formato)
+    # worksheet.write('F'+str(row_count),ret_na( products['amount'].values[i]*products[price_cols].sum(axis=1, numeric_only=True)[i]/products['factor'].values[i]), formato)
+    worksheet.write('E'+str(row_count),ret_na( products['cost_unit'].values[i]-costo_piezas_unit), formato)
+    worksheet.write('F'+str(row_count),ret_na( products['cost_total'].values[i]-costo_piezas_total), formato)
+    
+    # #calibre
+    worksheet.write('G'+str(row_count), str(ret_na(products['caliber'].values[i])).upper(), formato)
     print('a punto de krakear',products['amount'].values[i],' ------------------')
     #pesos
     worksheet.write('H'+str(row_count),(num(products['total_weight'].values[i])+num(products['total_kg'].values[i])+products['weight'].values[i]+products['weight_kg'].values[i])/products['amount'].values[i], formato_unit)
@@ -398,11 +409,11 @@ for i in range(0,len(products)):
         print('entre al ciclo')
         print(piezas['cost'].fillna(0).values[j],piezas['amount'])
         costo= piezas['cost'].fillna(0).values[j].sum()
-        cant= piezas['amount'].fillna(0).values[j].sum()
+        cant= piezas['amount'].fillna(0).values[j].sum()*products['amount'].values[i]
         worksheet.write('A'+str(row_count), str(i*n+2+j), formato)
         #sku
         worksheet.write('B'+str(row_count), ''.join(materials['sku'].fillna('').values[0]), formato)
-        worksheet.write('C'+str(row_count), str(piezas['amount'].values[j]), formato)
+        worksheet.write('C'+str(row_count), str(piezas['amount'].values[j]*products['amount'].values[i]), formato)
         worksheet.write('D'+str(row_count), str(piezas['description'].fillna('').values[j][0])+str(piezas['piece'].fillna('').values[j]), formato)
         #costos
         worksheet.write('E'+str(row_count),costo, formato)
@@ -415,18 +426,20 @@ for i in range(0,len(products)):
         row_count=row_count+1
 trow=row_count
 
-
 #TOTALES
 worksheet.merge_range('C'+str(trow+1)+':E'+str(trow), 'TOTAL (EQV M.N)', blue_header_format_bold)
 worksheet.write_formula('F'+str(trow),'{=SUM(F9:F'+str(trow-1)+')}',blue_footer_format_bold)
 worksheet.write_formula('I'+str(trow),'{=SUM(I9:I'+str(trow-1)+')}',blue_footer_format_bold_kg)
 
 #subtabla
-worksheet.write('F'+str(trow+5), 'PRECIO DE VENTA POR POSICION', blue_header_format_bold)
-worksheet.write_formula('E'+str(trow+5), '{=(F'+str(trow)+'* '+str(row_count-9)+')}', blue_content)
-worksheet.write_formula('I'+str(trow+5), '{=(H'+str(trow)+'/ I'+str(trow)+')}', blue_content)
+worksheet.write('E'+str(trow+4), 'CANTIDAD DE POSICIONES', blue_header_format_bold)
+worksheet.write('F'+str(trow+4), str(quotation['npos'].values[0]), blue_content)
 
+worksheet.write('E'+str(trow+5), 'PRECIO DE VENTA POR POSICION', blue_header_format_bold)
+worksheet.write_formula('F'+str(trow+5), '{=(F'+str(trow)+'/ '+str(quotation['npos'].values[0])+')}', blue_content)
 
+worksheet.write('H'+str(trow+5), 'KILOS POR POSICION', blue_header_format_bold)
+worksheet.write_formula('I'+str(trow+5), '{=(I'+str(trow)+'/ '+str(quotation['npos'].values[0])+')}', blue_content)
 
 
 worksheet.set_column('B:B',20)
