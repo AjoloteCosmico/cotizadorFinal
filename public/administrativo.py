@@ -365,10 +365,10 @@ for i in range(0,len(products)):
     else:
         peralte=''
     if(products[largo_cols].sum(axis=1).values[i]>0):
-        largo='ALTURA: '+str(products[largo_cols].sum(axis=1).values[i])+'M'
+        largo=' ALTURA: '+str(products[largo_cols].sum(axis=1).values[i])+'m'
     else: largo=''
     if(products[ancho_cols].sum(axis=1).values[i]>0):
-        ancho= 'ANCHO: '+str(products[ancho_cols].sum(axis=1).values[i])+'M'
+        ancho= ' ANCHO: '+str(products[ancho_cols].sum(axis=1).values[i])+'m'
     else: ancho=''
     print('GENERANDO LA DESCRIPCION::-----:::---:::---')
     print(largo,ancho,peralte)
