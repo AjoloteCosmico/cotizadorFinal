@@ -8,7 +8,7 @@ import numpy as np
 import os
 from dotenv import load_dotenv
 load_dotenv()
-# id=170
+# id=191
 id=str(sys.argv[1])
 #configurar la conexion a la base de datos
 DB_USERNAME = os.getenv('DB_USERNAME')
@@ -289,7 +289,10 @@ cols_kg=['weight','total_kg','total_weight','weight_kg']
 cols_m2=['m2','total_m2']
 price_cols=['price','total_price','import','unit_price']
 products[cols_kg+cols_m2+price_cols+['amount']]=products[cols_kg+cols_m2+price_cols+['amount']].fillna(0)
-
+largo_cols=['long','length','length_meters','frame_background',
+       'length_dimension', 'dimensions']
+ancho_cols=['uncut_front',  'uncut_background',
+       'depth']
 
 pricelist_protectors=pd.read_sql('select * from price_list_protectors',cnx)
 quotation_protectors=pd.read_sql('select quotation_protectors.*, protectors.sku from quotation_protectors  inner join protectors on protectors.protector=quotation_protectors.protector where quotation_id ='+str(id),cnx)
@@ -356,7 +359,20 @@ for i in range(0,len(products)):
     n=len(piezas)
     
     print(n,products['tabla'].values[i],row_count,products['cost'].values[i])
-    
+    #Cosntruir la redaccion del producto
+    if('joist' in products['tabla'].values[i]):
+        peralte=' Peralte:'+str(products['camber'].values[i])
+    else:
+        peralte=''
+    if(products[largo_cols].sum(axis=1).values[i]>0):
+        largo='Largo'+str(products[largo_cols].sum(axis=1).values[i])
+    else: largo=''
+    if(products[ancho_cols].sum(axis=1).values[i]>0):
+        ancho= str(products[ancho_cols].sum(axis=1).values[i])
+    else: ancho=''
+    print('GENERANDO LA DESCRIPCION::-----:::---:::---')
+    print(largo,ancho,peralte)
+    descripcion=tablas[products['tabla'].values[i]]+products['protector'].values[i]+' '+products['model'].values[i]+peralte+largo+ancho
     if(i%2==1):
         formato=blue_content
         formato_unit=blue_content_unit
@@ -370,7 +386,7 @@ for i in range(0,len(products)):
     worksheet.write('B'+str(row_count), products['sku'].values[i], formato)
     worksheet.write('C'+str(row_count), str(products['amount'].values[i]), formato_unit)
     #descripcion
-    worksheet.write('D'+str(row_count), tablas[products['tabla'].values[i]]+products['protector'].values[i]+' '+products['model'].values[i], formato)
+    worksheet.write('D'+str(row_count), descripcion, formato)
     #costos
     print(costo_product)
     if(products['total_price'].values[i]>0):
