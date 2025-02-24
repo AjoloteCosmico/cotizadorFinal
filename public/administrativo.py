@@ -415,7 +415,6 @@ for i in range(0,len(products)):
     row_count=row_count+1
     #PIEZAS PIEZAS PIEZAS CICLO DE PIEZAS
     for j in range(0,n):
-        
         print('entre al ciclo')
         print(piezas['cost'].fillna(0).values[j],piezas['amount'])
         costo= piezas['cost'].fillna(0).values[j].sum()
