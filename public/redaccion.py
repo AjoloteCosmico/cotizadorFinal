@@ -59,6 +59,7 @@ for i in tablas:
     #pertenecientes a la cotizacion pedida por el usuario.
     p=pd.read_sql('select * from '+i+' where quotation_id = '+str(id),cnx)
     p=p.assign(tabla=i)
+    cart_reference=[]
     if(len(p)>0):
         cart_reference=cart_products.loc[cart_products['id']==p.cart_id.values[0]]
     if(('cost' not in p.columns)&(len(p)>0)&(len(cart_reference)>0)):
