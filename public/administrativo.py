@@ -369,6 +369,8 @@ for i in range(0,len(products)):
     else: largo=''
     if(products[ancho_cols].sum(axis=1).values[i]>0):
         ancho= ' ANCHO: '+str(products[ancho_cols].sum(axis=1).values[i])+'m'
+        if('frame' in products['tabla'].values[i]):
+            ancho= ' FONDO: '+str(products[ancho_cols].sum(axis=1).values[i])+'m'
     else: ancho=''
     print('GENERANDO LA DESCRIPCION::-----:::---:::---')
     print(largo,ancho,peralte)
