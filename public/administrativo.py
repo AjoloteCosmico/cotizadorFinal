@@ -363,7 +363,7 @@ for i in range(0,len(products)):
     if('joist' in products['tabla'].values[i]):
         peralte=' Peralte:'+str(products['camber'].values[i])
     else:
-        peralte='CALIBRE'+str(products['caliber'].values[i])
+        peralte=' CALIBRE'+str(products['caliber'].values[i])
 
     if(products[largo_cols].sum(axis=1).values[i]>0):
         largo=' ALTURA: '+str(products[largo_cols].sum(axis=1).values[i])+'M'
