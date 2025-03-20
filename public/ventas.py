@@ -258,47 +258,48 @@ for i in tablas:
     #pertenecientes a la cotizacion pedida por el usuario.
     p=pd.read_sql('select * from '+i+' where quotation_id = '+str(id),cnx)
     p=p.assign(tabla=i)
+    cart_reference=[]
     if(len(p)>0):
         cart_reference=cart_products.loc[cart_products['id']==p.cart_id.values[0]]
-        if(('cost' not in p.columns)&(len(p)>0)&(len(cart_reference)>0)):
-            if('caliber' not in p.columns):
-                #esto es en especifico por un caso en que todas kas piezas son cal 14
-                p=p.assign(caliber='14')
-            try:
-                p['caliber']=p['caliber'].str.replace('-','')
-            except:
-                print(' ')
-            print(str(p['caliber'].values[0]))
-            costo=aceros.loc[aceros['caliber']==str(p['caliber'].values[0]),'cost'].values[0]
-            if('total_kg' in p.columns):
-                p=p.assign(cost=costo*p.total_kg)
+    if(('cost' not in p.columns)&(len(p)>0)&(len(cart_reference)>0)):
+        if('caliber' not in p.columns):
+             #esto es en especifico por un caso en que todas kas piezas son cal 14
+             p=p.assign(caliber='14')
+        try:
+            p['caliber']=p['caliber'].str.replace('-','')
+        except:
+            print(' ')
+        print(str(p['caliber'].values[0]))
+        costo=aceros.loc[aceros['caliber']==str(p['caliber'].values[0]),'cost'].values[0]
+        if('total_kg' in p.columns):
+            p=p.assign(cost=costo*p.total_kg)
 
-            if('total_weight' in p.columns):
-                p=p.assign(cost=costo*p.total_weight)
+        if('total_weight' in p.columns):
+            p=p.assign(cost=costo*p.total_weight)
 
-            if('weight_kg' in p.columns):
-                p=p.assign(cost=costo*p.weight_kg)
+        if('weight_kg' in p.columns):
+            p=p.assign(cost=costo*p.weight_kg)
 
-            if('weight' in p.columns):
-                p=p.assign(cost=costo*p.weight)
+        if('weight' in p.columns):
+            p=p.assign(cost=costo*p.weight)
 
-            if('long' in p.columns):
-                p=p.assign(cost=costo*p.long)
+        if('long' in p.columns):
+            p=p.assign(cost=costo*p.long)
 
-            
-            print(i)
-            try: 
-                factor=factores.loc[factores['caliber']==p['caliber'].values[0],'f_total'].values[0]
-            except:
-                print('!!<<<<<falló al buscar factor cal',p['caliber'].values[0])
-            
-                factor=4.15
-            p=p.assign(factor=factor)
-        if(len(p)>0)&(len(cart_reference)>0):
-            p=p.assign(cost_unit=cart_reference['unit_price'].values[0])
-            p=p.assign(cost_total=cart_reference['total_price'].values[0])
-            p=p.assign(cantidad=cart_reference['amount'].values[0])
-        products=products.append(p,ignore_index=True)
+        
+        print(i)
+        try: 
+            factor=factores.loc[factores['caliber']==p['caliber'].values[0],'f_total'].values[0]
+        except:
+            print('!!<<<<<falló al buscar factor cal',p['caliber'].values[0])
+        
+            factor=4.15
+        p=p.assign(factor=factor)
+    if(len(p)>0)&(len(cart_reference)>0):
+        p=p.assign(cost_unit=cart_reference['unit_price'].values[0])
+        p=p.assign(cost_total=cart_reference['total_price'].values[0])
+        p=p.assign(cantidad=cart_reference['amount'].values[0])
+    products=products.append(p,ignore_index=True)
 products=products.loc[products['cantidad']>0].reset_index(drop=True)
 cols_to_fill_str=['description','protector','model','sku']
 products[cols_to_fill_str]=products[cols_to_fill_str].fillna('')
