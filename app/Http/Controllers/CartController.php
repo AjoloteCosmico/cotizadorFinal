@@ -56,7 +56,7 @@ class CartController extends Controller
        $product->save();
 
    }
-   public function add_selectivo_protectors($id){
+   public function add_selectivo_protectors($id,$Costo){
     $Quotation_Id = $id;
     
     $Quotation=Quotation::find($id);
@@ -86,7 +86,7 @@ class CartController extends Controller
     }
     return redirect()->route('selectivo_protectors.index',$Quotation_Id);
 }
-public function add_selectivo_carga_pesada($id){
+public function add_selectivo_carga_pesada($id,$Costo){
     $Quotation_Id = $id;
     $Quotation=Quotation::find($id);
     //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
@@ -106,6 +106,8 @@ public function add_selectivo_carga_pesada($id){
     $Cart_product->quotation_id=$Quotation_Id;
     $Cart_product->user_id=Auth::user()->id;
     $Cart_product->amount=$SHLF->amount;
+    
+    $Cart_product->costo_sn_factor=$Costo;
     $Cart_product->save();
     //ligar las instancias
     $SHLF->cart_id=$Cart_product->id;
@@ -113,7 +115,7 @@ public function add_selectivo_carga_pesada($id){
     return redirect()->route('menuframes.show',$Quotation_Id);
 }
 
-public function add_selectivo_marcos_estructurales($id){
+public function add_selectivo_marcos_estructurales($id,$Costo){
     $Quotation_Id = $id;
     $Quotation=Quotation::find($id);
     //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo

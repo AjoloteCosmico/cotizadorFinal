@@ -30,6 +30,7 @@ cnx = mysql.connector.connect(user=DB_USERNAME,
 # join para cobros
 quotation=pd.read_sql("select * from quotations where id=" +str(id),cnx)
 
+cart_products=pd.read_sql("select * from cart_products where quotation_id ="+str(id),cnx)
 writer = pd.ExcelWriter('storage/report/administrativo'+str(id)+'.xlsx', engine='xlsxwriter')
 
 workbook = writer.book
@@ -254,7 +255,10 @@ for i in tablas:
     #pertenecientes a la cotizacion pedida por el usuario.
     p=pd.read_sql('select * from '+i+' where quotation_id = '+str(id),cnx)
     p=p.assign(tabla=i)
-    if(('cost' not in p.columns)&(len(p)>0)):
+    cart_reference=[]
+    if(len(p)>0):
+        cart_reference=cart_products.loc[cart_products['id']==p.cart_id.values[0]]
+    if(('cost' not in p.columns)&(len(p)>0)&(len(cart_reference)>0)):
         if('caliber' not in p.columns):
              #esto es en especifico por un caso en que todas kas piezas son cal 14
              p=p.assign(caliber='14')
@@ -280,6 +284,11 @@ for i in tablas:
             p=p.assign(cost=costo*p.long)
 
         print(i)
+    
+    if(len(p)>0)&(len(cart_reference)>0):
+        p=p.assign(cost_unit=cart_reference['costo_sn_factor'].values[0]/cart_reference['amount'].values[0])
+        p=p.assign(cost_total=cart_reference['costo_sn_factor'].values[0])
+        p=p.assign(cantidad=cart_reference['amount'].values[0])
     products=products.append(p,ignore_index=True)
 
 products=products.loc[products['amount']>0].reset_index(drop=True)
@@ -401,6 +410,9 @@ for i in range(0,len(products)):
     else:
         precio_total=products[price_cols].sum(axis=1, numeric_only=True)[i]
         precio_unitario=products['amount'].values[i]*products[price_cols].sum(axis=1, numeric_only=True)[i]
+    if(products['cost_total'].values[i]):
+        precio_total=products['cost_total'].values[i]
+        precio_unitario=products['cost_unit'].values[i]
     worksheet.write('E'+str(row_count), ret_na(precio_unitario), formato)
     worksheet.write('F'+str(row_count), ret_na(precio_total), formato)
     #calibre

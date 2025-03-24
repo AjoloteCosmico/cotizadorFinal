@@ -132,7 +132,7 @@ class CrossbarController extends Controller
     {
         //
     }
-    public function add_carrito($id){
+    public function add_carrito($id,$Costo){
         $Quotation_Id = $id;
         $Quotation=Quotation::find($id);
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
