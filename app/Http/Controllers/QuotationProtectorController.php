@@ -54,6 +54,7 @@ class QuotationProtectorController extends Controller
         $Amount = $request->amount;
         $ProtectorComponents = PriceListProtector::all();
         $PostProtectorsCost = PriceListProtector::sum('cost');
+        $PosCosto=0;
         $PostProtectorsSalePrice = PriceListProtector::sum('sale_price');
         $PostProtectorsWeight = PriceListProtector::sum('weight');  
         $user_id=Auth::user()->id;
@@ -61,6 +62,8 @@ class QuotationProtectorController extends Controller
         foreach($ProtectorComponents as $row){
             $PriceList = PriceList::where('system', 'ACCESORIOS')->where('piece', 'PROTECTOR')->where('caliber', $row->caliber)->first();
             $Logs=$Logs.$row->piece." //Costo acero ".$PriceList->description.$PriceList->caliber.": $".$PriceList->cost." //Factor: ".$row->f_total."//Peso: ".$row->weight."<br>";
+            $PosCosto=$PosCosto+($row->f_total*$row->cost);
+
         }
         Session::put('protector_logs',$Logs);
         if($Protector == 'PROTECTOR DE POSTE')
@@ -72,8 +75,9 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->protector = $Protector;
                 $QuotationProtectors->cost = $PostProtectorsCost;
                 $QuotationProtectors->total_weight = $Amount * $PostProtectorsWeight;
-                $QuotationProtectors->unit_price = $PostProtectorsSalePrice;
-                $QuotationProtectors->total_price = $Amount * $PostProtectorsSalePrice;
+                $QuotationProtectors->unit_price = $PosCosto;
+                $QuotationProtectors->total_price = $Amount * $PosCosto;
+                $QuotationProtectors->costo_sn_factor=$Amount * $PostProtectorsCost ;
                 $QuotationProtectors->sku='TC0000117249';
                 $QuotationProtectors->save();
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('update_reg', 'ok');
@@ -84,8 +88,10 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->protector = $Protector;
                 $QuotationProtectors->cost = $PostProtectorsCost;
                 $QuotationProtectors->total_weight = $Amount * $PostProtectorsWeight;
-                $QuotationProtectors->unit_price = $PostProtectorsSalePrice;
-                $QuotationProtectors->total_price = $Amount * $PostProtectorsSalePrice;
+                $QuotationProtectors->unit_price = $PosCosto;
+                $QuotationProtectors->total_price = $Amount * $PosCosto;
+                
+                $QuotationProtectors->costo_sn_factor=$Amount * $PostProtectorsCost ;
                 $QuotationProtectors->sku='TC0000117249';
                 $QuotationProtectors->save();
                 
@@ -97,7 +103,7 @@ class QuotationProtectorController extends Controller
             $PriceListBars = PriceListBar::where('front_development', '1.2000')->first();
             $Cost = $PostProtectorsCost * 2;
             $TotalWeight = $Amount * $PostProtectorsWeight * 2;
-            $UnitPrice = ($PostProtectorsSalePrice * 2) + $PriceListBars->sale_price;
+            $UnitPrice = ($PosCosto * 2) + $PriceListBars->sale_price;
             $TotalPrice = $Amount * $UnitPrice;
                
             $QuotationProtectors = QuotationProtector::where('quotation_id', $Quotation_Id)->where('protector', $Protector)->first();
@@ -109,6 +115,7 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->costo_sn_factor=($PostProtectorsCost * 2) + $PriceListBars->cost;
                 $QuotationProtectors->sku='TC0000117250';
                 $QuotationProtectors->save();
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('update_reg', 'ok');
@@ -121,6 +128,8 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                
+                $QuotationProtectors->costo_sn_factor=($PostProtectorsCost * 2) + $PriceListBars->cost;
                 $QuotationProtectors->sku='TC0000117250';
                 $QuotationProtectors->save();
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('create_reg', 'ok');
@@ -130,7 +139,7 @@ class QuotationProtectorController extends Controller
             $PriceListBars = PriceListBar::where('front_development', '2.4000')->first();
             $Cost = $PostProtectorsCost * 2;
             $TotalWeight = $Amount * $PostProtectorsWeight * 2;
-            $UnitPrice = ($PostProtectorsSalePrice * 2) + $PriceListBars->sale_price;
+            $UnitPrice = ($PosCosto * 2) + $PriceListBars->sale_price;
             $TotalPrice = $Amount * $UnitPrice;
 
             $QuotationProtectors = QuotationProtector::where('quotation_id', $Quotation_Id)->where('protector', $Protector)->first();
@@ -142,6 +151,8 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                
+                $QuotationProtectors->costo_sn_factor=($PostProtectorsCost * 2) + $PriceListBars->cost;
                 $QuotationProtectors->sku='TC0000117251';
                 $QuotationProtectors->save();
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('update_reg', 'ok');
@@ -154,6 +165,8 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                
+                $QuotationProtectors->costo_sn_factor=($PostProtectorsCost * 2) + $PriceListBars->cost;
                 $QuotationProtectors->sku='TC0000117251';
                 $QuotationProtectors->save();
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('create_reg', 'ok');
@@ -163,7 +176,7 @@ class QuotationProtectorController extends Controller
             $PriceListBars = PriceListBar::where('front_development', '4.0000')->first();
             $Cost = $PostProtectorsCost * 3;
             $TotalWeight = $Amount * $PostProtectorsWeight * 3;
-            $UnitPrice = ($PostProtectorsSalePrice * 3) + $PriceListBars->sale_price;
+            $UnitPrice = ($PosCosto * 2) + $PriceListBars->sale_price;
             $TotalPrice = $Amount * $UnitPrice;
 
             $QuotationProtectors = QuotationProtector::where('quotation_id', $Quotation_Id)->where('protector', $Protector)->first();

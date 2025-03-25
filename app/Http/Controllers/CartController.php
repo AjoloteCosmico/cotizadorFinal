@@ -59,7 +59,7 @@ class CartController extends Controller
        $product->save();
 
    }
-   public function add_selectivo_protectors($id,$Costo){
+   public function add_selectivo_protectors($id){
     $Quotation_Id = $id;
 
     $Quotation=Quotation::find($id);
@@ -79,7 +79,11 @@ class CartController extends Controller
             $product->unit_price=$protector->unit_price;
             $product->amount=$protector->amount;
             $product->total_price=$protector->total_price;
+            
+            $product->sku=$protector->sku;
             $product->quotation_id=$Quotation_Id;
+            
+            $product->costo_sn_factor=$protector->costo_sn_factor;
             $product->type='SPR';
             $product->save();
             //ligar las instancias

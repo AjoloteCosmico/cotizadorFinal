@@ -132,6 +132,13 @@ class StructuralFrameworksController extends Controller
                 }
                 $Precio_unit_sn_factor = ($Data->total_kg * $Data->cost)+ $CostTornTravDiag;
                 $Precio_sin_factor = $Cantidad * $Precio_unit_sn_factor ;
+                echo "  //factor: ".$Data->f_total.' '.$Data->model.$Data->caliber; 
+                echo " //precio acero: $".$Data->cost;
+                echo " //peso total: ".$Data->total_kg ;
+                echo " //total sn f_total: $".$Precio_sin_factor ;
+                echo "<br> //Costo calzas: $".$CostoTotalCalza;
+                echo "/CostoTaquetes: $".$CostoTotalTaquete;
+             
                 return view('quotes.selectivo.frames.structuralframeworks.store', compact(
                     'Cantidad',
                     'Precio_sin_factor',

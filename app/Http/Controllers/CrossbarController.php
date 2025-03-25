@@ -35,13 +35,18 @@ class CrossbarController extends Controller
         $PriceList = PriceList::where('piece', 'CROSS BAR')->where('caliber', 14)->first();
         $PriceConector=Pricelist::where('piece','CONECTOR CROSSBAR')->first();
         $ConectorPrice=0.84*$PriceConector->f_total *$PriceConector->cost;
+        $ConectorPricesin=0.84*$PriceConector->cost;
         if($request->conector == 4){
             $Conector = Crossbar::where('type', 'CONECTOR DE CROSS BAR')->first();
             $SubTotal = $Amount * ($Piece->weight * $PriceList->cost * $PriceList->f_total +$ConectorPrice);
+            $Precio_sn_factor = $Amount * ($Piece->weight * $PriceList->cost  +$ConectorPricesin);
+            
             $ConConnector = 'Yes';
         }else{
             $Conector = '';
             $SubTotal = $Amount *  $Piece->weight * $PriceList->cost * $PriceList->f_total;
+            $Precio_sn_factor = $Amount * ($Piece->weight * $PriceList->cost );
+            
             $ConConnector = 'No';
         }
 
@@ -64,7 +69,7 @@ class CrossbarController extends Controller
                 $SCB->connector = $Conector->price;
             }
             $SCB->sku = $Piece->sku;
-            $SCB->unit_price = $Piece->price;
+            $SCB->unit_price = $SubTotal/$Amount;
             $SCB->total_price = $SubTotal;
             $SCB->save();
         }else{
@@ -85,7 +90,7 @@ class CrossbarController extends Controller
                 $SCB->connector = $Conector->price;
             }            
             $SCB->sku = $Piece->sku;
-            $SCB->unit_price = $Piece->price;
+            $SCB->unit_price = $SubTotal/$Amount;
             $SCB->total_price = $SubTotal;
             $SCB->save();
         }
@@ -94,6 +99,7 @@ class CrossbarController extends Controller
             echo "<br> precio conector: $".$PriceConector->cost."//Factor: ".$PriceConector->f_total." //preso conector: 0.84" ;
         }
         return view('quotes.selectivo.crossbars.calc', compact(
+            'Precio_sn_factor',
             'Amount',
             'Piece',
             'SubTotal',
@@ -151,6 +157,8 @@ class CrossbarController extends Controller
         $Cart_product->quotation_id=$Quotation_Id;
         $Cart_product->user_id=Auth::user()->id;
         $Cart_product->amount=$SJL2->amount;
+        
+        $Cart_product->costo_sn_factor=$Costo;
         $Cart_product->save();
         //ligar las instancias
         $SJL2->cart_id=$Cart_product->id;

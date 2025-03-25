@@ -115,9 +115,11 @@ class TypeBox25JoistController extends Controller
             echo " //precio unit sin f_total: $".$Import / $PriceList->f_total ;
             echo '<br> //Peso: '.$TypeLJoists->weight;
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
-            
+            $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
+           
             return view('quotes.selectivo.joists.typebox25joists.caliber14.store', compact(
                 'Amount',
+                'Precio_sin_factor',
                 'Weight',
                 'JoistType',
                 'Length',
@@ -217,9 +219,11 @@ class TypeBox25JoistController extends Controller
             echo " //precio unit sin f_total: $".$Import / $PriceList->f_total ;
             echo '<br> //Peso: '.$TypeLJoists->weight;
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
-            
+            $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
+           
         return view('quotes.selectivo.joists.typebox25joists.store', compact(
             'Amount',
+           'Precio_sin_factor',
             'Caliber',
             'Length',
             'Camber',
@@ -401,7 +405,7 @@ class TypeBox25JoistController extends Controller
     {
         //
     }
-    public function add_carrito($id){
+    public function add_carrito($id,$Costo){
         $Quotation_Id = $id;
         $Quotation=Quotation::find($id);
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
