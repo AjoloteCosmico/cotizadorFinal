@@ -86,6 +86,7 @@ class CartController extends Controller
     }
     return redirect()->route('selectivo_protectors.index',$Quotation_Id);
 }
+
 public function add_selectivo_carga_pesada($id,$Costo){
     $Quotation_Id = $id;
     $Quotation=Quotation::find($id);
@@ -133,12 +134,16 @@ public function add_selectivo_marcos_estructurales($id,$Costo){
     $Cart_product->quotation_id=$Quotation_Id;
     $Cart_product->user_id=Auth::user()->id;
     $Cart_product->amount=$SF->amount;
+    
+    $Cart_product->total_price=$SF->total_price;
+    $Cart_product->costo_sn_factor=$Costo;
     $Cart_product->save();
     //ligar las instancias
     $SF->cart_id=$Cart_product->id;
     $SF->save();
     return redirect()->route('menuframes.show',$Quotation_Id);
 }
+
 
 public function destroy($id){
  Cart_product::destroy($id);

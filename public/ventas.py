@@ -258,7 +258,7 @@ for i in tablas:
     #pertenecientes a la cotizacion pedida por el usuario.
     p=pd.read_sql('select * from '+i+' where quotation_id = '+str(id),cnx)
     p=p.assign(tabla=i)
-    cart_reference=[]
+    cart_reference=[ ]
     if(len(p)>0):
         cart_reference=cart_products.loc[cart_products['id']==p.cart_id.values[0]]
     if(('cost' not in p.columns)&(len(p)>0)&(len(cart_reference)>0)):
@@ -360,7 +360,10 @@ def num(value):
         x=0
     return x
 #iterar sobre los productos
-
+largo_cols=['long','length','length_meters','frame_background',
+       'length_dimension', 'dimensions']
+ancho_cols=['uncut_front',  'uncut_background',
+       'depth']
 for i in range(0,len(products)):
     if(i%2==1):
         formato=blue_content
@@ -376,6 +379,23 @@ for i in range(0,len(products)):
     costo_piezas_total=0
     costo_product=products['cost'].values[i]
     n=len(piezas)
+    #Cosntruir la redaccion del producto
+    if('joist' in products['tabla'].values[i]):
+        peralte=' Peralte:'+str(products['camber'].values[i])
+    else:
+        peralte=' CALIBRE'+str(products['caliber'].values[i])
+
+    if(products[largo_cols].sum(axis=1).values[i]>0):
+        largo=' ALTURA: '+str(products[largo_cols].sum(axis=1).values[i])+'M'
+    else: largo=''
+    if(products[ancho_cols].sum(axis=1).values[i]>0):
+        ancho= ' ANCHO: '+str(products[ancho_cols].sum(axis=1).values[i])+'M'
+        if('frame' in products['tabla'].values[i]):
+            ancho= ' FONDO: '+str(products[ancho_cols].sum(axis=1).values[i])+'M'
+    else: ancho=''
+    print('GENERANDO LA DESCRIPCION::-----:::---:::---')
+    print(largo,ancho,peralte)
+    descripcion=tablas[products['tabla'].values[i]]+products['protector'].values[i]+' '+products['model'].values[i]+peralte+largo+ancho
     for j in range(0,n):
         costo= piezas['cost'].fillna(0).values[j].sum()
         cant= piezas['amount'].fillna(0).values[j].sum()*products['amount'].values[i]
@@ -389,7 +409,7 @@ for i in range(0,len(products)):
     worksheet.write('B'+str(row_count), products['sku'].values[i], formato)
     worksheet.write('C'+str(row_count), str(products['amount'].values[i]), formato)
     #descripcion
-    worksheet.write('D'+str(row_count), tablas[products['tabla'].values[i]]+products['protector'].values[i]+' '+products['model'].values[i], formato)
+    worksheet.write('D'+str(row_count), descripcion, formato)
     #costos
     print(products['tabla'].values[i],piezas['cost'].sum())
     # worksheet.write('E'+str(row_count),ret_na( products[price_cols].sum(axis=1, numeric_only=True)[i]/products['factor'].values[i]), formato)

@@ -883,7 +883,6 @@ class FreightController extends Controller
             foreach($cartl2 as $c){
                 Cart_product::destroy($c->id);
             }
-            
         }
         //agregar el nuevo al carrito, lo que este en 
         $productos = Packaging::where('quotation_id', $Quotation_Id)->get();

@@ -86,7 +86,7 @@ class FramesController extends Controller
                 $CostTornPlacas = $TornPlacas * $PriceListScrewCostPlacas;
                 $TotTornPlacas = $Cantidad * $TornPlacas;
                 $TotCostTornPlacas = $Cantidad * $CostTornPlacas;
-                $Precio = $TotalPrice ; 
+                $Precio = $TotalPrice; 
                 // $Precio = $TotalPrice + $CostTornPlacas + $CostTornTravDiag;
                 $Precio_Total = $Cantidad * $Precio;
                 $Calzas = 4;
@@ -130,7 +130,6 @@ class FramesController extends Controller
                     $SHLF->total_price = $Precio_Total + $CostoTotalCalza + $CostoTotalTaquete;
                     $SHLF->save();
                     
-                    
                 }else{
                     $SHLF = new SelectiveHeavyLoadFrame();
                     $SHLF->quotation_id = $Quotation_Id;
@@ -152,7 +151,7 @@ class FramesController extends Controller
                     $SHLF->total_price = $Precio_Total + $CostoTotalCalza + $CostoTotalTaquete;
                     $SHLF->save();
                 }
-                
+
                 $Precio_unit_sn_factor = ($Data->total_kg * $PriceList->cost)+ $CostTornPlacas + $CostTornTravDiag;
                 $Precio_sin_factor = $Cantidad * $Precio_unit_sn_factor ;
                 echo "  //factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
@@ -162,6 +161,7 @@ class FramesController extends Controller
                 echo "<br> //Costo calzas: $".$CostoTotalCalza;
                 echo "/CostoTaquetes: $".$CostoTotalTaquete;
                 return view('quotes.selectivo.frames.heavyloads.store', compact(
+                    'Precio_sin_factor',
                     'Cantidad',
                     'Calibre',
                     'Pandeo',

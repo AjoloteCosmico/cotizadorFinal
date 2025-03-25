@@ -73,7 +73,7 @@ class StructuralFrameworksController extends Controller
                 $CostTornTravDiag = $TornTravDiag * $PriceListScrewCostTravDiag;
                 $TotTornTravDiag = $Cantidad * $TornTravDiag;
                 $TotCostTornTravDiag = $Cantidad * $CostTornTravDiag;
-                $Precio = $Data->price + $CostTornTravDiag;
+                $Precio = ($Data->f_total*$Data->cost*$Data->total_kg ) + $CostTornTravDiag;
                 $Precio_Total = $Cantidad * $Precio;
                 $Calzas = 4;
                 $CostoCalzas = PriceList::where('piece', 'CALZAS')->first();
@@ -130,9 +130,11 @@ class StructuralFrameworksController extends Controller
                     $SF->total_price = $Precio_Total + $CostoTotalCalza + $CostoTotalTaquete;
                     $SF->save();
                 }
-
+                $Precio_unit_sn_factor = ($Data->total_kg * $Data->cost)+ $CostTornTravDiag;
+                $Precio_sin_factor = $Cantidad * $Precio_unit_sn_factor ;
                 return view('quotes.selectivo.frames.structuralframeworks.store', compact(
                     'Cantidad',
+                    'Precio_sin_factor',
                     'Calibre',
                     'Pandeo',
                     'Peso',
