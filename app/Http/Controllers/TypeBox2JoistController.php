@@ -116,7 +116,10 @@ class TypeBox2JoistController extends Controller
             echo '<br> //Peso: '.$TypeLJoists->weight;
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
             
+            $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
+           
             return view('quotes.selectivo.joists.typebox2joists.caliber14.store', compact(
+                'Precio_sin_factor',
                 'Amount',
                 'Weight',
                 'JoistType',
@@ -219,8 +222,9 @@ class TypeBox2JoistController extends Controller
             echo " //precio unit sin f_total: $".$Import / $PriceList->f_total ;
             echo '<br> //Peso: '.$TypeLJoists->weight;
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
-            
+            $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
         return view('quotes.selectivo.joists.typebox2joists.store', compact(
+            'Precio_sin_factor',
             'Amount',
             'Caliber',
             'Length',
@@ -336,8 +340,9 @@ class TypeBox2JoistController extends Controller
             echo " //precio unit sin f_total: $".$Import / $PriceList->f_total ;
             echo '<br> //Peso: '.$TypeLJoists->weight;
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
-            
+            $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
         return view('quotes.drivein.joists.typebox2joists.store', compact(
+            'Precio_sin_factor',
             'Amount',
             'Caliber',
             'Length',
@@ -401,7 +406,7 @@ class TypeBox2JoistController extends Controller
     {
         //
     }
-    public function add_carrito($id){
+    public function add_carrito($id,$Costo=0){
         $Quotation_Id = $id;
         $Quotation=Quotation::find($id);
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo

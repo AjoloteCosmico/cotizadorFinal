@@ -322,58 +322,56 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     Route::get('shopping_cart/delete/{id}', [CartController::class, 'destroy'])->name('shopping_cart.destroy');
     Route::get('shopping_cart/vaciar', [CartController::class, 'vaciar'])->name('shopping_cart.vaciar');
     
-    Route::get('shopping_cart/add_protectors/{id}/{costo}', [CartController::class, 'add_selectivo_protectors'])->name('shopping_cart.add_selectivo_protectors');
-    Route::get('shopping_cart/add_carga_pesada/{id}/{costo}', [CartController::class, 'add_selectivo_carga_pesada'])->name('shopping_cart.add_selectivo_carga_pesada');
-    Route::get('shopping_cart/add_marcos_estructurales/{id}/{costo}', [CartController::class, 'add_selectivo_marcos_estructurales'])->name('shopping_cart.add_selectivo_marcos_estructurales');
-    Route::get('shopping_cart/add_minimarcos/{id}/{costo}', [CartController::class, 'add_selectivo_minimarcos'])->name('shopping_cart.add_selectivo_minimarcos');
+    Route::get('shopping_cart/add_protectors/{id}/{costo?}', [CartController::class, 'add_selectivo_protectors'])->name('shopping_cart.add_selectivo_protectors');
+    Route::get('shopping_cart/add_carga_pesada/{id}/{costo?}', [CartController::class, 'add_selectivo_carga_pesada'])->name('shopping_cart.add_selectivo_carga_pesada');
+    Route::get('shopping_cart/add_marcos_estructurales/{id}/{costo?}', [CartController::class, 'add_selectivo_marcos_estructurales'])->name('shopping_cart.add_selectivo_marcos_estructurales');
+    Route::get('shopping_cart/add_minimarcos/{id}/{costo?}', [CartController::class, 'add_selectivo_minimarcos'])->name('shopping_cart.add_selectivo_minimarcos');
     
     //agregar al carrito drive in
-    Route::get('shopping_cart/add_drive_frames/{id}/{costo}', [CartController::class, 'add_drive_frames'])->name('shopping_cart.add_drive_frames');
-    Route::get('shopping_cart/add_drive_structural_frames/{id}/{costo}', [CartController::class, 'add_drive_sframes'])->name('shopping_cart.add_drive_sframes');
-    Route::get('shopping_cart/add_drive_box2/{id}/{costo}', [TypeBox2JoistController::class, 'add_carrito'])->name('shopping_cart.add_drive_box2');
+    Route::get('shopping_cart/add_drive_frames/{id}/{costo?}', [CartController::class, 'add_drive_frames'])->name('shopping_cart.add_drive_frames');
+    Route::get('shopping_cart/add_drive_structural_frames/{id}/{costo?}', [CartController::class, 'add_drive_sframes'])->name('shopping_cart.add_drive_sframes');
+    Route::get('shopping_cart/add_drive_box2/{id}/{costo?}', [TypeBox2JoistController::class, 'add_carrito'])->name('shopping_cart.add_drive_box2');
     
-    Route::get('shopping_cart/cot_floors/{id}/{costo}', [FloorController::class, 'add_carrito'])->name('floors.add_carrito');
+    Route::get('shopping_cart/cot_floors/{id}/{costo?}', [FloorController::class, 'add_carrito'])->name('floors.add_carrito');
 
-    Route::get('shopping_cart/cot_floor_reinforcements/{id}/{costo}', [FloorReinforcementController::class, 'add_carrito'])->name('floor_reinforcements.add_carrito');
+    Route::get('shopping_cart/cot_floor_reinforcements/{id}/{costo?}', [FloorReinforcementController::class, 'add_carrito'])->name('floor_reinforcements.add_carrito');
     
-    Route::get('shopping_cart/cot_spacers/{id}/{costo}', [SpacerController::class, 'add_carrito'])->name('spacers.add_carrito');
-    
+    Route::get('shopping_cart/cot_spacers/{id}/{costo?}', [SpacerController::class, 'add_carrito'])->name('spacers.add_carrito');   
 
-
-    Route::get('shopping_cart/add_vigas_tipo_L_2/{id}/{costo}', [TypeL2JoistController::class, 'add_carrito'])->name('typel2joists.add_carrito');
-    Route::get('shopping_cart/add_vigas_tipo_L_2/calibre14/{id}/{costo}', [TypeL2JoistController::class, 'add_carrito14'])->name('typel2joists_caliber14.add_carrito');
-    Route::get('shopping_cart/add_vigas_tipo_L_2_5/{id}/{costo}/{costo}', [TypeL25JoistController::class, 'add_carrito'])->name('typel25joists.add_carrito');
-    Route::get('shopping_cart/add_vigas_tipo_L_2_5/calibre14/{id}/{costo}', [TypeL25JoistController::class, 'add_carrito14'])->name('typel25joists_caliber14.add_carrito');
-    Route::get('shopping_cart/add_vigas_tipo_Box_2/{id}/{costo}', [TypeBox2JoistController::class, 'add_carrito'])->name('typebox2joists.add_carrito');
-    Route::get('shopping_cart/add_vigas_tipo_Box_2/calibre14/{id}/{costo}', [TypeBox2JoistController::class, 'add_carrito14'])->name('typebox2joists_caliber14.add_carrito');
-    Route::get('shopping_cart/add_vigas_tipo_Box_25/{id}/{costo}', [TypeBox25JoistController::class, 'add_carrito'])->name('typebox25joists.add_carrito');
-    Route::get('shopping_cart/add_vigas_tipo_Box_25/calibre14/{id}/{costo}', [TypeBox25JoistController::class, 'add_carrito14'])->name('typebox25joists_caliber14.add_carrito');
-    Route::get('shopping_cart/add_vigas_tipo_Structural/{id}/{costo}', [TypeStructuralJoistController::class, 'add_carrito'])->name('typestructuraljoists.add_carrito');
-    Route::get('shopping_cart/add_vigas_tipo_Structural/calibre14/{id}/{costo}', [TypeStructuralJoistController::class, 'add_carrito14'])->name('typestructuraljoists_caliber14.add_carrito');
-    Route::get('shopping_cart/add_vigas_tipo_C2/{id}/{costo}', [TypeC2JoistController::class, 'add_carrito'])->name('typec2joists.add_carrito');
-    Route::get('shopping_cart/add_vigas_tipo_C2/calibre14/{id}/{costo}', [TypeC2JoistController::class, 'add_carrito14'])->name('typec2joists_caliber14.add_carrito');
-    Route::get('shopping_cart/add_vigas_tipo_LR/{id}/{costo}', [TypeLRJoistController::class, 'add_carrito'])->name('typelrjoists.add_carrito');
-    Route::get('shopping_cart/add_vigas_tipo_LR/calibre14/{id}/{costo}', [TypeLRJoistController::class, 'add_carrito14'])->name('typelrjoists_caliber14.add_carrito');
-    Route::get('shopping_cart/add_vigas_tipo_Chair/{id}/{costo}', [TypeChairJoistController::class, 'add_carrito'])->name('typechairjoists.add_carrito');
-    Route::get('shopping_cart/add_vigas_tipo_Chair/calibre14/{id}/{costo}', [TypeChairJoistController::class, 'add_carrito14'])->name('typechairjoists_caliber14.add_carrito');
+    Route::get('shopping_cart/add_vigas_tipo_L_2/{id}/{costo?}', [TypeL2JoistController::class, 'add_carrito'])->name('typel2joists.add_carrito');
+    Route::get('shopping_cart/add_vigas_tipo_L_2/calibre14/{id}/{costo?}', [TypeL2JoistController::class, 'add_carrito14'])->name('typel2joists_caliber14.add_carrito');
+    Route::get('shopping_cart/add_vigas_tipo_L_2_5/{id}/{costo?}', [TypeL25JoistController::class, 'add_carrito'])->name('typel25joists.add_carrito');
+    Route::get('shopping_cart/add_vigas_tipo_L_2_5/calibre14/{id}/{costo?}', [TypeL25JoistController::class, 'add_carrito14'])->name('typel25joists_caliber14.add_carrito');
+    Route::get('shopping_cart/add_vigas_tipo_Box_2/{id}/{costo?}', [TypeBox2JoistController::class, 'add_carrito'])->name('typebox2joists.add_carrito');
+    Route::get('shopping_cart/add_vigas_tipo_Box_2/calibre14/{id}/{costo?}', [TypeBox2JoistController::class, 'add_carrito14'])->name('typebox2joists_caliber14.add_carrito');
+    Route::get('shopping_cart/add_vigas_tipo_Box_25/{id}/{costo?}', [TypeBox25JoistController::class, 'add_carrito'])->name('typebox25joists.add_carrito');
+    Route::get('shopping_cart/add_vigas_tipo_Box_25/calibre14/{id}/{costo?}', [TypeBox25JoistController::class, 'add_carrito14'])->name('typebox25joists_caliber14.add_carrito');
+    Route::get('shopping_cart/add_vigas_tipo_Structural/{id}/{costo?}', [TypeStructuralJoistController::class, 'add_carrito'])->name('typestructuraljoists.add_carrito');
+    Route::get('shopping_cart/add_vigas_tipo_Structural/calibre14/{id}/{costo?}', [TypeStructuralJoistController::class, 'add_carrito14'])->name('typestructuraljoists_caliber14.add_carrito');
+    Route::get('shopping_cart/add_vigas_tipo_C2/{id}/{costo?}', [TypeC2JoistController::class, 'add_carrito'])->name('typec2joists.add_carrito');
+    Route::get('shopping_cart/add_vigas_tipo_C2/calibre14/{id}/{costo?}', [TypeC2JoistController::class, 'add_carrito14'])->name('typec2joists_caliber14.add_carrito');
+    Route::get('shopping_cart/add_vigas_tipo_LR/{id}/{costo?}', [TypeLRJoistController::class, 'add_carrito'])->name('typelrjoists.add_carrito');
+    Route::get('shopping_cart/add_vigas_tipo_LR/calibre14/{id}/{costo?}', [TypeLRJoistController::class, 'add_carrito14'])->name('typelrjoists_caliber14.add_carrito');
+    Route::get('shopping_cart/add_vigas_tipo_Chair/{id}/{costo?}', [TypeChairJoistController::class, 'add_carrito'])->name('typechairjoists.add_carrito');
+    Route::get('shopping_cart/add_vigas_tipo_Chair/calibre14/{id}/{costo?}', [TypeChairJoistController::class, 'add_carrito14'])->name('typechairjoists_caliber14.add_carrito');
 
     
-    Route::get('shopping_cart/cot_two_in_joist_l_galvanized_panels/{id}/{costo}', [PanelController::class, 'selectivo_two_in_joist_l_galvanized_panels_add'])->name('selectivo_two_in_joist_l_galvanized_panels_add');
-    Route::get('shopping_cart/cot_two_in_joist_l_painted_panels/{id}/{costo}', [PanelController::class, 'selectivo_two_in_joist_l_painted_panels_add'])->name('selectivo_two_in_joist_l_painted_panels_add');
-    Route::get('shopping_cart/cot_two_point_five_in_joist_l_galvanized_panels/{id}/{costo}', [PanelController::class, 'selectivo_two_point_five_in_joist_l_galvanized_panels_add'])->name('selectivo_two_point_five_in_joist_l_galvanized_panels_add');
-    Route::get('shopping_cart/cot_two_point_five_in_joist_l_painted_panels/{id}/{costo}', [PanelController::class, 'selectivo_two_point_five_in_joist_l_painted_panels_add'])->name('selectivo_two_point_five_in_joist_l_painted_panels_add');
-    Route::get('shopping_cart/cot_chair_joist_galvanized_panels/{id}/{costo}', [PanelController::class, 'selectivo_chair_joist_galvanized_panels_add'])->name('selectivo_chair_joist_galvanized_panels_add');
-    Route::get('shopping_cart/cot_chair_joist_l_painted_panels/{id}/{costo}', [PanelController::class, 'selectivo_chair_joist_l_painted_panels_add'])->name('selectivo_chair_joist_l_painted_panels_add');
+    Route::get('shopping_cart/cot_two_in_joist_l_galvanized_panels/{id}/{costo?}', [PanelController::class, 'selectivo_two_in_joist_l_galvanized_panels_add'])->name('selectivo_two_in_joist_l_galvanized_panels_add');
+    Route::get('shopping_cart/cot_two_in_joist_l_painted_panels/{id}/{costo?}', [PanelController::class, 'selectivo_two_in_joist_l_painted_panels_add'])->name('selectivo_two_in_joist_l_painted_panels_add');
+    Route::get('shopping_cart/cot_two_point_five_in_joist_l_galvanized_panels/{id}/{costo?}', [PanelController::class, 'selectivo_two_point_five_in_joist_l_galvanized_panels_add'])->name('selectivo_two_point_five_in_joist_l_galvanized_panels_add');
+    Route::get('shopping_cart/cot_two_point_five_in_joist_l_painted_panels/{id}/{costo?}', [PanelController::class, 'selectivo_two_point_five_in_joist_l_painted_panels_add'])->name('selectivo_two_point_five_in_joist_l_painted_panels_add');
+    Route::get('shopping_cart/cot_chair_joist_galvanized_panels/{id}/{costo?}', [PanelController::class, 'selectivo_chair_joist_galvanized_panels_add'])->name('selectivo_chair_joist_galvanized_panels_add');
+    Route::get('shopping_cart/cot_chair_joist_l_painted_panels/{id}/{costo?}', [PanelController::class, 'selectivo_chair_joist_l_painted_panels_add'])->name('selectivo_chair_joist_l_painted_panels_add');
 
-    Route::get('shopping_cart/cot_crossbars/{id}/{costo}', [CrossbarController::class, 'add_carrito'])->name('crossbars.add_carrito');
-    Route::get('shopping_cart/cot_grills/{id}/{costo}', [GrillController::class, 'add_carrito'])->name('selectivo_grills.add_carrito');
-    Route::get('shopping_cart/cot_woods/{id}/{costo}', [WoodController::class, 'add_carrito'])->name('selectivo_woods.add_carrito');
-    Route::get('shopping_cart/cot_special/{id}/{costo}', [QuotationSpecialController::class, 'add_carrito'])->name('selectivo_special.add_carrito');
-    Route::get('shopping_cart/cot_administratives/{id}/{costo}', [QuotationAdministrativeController::class, 'add_carrito'])->name('selectivo_administratives.add_carrito');
+    Route::get('shopping_cart/cot_crossbars/{id}/{costo?}', [CrossbarController::class, 'add_carrito'])->name('crossbars.add_carrito');
+    Route::get('shopping_cart/cot_grills/{id}/{costo?}', [GrillController::class, 'add_carrito'])->name('selectivo_grills.add_carrito');
+    Route::get('shopping_cart/cot_woods/{id}/{costo?}', [WoodController::class, 'add_carrito'])->name('selectivo_woods.add_carrito');
+    Route::get('shopping_cart/cot_special/{id}/{costo?}', [QuotationSpecialController::class, 'add_carrito'])->name('selectivo_special.add_carrito');
+    Route::get('shopping_cart/cot_administratives/{id}/{costo?}', [QuotationAdministrativeController::class, 'add_carrito'])->name('selectivo_administratives.add_carrito');
     
-    Route::get('shopping_cart/cot_freights/{id}/{costo}', [FreightController::class, 'fletes_add_carrito'])->name('selectivo_freights.add_carrito');
-    Route::get('shopping_cart/cot_quotation_travel_assignments/{id}/{costo}', [FreightController::class, 'viaticos_add_carrito'])->name('selectivo_quotation_travel_assignments.add_carrito');
-    Route::get('shopping_cart/cot_installs/{id}/{costo}', [FreightController::class, 'selectivo_installs_add_carrito'])->name('selectivo_installs.add_carrito');
+    Route::get('shopping_cart/cot_freights/{id}/{costo?}', [FreightController::class, 'fletes_add_carrito'])->name('selectivo_freights.add_carrito');
+    Route::get('shopping_cart/cot_quotation_travel_assignments/{id}/{costo?}', [FreightController::class, 'viaticos_add_carrito'])->name('selectivo_quotation_travel_assignments.add_carrito');
+    Route::get('shopping_cart/cot_installs/{id}/{costo?}', [FreightController::class, 'selectivo_installs_add_carrito'])->name('selectivo_installs.add_carrito');
     Route::get('redaccion/{id}/{pdf}', [RedaccionController::class, 'generate'])->name('redaccion');
     Route::get('reporte/{id}/{report}/{pdf}/{tipo?}', [ReportsController::class, 'generate'])->name('reports.generate');
     Route::get('reporte/index', [ReportsController::class, 'index'])->name('reports.index');
