@@ -317,8 +317,8 @@ materials['type']=materials['type'].fillna('')
 worksheet = writer.sheets['Sheet1']
 #Encabezado del documento--------------
 worksheet.merge_range('B2:F2', 'REPORTE POR COTIZACION ', negro_b)
-worksheet.merge_range('B3:F3', 'ADMINISTRATIVO', negro_s)
-worksheet.merge_range('B4:F4', 'COSTOS ', negro_b)
+worksheet.merge_range('B3:F3', 'VENTAS', negro_s)
+worksheet.merge_range('B4:F4', 'PRECIOS TOTALES ', negro_b)
 worksheet.write('H2', 'AÑO', negro_b)
 
 worksheet.write('I2', year, negro_b)
@@ -400,7 +400,7 @@ for i in range(0,len(products)):
         costo= piezas['cost'].fillna(0).values[j].sum()
         cant= piezas['amount'].fillna(0).values[j].sum()*products['amount'].values[i]
         costo_piezas_unit=costo_piezas_unit+costo
-        costo_piezas_total=costo_piezas_total+costo*cant
+    costo_piezas_total=costo_piezas_unit*cant
     piezas['type']=piezas['type'].fillna('')
     print(n,products['tabla'].values[i],row_count,products['cost'].values[i])
     #pda
