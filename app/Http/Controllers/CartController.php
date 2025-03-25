@@ -28,6 +28,9 @@ class CartController extends Controller
     $Quotation = Quotation::where('user_id','=',$user_id)->where('status','Iniciada')->orderBy('created_at', 'desc')->first();
     $Cart_products=Cart_product::where('quotation_id',$QuotationId)->get();
     dd($Quotation,$Type);
+    if(!$Tyoe){
+        $Tyoe='SELECTIVO';
+    }
     return view('quotes.cart.index',compact('Cart_products','QuotationId','Type','Quotation'));
    }
 
