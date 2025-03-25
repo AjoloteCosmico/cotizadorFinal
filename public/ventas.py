@@ -396,6 +396,7 @@ for i in range(0,len(products)):
     print('GENERANDO LA DESCRIPCION::-----:::---:::---')
     print(largo,ancho,peralte)
     descripcion=tablas[products['tabla'].values[i]]+products['protector'].values[i]+' '+products['model'].values[i]+peralte+largo+ancho
+    cant=1
     for j in range(0,n):
         costo= piezas['cost'].fillna(0).values[j].sum()
         cant= piezas['amount'].fillna(0).values[j].sum()*products['amount'].values[i]
