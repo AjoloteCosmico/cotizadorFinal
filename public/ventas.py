@@ -415,7 +415,7 @@ for i in range(0,len(products)):
     # worksheet.write('E'+str(row_count),ret_na( products[price_cols].sum(axis=1, numeric_only=True)[i]/products['factor'].values[i]), formato)
     # worksheet.write('F'+str(row_count),ret_na( products['amount'].values[i]*products[price_cols].sum(axis=1, numeric_only=True)[i]/products['factor'].values[i]), formato)
     worksheet.write('E'+str(row_count),ret_na( products['cost_unit'].values[i]-costo_piezas_unit), formato)
-    worksheet.write('F'+str(row_count),ret_na( products['cost_total'].values[i]-costo_piezas_total), formato)
+    worksheet.write('F'+str(row_count),ret_na( products['cost_total'].values[i]-(costo_piezas_unit*products['amount'].values[i])), formato)
     
     # #calibre
     worksheet.write('G'+str(row_count), str(ret_na(products['caliber'].values[i])).upper(), formato)
