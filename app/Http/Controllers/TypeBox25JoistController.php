@@ -341,8 +341,9 @@ class TypeBox25JoistController extends Controller
             echo '<br> //Peso: '.$TypeLJoists->weight;
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
             
-        
+        $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
         return view('quotes.drivein.typebox25joists.store', compact(
+            'Precio_sin_factor',
             'Amount',
             'Caliber',
             'Length',
@@ -424,6 +425,8 @@ class TypeBox25JoistController extends Controller
         $Cart_product->quotation_id=$Quotation_Id;
         $Cart_product->user_id=Auth::user()->id;
         $Cart_product->amount=$SJB2->amount;
+        
+        $Cart_product->costo_sn_factor=$Costo;
         $Cart_product->save();
         //ligar las instancias
         $SJB2->cart_id=$Cart_product->id;
@@ -433,7 +436,7 @@ class TypeBox25JoistController extends Controller
     
     }
     
-    public function add_carrito14($id){
+    public function add_carrito14($id,$Costo){
         $Quotation_Id = $id;
         $Quotation=Quotation::find($id);
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
@@ -452,6 +455,8 @@ class TypeBox25JoistController extends Controller
         $Cart_product->quotation_id=$Quotation_Id;
         $Cart_product->user_id=Auth::user()->id;
         $Cart_product->amount=$SJL2->amount;
+        
+        $Cart_product->costo_sn_factor=$Costo;
         $Cart_product->save();
         //ligar las instancias
         $SJL2->cart_id=$Cart_product->id;

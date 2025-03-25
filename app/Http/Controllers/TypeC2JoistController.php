@@ -110,8 +110,10 @@ class TypeC2JoistController extends Controller
             echo '<br> //Peso: '.$TypeLJoists->weight;
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
             
+           $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
             return view('quotes.selectivo.joists.typec2joists.caliber14.store', compact(
                 'Amount',
+                'Precio_sin_factor',
                 'Weight',
                 'JoistType',
                 'Length',
@@ -228,7 +230,9 @@ class TypeC2JoistController extends Controller
             echo '<br> //Peso: '.$TypeLJoists->weight;
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
             
+        $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
         return view('quotes.selectivo.joists.typec2joists.store', compact(
+            'Precio_sin_factor',
             'Amount',
             'Caliber',
             'Length',
@@ -285,7 +289,7 @@ class TypeC2JoistController extends Controller
     {
         //
     }
-    public function add_carrito($id){
+    public function add_carrito($id,$Costo){
         $Quotation_Id = $id;
         $Quotation=Quotation::find($id);
         
@@ -310,6 +314,8 @@ class TypeC2JoistController extends Controller
         $Cart_product->quotation_id=$Quotation_Id;
         $Cart_product->user_id=Auth::user()->id;
         $Cart_product->amount=$SJB2->amount;
+        
+        $Cart_product->costo_sn_factor=$Costo;
         $Cart_product->save();
         //ligar las instancias
         $SJB2->cart_id=$Cart_product->id;

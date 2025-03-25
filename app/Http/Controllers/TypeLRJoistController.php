@@ -286,7 +286,7 @@ class TypeLRJoistController extends Controller
     {
         //
     }
-    public function add_carrito($id,$Costo=0){
+    public function add_carrito($id,$Costo){
         $Quotation_Id = $id;
         $Quotation=Quotation::find($id);
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
@@ -305,8 +305,8 @@ class TypeLRJoistController extends Controller
         $Cart_product->quotation_id=$Quotation_Id;
         $Cart_product->user_id=Auth::user()->id;
         $Cart_product->amount=$SJL2->amount;
-        if($Costo>0){
-            $Cart_product->costo_sn_factor=$Costo;}
+        
+        $Cart_product->costo_sn_factor=$Costo;
         $Cart_product->save();
         //ligar las instancias
         $SJL2->cart_id=$Cart_product->id;
@@ -315,7 +315,7 @@ class TypeLRJoistController extends Controller
     
     }
     
-    public function add_carrito14($id,$Costo=0){
+    public function add_carrito14($id,$Costo){
         $Quotation_Id = $id;
         $Quotation=Quotation::find($id);
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
@@ -334,8 +334,8 @@ class TypeLRJoistController extends Controller
         $Cart_product->quotation_id=$Quotation_Id;
         $Cart_product->user_id=Auth::user()->id;
         $Cart_product->amount=$SJL2->amount;
-        if($Costo>0){
-            $Cart_product->costo_sn_factor=$Costo;}
+        
+        $Cart_product->costo_sn_factor=$Costo;
         $Cart_product->save();
         //ligar las instancias
         $SJL2->cart_id=$Cart_product->id;

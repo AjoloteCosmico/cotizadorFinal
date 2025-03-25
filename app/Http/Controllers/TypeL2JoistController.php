@@ -219,8 +219,9 @@ class TypeL2JoistController extends Controller
             echo " //precio unit sin f_total: $".$Import / $PriceList->f_total ;
             echo '<br> //Peso: '.$TypeLJoists->weight;
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
-            
+            $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
         return view('quotes.selectivo.joists.typel2joists.store', compact(
+            'Precio_sin_factor',
             'Amount',
             'Caliber',
             'Length',
@@ -354,13 +355,14 @@ class TypeL2JoistController extends Controller
             $SJL2->total_price = $Import *$Amount;
             $SJL2->save();
         }
-        echo "  //Factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
+            echo "  //Factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
             echo " //precio acero: $".$PriceList->cost;
             echo " //precio unit sin f_total: $".$Import / $PriceList->f_total ;
             echo '<br> //Peso: '.$TypeLJoists->weight;
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
-            
+            $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
         return view('quotes.drivein.joists.typel2joists.store', compact(
+            'Precio_sin_factor',
             'Amount',
             'Caliber',
             'Length',
@@ -402,7 +404,7 @@ class TypeL2JoistController extends Controller
         //
     }
     
-    public function add_carrito($id){
+    public function add_carrito($id,$Costo){
         $Quotation_Id = $id;
         $Quotation=Quotation::find($id);
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
@@ -421,6 +423,8 @@ class TypeL2JoistController extends Controller
         $Cart_product->quotation_id=$Quotation_Id;
         $Cart_product->user_id=Auth::user()->id;
         $Cart_product->amount=$SJL2->amount;
+        
+        $Cart_product->costo_sn_factor=$Costo;
         $Cart_product->save();
         //ligar las instancias
         $SJL2->cart_id=$Cart_product->id;
@@ -429,7 +433,7 @@ class TypeL2JoistController extends Controller
     
     }
     
-    public function add_carrito14($id){
+    public function add_carrito14($id,$Costo){
         $Quotation_Id = $id;
         $Quotation=Quotation::find($id);
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
@@ -448,6 +452,7 @@ class TypeL2JoistController extends Controller
         $Cart_product->quotation_id=$Quotation_Id;
         $Cart_product->user_id=Auth::user()->id;
         $Cart_product->amount=$SJL2->amount;
+        $Cart_product->costo_sn_factor=$Costo;
         $Cart_product->save();
         //ligar las instancias
         $SJL2->cart_id=$Cart_product->id;
