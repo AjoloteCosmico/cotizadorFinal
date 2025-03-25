@@ -27,7 +27,7 @@ class CartController extends Controller
 
     $Quotation = Quotation::where('user_id','=',$user_id)->where('status','Iniciada')->orderBy('created_at', 'desc')->first();
     $Cart_products=Cart_product::where('quotation_id',$QuotationId)->get();
-    dd($Quotation,$Type);
+    // dd($Quotation,$Type);
     if(!$Tyoe){
         $Tyoe='SELECTIVO';
     }
@@ -39,12 +39,12 @@ class CartController extends Controller
     $user_id=Auth::user()->id;
     $Quotation = Quotation::where('user_id','=',$user_id)->where('status','Iniciada')->orderBy('created_at', 'desc')->first();
     $Cart_products=Cart_product::where('quotation_id',$Quotation->id)->get();
-    
+
     return [
         'label'       => count($Cart_products),
         'label_color' => 'danger',
         'icon' => 'fas fa-shopping-cart',
-        
+
     ];
    }
 
@@ -61,14 +61,14 @@ class CartController extends Controller
    }
    public function add_selectivo_protectors($id,$Costo){
     $Quotation_Id = $id;
-    
+
     $Quotation=Quotation::find($id);
     $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','SPR')->get();
         if($cartl2->count()>0){
             foreach($cartl2 as $c){
                 Cart_product::destroy($c->id);
             }
-            
+
         }
     $QuotationProtectors = QuotationProtector::where('quotation_id', $Quotation_Id)->get();
     if(count($QuotationProtectors)>0){
@@ -98,7 +98,7 @@ public function add_selectivo_carga_pesada($id,$Costo){
     if($cartSHLF){
         Cart_product::destroy($cartSHLF->id);
     }
-    //agregar el nuevo al carrito, lo que este en 
+    //agregar el nuevo al carrito, lo que este en
     $SHLF = SelectiveHeavyLoadFrame::where('quotation_id', $Quotation_Id)->first();
     //guardar en el carrito
     $Cart_product= new Cart_product();
@@ -110,7 +110,7 @@ public function add_selectivo_carga_pesada($id,$Costo){
     $Cart_product->quotation_id=$Quotation_Id;
     $Cart_product->user_id=Auth::user()->id;
     $Cart_product->amount=$SHLF->amount;
-    
+
     $Cart_product->costo_sn_factor=$Costo;
     $Cart_product->save();
     //ligar las instancias
@@ -127,7 +127,7 @@ public function add_selectivo_marcos_estructurales($id,$Costo){
     // if($cartSHLF){
     //     Cart_product::destroy($cartSHLF->id);
     // }
-    //agregar el nuevo al carrito, lo que este en 
+    //agregar el nuevo al carrito, lo que este en
     $SF = SelectiveStructuralFrame::where('quotation_id', $Quotation_Id)->first();
     //guardar en el carrito
     $Cart_product= new Cart_product();
@@ -137,7 +137,7 @@ public function add_selectivo_marcos_estructurales($id,$Costo){
     $Cart_product->quotation_id=$Quotation_Id;
     $Cart_product->user_id=Auth::user()->id;
     $Cart_product->amount=$SF->amount;
-    
+
     $Cart_product->total_price=$SF->total_price;
     $Cart_product->costo_sn_factor=$Costo;
     $Cart_product->save();
@@ -157,10 +157,10 @@ public function vaciar(){
     $productos=Cart_product::where('user_id',Auth::user()->id)->get();
     foreach($productos as $p){
         Cart_product::destroy($p->id);
-    
+
     }
-    
+
     return redirect()->route('shopping_cart.index');
    }
-   
+
 }
