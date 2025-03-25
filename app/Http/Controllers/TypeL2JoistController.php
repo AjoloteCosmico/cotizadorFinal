@@ -118,8 +118,9 @@ class TypeL2JoistController extends Controller
             echo " //precio unit sin f_total: $".$Import / $PriceList->f_total ;
             echo '<br> //Peso: '.$TypeLJoists->weight;
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
-            
+            $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
             return view('quotes.selectivo.joists.typel2joists.caliber14.store', compact(
+                'Precio_sin_factor',
                 'Amount',
                 'Weight',
                 'JoistType',

@@ -54,7 +54,7 @@ class GrillController extends Controller
 
         $Grills = Grill::where('quotation_id', $request->Quotation_Id)->first();
         if($Grills)
-        {
+            {
             $Grills = Grill::where('quotation_id', $request->Quotation_Id)->first();
             $Grills->front = $request->front;
             $Grills->color = $request->color;
@@ -187,7 +187,7 @@ class GrillController extends Controller
         $Cart_product->type='GRILL';
         $Cart_product->unit_price=$SJL2->unit_price;
         $Cart_product->total_price=$SJL2->total_price;
-        $Cart_product->quotation_id=$Quotation_Id;
+        $Cart_product->quotation_id=$Quotation_Id;-
         $Cart_product->user_id=Auth::user()->id;
         $Cart_product->amount=$SJL2->amount;
         $Cart_product->save();
