@@ -37,6 +37,7 @@
                                 <td>{{$row->customer->customer}}</td>
                                 <td class="w-30">
                                     <div class="row">
+                                        @can('EDITAR CUESTIONARIO')
                                         <div class="col-6 text-center w-10" title="Editar Cuestionario">
                                             <a href="{{route('rack_engineering_form', $row->id)}}" class="btn btn-blue w-9 h-9">
                                                 <i class="fas fa-file-alt"></i></span>
@@ -47,21 +48,24 @@
                                                 <i class="fas fa-edit"></i></span>
                                             </a>
                                         </div>
+                                        @endcan
+                                        @can('DESCARGAR REDACCIONES')
                                         <div class="col-6 text-center w-10" title="Redaccion en word">
                                             <a href="{{route('redaccion',[$row->id,0])}}" class="btn btn-green w-9 h-9" id="{{'quot'.$row->id}}">
                                                 <i class="fa-solid fa-file-word "></i></span>
                                             </a>
                                         </div>
-                                        
                                         <div class="col-6 text-center w-10" title="Redaccion en pdf">
                                             <a href="{{route('redaccion', [$row->id,1])}}" class="btn btn-red w-9 h-9" id="{{'quot'.$row->id}}">
                                                 <i class="fa-solid fa-file-pdf "></i></span>
                                             </a>
                                         </div>
+                                        
                                         <div class="col-6 text-center w-10" title="Descargar cuestionario">
                                             <a href="{{route('rpt_rack_engineering', $row->id)}}" class="btn btn-green w-9 h-9">
                                                 <i class="fa fa-wpforms"></i></a>                
                                         </div>
+                                        @endcan
                                         @if($row->img)
                                             <div class="col-6 text-center w-10" title="Ver imagen (Diagrama)">
                                             <a href="{{asset('storage/'.$row->img)}}" class="btn btn-green w-9 h-9">

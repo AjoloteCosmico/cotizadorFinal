@@ -10,6 +10,7 @@
     <div class="container w-full bg-white p-3 rounded-xl shadow-xl">
         <div class="row m-3">
             <div class="row">
+            @can('COTIZAR PIEZAS')
                 <div class="col-sm-6 col-xs-12">
                     <div class="card">
                         <div class="card-body">
@@ -26,6 +27,9 @@
                         </div>
                     </div>
                 </div>
+                
+                @endcan
+                @can('COTIZAR SELECTIVO')
                 <div class="col-sm-6 col-xs-12">
                     <div class="card">
                         <div class="card-body">
@@ -42,9 +46,11 @@
                         </div>
                     </div>
                 </div>
+                @endcan
             </div>
             <div class="w-100">&nbsp;</div>
             <div class="row">
+                @can('COTIZAR PASARELA')
                 <div class="col-sm-6 col-xs-12">
                     <div class="card">
                         <div class="card-body">
@@ -61,6 +67,8 @@
                         </div>
                     </div>
                 </div>
+                @endcan
+                @can('COTIZAR DOBLE PROFUNDIDAD')
                 <div class="col-sm-6 col-xs-12">
                     <div class="card">
                         <div class="card-body">
@@ -77,9 +85,11 @@
                         </div>
                     </div>
                 </div>
+                @endcan
             </div>
             <div class="w-100">&nbsp;</div>
             <div class="row">
+                @can('COTIZAR DRIVE IN')
                 <div class="col-sm-6 col-xs-12">
                     <div class="card">
                         <div class="card-body">
@@ -96,6 +106,8 @@
                         </div>
                     </div>
                 </div>
+                @endcan
+                @can('COTIZAR ESTANTERIA')
                 <div class="col-sm-6 col-xs-12">
                     <div class="card">
                         <div class="card-body">
@@ -112,6 +124,7 @@
                         </div>
                     </div>
                 </div>
+                @endcan
             </div>
             <div class="w-100">&nbsp;</div>
             <div class="row">

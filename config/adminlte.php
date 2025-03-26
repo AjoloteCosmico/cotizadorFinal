@@ -480,7 +480,7 @@ return [
             'text' => 'REPORTES',
             'icon' => 'fas fa-file',
             'route'  => 'reports.index',
-            // 'can' => 'COTIZADOR',
+            'can' => 'VER TODAS LAS COTIZACIONES',
         ],
     ],
 

@@ -26,6 +26,7 @@
                     </div>
                 </div>
                 <div class="col">
+                    @can('VER TODAS LAS COTIZACIONES')
                     <div class="card shadow-sm">
                         <svg class="bd-placeholder-img card-img-top" width="100%" height="150">
                             <g stroke="white" stroke-width="0.4px">
@@ -39,6 +40,7 @@
                             </div>
                         </div>
                     </div>
+                    @endcan
                 </div>
             </div>
         </div>

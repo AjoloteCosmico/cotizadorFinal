@@ -14,6 +14,7 @@
             
         <div class="col-lg-12 text-left">
         <table>
+            @can('DESCARGAR CONSECUTIVO')
         <tr>
             <td><a href="{{route('reports.generate',[0,'consecutivo',0])}}">
               <button class="button"> <span class="badge badge-success" style="size:20px;">Consecutivo &nbsp; 
@@ -24,6 +25,8 @@
                <button class="button"> <span class="badge badge-danger">Consecutivo &nbsp; <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
             </a> <br></td>
         </tr>
+        @endcan
+        @can('DESCARGAR KPI')
         <tr>
             <td><a href="{{route('reports.generate',[0,'kpis',0])}}">
               <button class="button"> <span class="badge badge-success">KPI's &nbsp; <i class="fa fa-file-excel-o fa-lg" aria-hidden="true"></i></span> </button>
@@ -32,6 +35,8 @@
                <button class="button"> <span class="badge badge-danger">KPI's&nbsp; <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
             </a><br> </td>
         </tr>
+        @endcan
+        @can('DESCARGAR KPI2')
         <tr>
             <td>
              <a href="{{route('reports.generate',[0,'kpis2',0])}}">
@@ -42,6 +47,7 @@
                <button class="button"> <span class="badge badge-danger">KPI2's&nbsp; <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
             </a><br> </td>
         </tr>
+        @endcan
     </table>
     
             </div>
@@ -66,26 +72,42 @@
                                 <td>{{ date('d-m-Y', strtotime($row->created_at)) }}</td>
                                 <td>{{$row->customer->customer}}</td>
                                 <td>
-                                <a href="{{route('reports.generate',[$row->id,'administrativo',0])}}">
-                                  <button class="button"> <span class="badge badge-success">Admin &nbsp; <i class="fa fa-file-excel-o fa-lg" aria-hidden="true"></i></span> </button>
+                                  @can('DESCARGAR ADMINISTRATIVO')
+                                  <a href="{{route('reports.generate',[$row->id,'administrativo',0])}}">
+                                   <button class="button"> <span class="badge badge-success">Admin &nbsp; <i class="fa fa-file-excel-o fa-lg" aria-hidden="true"></i></span> </button>
                                   </a>  
+                                  @endcan
+                                  @can('DESCARGAR VENTAS')
                                   <a href="{{route('reports.generate',[$row->id,'ventas',0])}}">
                                   <button class="button"> <span class="badge badge-success">Ventas &nbsp; <i class="fa fa-file-excel-o fa-lg" aria-hidden="true"></i></span> </button>
                                   </a>
+                                  
+                                  @endcan
+                                  @can('DESCARGAR MARGEN')
                                   <a href="{{route('reports.generate',[$row->id,'margen',0])}}">
                                   <button class="button"> <span class="badge badge-success">Margen &nbsp; <i class="fa fa-file-excel-o fa-lg" aria-hidden="true"></i></span> </button>
                                   </a> 
+                                  @endcan
                                </td> 
                                <td>
-                               <a href="{{route('reports.generate',[$row->id,'administrativo',1])}}">
-                                  <button class="button"> <span class="badge badge-danger">Admin &nbsp;<i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
+                                
+                                  @can('DESCARGAR ADMINISTRATIVO')
+                                  <a href="{{route('reports.generate',[$row->id,'administrativo',1])}}">
+                                   <button class="button"> <span class="badge badge-danger">Admin &nbsp;<i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
                                   </a>  
+                                  
+                                  @endcan
+                                  @can('DESCARGAR VENTAS')
                                   <a href="{{route('reports.generate',[$row->id,'ventas',1])}}">
-                                  <button class="button"> <span class="badge badge-danger">Ventas &nbsp;<i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
+                                    <button class="button"> <span class="badge badge-danger">Ventas &nbsp;<i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
                                   </a> 
+                                  
+                                  @endcan
+                                  @can('DESCARGAR MARGEN')
                                   <a href="{{route('reports.generate',[$row->id,'margen',1])}}">
-                                  <button class="button"> <span class="badge badge-danger">Margen &nbsp;<i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
+                                    <button class="button"> <span class="badge badge-danger">Margen &nbsp;<i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></span> </button>
                                   </a> 
+                                  @endcan
                                </td>
                             </tr>
                         @endforeach
