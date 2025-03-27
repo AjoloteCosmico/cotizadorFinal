@@ -364,7 +364,7 @@ return [
                     'text' => 'TIPOS DE CLIENTES',
                     'icon' => 'fas fa-fw fa-restroom',
                     'route'  => 'customer_types.index',
-                    // 'can'  => 'VER TIPO DE CLIENTES',
+                    'can'  => 'VER CLIENTES',
                 ],
                 [
                     'text' => 'SECTORES',
