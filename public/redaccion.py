@@ -194,12 +194,10 @@ else:
     photo=''
 context={
     'cliente':cliente['customer'].values[0],
-    
     'direccion':cliente['address'].values[0]+' '+cliente['outdoor'].values[0]+', '+cliente['city'].values[0]+' '+cliente['suburb'].values[0]+' '+cliente['state'].values[0]+', cp: '+str(cliente['zip_code'].values[0]),
     'folio': cotizacion['invoice'].values[0],
     'fecha': today,
     'asesor': user['name'].values[0],
-    
     'mayus_type':cotizacion['type'].values[0],
     'type':cotizacion['type'].values[0].capitalize(),
     'productos': productos,

@@ -14,7 +14,7 @@
                         @csrf
                       
            <div class="card-body">
-                @livewire('add-photos', ['Quotation_Id' => $Quotation_Id])
+               {{-- @livewire('add-photos', ['Quotation_Id' => $Quotation_Id]) --}}
             </div>
             <div class="card-footer">
                 <div class="col-xs-12 col-sm-6 m-1 gap-2">
