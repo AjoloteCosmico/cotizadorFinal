@@ -28,12 +28,10 @@ class ReportsController extends Controller
         return view('reports.index',compact('Quotations'));
     }
 
-
-
     public function generate($id,$report,$pdf,$tipo=0)
     {
         $caminoalpoder=public_path();
-        $process = new Process(['python3',$caminoalpoder.'/'.$report.'.py',$id,$tipo]);
+        $process = new Process(['/var/www/app-env/bin/python3',$caminoalpoder.'/'.$report.'.py',$id,$tipo]);
         $process->run();
         if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
@@ -50,7 +48,6 @@ class ReportsController extends Controller
           }
           $data = $process2->getOutput();
          return response()->download(public_path('storage/report/'.$report.$id.'.pdf'));
-     
      
         }
     }

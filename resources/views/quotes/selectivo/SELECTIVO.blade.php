@@ -180,8 +180,8 @@
                 <div class="col-sm-4 col-xs-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Administrativo</h5>
-                            <p class="card-text">Cotizador de Administrativo.</p>
+                            <h5 class="card-title">Troquel</h5>
+                            <p class="card-text">Cotizador de Troquel.</p>
                             <a href="{{ route('selectivo_administratives.index', $Quotation_Id) }}" class="btn btn-primary">
                                 <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
                                     <path fill-rule="evenodd"
@@ -241,7 +241,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4 col-xs-12">
+                <!-- <div class="col-sm-4 col-xs-12">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Redacción</h5>
@@ -256,7 +256,7 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-sm-4 col-xs-12">
                     <div class="card">
                         <div class="card-body">
