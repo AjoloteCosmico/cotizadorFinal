@@ -23,7 +23,7 @@ class RedaccionController extends Controller
        if($pdf==0){
             return response()->download(public_path('storage/Cotizacion'.$QuotationId.'.docx'));
         }else{
-          $process2=new Process(['lowriter','--convert-to', 'pdf', 'Cotizacion'.$QuotationId.'.docx'],$caminoalpoder.'/storage/');
+          $process2=new Process(['lowriter','--headless','--convert-to', 'pdf','Cotizacion'.$QuotationId.'.docx'],$caminoalpoder.'/storage/');
          
           $process2->run();
           if (!$process2->isSuccessful()) {
