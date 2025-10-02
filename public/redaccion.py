@@ -90,7 +90,7 @@ for i in tablas:
         p=p.assign(cost_total=cart_reference['total_price'].values[0])
         p=p.assign(cantidad=cart_reference['amount'].values[0])
     
-    products=products.append(p,ignore_index=True)
+    products=pd.concat([products,pd.DataFrame([p])],ignore_index=True)
 # print(products)
 cols_to_fill_str=['description','protector','model','sku']
 products[cols_to_fill_str]=products[cols_to_fill_str].fillna('')
@@ -137,14 +137,13 @@ for i in range(len(products)):
             this_color='Anaranjado'
         if(('brazo' in products['tabla'].values[i])|('arrios' in products['tabla'].values[i])):
             this_color='Anaranjado'
-
             
             carga='{0:.2f}'.format(products['weight_kg'].values[i])
         
         if(products['cantidad'].values[i]>0):
             print('        SI----')
             productos.append({'nombre':redact[products['tabla'].values[i]],
-                          'extra':extras[products['tabla'].values[i]],                          
+                        'extra':extras[products['tabla'].values[i]],                          
                         'ref':ref[products['tabla'].values[i]],
                         'precio':products[price_cols].sum(axis=1).values[i],
                         'cantidad':products['cantidad'].values[i],
