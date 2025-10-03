@@ -18,8 +18,7 @@ class RedaccionController extends Controller
             throw new ProcessFailedException($process);
         }
         $data = $process->getOutput();
-        
-           
+         
        if($pdf==0){
             return response()->download(public_path('storage/Cotizacion'.$QuotationId.'.docx'));
         }else{
@@ -29,6 +28,7 @@ class RedaccionController extends Controller
           if (!$process2->isSuccessful()) {
              throw new ProcessFailedException($process2);
           }
+          
           $data = $process2->getOutput();
          return response()->download(public_path('storage/'.'Cotizacion'.$QuotationId.'.pdf'));
      

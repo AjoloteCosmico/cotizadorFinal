@@ -22,6 +22,10 @@ class SelectivoController extends Controller
         }
         else{
             $System=$Quotations->type;
+            if(!$System){
+                
+                return view('quotes.menu', compact('Quotation_Id'));
+            }
             
         }
 

@@ -85,11 +85,17 @@ for i in tablas:
         # if('long' in p.columns):
            
         #     p=p.assign(cost=costo*p.long)
-    if(len(p)>0)&(len(cart_reference)>0):
-        p=p.assign(cost_unit=cart_reference['unit_price'].values[0])
-        p=p.assign(cost_total=cart_reference['total_price'].values[0])
-        p=p.assign(cantidad=cart_reference['amount'].values[0])
-    
+    # if(len(p)>0)&(len(cart_reference)>0):
+    if(len(p)>0):
+        if(len(cart_reference)>0):
+            print('ha sido encontrada una instancia de ',p)
+            p=p.assign(cost_unit=cart_reference['unit_price'].values[0])
+            p=p.assign(cost_total=cart_reference['total_price'].values[0])
+            p=p.assign(cantidad=cart_reference['amount'].values[0])
+        else:
+            # p=p.assign(cost_unit=cart_reference['unit_price'].values[0])
+            # p=p.assign(cost_total=cart_reference['total_price'].values[0])
+            p=p.assign(cantidad=p['amount'].values[0])
     products=pd.concat([products,p],ignore_index=True)
 # print(products)
 cols_to_fill_str=['description','protector','model','sku']
