@@ -193,9 +193,9 @@ if(len(dibujos)>0):
     primer_dibujo=dibujos[0]
 else:
     primer_dibujo=' '
-if(cotizacion['img'].values[0]):
-    photo=InlineImage(doc,'storage/'+cotizacion['img'].values[0],width=Mm(50))
-else:
+try:
+    photo=InlineImage(doc,'storage/img'+str(id).zfill(8)+'img0.jpg',width=Mm(50))
+except:
     photo=''
 context={
     'cliente':cliente['customer'].values[0],
