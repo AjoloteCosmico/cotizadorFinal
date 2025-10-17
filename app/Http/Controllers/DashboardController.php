@@ -305,20 +305,33 @@ class DashboardController extends Controller
     public function addphotos(Request $request, $id)
     {
         $Quotation_Id = $id;
+        $formattedId = sprintf('%08d', $Quotation_Id);
+       
         if ($request->has('photo')) {
             $Photo=$request->photo;
-            $FileName='img/img'.$Quotation_Id.'.'.$request->file('photo')->extension();
-            // dd('hago algo',$request);    
-            \Storage::disk('public')->put($FileName,\File::get($request->photo));
-           
-            $Quotation=Quotation::find($id);
-            $Quotation->img=$FileName;
-            $Quotation->save();
+            // dd($Photo);
+            $Index=0;
+            foreach ($request->file('photo') as $photo) {
+                    $FileName=sprintf('%08d', $Quotation_Id).'img'.$Index.'.JPG';
+                    // \Storage::disk('public')->put($FileName,$photo->getContent());
+                    $photo->storeAs('img', $FileName, 'public');
+                    $Index++;
+            }
             
         }
 
-
         return view('quotes.menu', compact('Quotation_Id'));
+    }
+
+    public function end_cuestionary(Request $request, $id)
+    {
+        $Quotation_Id = $id;
+        $formattedId = sprintf('%08d', $Quotation_Id);
+        $pattern =   $formattedId . 'img*.jpg';
+        //  $pattern = '*'; 
+        $files = \Storage::disk('public')->files($pattern);
+         dd($files,$pattern);
+         return view('quotes.menu', compact('Quotation_Id'));
     }
 
     public function product_menu(Request $request)

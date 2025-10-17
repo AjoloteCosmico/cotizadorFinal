@@ -321,8 +321,9 @@ class DashboardController extends Controller
 
     public function addphotos($id)
     {
-        $Quotation_Id = $id;
 
+        $Quotation_Id = $id;
+dd("era este otro controller");
         return view('quotes.menu', compact('Quotation_Id'));
     }
 

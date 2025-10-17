@@ -92,6 +92,7 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     Route::post('layout_quoter', [DashboardController::class, 'layout_quoter'])->name('layout_quoter');
     Route::post('photos_quoter', [DashboardController::class, 'photos_quoter'])->name('photos_quoter');
     Route::post('addphotos/{id}', [DashboardController::class, 'addphotos'])->name('addphotos');
+    Route::post('end_cuestionary/{id}', [DashboardController::class, 'end_cuestionary'])->name('end_cuestionary');
     Route::resource('questionary_charts', QuestionaryChartController::class);
     Route::get('return_material_list/{id}', [DashboardController::class, 'return_material_list'])->name('return_material_list');
     Route::post('product_menu', [DashboardController::class, 'product_menu'])->name('product_menu');
