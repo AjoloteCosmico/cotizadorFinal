@@ -193,10 +193,18 @@ if(len(dibujos)>0):
     primer_dibujo=dibujos[0]
 else:
     primer_dibujo=' '
-try:
-    photo=InlineImage(doc,'storage/img/'+str(id).zfill(8)+'img0.JPG',width=Mm(50))
-except:
-    photo=''
+# try:
+#     photo=InlineImage(doc,'storage/img/'+str(id).zfill(8)+'img0.JPG',width=Mm(50))
+# except:
+#     photo=''
+photos = []
+for i in range(10):
+    path = f"storage/img/{str(id).zfill(8)}img{i}.jpg"
+    if os.path.exists(path):  
+        photos.append(InlineImage(doc, path, width=Mm(50)))
+    else:
+        photos.append("")  # No existe la imagen
+
 context={
     'cliente':cliente['customer'].values[0],
     'direccion':cliente['address'].values[0]+' '+cliente['outdoor'].values[0]+', '+cliente['city'].values[0]+' '+cliente['suburb'].values[0]+' '+cliente['state'].values[0]+', cp: '+str(cliente['zip_code'].values[0]),
@@ -234,7 +242,7 @@ context={
 # """), #numero de dibujos
 'ndib':  str(questionario['ndib'].values[0]).replace(',','O'),
 'primer_dibujo':primer_dibujo ,
-'photo':photo,
+'photos':photos,
     'npos':  questionario['npos'].values[0], #numero de posiciones
     'vigas':  questionario['vigas'].values[0], #vigas
     'tiempo':  questionario['tiempo'].values[0], #tiempo de entrega
