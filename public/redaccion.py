@@ -194,7 +194,7 @@ if(len(dibujos)>0):
 else:
     primer_dibujo=' '
 try:
-    photo=InlineImage(doc,'storage/img'+str(id).zfill(8)+'img0.jpg',width=Mm(50))
+    photo=InlineImage(doc,'storage/img'+str(id).zfill(8)+'img0.JPG',width=Mm(50))
 except:
     photo=''
 context={
