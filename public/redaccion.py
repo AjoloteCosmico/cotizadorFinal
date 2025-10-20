@@ -155,7 +155,7 @@ for i in range(len(products)):
                         'extra':extras[products['tabla'].values[i]],                          
                         'ref':ref[products['tabla'].values[i]],
                         'precio':products[price_cols].sum(axis=1).values[i],
-                        'cantidad':products['cantidad'].values[i],
+                        'cantidad':int(products['cantidad'].values[i]),
                         'color': this_color,
                         'largo': products[largo_cols].sum(axis=1).values[i],
                         'carga': carga,
