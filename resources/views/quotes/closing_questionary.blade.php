@@ -155,7 +155,7 @@
 
                                         <p class="card-text mb-3">TODO SOBRE VIGAS:</p>
                         <div class="row">
-                            <div class="col-xs-12 col-sm-3">&nbsp;</div>
+                           
                             <div class="col-xs-12 col-sm-9">
                                 <div class="form-group">
                                     <select class="inputjet text-sm w-full uppercase" name="vigas" id="vigas">
