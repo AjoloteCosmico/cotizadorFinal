@@ -68,7 +68,7 @@
                                         @endcan
                                         
                                             <div class="col-6 text-center w-10" title="Ver imagenes (Diagrama)">
-                                            <a href="{{route('photos/',$row->id)}}" class="btn btn-blue w-9 h-9">
+                                            <a href="{{route('photos',$row->id)}}" class="btn btn-blue w-9 h-9">
                                                 <i class="fas fa-camera"></i></a>                
                                         </div>
                                     
