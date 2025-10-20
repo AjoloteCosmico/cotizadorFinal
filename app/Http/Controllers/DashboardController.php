@@ -407,6 +407,31 @@ class DashboardController extends Controller
             
 
         }
+        
+        public function photos($id){
+                    
+            $photos = [];
+            $baseId = str_pad($id, 8, '0', STR_PAD_LEFT); // 00000209
+
+            for ($i = 0; $i < 10; $i++) {
+                // Probar extensiones
+                $found = false;
+                foreach (['jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG'] as $ext) {
+                    $path = "storage/img/{$baseId}img{$i}.{$ext}";
+                    if (File::exists(public_path($path))) {
+                        $photos[] = asset($path); // URL público
+                        $found = true;
+                        break;
+                    }
+                }
+                if (!$found) {
+                    $photos[] = null; // si no existe
+                }
+            }
+
+            return view('quotes.photos', compact('photos', 'id'));
+        }
+
 
     
 }

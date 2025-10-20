@@ -85,6 +85,8 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     Route::get('rack_engineering_form/{id}', [DashboardController::class, 'rack_engineering_form'])->name('rack_engineering_form');
     
     Route::get('closing_questionary/{id}', [DashboardController::class, 'closing_questionary'])->name('closing_questionary');
+    Route::get('photos/{id}', [DashboardController::class, 'photos'])->name('photos');
+    
     Route::post('close_quotation/{id}', [DashboardController::class, 'close_quotation'])->name('close_quotation');
     
     Route::post('cuestionario_inicial', [DashboardController::class, 'cuestionario_inicial'])->name('cuestionario_inicial');

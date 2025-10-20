@@ -66,12 +66,12 @@
                                                 <i class="fa fa-wpforms"></i></a>                
                                         </div>
                                         @endcan
-                                        @if($row->img)
-                                            <div class="col-6 text-center w-10" title="Ver imagen (Diagrama)">
-                                            <a href="{{asset('storage/'.$row->img)}}" class="btn btn-green w-9 h-9">
+                                        
+                                            <div class="col-6 text-center w-10" title="Ver imagenes (Diagrama)">
+                                            <a href="{{route('photos/',$row->id)}}" class="btn btn-blue w-9 h-9">
                                                 <i class="fas fa-camera"></i></a>                
                                         </div>
-                                        @endif
+                                    
                                         {{--  <div class="col-6 text-center w-10">
                                             <form class="DeleteReg" action=" " method="POST">
                                                 @csrf
