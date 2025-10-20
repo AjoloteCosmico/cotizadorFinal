@@ -64,7 +64,7 @@
                                 <td>Costo Taquetes: ${{number_format($CostoTaquete, 2)}}</td>
                             </tr>
                             <tr class="font-bold text-right text-1xl">
-                                <td colspan="2">Costo x Unidad: ${{number_format($Precio, 2)}}</td>
+                                <td colspan="2">Costo x Unidad: ${{number_format(($Precio_Total + $CostoTotalCalza + $CostoTotalTaquete)/$Cantidad, 2)}}</td>
                             </tr>
                         </table>
                     </div>
@@ -103,7 +103,7 @@
                                 <td colspan="2" class="font-bold text-right text-1xl">Costo Total Taquetes: ${{number_format($CostoTotalTaquete, 2)}}</td>
                             </tr>
                             <tr class="font-bold text-right text-1xl">
-                                <td colspan="3">Costo Total: ${{number_format($Precio_Total, 2)}}</td>
+                                <td colspan="3">Costo Total: ${{number_format($Precio_Total + $CostoTotalCalza + $CostoTotalTaquete, 2)}}</td>
                             </tr>                            
                         </table>
                     </div>
