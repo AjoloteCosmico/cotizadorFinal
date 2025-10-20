@@ -128,6 +128,9 @@ else:
 instalacion_tables=['quotation_installs','quotation_uninstalls']
 productos=[]
 print(products.columns)
+for col in largo_cols:
+    products[col]=products[col].astype(float)
+
 for i in range(len(products)):
     this_color=' '
     seccion=None
