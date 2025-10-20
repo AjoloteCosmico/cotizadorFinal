@@ -430,8 +430,8 @@ class DashboardController extends Controller
                     $photos[] = null; // si no existe
                 }
             }
-
-            return view('quotes.photos', compact('photos', 'id'));
+            $Quotation = Quotation::find($id);
+            return view('quotes.photos', compact('photos', 'id', 'Quotation'));
         }
 
 

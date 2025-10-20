@@ -9,7 +9,7 @@
 @section('content')
     <div class="container w-full bg-gray-300 p-3 rounded-xl shadow-xl">
         <div class="row p-3 m-2 rounded-lg shadow-xl bg-white">
-             <h3>Fotos de Cotización #{{ $id }}</h3>
+             <h3>Fotos de Cotización {{ $Quotation->invoice }}</h3>
     <div style="display:flex; flex-wrap:wrap; gap:10px;">
         @foreach($photos as $photo)
             @if($photo)
@@ -18,6 +18,7 @@
                 </div>
             @endif
         @endforeach
+        
         @if(count($photos) == 0)
             <p>No hay fotos disponibles para esta cotización.</p>
         @endif
