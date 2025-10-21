@@ -92,6 +92,7 @@ for i in tablas:
             p=p.assign(cost_unit=cart_reference['unit_price'].values[0])
             p=p.assign(cost_total=cart_reference['total_price'].values[0])
             p=p.assign(cantidad=cart_reference['amount'].values[0])
+            p=p.assign(sku=cart_reference['sku'].values[0])
         else:
             # p=p.assign(cost_unit=cart_reference['unit_price'].values[0])
             # p=p.assign(cost_total=cart_reference['total_price'].values[0])
@@ -103,7 +104,7 @@ products[cols_to_fill_str]=products[cols_to_fill_str].fillna('')
 cols_kg=['weight','total_kg','total_weight','weight_kg']
 cols_m2=['m2','total_m2']
 largo_cols=['long','length','length_meters','frame_background',
-       'length_dimension', 'dimensions']
+       'length_dimension']
 ancho_cols=['uncut_front',  'uncut_background',
        'depth']
 products[cols_kg+cols_m2+largo_cols+ancho_cols]=products[cols_kg+cols_m2+largo_cols+ancho_cols].fillna(0)
@@ -146,7 +147,6 @@ for i in range(len(products)):
             this_color='Anaranjado'
         if(('brazo' in products['tabla'].values[i])|('arrios' in products['tabla'].values[i])):
             this_color='Anaranjado'
-            
             carga='{0:.2f}'.format(products['weight_kg'].values[i])
         
         if(products['cantidad'].values[i]>0):
@@ -163,7 +163,8 @@ for i in range(len(products)):
                         'ancho': products[ancho_cols].sum(axis=1).values[i],
                         'depth': products['depth'].values[i],
                         'model': products['model'].values[i],
-                        'seccion':seccion})
+                        'seccion':seccion,
+                        'sku':products['sku'].values[i],})
 
 print('X-X-X-X-X-X-X calculado el total',products[price_cols]) 
 
