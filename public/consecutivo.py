@@ -289,7 +289,7 @@ for j in range(len(cotizaciones)):
             
                 p=p.assign(cost=costo*p.long)
             # print(i)
-        products=products.append(p,ignore_index=True)
+        products=pd.concat([products,p],ignore_index=True)
     cols_to_fill_str=['description','protector','model','sku']
     products[cols_to_fill_str]=products[cols_to_fill_str].fillna('')
     cols_kg=['weight','total_kg','total_weight','weight_kg']
