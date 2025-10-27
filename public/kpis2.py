@@ -247,6 +247,7 @@ for i in tablas_dict.tablas:
             p=p.assign(cost=costo*p.long)
         # print(i)
     products=pd.concat([products,p],ignore_index=True)
+    
 cols_to_fill_str=['description','protector','model','sku']
 products[cols_to_fill_str]=products[cols_to_fill_str].fillna('')
 cols_kg=['weight','total_kg','total_weight','weight_kg']
