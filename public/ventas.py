@@ -299,7 +299,7 @@ for i in tablas:
         p=p.assign(cost_unit=cart_reference['unit_price'].values[0])
         p=p.assign(cost_total=cart_reference['total_price'].values[0])
         p=p.assign(cantidad=cart_reference['amount'].values[0])
-    products=products.append(p,ignore_index=True)
+    products=pd.concat([products,p],ignore_index=True)
 products=products.loc[products['cantidad']>0].reset_index(drop=True)
 cols_to_fill_str=['description','protector','model','sku']
 products[cols_to_fill_str]=products[cols_to_fill_str].fillna('')

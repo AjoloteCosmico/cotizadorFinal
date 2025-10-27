@@ -276,7 +276,7 @@ for i in tablas_dict.tablas:
            
             p=p.assign(cost=costo*p.long)
         print(i)
-    products=products.append(p,ignore_index=True)
+    products=pd.concat([products,p],ignore_index=True)
 
 products=products.loc[products['amount']>0].reset_index(drop=True)
 cols_to_fill_str=['description','protector','model','sku']
