@@ -56,7 +56,7 @@
                                 <td>Tornillos Placas: {{$TornPlacas}}</td>
                             </tr>
                             <tr class="font-bold text-right text-1xl">
-                                <td colspan="2">Costo x Unidad: ${{number_format($Data->price, 2)}}</td>
+                                <td colspan="2">Costo x Unidad: ${{number_format($Precio_Total/$Cantidad, 2)}}</td>
                             </tr>
                         </table>
                     </div>

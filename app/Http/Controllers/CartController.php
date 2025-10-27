@@ -91,7 +91,7 @@ class CartController extends Controller
             $protector->save();
         }
     }
-    return redirect()->route('selectivo_protectors.index',$Quotation_Id);
+        return redirect()->route('selectivo.show',$Quotation_Id);
 }
 
 public function add_selectivo_carga_pesada($id,$Costo){
