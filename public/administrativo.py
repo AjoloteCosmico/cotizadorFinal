@@ -413,9 +413,10 @@ for i in range(0,len(products)):
     else:
         precio_total=products[price_cols].sum(axis=1, numeric_only=True)[i]
         precio_unitario=products['amount'].values[i]*products[price_cols].sum(axis=1, numeric_only=True)[i]
-    if(products['cost_total'].values[i]):
-        precio_total=products['cost_total'].values[i]
-        precio_unitario=products['cost_unit'].values[i]
+    if('cost_total' in products):
+        if(products['cost_total'].values[i]):
+            precio_total=products['cost_total'].values[i]
+            precio_unitario=products['cost_unit'].values[i]
     worksheet.write('E'+str(row_count), ret_na(precio_unitario), formato)
     worksheet.write('F'+str(row_count), ret_na(precio_total), formato)
     #calibre
