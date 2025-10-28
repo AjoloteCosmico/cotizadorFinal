@@ -57,14 +57,14 @@
                             </tr>
                             <tr>
                                 <td>Calzas: {{$Calzas}}</td>
-                                <td>Costo Calzas: ${{number_format($CostoCalza, 2)}}</td>
+                                <td>Costo Calzas: ${{number_format($CostoCalza, 2)}} </td>
                             </tr>
                             <tr>
                                 <td>Taquetes: {{$Taquetes}}</td>
                                 <td>Costo Taquetes: ${{number_format($CostoTaquete, 2)}}</td>
                             </tr>
                             <tr class="font-bold text-right text-1xl">
-                                <td colspan="2">Costo x Unidad: ${{number_format(($Precio_Total + $CostoTotalCalza + $CostoTotalTaquete)/$Cantidad, 2)}}</td>
+                                <td colspan="2">Costo x Unidad: ${{number_format(($Precio_Total )/$Cantidad, 2)}}</td>
                             </tr>
                         </table>
                     </div>
@@ -103,7 +103,7 @@
                                 <td colspan="2" class="font-bold text-right text-1xl">Costo Total Taquetes: ${{number_format($CostoTotalTaquete, 2)}}</td>
                             </tr>
                             <tr class="font-bold text-right text-1xl">
-                                <td colspan="3">Costo Total: ${{number_format($Precio_Total + $CostoTotalCalza + $CostoTotalTaquete, 2)}}</td>
+                                <td colspan="3">Costo Total: ${{number_format($Precio_Total, 2)}}</td>
                             </tr>                            
                         </table>
                     </div>
@@ -111,7 +111,7 @@
                         <a href="{{route('frames.show', $Quotation_Id)}}" class="btn btn-blue mb-2">
                             <i class="fa-solid fa-right-left fa-xl"></i>&nbsp; Corregir
                         </a>
-                        <a href="{{route('shopping_cart.add_selectivo_carga_pesada', [$Quotation_Id,$Precio_sin_factor ])}}" class="btn btn-black mb-2">
+                        <a href="{{route('shopping_cart.add_selectivo_carga_pesada', [$Quotation_Id,$Precio_sin_factor,'Costo Calzas: $'.number_format($CostoTotalCalza, 2).'<br>  Costo Taquetes: $'.number_format($CostoTotalTaquete, 2)])}}" class="btn btn-black mb-2">
                             <i class="fa-solid fa-rotate-left fa-xl"></i>&nbsp; Guardar
                         </a>
                     </div>

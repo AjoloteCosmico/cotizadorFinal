@@ -94,7 +94,7 @@ class CartController extends Controller
         return redirect()->route('selectivo.show',$Quotation_Id);
 }
 
-public function add_selectivo_carga_pesada($id,$Costo){
+public function add_selectivo_carga_pesada($id,$Costo,$tornilleria){
     $Quotation_Id = $id;
     $Quotation=Quotation::find($id);
     //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
@@ -108,7 +108,7 @@ public function add_selectivo_carga_pesada($id,$Costo){
     $Cart_product= new Cart_product();
     $Cart_product->name='MARCO SELECTIVO CARGA PESADA '.$SHLF->model;
     $Cart_product->type='SHLF';
-    $Cart_product->unit_price=$SHLF->total_price / $SHLF->amount ;
+    $Cart_product->unit_price=$SHLF->unit_price;
     $Cart_product->total_price=$SHLF->total_price;
     $Cart_product->sku=$SHLF->sku;
     $Cart_product->quotation_id=$Quotation_Id;
@@ -116,6 +116,7 @@ public function add_selectivo_carga_pesada($id,$Costo){
     $Cart_product->amount=$SHLF->amount;
 
     $Cart_product->costo_sn_factor=$Costo;
+    $Cart_product->tornilleria=$tornilleria;
     $Cart_product->save();
     //ligar las instancias
     $SHLF->cart_id=$Cart_product->id;

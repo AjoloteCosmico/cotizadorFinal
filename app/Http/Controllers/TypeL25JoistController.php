@@ -425,6 +425,7 @@ class TypeL25JoistController extends Controller
         
         $Cart_product->costo_sn_factor=$Costo;
         $Cart_product->amount=$SJL2->amount;
+        $Cart_product->tornilleria=$tornilleria;
         $Cart_product->save();
         //ligar las instancias
         $SJL2->cart_id=$Cart_product->id;
@@ -452,7 +453,7 @@ class TypeL25JoistController extends Controller
         $Cart_product->quotation_id=$Quotation_Id;
         $Cart_product->user_id=Auth::user()->id;
         $Cart_product->amount=$SJL2->amount;
-        
+        $Cart_product->tornilleria=$tornilleria;
         $Cart_product->costo_sn_factor=$Costo;
         $Cart_product->save();
         //ligar las instancias

@@ -140,8 +140,8 @@ for i in range(len(products)):
     ancho=0
     print(products['tabla'].values[i],products['cantidad'].values[i],products['cost_unit'].values[i])
     if(products['tabla'].values[i] not in instalacion_tables):
-        if(products['tabla'].values[i]=='selective_heavy_load_frames'):
-            this_color='Azul'
+        if('frames' in products['tabla'].values[i]):
+            this_color='Color:  Galvanizado. (otros colores opcionales).'
             seccion=questionario['section'].values[0]
         if('joist' in products['tabla'].values[i]):
             this_color='Anaranjado'

@@ -128,6 +128,7 @@ class FramesController extends Controller
                     $SHLF->sku = $Sku;  
                     // $SHLF->total_price = $Precio_Total + $CostoTotalCalza + $CostoTotalTaquete;
                     $SHLF->total_price = $Precio_Total + $CostoTotalCalza + $CostoTotalTaquete;
+                    $SHLF->unit_price=$Precio_Total /$Cantidad;
                     $SHLF->save();
                     
                 }else{
@@ -149,6 +150,7 @@ class FramesController extends Controller
                     $SHLF->length=$Altura;
                     // $SHLF->total_price = $Precio_Total + $CostoTotalCalza + $CostoTotalTaquete;
                     $SHLF->total_price = $Precio_Total + $CostoTotalCalza + $CostoTotalTaquete;
+                    $SHLF->unit_price=$Precio_Total /$Cantidad;
                     $SHLF->save();
                 }
 
