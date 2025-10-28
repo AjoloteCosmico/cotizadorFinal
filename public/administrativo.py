@@ -302,7 +302,7 @@ cols_m2=['m2','total_m2']
 price_cols=['price','total_price','import','unit_price']
 products[cols_kg+cols_m2+price_cols+['amount']]=products[cols_kg+cols_m2+price_cols+['amount']].fillna(0)
 largo_cols=['long','length','length_meters','frame_background',
-       'length_dimension', 'dimensions']
+       'length_dimension']
 ancho_cols=['uncut_front',  'uncut_background',
        'depth']
 
