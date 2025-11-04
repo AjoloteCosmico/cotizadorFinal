@@ -437,11 +437,11 @@ for i in range(0,len(products)):
         print('entre al ciclo')
         print(piezas['cost'].fillna(0).values[j],piezas['amount'])
         costo= piezas['cost'].fillna(0).values[j].sum()
-        cant= piezas['amount'].fillna(0).values[j].sum()
+        cant= piezas['amount'].fillna(0).values[j].sum()*products['amount'].values[i]
         worksheet.write('A'+str(row_count), str(i*n+2+j), formato)
         #sku
         worksheet.write('B'+str(row_count), ''.join(materials['sku'].fillna('').values[0]), formato)
-        worksheet.write('C'+str(row_count), str(piezas['amount'].values[j]), formato)
+        worksheet.write('C'+str(row_count), str(cant), formato)
         worksheet.write('D'+str(row_count), str(piezas['description'].fillna('').values[j][0])+str(piezas['piece'].fillna('').values[j]), formato)
         #costos
         worksheet.write('E'+str(row_count),costo, formato)
