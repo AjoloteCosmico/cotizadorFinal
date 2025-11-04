@@ -22,7 +22,6 @@
                             <th>Unidades</th>
                             
                             <th>Precio Unitario</th>
-                             <th>Tornilleria</th>
                             <th>Precio Total</th>
                             <th>-  </th>
                         </tr>
@@ -34,7 +33,7 @@
                             <td> {{$p->amount}}</td>
                             
                             <td> $ {{number_format( $p->unit_price,2)}} </td>
-                            <td> {!! $p->tornilleria !!}</td>
+                            
                             <td> $ {{number_format( $p->total_price,2)}} </td>
                             <td><div class="col-6 text-center w-10">
                                                 <a href="{{ route('shopping_cart.destroy', $p->id)}}" class="btn btn-red w-9 h-9">
@@ -50,7 +49,6 @@
                         <tr>
                             <td></td>
                             <td>-</td> 
-                            <td></td>
                             <td>Total</td>
                             <td> $ {{number_format($Cart_products->sum('total_price'),2)}}</td>
                             <td>- </td>
