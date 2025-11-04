@@ -9,7 +9,7 @@ import os
 from dotenv import load_dotenv
 from datetime import date
 id=sys.argv[1]
-# id=192
+# id=209
 today = date.today()
 load_dotenv()
 
@@ -151,7 +151,81 @@ for i in range(len(products)):
         
         if(products['cantidad'].values[i]>0):
             print('        SI----')
-            productos.append({'nombre':redact[products['tabla'].values[i]],
+            #Gerenerar los atributos escogidos para cada talba
+            #atributos por defecto
+            product_dict={'nombre':redact[products['tabla'].values[i]],
+                        'extra':extras[products['tabla'].values[i]],                          
+                        'ref':ref[products['tabla'].values[i]],
+                        'precio':products[price_cols].sum(axis=1).values[i],
+                        'cantidad':int(products['cantidad'].values[i]),
+                        'color': this_color,
+                        'largo': round(products[largo_cols].sum(axis=1).values[i],2),
+                        'carga': carga,
+                        'altura': round(products[largo_cols].sum(axis=1).values[i],2),
+                        'ancho': round(products[ancho_cols].sum(axis=1).values[i],2),
+                        'depth': products['depth'].values[i],
+                        'model': products['model'].values[i],
+                        'seccion':seccion,
+                        'peralte':None,
+                        'sku':products['sku'].values[i]}
+            #marcos
+            if('frames' in products['tabla'].values[i]):
+                section="84mm por 38mm"
+                if(products['model'].values[i]=='TC-2'):
+                    section="84mm por 52mm"
+                if(products['model'].values[i]=='TC-3'):
+                    section="84mm por 72mm"
+                product_dict={'nombre':redact[products['tabla'].values[i]],
+                        'extra':extras[products['tabla'].values[i]],                          
+                        'ref':products['model'].values[i],
+                        'precio':products[price_cols].sum(axis=1).values[i],
+                        'cantidad':int(products['cantidad'].values[i]),
+                        'color': 'Galvanizado (otros colores disponibles)',
+                        'largo': 0,
+                        'carga': 0,
+                        'altura': products[largo_cols].sum(axis=1).values[i],
+                        'ancho':0,
+                        'depth': products['depth'].values[i],
+                        'model': products['model'].values[i],
+                        'seccion':section,
+                        'peralte':None,
+                        'sku':products['sku'].values[i]}
+            if('structural_frames' in products['tabla'].values[i]):
+                product_dict={'nombre':redact[products['tabla'].values[i]],
+                        'extra':extras[products['tabla'].values[i]],                          
+                        'ref':'ME-'+str(products['model'].values[i][0]),
+                        'precio':products[price_cols].sum(axis=1).values[i],
+                        'cantidad':int(products['cantidad'].values[i]),
+                        'color': 'Azul TYRSA (otros colores disponibles)',
+                        'largo': 0,
+                        'carga': 0,
+                        'altura': products[largo_cols].sum(axis=1).values[i],
+                        'ancho': 0,
+                        'depth': products['depth'].values[i],
+                        'model': products['model'].values[i],
+                        'peralte':None,
+                        'seccion':products['model'].values[i],
+                        'sku':products['sku'].values[i]}
+            #vigas
+            if('joist' in products['tabla'].values[i]):
+                product_dict={'nombre':redact[products['tabla'].values[i]],
+                        'extra':extras[products['tabla'].values[i]],                          
+                        'ref':ref[products['tabla'].values[i]],
+                        'precio':products[price_cols].sum(axis=1).values[i],
+                        'cantidad':int(products['cantidad'].values[i]),
+                        'color': this_color,
+                        'largo': products[largo_cols].sum(axis=1).values[i],
+                        'carga': 'loading_capacity',
+                        'altura': products[largo_cols].sum(axis=1).values[i],
+                        'ancho': products[ancho_cols].sum(axis=1).values[i],
+                        'depth': products['depth'].values[i],
+                        'model': products['model'].values[i],
+                        'seccion':None,
+                        'peralte':str(round(products['camber'].values[i],1))+'"(in)',
+                        'sku':products['sku'].values[i]}
+            #brazos
+            if(('brazo' in products['tabla'].values[i])|('arrios' in products['tabla'].values[i])):
+                product_dict={'nombre':redact[products['tabla'].values[i]],
                         'extra':extras[products['tabla'].values[i]],                          
                         'ref':ref[products['tabla'].values[i]],
                         'precio':products[price_cols].sum(axis=1).values[i],
@@ -163,8 +237,11 @@ for i in range(len(products)):
                         'ancho': products[ancho_cols].sum(axis=1).values[i],
                         'depth': products['depth'].values[i],
                         'model': products['model'].values[i],
-                        'seccion':seccion,
-                        'sku':products['sku'].values[i],})
+                        'seccion':None,
+                        'peralte':None,
+                        'sku':products['sku'].values[i]}
+            
+            productos.append(product_dict)
 
 print('X-X-X-X-X-X-X calculado el total',products[price_cols]) 
 

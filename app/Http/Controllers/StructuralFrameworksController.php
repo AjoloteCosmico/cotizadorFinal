@@ -103,6 +103,8 @@ class StructuralFrameworksController extends Controller
                     $SF->amount = $Cantidad;
                     $SF->model = $Modelo;
                     $SF->caliber = $Calibre;
+                    $SF->depth = $Profundidad;
+                    $SF->length=$Altura;
                     $SF->total_load_kg = $Total_Peso;
                     $SF->total_poles = $Total_Postes;
                     $SF->total_crossbars = $Total_Travesanos;
@@ -119,6 +121,8 @@ class StructuralFrameworksController extends Controller
                     $SF->amount = $Cantidad;
                     $SF->model = $Modelo;
                     $SF->caliber = $Calibre;
+                    $SF->depth = $Profundidad;
+                    $SF->length=$Altura;
                     $SF->total_load_kg = $Total_Peso;
                     $SF->total_poles = $Total_Postes;
                     $SF->total_crossbars = $Total_Travesanos;
