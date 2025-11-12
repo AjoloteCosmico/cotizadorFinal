@@ -11,6 +11,8 @@ use App\Models\PriceList;
 use App\Models\PriceListScrew;
 use App\Models\SelectiveStructuralFrame;
 use App\Models\Cart_product;
+use DB;
+use App\Models\Costo;
 use Illuminate\Http\Request;
 
 class StructuralFrameworksController extends Controller
@@ -62,6 +64,7 @@ class StructuralFrameworksController extends Controller
             $Altura = $request->height_structural;
 
             $Data = PriceStructuralFrameworks::where('caliber', $Calibre)->where('model', $Modelo)->where('depth', $Profundidad)->where('height', $Altura)->first();
+            $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'MARCO')->where('type', 'Negra')->where('caliber', str_replace("-", " ", $Calibre) . " IN")->first();
             if($Data){
                 $Postes = $Data->poles;
                 $Travesanos = $Data->crossbars;
@@ -73,7 +76,7 @@ class StructuralFrameworksController extends Controller
                 $CostTornTravDiag = $TornTravDiag * $PriceListScrewCostTravDiag;
                 $TotTornTravDiag = $Cantidad * $TornTravDiag;
                 $TotCostTornTravDiag = $Cantidad * $CostTornTravDiag;
-                $Precio = ($Data->f_total*$Data->cost*$Data->total_kg ) + $CostTornTravDiag;
+                $Precio = ($PriceList->f_total*$PriceList->cost*$Data->total_kg ) + $CostTornTravDiag;
                 $Precio_Total = $Cantidad * $Precio;
                 $Calzas = 4;
                 $CostoCalzas = PriceList::where('piece', 'CALZAS')->first();
@@ -87,7 +90,7 @@ class StructuralFrameworksController extends Controller
                 $Total_Travesanos = $Cantidad * $Data->crossbars;
                 $Total_Diagonales = $Cantidad * $Data->diagonals;
                 $Total_Placas = $Cantidad * $Data->plates;
-                $Precio_Total = $Cantidad * $Data->price;
+                // $Precio_Total = $Cantidad * $Data->price;
                 $Total_Acero_Kg = $Cantidad * $Data->steel_weight_kg;
                 $Total_Solera_Kg = $Cantidad * $Data->solera_weight_kg;
                 $Total_Kg = $Cantidad * $Data->total_kg;
@@ -136,8 +139,41 @@ class StructuralFrameworksController extends Controller
                 }
                 $Precio_unit_sn_factor = ($Data->total_kg * $Data->cost)+ $CostTornTravDiag;
                 $Precio_sin_factor = $Cantidad * $Precio_unit_sn_factor ;
-                echo "  //factor: ".$Data->f_total.' '.$Data->model.$Data->caliber; 
-                echo " //precio acero: $".$Data->cost;
+
+                //guardar COMPONENTES para reportes
+                $Type='SF';
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
+                // MARCO
+              
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> $Calibre,
+                     'sku'=>$Sku ,'cant'=>$Cantidad,'description'=>'MARCO ESTRUCTURAL '.$Modelo,
+                    'precio_unit'=>$Precio_Total/$Cantidad,'precio_total'=>$Precio_Total, 'factor'=>$PriceList->f_total,
+                    'costo_unit'=>$Precio_unit_sn_factor,'costo_total'=>$Precio_sin_factor,
+                    'kg_unit'=>$Total_Kg/$Cantidad, 'm2_unit'=>$Total_m2/$Cantidad
+                    ]
+                    
+                );
+                //Piezas
+                DB::table('costos')->insert(
+                    [['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'GALVANIZADAS','factor'=>$CostoCalzas->f_total,
+                     'sku'=>$CostoCalzas->sku ,'cant'=>$Calzas*$Cantidad,'description'=>'CALZAS PARA MARCO',
+                    'precio_unit'=>$CostoCalzas->cost * $CostoCalzas->f_total,'precio_total'=>$CostoCalzas->cost * $CostoCalzas->f_total*$Calzas*$Cantidad,
+                    'costo_unit'=>$CostoCalzas->cost,'costo_total'=>$CostoCalzas->cost * $Calzas*$Cantidad,
+                    ],
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'TORNILLERIA','factor'=>$CostoTaquetes->f_total,
+                     'sku'=>$CostoTaquetes->sku ,'cant'=>$Taquetes* $Cantidad,'description'=>$CostoTaquetes->description,
+                    'precio_unit'=>$CostoTaquetes->cost * $CostoTaquetes->f_total,'precio_total'=>$CostoTaquetes->cost * $CostoTaquetes->f_total*$Taquetes*$Cantidad,
+                    'costo_unit'=>$CostoTaquetes->cost,'costo_total'=>$CostoTaquetes->cost * $Calzas*$Cantidad,
+                    ],
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> '5/16 I X 3/4','factor'=>$PriceListScrewsTravDiag->f_total,
+                     'sku'=>$PriceListScrewsTravDiag->sku ,'cant'=>$TotTornTravDiag,'description'=>'TORNILLO Y TUERCA PARA DIAGONALES',
+                    'precio_unit'=>$PriceListScrewsTravDiag->cost * $PriceListScrewsTravDiag->f_total,'precio_total'=>$PriceListScrewsTravDiag->cost * $PriceListScrewsTravDiag->f_total*$TotTornTravDiag,
+                    'costo_unit'=>$PriceListScrewsTravDiag->cost,'costo_total'=>$PriceListScrewsTravDiag->cost * $TotTornTravDiag,
+                    ]]
+                );
+                echo "  //factor: ".$PriceList->f_total.' '.$Data->model.$Data->caliber; 
+                echo " //precio acero: $".$PriceList->cost;
                 echo " //peso total: ".$Data->total_kg ;
                 echo " //total sn f_total: $".$Precio_sin_factor ;
                 echo "<br> //Costo calzas: $".$CostoTotalCalza;

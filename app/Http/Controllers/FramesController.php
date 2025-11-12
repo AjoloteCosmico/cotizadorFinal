@@ -12,8 +12,10 @@ use App\Models\PriceListScrew;
 use App\Models\SelectiveHeavyLoadFrame;
 use App\Models\Quotation;
 use App\Models\Cart_product;
+use App\Models\Costo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DB;
 class FramesController extends Controller
 {
     public function show($id)
@@ -95,7 +97,7 @@ class FramesController extends Controller
                 $Taquetes = 4;
                 $CostoTaquetes = PriceListScrew::where('description', 'TAQUETE')->first();
                 $CostoTaquete = $CostoTaquetes->cost * $CostoTaquetes->f_total;
-
+               
                 $Total_Peso = $Cantidad * $Peso;
                 $Total_Postes = $Cantidad * $Data->poles;
                 $Total_Travesanos = $Cantidad * $Data->crossbars;
@@ -150,12 +152,50 @@ class FramesController extends Controller
                     $SHLF->length=$Altura;
                     // $SHLF->total_price = $Precio_Total + $CostoTotalCalza + $CostoTotalTaquete;
                     $SHLF->total_price = $Precio_Total + $CostoTotalCalza + $CostoTotalTaquete;
-                    $SHLF->unit_price=$Precio_Total /$Cantidad;
+                    $SHLF->unit_price=($Precio_Total + $CostoTotalCalza + $CostoTotalTaquete) /$Cantidad;
                     $SHLF->save();
                 }
-
+                //calcular sin factores
                 $Precio_unit_sn_factor = ($Data->total_kg * $PriceList->cost)+ $CostTornPlacas + $CostTornTravDiag;
                 $Precio_sin_factor = $Cantidad * $Precio_unit_sn_factor ;
+                //guardar COMPONENTES para reportes
+                $Type='SHLF';
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
+                // MARCO
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> $Calibre,
+                     'sku'=>$Sku ,'cant'=>$Cantidad,'description'=>'MARCO CARGA PESADA '.$Modelo,
+                    'precio_unit'=>$Precio_Total/$Cantidad,'precio_total'=>$Precio_Total, 'factor'=>$PriceList->f_total,
+                    'costo_unit'=>$Precio_unit_sn_factor,'costo_total'=>$Precio_sin_factor,
+                    'kg_unit'=>$Total_Kg/$Cantidad, 'm2_unit'=>$Total_m2/$Cantidad
+                    ]
+                    
+                );
+                DB::table('costos')->insert(
+                    [['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'GALVANIZADAS','factor'=>$CostoCalzas->f_total,
+                     'sku'=>$CostoCalzas->sku ,'cant'=>$Calzas*$Cantidad,'description'=>'CALZAS PARA MARCO',
+                    'precio_unit'=>$CostoCalzas->cost * $CostoCalzas->f_total,'precio_total'=>$CostoCalzas->cost * $CostoCalzas->f_total*$Calzas*$Cantidad,
+                    'costo_unit'=>$CostoCalzas->cost,'costo_total'=>$CostoCalzas->cost * $Calzas*$Cantidad,
+                    ],
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'TORNILLERIA','factor'=>$CostoTaquetes->f_total,
+                     'sku'=>$CostoTaquetes->sku ,'cant'=>$Taquetes* $Cantidad,'description'=>$CostoTaquetes->description,
+                    'precio_unit'=>$CostoTaquetes->cost * $CostoTaquetes->f_total,'precio_total'=>$CostoTaquetes->cost * $CostoTaquetes->f_total*$Taquetes*$Cantidad,
+                    'costo_unit'=>$CostoTaquetes->cost,'costo_total'=>$CostoTaquetes->cost * $Calzas*$Cantidad,
+                    ],
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> '5/16 I X 3/4','factor'=>$PriceListScrewsTravDiag->f_total,
+                     'sku'=>$PriceListScrewsTravDiag->sku ,'cant'=>$TotTornTravDiag,'description'=>'TORNILLO Y TUERCA PARA DIAGONALES',
+                    'precio_unit'=>$PriceListScrewsTravDiag->cost * $PriceListScrewsTravDiag->f_total,'precio_total'=>$PriceListScrewsTravDiag->cost * $PriceListScrewsTravDiag->f_total*$TotTornTravDiag,
+                    'costo_unit'=>$PriceListScrewsTravDiag->cost,'costo_total'=>$PriceListScrewsTravDiag->cost * $TotTornTravDiag,
+                    ],
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> '3/8 IN','factor'=>$PriceListScrewsTravDiag->f_total,
+                     'sku'=>$PriceListScrewsPlacas->sku ,'cant'=>$TotTornPlacas,'description'=>'TORNILLO Y TUERCA PARA PLACAS',
+                    'precio_unit'=>$PriceListScrewsPlacas->cost * $PriceListScrewsPlacas->f_total,'precio_total'=>$PriceListScrewsPlacas->cost * $PriceListScrewsPlacas->f_total*$TotTornPlacas,
+                    'costo_unit'=>$PriceListScrewsPlacas->cost,'costo_total'=>$PriceListScrewsPlacas->cost * $TotTornPlacas,
+                    ]]
+                );
+                    
+
+                //Logs para depuracion
                 echo "  //factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
                 echo " //precio acero: $".$PriceList->cost;
                 echo " //peso total: ".$Data->total_kg ;

@@ -13,6 +13,8 @@ use App\Models\TypeL2JoistCamber;
 use App\Models\TypeL2JoistCrossbarLength;
 use App\Models\TypeL2JoistLength;
 use App\Models\TypeL2JoistLoadingCapacity;
+use DB;
+use App\Models\Costo;
 use Illuminate\Http\Request;
 
 use App\Models\Cart_product;
@@ -113,12 +115,33 @@ class TypeL2JoistController extends Controller
                 $SJL2->total_price = $Import*$Amount + $CostoTotalClavijas;
                 $SJL2->save();
             }
+
+            $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
+            $Type='SJL214';
+            // VIGA
+
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> $Calibre,
+                     'sku'=>$Sku ,'cant'=>$Cantidad,'description'=>'VIGA TIPO 2L'.$Modelo,
+                    'precio_unit'=>$Import/$Cantidad,'precio_total'=>$Import, 'factor'=>$PriceList->f_total,
+                    'costo_unit'=>$Precio_unit_sn_factor,'costo_total'=>$Precio_sin_factor,
+                    'kg_unit'=>$TypeLJoists->weight, 'm2_unit'=>$TypeLJoists->m2
+                    ]  
+                );
+
+                DB::table('costos')->insert(
+                    [['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'GALVANIZADAS','factor'=>$CostoCalzas->f_total,
+                     'sku'=>$CostoCalzas->sku ,'cant'=>2*$Cantidad,'description'=>'CLAVIJA DE SEGURIDAD',
+                    'precio_unit'=>$CostoCalzas->cost * $CostoCalzas->f_total,'precio_total'=>$CostoCalzas->cost * $CostoCalzas->f_total*$Calzas*$Cantidad,
+                    'costo_unit'=>$CostoCalzas->cost,'costo_total'=>$CostoCalzas->cost * $Calzas*$Cantidad,
+                    ]]
+                );
             echo "  //Factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
             echo " //precio acero: $".$PriceList->cost;
             echo " //precio unit sin f_total: $".$Import / $PriceList->f_total ;
             echo '<br> //Peso: '.$TypeLJoists->weight;
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
-            $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
+            
             return view('quotes.selectivo.joists.typel2joists.caliber14.store', compact(
                 'Precio_sin_factor',
                 'Amount',
