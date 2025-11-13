@@ -13,6 +13,8 @@ use App\Models\TypeL25JoistCamber;
 use App\Models\TypeL25JoistCrossbarLength;
 use App\Models\TypeL25JoistLength;
 use App\Models\TypeL25JoistLoadingCapacity;
+use DB;
+use App\Models\Costo;
 use Illuminate\Http\Request;
 use App\Models\Quotation;
 use App\Models\Cart_product;
@@ -118,6 +120,26 @@ class TypeL25JoistController extends Controller
             echo '<br> //Peso: '.$TypeLJoists->weight;
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
             $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
+            $Type='SJL2514';
+            $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
+               
+            // VIGA
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> $Caliber,
+                     'sku'=>$TypeLJoists->sku,'cant'=>$Amount,'description'=>'VIGA TIPO 2L CALIBRE'.$Caliber,
+                    'precio_unit'=>$Import,'precio_total'=>$Import*$Amount, 'factor'=>$PriceList->f_total,
+                    'costo_unit'=>$Import / $PriceList->f_total ,'costo_total'=>($Import / $PriceList->f_total)*$Amount ,
+                    'kg_unit'=>$TypeLJoists->weight, 'm2_unit'=>$TypeLJoists->m2
+                    ]  
+                );
+
+                DB::table('costos')->insert(
+                    [['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'GALVANIZADAS','factor'=>$Clavijas->f_total,
+                     'sku'=>$Clavijas->sku ,'cant'=>2*$Amount,'description'=>'CLAVIJA DE SEGURIDAD',
+                    'precio_unit'=>$Clavijas->cost * $Clavijas->f_total,'precio_total'=>$Clavijas->cost * $Clavijas->f_total*2*$Amount,
+                    'costo_unit'=>$Clavijas->cost,'costo_total'=>$Clavijas->cost * 2*$Amount,
+                    ]]
+                );
             return view('quotes.selectivo.joists.typel25joists.caliber14.store', compact(
                 'Precio_sin_factor',
                 'Amount',
@@ -220,6 +242,26 @@ class TypeL25JoistController extends Controller
         echo '<br> //Peso: '.$TypeLJoists->weight;
         echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
         $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
+        $Type='SJL25';
+            $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
+               
+            // VIGA
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> $Caliber,
+                     'sku'=>$TypeLJoists->sku,'cant'=>$Amount,'description'=>'VIGA TIPO 2L CALIBRE'.$Caliber,
+                    'precio_unit'=>$Import,'precio_total'=>$Import*$Amount, 'factor'=>$PriceList->f_total,
+                    'costo_unit'=>$Import / $PriceList->f_total ,'costo_total'=>($Import / $PriceList->f_total)*$Amount ,
+                    'kg_unit'=>$TypeLJoists->weight, 'm2_unit'=>$TypeLJoists->m2
+                    ]  
+                );
+
+                DB::table('costos')->insert(
+                    [['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'GALVANIZADAS','factor'=>$Clavijas->f_total,
+                     'sku'=>$Clavijas->sku ,'cant'=>2*$Amount,'description'=>'CLAVIJA DE SEGURIDAD',
+                    'precio_unit'=>$Clavijas->cost * $Clavijas->f_total,'precio_total'=>$Clavijas->cost * $Clavijas->f_total*2*$Amount,
+                    'costo_unit'=>$Clavijas->cost,'costo_total'=>$Clavijas->cost * 2*$Amount,
+                    ]]
+                );
         return view('quotes.selectivo.joists.typel25joists.store', compact(
             'Precio_sin_factor',
             'Amount',
@@ -425,7 +467,6 @@ class TypeL25JoistController extends Controller
         
         $Cart_product->costo_sn_factor=$Costo;
         $Cart_product->amount=$SJL2->amount;
-        $Cart_product->tornilleria=$tornilleria;
         $Cart_product->save();
         //ligar las instancias
         $SJL2->cart_id=$Cart_product->id;
@@ -453,7 +494,6 @@ class TypeL25JoistController extends Controller
         $Cart_product->quotation_id=$Quotation_Id;
         $Cart_product->user_id=Auth::user()->id;
         $Cart_product->amount=$SJL2->amount;
-        $Cart_product->tornilleria=$tornilleria;
         $Cart_product->costo_sn_factor=$Costo;
         $Cart_product->save();
         //ligar las instancias

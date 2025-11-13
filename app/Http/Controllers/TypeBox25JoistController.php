@@ -13,6 +13,8 @@ use App\Models\TypeBox25JoistCamber;
 use App\Models\TypeBox25JoistCrossbarLength;
 use App\Models\TypeBox25JoistLength;
 use App\Models\TypeBox25JoistLoadingCapacity;
+use DB;
+use App\Models\Costo;
 use Illuminate\Http\Request;
 use App\Models\Cart_product;
 use Illuminate\Support\Facades\Auth;

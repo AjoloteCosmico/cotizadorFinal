@@ -15,7 +15,10 @@ use App\Models\TypeLRJoistLoadingCapacity;
 use App\Models\Cart_product;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Quotation;
+use DB;
+use App\Models\Costo;
 use Illuminate\Http\Request;
+
 
 class TypeLRJoistController extends Controller
 {

@@ -6,6 +6,8 @@ use App\Models\PriceList;
 use App\Models\PriceListScrew;
 use App\Models\SelectiveSpacer;
 use App\Models\Spacer;
+use DB;
+use App\Models\Costo;
 use Illuminate\Http\Request;
 use App\Models\Cart_product;
 use Illuminate\Support\Facades\Auth;
@@ -53,7 +55,8 @@ class SpacerController extends Controller
             $SS->m2 = $Piece->m2;
             $SS->sku = $Piece->sku;
             $SS->unit_price = $PriceUnit;
-            $SS->total_price = $SubTotal + $CostoTotalTornillos;
+            //se quitaron los tornillos
+            $SS->total_price = $SubTotal ;
             $SS->save();
         }else{
             $SS = new SelectiveSpacer();
@@ -67,13 +70,34 @@ class SpacerController extends Controller
             $SS->m2 = $Piece->m2;
             $SS->sku = $Piece->sku;
             $SS->unit_price = $PriceUnit;
-            $SS->total_price = $SubTotal + $CostoTotalTornillos;
+            $SS->total_price = $SubTotal ;
             $SS->save();
         }
-        if(config('app.show_logs')=='True' ){
+  
             echo "Costo acero ".$PriceLists->caliber.": $".$PriceLists->cost." //Factor ".$PriceLists->description.$PriceLists->caliber.": ".$PriceLists->f_total." //Peso: ".$Piece->weight;
-         
-        }
+            echo "<br> Costo sin factor unit ".$PriceUnit.": $"."//Costo tornillos unit: $".$CostoTornillos."// factor tornillos: ".$Tornillos->f_total;
+            
+            $Type='SS';
+            $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
+            
+        // VIGA
+            DB::table('costos')->insert(
+                ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> $Piece->caliber,
+                    'sku'=>$SS->sku,'cant'=>$Amount,'description'=>$Piece->use.' CALIBRE '.$Piece->caliber,
+                'precio_unit'=>$PriceUnit,'precio_total'=>$PriceUnit*$Amount, 'factor'=>$F_Total,
+                'costo_unit'=>$Price  ,'costo_total'=>$Price*$Amount ,
+                'kg_unit'=>$Piece->weight, 'm2_unit'=>$Piece->m2,'kg_m2'=>$Piece->kg_m2
+                ]  
+            );
+
+            DB::table('costos')->insert(
+                [['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'TORNILLERIA','factor'=>$Tornillos->f_total,
+                    'sku'=>$Tornillos->sku ,'cant'=>4*$Amount,'description'=>$Tornillos->description,
+                'precio_unit'=>$Tornillos->cost * $Tornillos->f_total,'precio_total'=>$Tornillos->cost * $Tornillos->f_total*4*$Amount,
+                'costo_unit'=>$Tornillos->cost,'costo_total'=>$Tornillos->cost * 4*$Amount,
+                ]]
+            );
+        
            
         return view('quotes.selectivo.spacers.calc', compact(
             'Amount',

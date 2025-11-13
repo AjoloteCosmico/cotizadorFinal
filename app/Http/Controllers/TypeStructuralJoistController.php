@@ -15,6 +15,8 @@ use App\Models\TypeStructuralJoistLoadingCapacity;
 use App\Models\Cart_product;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Quotation;
+use DB;
+use App\Models\Costo;
 use Illuminate\Http\Request;
 
 class TypeStructuralJoistController extends Controller
@@ -115,6 +117,26 @@ class TypeStructuralJoistController extends Controller
             echo '<br> //Peso: '.$TypeLJoists->weight;
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
             $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
+            $Type='SJS14';
+            $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
+               
+            // VIGA
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> $Caliber,
+                     'sku'=>$TypeLJoists->sku,'cant'=>$Amount,'description'=>'VIGA TIPO 2L CALIBRE'.$Caliber,
+                    'precio_unit'=>$Import,'precio_total'=>$Import*$Amount, 'factor'=>$PriceList->f_total,
+                    'costo_unit'=>$Import / $PriceList->f_total ,'costo_total'=>($Import / $PriceList->f_total)*$Amount ,
+                    'kg_unit'=>$TypeLJoists->weight, 'm2_unit'=>$TypeLJoists->m2
+                    ]  
+                );
+
+                DB::table('costos')->insert(
+                    [['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'TORNILLERIA','factor'=>$Tornillos->f_total,
+                     'sku'=>$Tornillos->sku ,'cant'=>4*$Amount,'description'=>'TORNILLO Y TUERCA 1/2 IN X 1 IN G5 GALV',
+                    'precio_unit'=>$Tornillos->cost * $Tornillos->f_total,'precio_total'=>$Tornillos->cost * $Tornillos->f_total*4*$Amount,
+                    'costo_unit'=>$Tornillos->cost,'costo_total'=>$Tornillos->cost * 4*$Amount,
+                    ]]
+                );
             return view('quotes.selectivo.joists.typestructuraljoists.caliber14.store', compact(
                 'Precio_sin_factor',
                 'Amount',
@@ -173,7 +195,8 @@ class TypeStructuralJoistController extends Controller
         $TypeLJoists = TypeStructuralJoist::where('caliber',$Caliber)->where('camber', $Camber)->where('length', $Length)->first();
         if($TypeLJoists){
             //Optimized
-            $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', $Caliber)->first();
+            $PriceList = PriceList::where('system', 'SELECTIVO')->where('piece', 'VIGA')->where('caliber', preg_replace('/EST(\d+)$/', 'EST $1 IN', $Caliber))->first();
+            
             $Import =  $PriceList->cost * $PriceList->f_total * $TypeLJoists->weight;
             
             $Tornillos = PriceListScrew::where('description', 'TORNILLO Y TUERCA 1/2 IN X 1 IN G5 GALV')->first();
@@ -219,8 +242,28 @@ class TypeStructuralJoistController extends Controller
             echo " //precio acero: $".$PriceList->cost;
             echo " //precio unit sin f_total: $".$Import / $PriceList->f_total ;
             echo '<br> //Peso: '.$TypeLJoists->weight;
-            echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
+            echo "<br> //Costo Tornillos $". $Tornillos->cost."// Factor tornillos: ".$Tornillos->f_total; 
             $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
+            $Type='SJS';
+            $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
+               
+            // VIGA
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> $Caliber,
+                     'sku'=>$TypeLJoists->sku,'cant'=>$Amount,'description'=>'VIGA ESTRUCTURAL CALIBRE '.$Caliber,
+                    'precio_unit'=>$Import,'precio_total'=>$Import*$Amount, 'factor'=>$PriceList->f_total,
+                    'costo_unit'=>$Import / $PriceList->f_total ,'costo_total'=>($Import / $PriceList->f_total)*$Amount ,
+                    'kg_unit'=>$TypeLJoists->weight, 'm2_unit'=>$TypeLJoists->m2
+                    ]  
+                );
+
+                DB::table('costos')->insert(
+                    [['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'TORNILLERIA','factor'=>$Tornillos->f_total,
+                     'sku'=>$Tornillos->sku ,'cant'=>2*$Amount,'description'=>'TORNILLO Y TUERCA 1/2 IN X 1 IN G5 GALV',
+                    'precio_unit'=>$Tornillos->cost * $Tornillos->f_total,'precio_total'=>$Tornillos->cost * $Tornillos->f_total*2*$Amount,
+                    'costo_unit'=>$Tornillos->cost,'costo_total'=>$Tornillos->cost * 2*$Amount,
+                    ]]
+                );
             return view('quotes.selectivo.joists.typestructuraljoists.store', compact(
                 'Amount',
                 'Precio_sin_factor',

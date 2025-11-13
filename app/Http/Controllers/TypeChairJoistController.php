@@ -12,6 +12,8 @@ use App\Models\TypeChairJoistCamber;
 use App\Models\TypeChairJoistCrossbarLength;
 use App\Models\TypeChairJoistLength;
 use App\Models\TypeChairJoistLoadingCapacity;
+use DB;
+use App\Models\Costo;
 use Illuminate\Http\Request;
 use App\Models\Cart_product;
 use Illuminate\Support\Facades\Auth;

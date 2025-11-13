@@ -162,7 +162,7 @@ class StructuralFrameworksController extends Controller
                     'costo_unit'=>$CostoCalzas->cost,'costo_total'=>$CostoCalzas->cost * $Calzas*$Cantidad,
                     ],
                     ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'TORNILLERIA','factor'=>$CostoTaquetes->f_total,
-                     'sku'=>$CostoTaquetes->sku ,'cant'=>$Taquetes* $Cantidad,'description'=>$CostoTaquetes->description,
+                     'sku'=>$CostoTaquetes->sku ,'cant'=>$TotalTaquetes,'description'=>$CostoTaquetes->description,
                     'precio_unit'=>$CostoTaquetes->cost * $CostoTaquetes->f_total,'precio_total'=>$CostoTaquetes->cost * $CostoTaquetes->f_total*$Taquetes*$Cantidad,
                     'costo_unit'=>$CostoTaquetes->cost,'costo_total'=>$CostoTaquetes->cost * $Calzas*$Cantidad,
                     ],

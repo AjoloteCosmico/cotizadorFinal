@@ -118,22 +118,23 @@ class TypeL2JoistController extends Controller
 
             $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
             $Type='SJL214';
+            $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
+               
             // VIGA
-
                 DB::table('costos')->insert(
-                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> $Calibre,
-                     'sku'=>$Sku ,'cant'=>$Cantidad,'description'=>'VIGA TIPO 2L'.$Modelo,
-                    'precio_unit'=>$Import/$Cantidad,'precio_total'=>$Import, 'factor'=>$PriceList->f_total,
-                    'costo_unit'=>$Precio_unit_sn_factor,'costo_total'=>$Precio_sin_factor,
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> $Caliber,
+                     'sku'=>$TypeLJoists->sku,'cant'=>$Amount,'description'=>'VIGA TIPO 2L CALIBRE'.$Caliber,
+                    'precio_unit'=>$Import,'precio_total'=>$Import*$Amount, 'factor'=>$PriceList->f_total,
+                    'costo_unit'=>$Import / $PriceList->f_total ,'costo_total'=>($Import / $PriceList->f_total)*$Amount ,
                     'kg_unit'=>$TypeLJoists->weight, 'm2_unit'=>$TypeLJoists->m2
                     ]  
                 );
 
                 DB::table('costos')->insert(
-                    [['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'GALVANIZADAS','factor'=>$CostoCalzas->f_total,
-                     'sku'=>$CostoCalzas->sku ,'cant'=>2*$Cantidad,'description'=>'CLAVIJA DE SEGURIDAD',
-                    'precio_unit'=>$CostoCalzas->cost * $CostoCalzas->f_total,'precio_total'=>$CostoCalzas->cost * $CostoCalzas->f_total*$Calzas*$Cantidad,
-                    'costo_unit'=>$CostoCalzas->cost,'costo_total'=>$CostoCalzas->cost * $Calzas*$Cantidad,
+                    [['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'GALVANIZADAS','factor'=>$Clavijas->f_total,
+                     'sku'=>$Clavijas->sku ,'cant'=>2*$Amount,'description'=>'CLAVIJA DE SEGURIDAD',
+                    'precio_unit'=>$Clavijas->cost * $Clavijas->f_total,'precio_total'=>$Clavijas->cost * $Clavijas->f_total*2*$Amount,
+                    'costo_unit'=>$Clavijas->cost,'costo_total'=>$Clavijas->cost * 2*$Amount,
                     ]]
                 );
             echo "  //Factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
@@ -244,6 +245,26 @@ class TypeL2JoistController extends Controller
             echo '<br> //Peso: '.$TypeLJoists->weight;
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
             $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
+            $Type='SJL2';
+            $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
+               
+            // VIGA
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> $Caliber,
+                     'sku'=>$TypeLJoists->sku,'cant'=>$Amount,'description'=>'VIGA TIPO 2L CALIBRE'.$Caliber,
+                    'precio_unit'=>$Import,'precio_total'=>$Import*$Amount, 'factor'=>$PriceList->f_total,
+                    'costo_unit'=>$Import / $PriceList->f_total ,'costo_total'=>($Import / $PriceList->f_total)*$Amount ,
+                    'kg_unit'=>$TypeLJoists->weight, 'm2_unit'=>$TypeLJoists->m2
+                    ]  
+                );
+
+                DB::table('costos')->insert(
+                    [['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'GALVANIZADAS','factor'=>$Clavijas->f_total,
+                     'sku'=>$Clavijas->sku ,'cant'=>2*$Amount,'description'=>'CLAVIJA DE SEGURIDAD',
+                    'precio_unit'=>$Clavijas->cost * $Clavijas->f_total,'precio_total'=>$Clavijas->cost * $Clavijas->f_total*2*$Amount,
+                    'costo_unit'=>$Clavijas->cost,'costo_total'=>$Clavijas->cost * 2*$Amount,
+                    ]]
+                );
         return view('quotes.selectivo.joists.typel2joists.store', compact(
             'Precio_sin_factor',
             'Amount',
@@ -449,7 +470,6 @@ class TypeL2JoistController extends Controller
         $Cart_product->amount=$SJL2->amount;
         
         $Cart_product->costo_sn_factor=$Costo;
-        $Cart_product->tornilleria=$tornilleria;
         $Cart_product->save();
         //ligar las instancias
         $SJL2->cart_id=$Cart_product->id;
@@ -458,7 +478,7 @@ class TypeL2JoistController extends Controller
     
     }
     
-    public function add_carrito14($id,$Costo,$tornilleria){
+    public function add_carrito14($id,$Costo){
         $Quotation_Id = $id;
         $Quotation=Quotation::find($id);
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
@@ -478,8 +498,6 @@ class TypeL2JoistController extends Controller
         $Cart_product->user_id=Auth::user()->id;
         $Cart_product->amount=$SJL2->amount;
         $Cart_product->costo_sn_factor=$Costo;
-        
-        $Cart_product->tornilleria=$tornilleria;
         $Cart_product->save();
         //ligar las instancias
         $SJL2->cart_id=$Cart_product->id;
