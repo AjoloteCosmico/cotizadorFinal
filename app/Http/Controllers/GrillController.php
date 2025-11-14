@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Grill;
 use App\Models\Joist;
 use App\Models\PriceListAuxiliar;
+use DB;
+use App\Models\Costo;
 use Illuminate\Http\Request;
 use App\Models\Quotation;
 use Illuminate\Support\Facades\Auth;
@@ -84,7 +86,19 @@ class GrillController extends Controller
             $Grills->save();
         }
         echo "  //Factor: ".$PriceListAuxiliars->f_total.' '.$PriceListAuxiliars->description.$PriceListAuxiliars->type; 
-        
+        $Type='GRILL';
+        $Quotation_Id=$request->Quotation_Id;
+        $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
+                // PARRILLA METALICA
+              
+            DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>'TC0000127595','cant'=>$Grills->amount,'description'=>'PARRILLA METALICA '.$Grills->color,
+                    'precio_unit'=>$UnitPrice,'precio_total'=>$TotalPrice, 'factor'=>$PriceListAuxiliars->f_total,
+                    'costo_unit'=>$request->cost ,'costo_total'=>$request->cost*$Grills->amount,
+                    'kg_unit'=>0, 'm2_unit'=>$Grills->background
+                    ]
+                );
        
 
         $Grills = Grill::where('quotation_id', $request->Quotation_Id)->first();

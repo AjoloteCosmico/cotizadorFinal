@@ -6,6 +6,8 @@ use App\Models\Floor;
 use App\Models\PriceList;
 use App\Models\PriceListScrew;
 use App\Models\SelectiveFloor;
+use DB;
+use App\Models\Costo;
 use Illuminate\Http\Request;
 use App\Models\Cart_product;
 use Illuminate\Support\Facades\Auth;
@@ -90,6 +92,29 @@ class FloorController extends Controller
             }
             echo "Costo acero: $".$PriceLists->cost." //Factor: ".$PriceLists->f_total." //Peso: ".$Piece->weight;
             echo "<br> Costo : $".$Tornillos->cost."//Factor tornillo: ".$Tornillos->f_total."Cantidad tornillos: ".$CantidadTornillos;
+            //guardar COMPONENTES para reportes
+                $Type='SF';
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
+                // MARCO
+              
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'14' ,
+                     'sku'=>$Piece->sku,'cant'=>$Amount,'description'=>'PISO '.$Piece->camber,
+                    'precio_unit'=>$SubTotal/$Amount,'precio_total'=>$SubTotal, 'factor'=>$PriceLists->f_total,
+                    'costo_unit'=>$Price,'costo_total'=>$Price*$Amount,
+                    'kg_unit'=>$Piece->weight, 'm2_unit'=>$Piece->m2
+                    ]
+                    
+                );
+                //Piezas
+                DB::table('costos')->insert(
+                    [['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'GALVANIZADAS','factor'=>$Tornillos->f_total,
+                     'sku'=>$Tornillos->sku ,'cant'=>$CantidadTornillos,'description'=>$Tornillos->description,
+                    'precio_unit'=>$Tornillos->cost * $Tornillos->f_total,'precio_total'=>$Tornillos->cost * $Tornillos->f_total*$CantidadTornillos,
+                    'costo_unit'=>$Tornillos->cost,'costo_total'=>$Tornillos->cost * $CantidadTornillos,
+                    ],
+                  ]
+                );
             return view('quotes.selectivo.floors.calc', compact(
                 'Amount',
                 'Piece',

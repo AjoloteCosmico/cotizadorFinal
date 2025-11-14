@@ -113,6 +113,26 @@ class TypeC2JoistController extends Controller
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
             
            $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
+             $Type='SJC214';
+            $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
+  
+           // VIGA
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> $Caliber,
+                     'sku'=>$TypeLJoists->sku,'cant'=>$Amount,'description'=>'VIGA TIPO C 2.0 CALIBRE '.$Caliber,
+                    'precio_unit'=>$Import,'precio_total'=>$Import*$Amount, 'factor'=>$PriceList->f_total,
+                    'costo_unit'=>$Import / $PriceList->f_total ,'costo_total'=>($Import / $PriceList->f_total)*$Amount ,
+                    'kg_unit'=>$TypeLJoists->weight, 'm2_unit'=>$TypeLJoists->m2
+                    ]  
+                );
+            //CLAVIJAS
+                DB::table('costos')->insert(
+                    [['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'GALVANIZADAS','factor'=>$Clavijas->f_total,
+                     'sku'=>$Clavijas->sku ,'cant'=>2*$Amount,'description'=>'CLAVIJA DE SEGURIDAD',
+                    'precio_unit'=>$Clavijas->cost * $Clavijas->f_total,'precio_total'=>$Clavijas->cost * $Clavijas->f_total*2*$Amount,
+                    'costo_unit'=>$Clavijas->cost,'costo_total'=>$Clavijas->cost * 2*$Amount,
+                    ]]
+                );
             return view('quotes.selectivo.joists.typec2joists.caliber14.store', compact(
                 'Amount',
                 'Precio_sin_factor',
@@ -233,6 +253,27 @@ class TypeC2JoistController extends Controller
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
             
         $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
+        $Type='SJC2';
+            $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
+               
+            $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
+           // VIGA
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> $Caliber,
+                     'sku'=>$TypeLJoists->sku,'cant'=>$Amount,'description'=>'VIGA TIPO C2.0 CALIBRE '.$Caliber,
+                    'precio_unit'=>$Import,'precio_total'=>$Import*$Amount, 'factor'=>$PriceList->f_total,
+                    'costo_unit'=>$Import / $PriceList->f_total ,'costo_total'=>($Import / $PriceList->f_total)*$Amount ,
+                    'kg_unit'=>$TypeLJoists->weight, 'm2_unit'=>$TypeLJoists->m2
+                    ]  
+                );
+            //CLAVIJAS
+                DB::table('costos')->insert(
+                    [['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'GALVANIZADAS','factor'=>$Clavijas->f_total,
+                     'sku'=>$Clavijas->sku ,'cant'=>2*$Amount,'description'=>'CLAVIJA DE SEGURIDAD',
+                    'precio_unit'=>$Clavijas->cost * $Clavijas->f_total,'precio_total'=>$Clavijas->cost * $Clavijas->f_total*2*$Amount,
+                    'costo_unit'=>$Clavijas->cost,'costo_total'=>$Clavijas->cost * 2*$Amount,
+                    ]]
+                );
         return view('quotes.selectivo.joists.typec2joists.store', compact(
             'Precio_sin_factor',
             'Amount',

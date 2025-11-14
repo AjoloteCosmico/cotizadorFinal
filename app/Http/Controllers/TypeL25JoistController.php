@@ -132,7 +132,7 @@ class TypeL25JoistController extends Controller
                     'kg_unit'=>$TypeLJoists->weight, 'm2_unit'=>$TypeLJoists->m2
                     ]  
                 );
-
+            //CLAVIJAS
                 DB::table('costos')->insert(
                     [['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'GALVANIZADAS','factor'=>$Clavijas->f_total,
                      'sku'=>$Clavijas->sku ,'cant'=>2*$Amount,'description'=>'CLAVIJA DE SEGURIDAD',

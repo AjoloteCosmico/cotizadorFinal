@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Joist;
 use App\Models\PriceListAuxiliar;
 use App\Models\Wood;
+use DB;
+use App\Models\Costo;
 use Illuminate\Http\Request;
 use App\Models\Cart_product;
 use Illuminate\Support\Facades\Auth;
@@ -85,6 +87,20 @@ class WoodController extends Controller
 
         $Woods = Wood::where('quotation_id', $request->Quotation_Id)->first();
         echo "  //factor auxiliares MADERA: ". $PriceListAuxiliars->f_total;
+        $Type='SWOOD';
+        $Quotation_Id=$request->Quotation_Id;
+        $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
+                // PISO DE MADERA 
+              
+            DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>'NO SKU','cant'=>$Woods->amount,'description'=>'PISO DE MADERA ',
+                    'precio_unit'=>$UnitPrice,'precio_total'=>$TotalPrice, 'factor'=>$PriceListAuxiliars->f_total,
+                    'costo_unit'=>$request->cost ,'costo_total'=>$request->cost*$Woods->amount,
+                    'kg_unit'=>0, 'm2_unit'=>$Woods->cut_background
+                    ]
+                );
+       
         return view('quotes.selectivo.woods.store', compact(
             'Woods',
         ));
@@ -161,7 +177,7 @@ class WoodController extends Controller
             $Woods->total_price = $TotalPrice;
             $Woods->save();
         }
-
+        
         $Woods = Wood::where('quotation_id', $request->Quotation_Id)->first();
         return view('quotes.double_deep.woods.store', compact(
             'Woods',

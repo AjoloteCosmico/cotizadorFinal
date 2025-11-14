@@ -80,7 +80,7 @@ class SpacerController extends Controller
             $Type='SS';
             $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
             
-        // VIGA
+        // ESPACIADOR
             DB::table('costos')->insert(
                 ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> $Piece->caliber,
                     'sku'=>$SS->sku,'cant'=>$Amount,'description'=>$Piece->use.' CALIBRE '.$Piece->caliber,
@@ -89,7 +89,7 @@ class SpacerController extends Controller
                 'kg_unit'=>$Piece->weight, 'm2_unit'=>$Piece->m2,'kg_m2'=>$Piece->kg_m2
                 ]  
             );
-
+//TORNILLOS
             DB::table('costos')->insert(
                 [['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'TORNILLERIA','factor'=>$Tornillos->f_total,
                     'sku'=>$Tornillos->sku ,'cant'=>4*$Amount,'description'=>$Tornillos->description,

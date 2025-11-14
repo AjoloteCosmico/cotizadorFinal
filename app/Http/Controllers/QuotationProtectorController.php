@@ -8,6 +8,8 @@ use App\Models\PriceListProtector;
 use App\Models\Protector;
 use App\Models\QuotationProtector;
 use Session;
+use DB;
+use App\Models\Costo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -80,6 +82,20 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->costo_sn_factor=$Amount * $PostProtectorsCost ;
                 $QuotationProtectors->sku='TC0000117249';
                 $QuotationProtectors->save();
+
+                $Type='SPR';
+                $Quotation_Id=$request->Quotation_Id;
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->where('description',$Protector)->delete();
+                // PROTECTOR
+                //GUARDAR COSTOS DE PROTECTOR
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>$QuotationProtectors->sku,'cant'=>$QuotationProtectors->amount,'description'=>$Protector,
+                    'precio_unit'=>$QuotationProtectors->unit_price,'precio_total'=>$QuotationProtectors->total_price, 'factor'=>$ProtectorComponents->sum('f_total')/$ProtectorComponents->count(),
+                    'costo_unit'=>$QuotationProtectors->costo_sn_factor/$Amount ,'costo_total'=>$QuotationProtectors->costo_sn_factor,
+                    'kg_unit'=>$QuotationProtectors->total_weight/$Amount, 'm2_unit'=>0
+                    ]
+                );
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('update_reg', 'ok');
             }else{
                 $QuotationProtectors = new QuotationProtector();
@@ -94,7 +110,19 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->costo_sn_factor=$Amount * $PostProtectorsCost ;
                 $QuotationProtectors->sku='TC0000117249';
                 $QuotationProtectors->save();
-                
+                 $Type='SPR';
+                $Quotation_Id=$request->Quotation_Id;
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->where('description',$Protector)->delete();
+                // PROTECTOR
+                //GUARDAR COSTOS DE PROTECTOR
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>$QuotationProtectors->sku,'cant'=>$QuotationProtectors->amount,'description'=>$Protector,
+                    'precio_unit'=>$QuotationProtectors->unit_price,'precio_total'=>$QuotationProtectors->total_price, 'factor'=>$ProtectorComponents->sum('f_total')/$ProtectorComponents->count(),
+                    'costo_unit'=>$QuotationProtectors->costo_sn_factor/$Amount ,'costo_total'=>$QuotationProtectors->costo_sn_factor,
+                    'kg_unit'=>$QuotationProtectors->total_weight/$Amount, 'm2_unit'=>0
+                    ]
+                );
                 //(new CartController)->add($user_id,'PROTECTOR DE POSTE',$PostProtectorsSalePrice,$Amount,$Quotation_Id);
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('create_reg', 'ok');
             }
@@ -103,7 +131,7 @@ class QuotationProtectorController extends Controller
             $PriceListBars = PriceListBar::where('front_development', '1.2000')->first();
             $Cost = $PostProtectorsCost * 2;
             $TotalWeight = $Amount * $PostProtectorsWeight * 2;
-            $UnitPrice = ($PosCosto * 2) + $PriceListBars->sale_price;
+            $UnitPrice = ($PosCosto) + $PriceListBars->sale_price;
             $TotalPrice = $Amount * $UnitPrice;
                
             $QuotationProtectors = QuotationProtector::where('quotation_id', $Quotation_Id)->where('protector', $Protector)->first();
@@ -115,9 +143,22 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
-                $QuotationProtectors->costo_sn_factor=($PostProtectorsCost * 2) + $PriceListBars->cost;
+                $QuotationProtectors->costo_sn_factor=$Amount *(($PostProtectorsCost ) + $PriceListBars->cost);
                 $QuotationProtectors->sku='TC0000117250';
                 $QuotationProtectors->save();
+                $Type='SPR';
+                $Quotation_Id=$request->Quotation_Id;
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->where('description',$Protector)->delete();
+                // PROTECTOR
+                //GUARDAR COSTOS DE PROTECTOR
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>$QuotationProtectors->sku,'cant'=>$QuotationProtectors->amount,'description'=>$Protector,
+                    'precio_unit'=>$QuotationProtectors->unit_price,'precio_total'=>$QuotationProtectors->total_price, 'factor'=>$ProtectorComponents->sum('f_total')/$ProtectorComponents->count(),
+                    'costo_unit'=>$QuotationProtectors->costo_sn_factor/$Amount ,'costo_total'=>$QuotationProtectors->costo_sn_factor,
+                    'kg_unit'=>$QuotationProtectors->total_weight/$Amount, 'm2_unit'=>0
+                    ]
+                );
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('update_reg', 'ok');
             }else{
                 $QuotationProtectors = new QuotationProtector();
@@ -129,9 +170,22 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
                 
-                $QuotationProtectors->costo_sn_factor=($PostProtectorsCost * 2) + $PriceListBars->cost;
+                $QuotationProtectors->costo_sn_factor=$Amount * (($PostProtectorsCost) + $PriceListBars->cost);
                 $QuotationProtectors->sku='TC0000117250';
                 $QuotationProtectors->save();
+                $Type='SPR';
+                $Quotation_Id=$request->Quotation_Id;
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->where('description',$Protector)->delete();
+                // PROTECTOR
+                //GUARDAR COSTOS DE PROTECTOR
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>$QuotationProtectors->sku,'cant'=>$QuotationProtectors->amount,'description'=>$Protector,
+                    'precio_unit'=>$QuotationProtectors->unit_price,'precio_total'=>$QuotationProtectors->total_price, 'factor'=>$ProtectorComponents->sum('f_total')/$ProtectorComponents->count(),
+                    'costo_unit'=>$QuotationProtectors->costo_sn_factor/$Amount ,'costo_total'=>$QuotationProtectors->costo_sn_factor,
+                    'kg_unit'=>$QuotationProtectors->total_weight/$Amount, 'm2_unit'=>0
+                    ]
+                );
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('create_reg', 'ok');
             }
         }elseif($Protector == 'PROTECTOR DE BATERIA DOBLE')
@@ -152,9 +206,22 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
                 
-                $QuotationProtectors->costo_sn_factor=($PostProtectorsCost * 2) + $PriceListBars->cost;
+                $QuotationProtectors->costo_sn_factor=$Amount * (($PostProtectorsCost * 2) + $PriceListBars->cost);
                 $QuotationProtectors->sku='TC0000117251';
                 $QuotationProtectors->save();
+                $Type='SPR';
+                $Quotation_Id=$request->Quotation_Id;
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->where('description',$Protector)->delete();
+                // PROTECTOR
+                //GUARDAR COSTOS DE PROTECTOR
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>$QuotationProtectors->sku,'cant'=>$QuotationProtectors->amount,'description'=>$Protector,
+                    'precio_unit'=>$QuotationProtectors->unit_price,'precio_total'=>$QuotationProtectors->total_price, 'factor'=>$ProtectorComponents->sum('f_total')/$ProtectorComponents->count(),
+                    'costo_unit'=>$QuotationProtectors->costo_sn_factor/$Amount ,'costo_total'=>$QuotationProtectors->costo_sn_factor,
+                    'kg_unit'=>$QuotationProtectors->total_weight/$Amount, 'm2_unit'=>0
+                    ]
+                );
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('update_reg', 'ok');
             }else{
                 $QuotationProtectors = new QuotationProtector();
@@ -166,9 +233,22 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
                 
-                $QuotationProtectors->costo_sn_factor=($PostProtectorsCost * 2) + $PriceListBars->cost;
+                $QuotationProtectors->costo_sn_factor=$Amount * (($PostProtectorsCost * 2) + $PriceListBars->cost);
                 $QuotationProtectors->sku='TC0000117251';
                 $QuotationProtectors->save();
+                $Type='SPR';
+                $Quotation_Id=$request->Quotation_Id;
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->where('description',$Protector)->delete();
+                // PROTECTOR
+                //GUARDAR COSTOS DE PROTECTOR
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>$QuotationProtectors->sku,'cant'=>$QuotationProtectors->amount,'description'=>$Protector,
+                    'precio_unit'=>$QuotationProtectors->unit_price,'precio_total'=>$QuotationProtectors->total_price, 'factor'=>$ProtectorComponents->sum('f_total')/$ProtectorComponents->count(),
+                    'costo_unit'=>$QuotationProtectors->costo_sn_factor/$Amount ,'costo_total'=>$QuotationProtectors->costo_sn_factor,
+                    'kg_unit'=>$QuotationProtectors->total_weight/$Amount, 'm2_unit'=>0
+                    ]
+                );
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('create_reg', 'ok');
             }
         }elseif($Protector == 'PROTECTOR DE BATERIA TRIPLE')
@@ -188,8 +268,23 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->costo_sn_factor=$Amount * (($PostProtectorsCost * 3) + $PriceListBars->cost);
+                
                 $QuotationProtectors->sku='TC0000117252';
                 $QuotationProtectors->save();
+                $Type='SPR';
+                $Quotation_Id=$request->Quotation_Id;
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->where('description',$Protector)->delete();
+                // PROTECTOR
+                //GUARDAR COSTOS DE PROTECTOR
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>$QuotationProtectors->sku,'cant'=>$QuotationProtectors->amount,'description'=>$Protector,
+                    'precio_unit'=>$QuotationProtectors->unit_price,'precio_total'=>$QuotationProtectors->total_price, 'factor'=>$ProtectorComponents->sum('f_total')/$ProtectorComponents->count(),
+                    'costo_unit'=>$QuotationProtectors->costo_sn_factor/$Amount ,'costo_total'=>$QuotationProtectors->costo_sn_factor,
+                    'kg_unit'=>$QuotationProtectors->total_weight/$Amount, 'm2_unit'=>0
+                    ]
+                );
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('update_reg', 'ok');
             }else{
                 $QuotationProtectors = new QuotationProtector();
@@ -200,8 +295,22 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->costo_sn_factor=$Amount * (($PostProtectorsCost * 3) + $PriceListBars->cost);
                 $QuotationProtectors->sku='TC0000117252';
                 $QuotationProtectors->save();
+                $Type='SPR';
+                $Quotation_Id=$request->Quotation_Id;
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->where('description',$Protector)->delete();
+                // PROTECTOR
+                //GUARDAR COSTOS DE PROTECTOR
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>$QuotationProtectors->sku,'cant'=>$QuotationProtectors->amount,'description'=>$Protector,
+                    'precio_unit'=>$QuotationProtectors->unit_price,'precio_total'=>$QuotationProtectors->total_price, 'factor'=>$ProtectorComponents->sum('f_total')/$ProtectorComponents->count(),
+                    'costo_unit'=>$QuotationProtectors->costo_sn_factor/$Amount ,'costo_total'=>$QuotationProtectors->costo_sn_factor,
+                    'kg_unit'=>$QuotationProtectors->total_weight/$Amount, 'm2_unit'=>0
+                    ]
+                );
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('create_reg', 'ok');
             }
         }elseif($Protector == 'PROTECTOR DE BATERIA CUADRUPLE')
@@ -221,8 +330,23 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->costo_sn_factor=$Amount * (($PostProtectorsCost * 4) + $PriceListBars->cost);
+                
                 $QuotationProtectors->sku='TC0000117253';
                 $QuotationProtectors->save();
+                $Type='SPR';
+                $Quotation_Id=$request->Quotation_Id;
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->where('description',$Protector)->delete();
+                // PROTECTOR
+                //GUARDAR COSTOS DE PROTECTOR
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>$QuotationProtectors->sku,'cant'=>$QuotationProtectors->amount,'description'=>$Protector,
+                    'precio_unit'=>$QuotationProtectors->unit_price,'precio_total'=>$QuotationProtectors->total_price, 'factor'=>$ProtectorComponents->sum('f_total')/$ProtectorComponents->count(),
+                    'costo_unit'=>$QuotationProtectors->costo_sn_factor/$Amount ,'costo_total'=>$QuotationProtectors->costo_sn_factor,
+                    'kg_unit'=>$QuotationProtectors->total_weight/$Amount, 'm2_unit'=>0
+                    ]
+                );
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('update_reg', 'ok');
             }else{
                 $QuotationProtectors = new QuotationProtector();
@@ -233,8 +357,22 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->costo_sn_factor=$Amount * (($PostProtectorsCost * 4) + $PriceListBars->cost);
                 $QuotationProtectors->sku='TC0000117253';
                 $QuotationProtectors->save();
+                $Type='SPR';
+                $Quotation_Id=$request->Quotation_Id;
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->where('description',$Protector)->delete();
+                // PROTECTOR
+                //GUARDAR COSTOS DE PROTECTOR
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>$QuotationProtectors->sku,'cant'=>$QuotationProtectors->amount,'description'=>$Protector,
+                    'precio_unit'=>$QuotationProtectors->unit_price,'precio_total'=>$QuotationProtectors->total_price, 'factor'=>$ProtectorComponents->sum('f_total')/$ProtectorComponents->count(),
+                    'costo_unit'=>$QuotationProtectors->costo_sn_factor/$Amount ,'costo_total'=>$QuotationProtectors->costo_sn_factor,
+                    'kg_unit'=>$QuotationProtectors->total_weight/$Amount, 'm2_unit'=>0
+                    ]
+                );
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('create_reg', 'ok');
             }
         }
@@ -258,6 +396,12 @@ class QuotationProtectorController extends Controller
     public function selectivo_protectors_update(Request $request, $id)
     {
         $Quotation_Id = $request->Quotation_Id;
+        $Protector = QuotationProtector::find($id);
+        Costo::where('quotation_id',$Quotation_Id)->where('type','SPR')->where('description',$Protector->protector)->delete();
+        if($Protector->protector!= $request->protector){
+            $Protector->delete();
+        }       
+        
         $Protector = $request->protector;
         $Amount = $request->amount;
         $PostProtectorsCost = PriceListProtector::sum('cost');
@@ -282,7 +426,22 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $Amount * $PostProtectorsWeight;
                 $QuotationProtectors->unit_price = $PostProtectorsSalePrice;
                 $QuotationProtectors->total_price = $Amount * $PostProtectorsSalePrice;
+                $QuotationProtectors->costo_sn_factor=$Amount * $PostProtectorsCost ;
+                $QuotationProtectors->sku='TC0000117249';
                 $QuotationProtectors->save();
+                $Type='SPR';
+                $Quotation_Id=$request->Quotation_Id;
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->where('description',$Protector)->delete();
+                // PROTECTOR
+                //GUARDAR COSTOS DE PROTECTOR
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>$QuotationProtectors->sku,'cant'=>$QuotationProtectors->amount,'description'=>$Protector,
+                    'precio_unit'=>$QuotationProtectors->unit_price,'precio_total'=>$QuotationProtectors->total_price, 'factor'=>$ProtectorComponents->sum('f_total')/$ProtectorComponents->count(),
+                    'costo_unit'=>$QuotationProtectors->costo_sn_factor/$Amount ,'costo_total'=>$QuotationProtectors->costo_sn_factor,
+                    'kg_unit'=>$QuotationProtectors->total_weight/$Amount, 'm2_unit'=>0
+                    ]
+                );
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('update_reg', 'ok');
             }else{
                 $QuotationProtectors = new QuotationProtector();
@@ -293,7 +452,22 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $Amount * $PostProtectorsWeight;
                 $QuotationProtectors->unit_price = $PostProtectorsSalePrice;
                 $QuotationProtectors->total_price = $Amount * $PostProtectorsSalePrice;
+                $QuotationProtectors->costo_sn_factor=$Amount * $PostProtectorsCost ;
+                $QuotationProtectors->sku='TC0000117249';
                 $QuotationProtectors->save();
+                $Type='SPR';
+                $Quotation_Id=$request->Quotation_Id;
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->where('description',$Protector)->delete();
+                // PROTECTOR
+                //GUARDAR COSTOS DE PROTECTOR
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>$QuotationProtectors->sku,'cant'=>$QuotationProtectors->amount,'description'=>$Protector,
+                    'precio_unit'=>$QuotationProtectors->unit_price,'precio_total'=>$QuotationProtectors->total_price, 'factor'=>$ProtectorComponents->sum('f_total')/$ProtectorComponents->count(),
+                    'costo_unit'=>$QuotationProtectors->costo_sn_factor/$Amount ,'costo_total'=>$QuotationProtectors->costo_sn_factor,
+                    'kg_unit'=>$QuotationProtectors->total_weight/$Amount, 'm2_unit'=>0
+                    ]
+                );
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('create_reg', 'ok');
             }
         }elseif($Protector == 'PROTECTOR DE BATERIA SENCILLA')
@@ -313,7 +487,23 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->costo_sn_factor=$Amount *(($PostProtectorsCost ) + $PriceListBars->cost);
+                $QuotationProtectors->sku='TC0000117250';
                 $QuotationProtectors->save();
+
+                $Type='SPR';
+                $Quotation_Id=$request->Quotation_Id;
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->where('description',$Protector)->delete();
+                // PROTECTOR
+                //GUARDAR COSTOS DE PROTECTOR
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>$QuotationProtectors->sku,'cant'=>$QuotationProtectors->amount,'description'=>$Protector,
+                    'precio_unit'=>$QuotationProtectors->unit_price,'precio_total'=>$QuotationProtectors->total_price, 'factor'=>$ProtectorComponents->sum('f_total')/$ProtectorComponents->count(),
+                    'costo_unit'=>$QuotationProtectors->costo_sn_factor/$Amount ,'costo_total'=>$QuotationProtectors->costo_sn_factor,
+                    'kg_unit'=>$QuotationProtectors->total_weight/$Amount, 'm2_unit'=>0
+                    ]
+                );
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('update_reg', 'ok');
             }else{
                 $QuotationProtectors = new QuotationProtector();
@@ -324,7 +514,22 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->costo_sn_factor=$Amount *(($PostProtectorsCost ) + $PriceListBars->cost);
+                 $QuotationProtectors->sku='TC0000117250';
                 $QuotationProtectors->save();
+                $Type='SPR';
+                $Quotation_Id=$request->Quotation_Id;
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->where('description',$Protector)->delete();
+                // PROTECTOR
+                //GUARDAR COSTOS DE PROTECTOR
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>$QuotationProtectors->sku,'cant'=>$QuotationProtectors->amount,'description'=>$Protector,
+                    'precio_unit'=>$QuotationProtectors->unit_price,'precio_total'=>$QuotationProtectors->total_price, 'factor'=>$ProtectorComponents->sum('f_total')/$ProtectorComponents->count(),
+                    'costo_unit'=>$QuotationProtectors->costo_sn_factor/$Amount ,'costo_total'=>$QuotationProtectors->costo_sn_factor,
+                    'kg_unit'=>$QuotationProtectors->total_weight/$Amount, 'm2_unit'=>0
+                    ]
+                );
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('create_reg', 'ok');
             }
         }elseif($Protector == 'PROTECTOR DE BATERIA DOBLE')
@@ -344,7 +549,22 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->costo_sn_factor=$Amount * (($PostProtectorsCost * 2) + $PriceListBars->cost);
+                $QuotationProtectors->sku='TC0000117251';
                 $QuotationProtectors->save();
+                $Type='SPR';
+                $Quotation_Id=$request->Quotation_Id;
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->where('description',$Protector)->delete();
+                // PROTECTOR
+                //GUARDAR COSTOS DE PROTECTOR
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>$QuotationProtectors->sku,'cant'=>$QuotationProtectors->amount,'description'=>$Protector,
+                    'precio_unit'=>$QuotationProtectors->unit_price,'precio_total'=>$QuotationProtectors->total_price, 'factor'=>$ProtectorComponents->sum('f_total')/$ProtectorComponents->count(),
+                    'costo_unit'=>$QuotationProtectors->costo_sn_factor/$Amount ,'costo_total'=>$QuotationProtectors->costo_sn_factor,
+                    'kg_unit'=>$QuotationProtectors->total_weight/$Amount, 'm2_unit'=>0
+                    ]
+                );
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('update_reg', 'ok');
             }else{
                 $QuotationProtectors = new QuotationProtector();
@@ -355,7 +575,22 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->costo_sn_factor=$Amount * (($PostProtectorsCost * 2) + $PriceListBars->cost);
+                $QuotationProtectors->sku='TC0000117251';
                 $QuotationProtectors->save();
+                $Type='SPR';
+                $Quotation_Id=$request->Quotation_Id;
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->where('description',$Protector)->delete();
+                // PROTECTOR
+                //GUARDAR COSTOS DE PROTECTOR
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>$QuotationProtectors->sku,'cant'=>$QuotationProtectors->amount,'description'=>$Protector,
+                    'precio_unit'=>$QuotationProtectors->unit_price,'precio_total'=>$QuotationProtectors->total_price, 'factor'=>$ProtectorComponents->sum('f_total')/$ProtectorComponents->count(),
+                    'costo_unit'=>$QuotationProtectors->costo_sn_factor/$Amount ,'costo_total'=>$QuotationProtectors->costo_sn_factor,
+                    'kg_unit'=>$QuotationProtectors->total_weight/$Amount, 'm2_unit'=>0
+                    ]
+                );
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('create_reg', 'ok');
             }
         }elseif($Protector == 'PROTECTOR DE BATERIA TRIPLE')
@@ -375,7 +610,22 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->costo_sn_factor=$Amount * (($PostProtectorsCost * 3) + $PriceListBars->cost);
+                $QuotationProtectors->sku='TC0000117252';
                 $QuotationProtectors->save();
+                $Type='SPR';
+                $Quotation_Id=$request->Quotation_Id;
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->where('description',$Protector)->delete();
+                // PROTECTOR
+                //GUARDAR COSTOS DE PROTECTOR
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>$QuotationProtectors->sku,'cant'=>$QuotationProtectors->amount,'description'=>$Protector,
+                    'precio_unit'=>$QuotationProtectors->unit_price,'precio_total'=>$QuotationProtectors->total_price, 'factor'=>$ProtectorComponents->sum('f_total')/$ProtectorComponents->count(),
+                    'costo_unit'=>$QuotationProtectors->costo_sn_factor/$Amount ,'costo_total'=>$QuotationProtectors->costo_sn_factor,
+                    'kg_unit'=>$QuotationProtectors->total_weight/$Amount, 'm2_unit'=>0
+                    ]
+                );
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('update_reg', 'ok');
             }else{
                 $QuotationProtectors = new QuotationProtector();
@@ -386,7 +636,22 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->costo_sn_factor=$Amount * (($PostProtectorsCost * 3) + $PriceListBars->cost);
+                $QuotationProtectors->sku='TC0000117252';
                 $QuotationProtectors->save();
+                $Type='SPR';
+                $Quotation_Id=$request->Quotation_Id;
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->where('description',$Protector)->delete();
+                // PROTECTOR
+                //GUARDAR COSTOS DE PROTECTOR
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>$QuotationProtectors->sku,'cant'=>$QuotationProtectors->amount,'description'=>$Protector,
+                    'precio_unit'=>$QuotationProtectors->unit_price,'precio_total'=>$QuotationProtectors->total_price, 'factor'=>$ProtectorComponents->sum('f_total')/$ProtectorComponents->count(),
+                    'costo_unit'=>$QuotationProtectors->costo_sn_factor/$Amount ,'costo_total'=>$QuotationProtectors->costo_sn_factor,
+                    'kg_unit'=>$QuotationProtectors->total_weight/$Amount, 'm2_unit'=>0
+                    ]
+                );
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('create_reg', 'ok');
             }
         }elseif($Protector == 'PROTECTOR DE BATERIA CUADRUPLE')
@@ -406,7 +671,22 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->costo_sn_factor=$Amount * (($PostProtectorsCost * 4) + $PriceListBars->cost);
+                $QuotationProtectors->sku='TC0000117253';
                 $QuotationProtectors->save();
+                $Type='SPR';
+                $Quotation_Id=$request->Quotation_Id;
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->where('description',$Protector)->delete();
+                // PROTECTOR
+                //GUARDAR COSTOS DE PROTECTOR
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>$QuotationProtectors->sku,'cant'=>$QuotationProtectors->amount,'description'=>$Protector,
+                    'precio_unit'=>$QuotationProtectors->unit_price,'precio_total'=>$QuotationProtectors->total_price, 'factor'=>$ProtectorComponents->sum('f_total')/$ProtectorComponents->count(),
+                    'costo_unit'=>$QuotationProtectors->costo_sn_factor/$Amount ,'costo_total'=>$QuotationProtectors->costo_sn_factor,
+                    'kg_unit'=>$QuotationProtectors->total_weight/$Amount, 'm2_unit'=>0
+                    ]
+                );
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('update_reg', 'ok');
             }else{
                 $QuotationProtectors = new QuotationProtector();
@@ -417,7 +697,22 @@ class QuotationProtectorController extends Controller
                 $QuotationProtectors->total_weight = $TotalWeight;
                 $QuotationProtectors->unit_price = $UnitPrice;
                 $QuotationProtectors->total_price = $TotalPrice;
+                $QuotationProtectors->costo_sn_factor=$Amount * (($PostProtectorsCost * 4) + $PriceListBars->cost);
+                $QuotationProtectors->sku='TC0000117253';
                 $QuotationProtectors->save();
+                $Type='SPR';
+                $Quotation_Id=$request->Quotation_Id;
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->where('description',$Protector)->delete();
+                // PROTECTOR
+                //GUARDAR COSTOS DE PROTECTOR
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'NA' ,
+                     'sku'=>$QuotationProtectors->sku,'cant'=>$QuotationProtectors->amount,'description'=>$Protector,
+                    'precio_unit'=>$QuotationProtectors->unit_price,'precio_total'=>$QuotationProtectors->total_price, 'factor'=>$ProtectorComponents->sum('f_total')/$ProtectorComponents->count(),
+                    'costo_unit'=>$QuotationProtectors->costo_sn_factor/$Amount ,'costo_total'=>$QuotationProtectors->costo_sn_factor,
+                    'kg_unit'=>$QuotationProtectors->total_weight/$Amount, 'm2_unit'=>0
+                    ]
+                );
                 return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('create_reg', 'ok');
             }
         }
@@ -428,7 +723,8 @@ class QuotationProtectorController extends Controller
         
     $Protector=QuotationProtector::find($id);
     $Quotation_Id=$Protector->quotation_id;
-    QuotationProtector::destroy($id);
+    Costo::where('quotation_id',$Quotation_Id)->where('type','SPR')->where('description',$Protector->protector)->delete();
+    QuotationProtector::destroy($id);            
     return redirect()->route('selectivo_protectors.index', $Quotation_Id)->with('eliminar', 'ok');
     }
 

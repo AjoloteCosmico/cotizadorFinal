@@ -141,7 +141,7 @@ class StructuralFrameworksController extends Controller
                 $Precio_sin_factor = $Cantidad * $Precio_unit_sn_factor ;
 
                 //guardar COMPONENTES para reportes
-                $Type='SF';
+                $Type='SSF';
                 $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
                 // MARCO
               

@@ -182,6 +182,26 @@ class TypeChairJoistController extends Controller
         echo '<br> //Peso: '.$TypeLJoists->weight;
         echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
         $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
+        $Type='SJC';
+        $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
+  
+           // VIGA
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> $Caliber,
+                     'sku'=>$TypeLJoists->sku,'cant'=>$Amount,'description'=>'VIGA TIPO SILLA CALIBRE '.$Caliber,
+                    'precio_unit'=>$Import,'precio_total'=>$Import*$Amount, 'factor'=>$PriceList->f_total,
+                    'costo_unit'=>$Import / $PriceList->f_total ,'costo_total'=>($Import / $PriceList->f_total)*$Amount ,
+                    'kg_unit'=>$TypeLJoists->weight, 'm2_unit'=>$TypeLJoists->m2
+                    ]  
+                );
+            //CLAVIJAS
+                DB::table('costos')->insert(
+                    [['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'GALVANIZADAS','factor'=>$Clavijas->f_total,
+                     'sku'=>$Clavijas->sku ,'cant'=>2*$Amount,'description'=>'CLAVIJA DE SEGURIDAD',
+                    'precio_unit'=>$Clavijas->cost * $Clavijas->f_total,'precio_total'=>$Clavijas->cost * $Clavijas->f_total*2*$Amount,
+                    'costo_unit'=>$Clavijas->cost,'costo_total'=>$Clavijas->cost * 2*$Amount,
+                    ]]
+                );
         return view('quotes.selectivo.joists.typechairjoists.store', compact(
             'Precio_sin_factor',
             'Amount',
@@ -251,7 +271,7 @@ class TypeChairJoistController extends Controller
         $SJB2 = SelectiveJoistChair::where('quotation_id', $Quotation_Id)->first();
         //guardar en el carrito
         $Cart_product= new Cart_product();
-        $Cart_product->name='VIGA TIPO CHAIR'.$SJB2->model;
+        $Cart_product->name='VIGA TIPO SILLA'.$SJB2->model;
         $Cart_product->type='SJC';
         $Cart_product->unit_price=$SJB2->unit_price;
         $Cart_product->total_price=$SJB2->total_price;

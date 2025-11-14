@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\FloorReinforcement;
 use App\Models\PriceList;
 use App\Models\SelectiveFloorReinforcement;
+use DB;
+use App\Models\Costo;
 use Illuminate\Http\Request;
 use App\Models\Cart_product;
 use Illuminate\Support\Facades\Auth;
@@ -63,7 +65,20 @@ class FloorReinforcementController extends Controller
             $SFR->save();
         }
         echo "Costo acero: $".$PriceLists->cost." //Factor ".$PriceLists->description.$PriceLists->caliber.": ".$PriceLists->f_total." //Peso: ".$Piece->weight;
-            
+        //guardar COMPONENTES para reportes
+                $Type='SFR';
+                $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
+                // REFUERZO PARA PISO
+              
+                DB::table('costos')->insert(
+                    ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=>'14' ,
+                     'sku'=>$Piece->sku,'cant'=>$Amount,'description'=>'REFUERZO PARA PISO DE '.$Piece->length,
+                    'precio_unit'=>$SubTotal/$Amount,'precio_total'=>$SubTotal, 'factor'=>$PriceLists->f_total,
+                    'costo_unit'=>$Price,'costo_total'=>$Price*$Amount,
+                    'kg_unit'=>$Piece->weight, 'm2_unit'=>$Piece->m2
+                    ]
+                    
+                );    
         return view('quotes.selectivo.floor_reinforcements.calc', compact(
             'Amount',
             'Piece',

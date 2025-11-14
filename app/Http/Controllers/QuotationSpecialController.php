@@ -6,6 +6,8 @@ use App\Models\PriceListAuxiliar;
 use App\Models\QuotationSpecial;
 use Illuminate\Http\Request;
 use App\Models\Cart_product;
+use App\Models\Costo;
+use DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Quotation;
 class QuotationSpecialController extends Controller
@@ -62,7 +64,17 @@ class QuotationSpecialController extends Controller
 
         $Special = QuotationSpecial::where('quotation_id', $request->Quotation_Id)->first();
         echo "  //factor auxiliares ESPECIAL: ". $PriceListAuxiliars->f_total;
-       
+        $Type='SSP';
+        $Componentes=Costo::where('quotation_id',$request->Quotation_Id)->where('type',$Type)->delete();
+            
+        //ADMINISTRATIVO troquel COSTOS 
+        DB::table('costos')->insert(
+                ['quotation_id' => $request->Quotation_Id, 'type' => $Type,'calibre'=> 'AUXILIARES',
+                    'sku'=>' ','cant'=>$request->amount ,'description'=>'ESPECIAL '.$request->description,
+                'precio_unit'=>$UnitPrice,'precio_total'=>$TotalPrice, 'factor'=>$PriceListAuxiliars->f_total,
+                'costo_unit'=>$request->cost  ,'costo_total'=>$request->cost * $request->amount ,
+                'kg_unit'=>0, 'm2_unit'=>0,]
+            );
         return view('quotes.selectivo.specials.store', compact(
             'Special',
         ));

@@ -14,6 +14,8 @@ use App\Models\QuotationTravelAssignment;
 
 use App\Models\QuotationUninstall;
 use App\Models\Uninstall;
+use App\Models\Costo;
+use DB;
 use Illuminate\Http\Request;
 use App\Models\Cart_product;
 use Illuminate\Support\Facades\Auth;
@@ -85,7 +87,17 @@ class FreightController extends Controller
             $Packagings->import = $Import;
             $Packagings->save();
         }
-
+        $Type='SFLETE';
+        // $Componentes=Costo::where('quotation_id',$request->Quotation_Id)->where('type',$Type)->where()->delete();
+            
+          //FLETE COSTOS 
+        DB::table('costos')->insert(
+                ['quotation_id' => $request->Quotation_Id, 'type' => $Type,'calibre'=> 'TRANSPORTE',
+                    'sku'=>' ','cant'=>$request->amount ,'description'=>'FLETE '.$Destinations->destination,
+                'precio_unit'=>$Cost,'precio_total'=>$Import, 'factor'=>$Destinations->f_total,
+                'costo_unit'=>$Destinations->cost ,'costo_total'=>$Destinations->cost* $request->amount ,
+                'kg_unit'=>0, 'm2_unit'=>0,]
+            );
         return redirect()->route('selectivo_freights.show', $request->Quotation_Id);
     }
 
@@ -157,7 +169,9 @@ class FreightController extends Controller
         $Quotation->posxdia=$request->posxdia;
         $Quotation->operarios=$request->operarios;
         $Quotation->save();
-        
+        $Type='SVIAT';
+        Costo::where('quotation_id',$request->Quotation_Id)->where('type',$Type)->delete();
+        QuotationTravelAssignment::where('quotation_id',$request->Quotation_Id)->delete();    
        
         foreach(array_keys($request->dia) as $i){
             $TravelAssignments = TravelAssignment::where('description', $request->description[$i])->first();
@@ -174,7 +188,19 @@ class FreightController extends Controller
                     $QuotationTravelAssignments->cost = $request->cost[$i]*$TravelAssignments->f_total;
                     $QuotationTravelAssignments->import = $Import;
                     $QuotationTravelAssignments->save();
+                    
+
+          //INSTALACION COSTOS 
+                DB::table('costos')->insert(
+                        ['quotation_id' => $request->Quotation_Id, 'type' => $Type,'calibre'=> 'TRANSPORTE',
+                            'sku'=>' ','cant'=>$request->dia[$i]*$request->operario[$i] ,'description'=>'VIATICOS '.$TravelAssignments->description,
+                        'precio_unit'=>$Cost,'precio_total'=>$Import, 'factor'=>$TravelAssignments->f_total,
+                        'costo_unit'=> $request->cost[$i] * $TravelAssignments->f_total,'costo_total'=> $request->cost[$i] * $request->dia[$i]*$request->operario[$i],
+                        'kg_unit'=>0, 'm2_unit'=>0,]
+                    );
+                
                 } 
+
         }
 
 

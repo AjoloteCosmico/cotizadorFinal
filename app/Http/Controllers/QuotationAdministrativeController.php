@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\PriceListAuxiliar;
 use App\Models\QuotationAdministrative;
+use App\Models\Costo;
+use DB;
 use Illuminate\Http\Request;
 use App\Models\Cart_product;
 use Illuminate\Support\Facades\Auth;
@@ -63,7 +65,16 @@ class QuotationAdministrativeController extends Controller
 
         $Administratives = QuotationAdministrative::where('quotation_id', $request->Quotation_Id)->first();
         echo "  //factor auxiliares ADMINISTRATIVO: ". $PriceListAuxiliars->f_total;
-       
+        $Type='SAD';
+        $Componentes=Costo::where('quotation_id',$request->Quotation_Id)->where('type',$Type)->delete();
+            
+        DB::table('costos')->insert(
+                ['quotation_id' => $request->Quotation_Id, 'type' => $Type,'calibre'=> 'AUXILIARES',
+                    'sku'=>' ','cant'=>$request->amount ,'description'=>'TROQUEL '.$request->description,
+                'precio_unit'=>$UnitPrice,'precio_total'=>$TotalPrice, 'factor'=>$PriceListAuxiliars->f_total,
+                'costo_unit'=>$request->cost  ,'costo_total'=>$request->cost * $request->amount ,
+                'kg_unit'=>0, 'm2_unit'=>0,]
+            );
         return view('quotes.selectivo.administratives.store', compact(
             'Administratives',
         ));
@@ -120,6 +131,16 @@ class QuotationAdministrativeController extends Controller
         }
 
         $Administratives = QuotationAdministrative::where('quotation_id', $request->Quotation_Id)->first();
+        $Type='SAD';
+        $Componentes=Costo::where('quotation_id',$request->Quotation_Id)->where('type',$Type)->delete();
+            
+        DB::table('costos')->insert(
+                ['quotation_id' => $request->Quotation_Id, 'type' => $Type,'calibre'=> 'AUXILIARES',
+                    'sku'=>' ','cant'=>$request->amount ,'description'=>'TROQUEL '.$request->description,
+                'precio_unit'=>$UnitPrice,'precio_total'=>$TotalPrice, 'factor'=>$PriceListAuxiliars->f_total,
+                'costo_unit'=>$request->cost  ,'costo_total'=>$request->cost * $request->amount ,
+                'kg_unit'=>0, 'm2_unit'=>0,]
+            );
         return view('quotes.double_deep.administratives.store', compact(
             'Administratives',
         ));

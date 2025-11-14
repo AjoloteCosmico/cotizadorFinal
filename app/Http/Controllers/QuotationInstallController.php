@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\PriceListInstall;
 use App\Models\QuotationInstall;
+use App\Models\Costo;
+use DB;
 use Illuminate\Http\Request;
 
 class QuotationInstallController extends Controller
@@ -41,11 +43,23 @@ class QuotationInstallController extends Controller
         $QuotationInstalls->description = $request->description;
         $QuotationInstalls->type = $PriceListInstalls->type;
         $QuotationInstalls->system = $PriceListInstalls->system;
-        $QuotationInstalls->cost = $PriceListInstalls->cost*$PriceListInstalls->f_total;;
+        $QuotationInstalls->cost = $PriceListInstalls->cost*$PriceListInstalls->f_total;
         $QuotationInstalls->f_total = $PriceListInstalls->f_total;
         $QuotationInstalls->import = $Import;
         $QuotationInstalls->print = 'No';
         $QuotationInstalls->save();
+        $Type='SINS';
+        // $Componentes=Costo::where('quotation_id',$request->Quotation_Id)->where('type',$Type)->where()->delete();
+            
+          //INSTALACION COSTOS 
+        DB::table('costos')->insert(
+                ['quotation_id' => $request->Quotation_Id, 'type' => $Type,'calibre'=> 'TRANSPORTE',
+                    'sku'=>' ','cant'=>$request->amount ,'description'=>$request->description,
+                'precio_unit'=>$PriceListInstalls->cost*$PriceListInstalls->f_total,'precio_total'=>$Import, 'factor'=>$PriceListInstalls->f_total,
+                'costo_unit'=>$PriceListInstalls->cost ,'costo_total'=>$PriceListInstalls->cost* $request->amount ,
+                'kg_unit'=>0, 'm2_unit'=>0,]
+            );
+        
         return redirect()->route('selectivo_installs', $Quotation_Id);
     }
 

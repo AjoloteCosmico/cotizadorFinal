@@ -308,12 +308,13 @@ def secure_div(p,q):
     else:
         return p/q
 #iterar sobre los productos
-
-for i in range(0,len(cart_products)):
+cart_products_sin_transportes=cart_products.loc[~cart_products['type'].isin(['SINS','SUINS','SVIAT','SFLETE'])]
+pda=1
+for i in range(0,len(cart_products_sin_transportes)):
     
     def my_func(row, table_name):
         return row in table_name
-    piezas=materials.loc[materials['type']==cart_products['type'].values[i]]
+    piezas=materials.loc[materials['type']==cart_products_sin_transportes['type'].values[i]]
     n=len(piezas)
     if(i%2==1):
         formato=blue_content
@@ -327,7 +328,7 @@ for i in range(0,len(cart_products)):
         # print(piezas['cost'].fillna(0).values[j],piezas['amount'])
         # costo= piezas['cost'].fillna(0).values[j].sum()
         # cant= piezas['amount'].fillna(0).values[j].sum()*products['amount'].values[i]
-        worksheet.write('A'+str(row_count), str(i*n+2+j), formato)
+        worksheet.write('A'+str(row_count), str(pda), formato)
         #sku
         worksheet.write('B'+str(row_count), piezas['sku'].fillna('').values[j], formato)
         worksheet.write('C'+str(row_count), str(piezas['cant'].values[j]), formato)
@@ -345,6 +346,7 @@ for i in range(0,len(cart_products)):
         worksheet.write('K'+str(row_count), piezas['m2_unit'].values[j], formato_unit)
         worksheet.write('L'+str(row_count), piezas['m2_unit'].values[j]*piezas['cant'].values[j], formato_unit)
         row_count=row_count+1
+        pda=pda+1
 trow=row_count
 
 
@@ -354,27 +356,25 @@ worksheet.write_formula('F'+str(trow),'{=SUM(F9:F'+str(trow-1)+')}',blue_footer_
 worksheet.write_formula('I'+str(trow),'{=SUM(I9:I'+str(trow-1)+')}',blue_footer_format_bold_kg)
 worksheet.write_formula('L'+str(trow),'{=SUM(L9:L'+str(trow-1)+')}',blue_footer_format_bold_kg)
 
-# worksheet.write('K'+str(trow), str(cobros['amount'].sum()), blue_content)
-# worksheet.write('L'+str(trow), str(cobros['exchange_sell'].values[0]*cobros['amount'].sum()), blue_content_bold)
 
 #RESUMEN
 worksheet.merge_range('B'+str(trow+3)+':C'+str(trow+4),'RESUMEN DE KILOS',blue_header_format_bold)
 #subtabla 1, kilos
+materials['kg_total']=materials['kg_unit']*materials['cant']
 worksheet.write('B'+str(trow+5),'KILOS',blue_header_format)
 worksheet.write('C'+str(trow+5),'CALIBRE',blue_header_format)
 suma_peso=0
 art_i=0
-for i in products['caliber'].fillna('NA').astype(str).unique():
-    if(i!='NA'):
+for i in materials.loc[materials['kg_unit']>0,'calibre'].astype(str).unique():
         print(i)
-        p=products.loc[products['caliber']==i]
-        sum_kg=p['weight'].fillna(0).sum()+p['total_weight'].fillna(0).sum()+p['weight_kg'].fillna(0).sum()+p['total_kg'].fillna(0).sum()
+        p=materials.loc[materials['calibre']==i]
+        sum_kg=p['kg_total'].fillna(0).sum()
         suma_peso=suma_peso+sum_kg
         worksheet.write('B'+str(trow+6+art_i),sum_kg,blue_content)
         worksheet.write('C'+str(trow+6+art_i),i,blue_content)
         art_i=art_i+1
 
-worksheet.write('B'+str(trow+5+len(products['caliber'].unique())),suma_peso,blue_footer_format_bold_kg)
+worksheet.write('B'+str(trow+5+len(materials['calibre'].unique())),suma_peso,blue_footer_format_bold_kg)
 #subtabla2 costos F-G-H-I-J-K-L-M-N
 #                     F-G-H-I-J-K-L-M-N
 worksheet.merge_range('F'+str(trow+4)+':I'+str(trow+4),'RESUMEN DE COSTOS',blue_header_format_bold)
@@ -387,23 +387,25 @@ worksheet.merge_range('F'+str(trow+6)+':I'+str(trow+6),'CONTRATO UNITARIO SOLO A
 worksheet.merge_range('F'+str(trow+7)+':I'+str(trow+7),'CONTRATO UNITARIO SOLO TRASLADO',blue_header_format)
 worksheet.merge_range('F'+str(trow+8)+':I'+str(trow+8),'CONTRATO UNITARIO COMBINADO',blue_header_format)
 
-
 costo_total=materials['costo_total'].sum()
+solo_materiales=materials.loc[~materials['type'].isin(['SINS','SUINS','SVIAT','SFLETE'])]
+solo_armado=materials.loc[materials['type'].isin(['SINS','SUINS'])]
+solo_traslado=materials.loc[materials['type'].isin(['SVIAT','SFLETE'])]
 
-worksheet.write('J'+str(trow+5),materials['costo_total'].sum(),blue_content)
-worksheet.write('K'+str(trow+5),0,blue_content_unit)
-worksheet.write('L'+str(trow+5),materials['costo_total'].sum()/costo_total*100,blue_content_unit)
+worksheet.write('J'+str(trow+5),solo_materiales['costo_total'].sum(),blue_content)
+worksheet.write('K'+str(trow+5),solo_materiales['kg_total'].sum(),blue_content_unit)
+worksheet.write('L'+str(trow+5),"{:.2f}".format(solo_materiales['costo_total'].sum()/costo_total*100)+'%',blue_content_unit)
 
-# worksheet.write('J'+str(trow+6),products.loc[products['tabla'].isin(['quotation_installs','quotation_uninstalls']),'cost'].sum(),blue_content)
-# worksheet.write('K'+str(trow+6),products.loc[products['tabla'].isin(['quotation_installs','quotation_uninstalls']),'cost'].sum()/costo_total*100,blue_content_unit)
-# worksheet.write('L'+str(trow+6),0,blue_content_unit)
+worksheet.write('J'+str(trow+6),solo_armado['costo_total'].sum(),blue_content)
+worksheet.write('K'+str(trow+6),solo_armado['kg_total'].sum(),blue_content_unit)
+worksheet.write('L'+str(trow+6),"{:.2f}".format(solo_armado['costo_total'].sum()/costo_total*100)+'%',blue_content_unit)
 
-# worksheet.write('J'+str(trow+7),products.loc[(products['tabla'].isin(['quotation_travel_assignments','packagings'])),'cost'].sum(),blue_content)
-# worksheet.write('K'+str(trow+7),0,blue_content_unit)
-# worksheet.write('L'+str(trow+7),products.loc[(products['tabla'].isin(['quotation_travel_assignments','packagings'])),'cost'].sum()/costo_total*100,blue_content_unit)
+worksheet.write('J'+str(trow+7),solo_traslado['costo_total'].sum(),blue_content)
+worksheet.write('K'+str(trow+7),solo_traslado['kg_total'].sum(),blue_content_unit)
+worksheet.write('L'+str(trow+7),"{:.2f}".format(solo_traslado['costo_total'].sum()/costo_total*100)+'%',blue_content_unit)
 
-# worksheet.write('J'+str(trow+8),products['cost'].sum(),blue_content)
-# worksheet.write('K'+str(trow+8),products[cols_kg].sum(axis=1, numeric_only=True).sum(),blue_content_unit)
+worksheet.write('J'+str(trow+8),materials['costo_total'].sum(),blue_content)
+worksheet.write('K'+str(trow+8),materials['kg_total'].sum(),blue_content_unit)
 worksheet.write('L'+str(trow+8),'100%',blue_content)
 #TODO: calcular bien esto, to6al menos iva
 

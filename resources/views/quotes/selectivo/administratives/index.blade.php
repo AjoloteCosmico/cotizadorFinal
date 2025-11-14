@@ -13,7 +13,7 @@
             <input type="hidden" name="Quotation_Id" value="{{$Quotation_Id}}">
             <div  class="row bg-white p-4 shadow-lg rounded-lg">
                 <div class="col-sm-6 col-xs-12">
-                    <h2><i class="fa-solid fa-crop-simple"></i>&nbsp;ADMINISTRATIVO</h2>
+                    <h2><i class="fa-solid fa-crop-simple"></i>&nbsp;TROQUEL</h2>
                     <span>Favor de Seleccionar y llenar los campos solicitados para realizar la cotización.</span>
                     <div class="card-body text-center">
                         <img src="{{asset('vendor/img/postes/logo.png')}}" class="img-thumbnail img-fluid max-h-80 rounded mx-auto d-block" alt="">

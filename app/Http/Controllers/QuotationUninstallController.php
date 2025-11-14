@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\PriceListInstall;
 use App\Models\PriceListUninstall;
 use App\Models\QuotationUninstall;
+use App\Models\Costo;
+use DB;
 use Illuminate\Http\Request;
 
 class QuotationUninstallController extends Controller
@@ -47,8 +49,19 @@ class QuotationUninstallController extends Controller
         $QuotationUninstalls->import = $Import;
         $QuotationUninstalls->print = 'No';
         $QuotationUninstalls->save();
-                
+        $Type='SUINS';
+        // $Componentes=Costo::where('quotation_id',$request->Quotation_Id)->where('type',$Type)->where()->delete();
+            
+          //INSTALACION COSTOS 
+        DB::table('costos')->insert(
+                ['quotation_id' => $request->Quotation_Id, 'type' => $Type,'calibre'=> 'TRANSPORTE',
+                    'sku'=>' ','cant'=>$request->amount ,'description'=>$request->description,
+                'precio_unit'=>$PriceListUninstalls->cost*$PriceListUninstalls->f_total,'precio_total'=>$Import, 'factor'=>$PriceListUninstalls->f_total,
+                'costo_unit'=>$PriceListUninstalls->cost ,'costo_total'=>$PriceListUninstalls->cost* $request->amount ,
+                'kg_unit'=>0, 'm2_unit'=>0,]
+            );      
         return redirect()->route('selectivo_installs', $Quotation_Id);
+        
     }
 
     public function double_deep_store(Request $request)
