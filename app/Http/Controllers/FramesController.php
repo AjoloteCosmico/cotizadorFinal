@@ -166,7 +166,7 @@ class FramesController extends Controller
                     ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> $Calibre,
                      'sku'=>$Sku ,'cant'=>$Cantidad,'description'=>'MARCO CARGA PESADA '.$Modelo,
                     'precio_unit'=>$Precio_Total/$Cantidad,'precio_total'=>$Precio_Total, 'factor'=>$PriceList->f_total,
-                    'costo_unit'=>$Precio_unit_sn_factor,'costo_total'=>$Precio_sin_factor,
+                    'costo_unit'=>$Data->total_kg * $PriceList->cost,'costo_total'=>($Data->total_kg * $PriceList->cost)*$Cantidad,
                     'kg_unit'=>$Total_Kg/$Cantidad, 'm2_unit'=>$Total_m2/$Cantidad
                     ]
                     
