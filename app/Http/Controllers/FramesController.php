@@ -93,7 +93,7 @@ class FramesController extends Controller
                 $Precio_Total = $Cantidad * $Precio;
                 $Calzas = 4;
                 $CostoCalzas = PriceList::where('piece', 'CALZAS')->first();
-                $CostoCalza = $CostoCalzas->cost * $CostoCalzas->f_total;
+                $CostoCalza = $CostoCalzas->cost * .179 * $CostoCalzas->f_total; //179 pesa la calza
                 $Taquetes = 4;
                 $CostoTaquetes = PriceListScrew::where('description', 'TAQUETE')->first();
                 $CostoTaquete = $CostoTaquetes->cost * $CostoTaquetes->f_total;
@@ -174,8 +174,8 @@ class FramesController extends Controller
                 DB::table('costos')->insert(
                     [['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'GALVANIZADAS','factor'=>$CostoCalzas->f_total,
                      'sku'=>$CostoCalzas->sku ,'cant'=>$Calzas*$Cantidad,'description'=>'CALZAS PARA MARCO',
-                    'precio_unit'=>$CostoCalzas->cost * $CostoCalzas->f_total,'precio_total'=>$CostoCalzas->cost * $CostoCalzas->f_total*$Calzas*$Cantidad,
-                    'costo_unit'=>$CostoCalzas->cost,'costo_total'=>$CostoCalzas->cost * $Calzas*$Cantidad,
+                    'precio_unit'=>$CostoCalzas->cost *.179 * $CostoCalzas->f_total,'precio_total'=>$CostoCalzas->cost *.179 * $CostoCalzas->f_total*$Calzas*$Cantidad,
+                    'costo_unit'=>$CostoCalzas->cost*.179 ,'costo_total'=>$CostoCalzas->cost*.179  * $Calzas*$Cantidad,
                     ],
                     ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> 'TORNILLERIA','factor'=>$CostoTaquetes->f_total,
                      'sku'=>$CostoTaquetes->sku ,'cant'=>$Taquetes* $Cantidad,'description'=>$CostoTaquetes->description,
