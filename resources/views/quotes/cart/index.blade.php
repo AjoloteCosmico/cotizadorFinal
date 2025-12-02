@@ -62,10 +62,15 @@
                 <button type="button" class="btn btn-danger btn-block">Vaciar Carrito</button>
             </a> 
             <br>
-            @if($QuotationId != 0)
+    @if($QuotationId != 0)
             <br>
             <!-- {{$Type}} -->
             <br>
+         @if($Quotation->type=='PIEZAS INDIVIDUALES')
+         <a href="{{route('singlepieces.show',$QuotationId)}}">
+                <button type="button" class="btn btn-primary btn-block">Continuar Cotizacion</button>
+            </a>
+         @else
             @if($Quotation->type=='DRIVE IN')
             <a href="{{route('drivein.show',[$QuotationId,$Type])}}">
                 <button type="button" class="btn btn-primary btn-block">Continuar Cotizacion</button>
@@ -75,8 +80,9 @@
                 <button type="button" class="btn btn-primary btn-block">Continuar Cotizacion</button>
             </a>
             @endif
+        @endif
             <br>
-            @endif<br> 
+    @endif<br> 
             @if($QuotationId != 0)
             <a href="{{route('closing_questionary',$QuotationId)}}">
                 <button type="button" class="btn btn-success btn-block">Cerrar Cotizacion</button>
