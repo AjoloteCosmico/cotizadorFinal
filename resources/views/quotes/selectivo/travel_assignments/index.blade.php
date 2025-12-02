@@ -177,7 +177,6 @@
 <script>
     var nviaticos=0+{{$QuotationTravelAssignments->count()}};
     var indexviaticos=0+{{$QuotationTravelAssignments->count()}}
-    var btnSave = document.getElementById('save_btn');
     console.log(nviaticos);
     function deleteRow(r) {
         var i = r.parentNode.parentNode.rowIndex;
@@ -208,8 +207,8 @@
 
         nviaticos+=1;
         indexviaticos+=1;
-        btnSave.removeAttribute('href');
-        btnSave.disabled=true;
+        document.getElementById('save_btn').removeAttribute('href');
+        document.getElementById('save_btn').disabled=true;
         const floatingPos = document.getElementById('floating_pos');
         if (floatingPos) {
             floatingPos.style.display = 'block';
