@@ -217,9 +217,9 @@
     }
 
  @if( $Quotation->dias == 0) 
-    var btnSave = document.getElementById('save_btn');
-    btnSave.removeAttribute('href');
-    btnSave.disabled=true;
+     
+    document.getElementById('save_btn').removeAttribute('href');
+    document.getElementById('save_btn').disabled=true;
      @endif  
 </script>
 
