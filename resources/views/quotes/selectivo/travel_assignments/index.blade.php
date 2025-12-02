@@ -176,7 +176,7 @@
 <script>
     var nviaticos=0+{{$QuotationTravelAssignments->count()}};
     var indexviaticos=0+{{$QuotationTravelAssignments->count()}}
-    const btnSave = document.getElementById('save_btn');
+    var btnSave = document.getElementById('save_btn');
     console.log(nviaticos);
     function deleteRow(r) {
         var i = r.parentNode.parentNode.rowIndex;
@@ -217,6 +217,7 @@
     }
 
  @if( $Quotation->dias == 0) 
+    var btnSave = document.getElementById('save_btn');
     btnSave.removeAttribute('href');
     btnSave.disabled=true;
      @endif  
