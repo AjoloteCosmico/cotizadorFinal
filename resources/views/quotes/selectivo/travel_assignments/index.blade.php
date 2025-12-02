@@ -131,10 +131,11 @@
                         </div>
                         
                         <div class="form-group p-2 gap-2 flex items-center">
-                            <button  class="btn btn-green mb-2"  @if( $Quotation->dias == 0) data-toggle="tooltip" data-placement="top" title="Calcule el total antes de guardar" disabled @endif>
-                                <a   id="save_btn" href="{{route('selectivo_quotation_travel_assignments.add_carrito', $Quotation_Id)}}" class="btn btn-green mb-2" >
-                                <i class="fa-solid fa-save fa-xl"></i>&nbsp; Guardar
-                            </a> </button>
+                              <a   id="save_ref" href="{{route('selectivo_quotation_travel_assignments.add_carrito', $Quotation_Id)}}" >
+                             <button id="save_btn"  class="btn btn-green mb-2"  @if( $Quotation->dias == 0) data-toggle="tooltip" data-placement="top" title="Calcule el total antes de guardar" disabled @endif>
+                              
+                              <i class="fa-solid fa-save fa-xl"></i>&nbsp; Guardar
+                            </button></a>
                             
                         </div>
                        
@@ -207,7 +208,7 @@
 
         nviaticos+=1;
         indexviaticos+=1;
-        document.getElementById('save_btn').removeAttribute('href');
+        document.getElementById('save_ref').removeAttribute('href');
         document.getElementById('save_btn').disabled=true;
         const floatingPos = document.getElementById('floating_pos');
         if (floatingPos) {
@@ -218,7 +219,7 @@
 
  @if( $Quotation->dias == 0) 
      
-    document.getElementById('save_btn').removeAttribute('href');
+    document.getElementById('save_ref').removeAttribute('href');
     document.getElementById('save_btn').disabled=true;
      @endif  
 </script>
