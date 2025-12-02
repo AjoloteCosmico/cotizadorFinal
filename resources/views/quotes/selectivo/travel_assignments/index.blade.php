@@ -172,6 +172,7 @@
 
 @section('js')
 <script type="text/javascript" src="{{ asset('vendor/mystylesjs/js/tabletravelassignments.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
 
 <script>
     var nviaticos=0+{{$QuotationTravelAssignments->count()}};
