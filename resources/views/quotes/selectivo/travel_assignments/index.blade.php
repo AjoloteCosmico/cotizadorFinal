@@ -64,6 +64,11 @@
                                     <x-jet-label value="* Viáticos" />
                                     
                                     <div class="w-100">&nbsp;</div>
+                                     <div class="col-sm-12 text-right">
+                                    <button id="btn_add_viatico" class="btn btn-green" onclick='add_viatico()' type="button">   
+                                        <i class="fas fa-plus-circle"></i>&nbsp; Agregar Viáticos
+                                    </button>
+                                    </div>
                                     <div class="col-sm-12 table-responsive text-xs">
                                         <table class="table tabletravelassignments table-striped align-middle" id='table_viaticos'>
                                             <thead class="text-center">
@@ -114,11 +119,7 @@
                                             </tfoot>
                                         </table>
                                     </div>
-                                    <div class="col-sm-12 text-right">
-                                    <button id="btn_add_viatico" class="btn btn-green" onclick='add_viatico()' type="button">   
-                                        <i class="fas fa-plus-circle"></i>&nbsp; Agregar Viáticos
-                                    </button>
-                                    </div>
+                                   
                                 </div>
                                 <div class="form-group p-2 gap-2 flex items-center">
                             <button id="btn_calcular" class="btn btn-blue mb-2">
