@@ -44,7 +44,10 @@ class ReportsController extends Controller
          
           $process2->run();
           if (!$process2->isSuccessful()) {
+             $process2->run();
+          if (!$process2->isSuccessful()) {
              throw new ProcessFailedException($process2);
+          }
           }
           $data = $process2->getOutput();
          return response()->download(public_path('storage/report/'.$report.$id.'.pdf'));

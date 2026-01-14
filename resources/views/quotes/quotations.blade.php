@@ -102,6 +102,9 @@
 
 @if($QuotationId!=0)
 <script>
+    document.getElementById("{{'quot'.$QuotationId}}").focus();
+</script>
+<script>
     setTimeout(
   function() {
     window.location.replace("{{route('redaccion',[$QuotationId,1])}}");
@@ -109,8 +112,6 @@
   
 </script>
 <script type="text/javascript" src="{{ asset('vendor/mystylesjs/js/close_quotation.js') }}"></script>
-<script>
-    document.getElementById("{{'quot'.$QuotationId}}").focus();
-</script>
+
 @endif
 @stop
