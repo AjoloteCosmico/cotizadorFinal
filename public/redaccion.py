@@ -9,7 +9,7 @@ import os
 from dotenv import load_dotenv
 from datetime import date
 id=sys.argv[1]
-# id=209
+# id=208
 today = date.today()
 load_dotenv()
 
@@ -71,24 +71,10 @@ for i in tablas:
             p['caliber']=p['caliber'].str.replace('-','')
         except:
             print(' ')
-        costo=aceros.loc[aceros['caliber']==str(p['caliber'].values[0]),'cost'].values[0]
-        # if('total_kg' in p.columns):
-        #     p=p.assign(cost=costo*p.total_kg)
-        # if('total_weight' in p.columns):
-        #     p=p.assign(cost=costo*p.total_weight)
-        # if('weight_kg' in p.columns):
-         
-        #     p=p.assign(cost=costo*p.weight_kg)
-        # if('weight' in p.columns):
-          
-        #     p=p.assign(cost=costo*p.weight)
-        # if('long' in p.columns):
-           
-        #     p=p.assign(cost=costo*p.long)
-    # if(len(p)>0)&(len(cart_reference)>0):
+        
     if(len(p)>0):
         if(len(cart_reference)>0):
-            print('ha sido encontrada una instancia de ',p)
+            print('ha sido encontrada una instancia de ')
             p=p.assign(cost_unit=cart_reference['unit_price'].values[0])
             p=p.assign(cost_total=cart_reference['total_price'].values[0])
             p=p.assign(cantidad=cart_reference['amount'].values[0])
@@ -138,8 +124,9 @@ for i in range(len(products)):
     carga=None
     altura=0
     ancho=0
-    print(products['tabla'].values[i],products['cantidad'].values[i],products['cost_unit'].values[i])
-    if(products['tabla'].values[i] not in instalacion_tables):
+   
+    if(products['tabla'].values[i] not in instalacion_tables+['quotation_travel_assignments','packagings']):
+        print(products['tabla'].values[i],products['cantidad'].values[i],products['cost_unit'].values[i],p)
         if('frames' in products['tabla'].values[i]):
             this_color='Color:  Galvanizado. (otros colores opcionales).'
             seccion=questionario['section'].values[0]
@@ -248,7 +235,7 @@ print('X-X-X-X-X-X-X calculado el total',products[price_cols])
 precio_total=cart_products['total_price'].sum()
 print(precio_total)
 kilos_totales=products[cols_kg].sum(axis=1).sum()
-fletes_tables=['packagings','quotation_travel_assignments']
+fletes_tables=['packagings']
 instalacion_tables=['quotation_installs','quotation_uninstalls']
 precios=products[price_cols+['tabla','print']]
 costo_flete=precios.loc[precios['tabla'].isin(fletes_tables)].sum(axis=1,numeric_only=True).sum()
