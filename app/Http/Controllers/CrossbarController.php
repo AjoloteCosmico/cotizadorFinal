@@ -123,6 +123,7 @@ class CrossbarController extends Controller
         ]);
         }
         
+        
         return view('quotes.selectivo.crossbars.calc', compact(
             'Precio_sn_factor',
             'Amount',
