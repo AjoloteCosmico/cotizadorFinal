@@ -20,7 +20,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <x-jet-label value="* Se cobra Instalación" />
+                                    <x-jet-label value="* Se desglosa Instalación" />
                                     <select name="install" id="install" class="js_select2 inputjet w-full text-xs uppercase">
                                         <option value="SI"@if (old('install')=="SI") selected @endif>SI</option>
                                         <option value="NO"@if (old('install')=="NO") selected @endif>NO</option>
@@ -94,7 +94,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <x-jet-label value="* Se cobra Desinstalación" />
+                                    <x-jet-label value="* Se desglosa Desinstalación" />
                                     <select name="uninstall" id="uninstall" class="js_select2 inputjet w-full text-xs uppercase">
                                         <option value="SI"@if (old('uninstall')=="SI") selected @endif>SI</option>
                                         <option value="NO"@if (old('uninstall')=="NO") selected @endif>NO</option>
