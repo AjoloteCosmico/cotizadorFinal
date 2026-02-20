@@ -1613,9 +1613,9 @@ class PanelController extends Controller
         $Quotation=Quotation::find($id);
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
         $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','PG2')->first();
-        if($cartl2){
-            Cart_product::destroy($cartl2->id);
-        }
+        // if($cartl2){
+        //     Cart_product::destroy($cartl2->id);
+        // }
         //agregar el nuevo al carrito, lo que este en 
         $SJL2 = Quot2JGalvanizedPanel::where('quotation_id', $Quotation_Id)->first();
         //guardar en el carrito
@@ -1638,9 +1638,9 @@ class PanelController extends Controller
         $Quotation=Quotation::find($id);
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
         $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','PP2')->first();
-        if($cartl2){
-            Cart_product::destroy($cartl2->id);
-        }
+        // if($cartl2){
+        //     Cart_product::destroy($cartl2->id);
+        // }
         //agregar el nuevo al carrito, lo que este en 
         $SJL2 = Quot2JPaintedPanel::where('quotation_id', $Quotation_Id)->first();
         //guardar en el carrito
@@ -1663,9 +1663,9 @@ class PanelController extends Controller
         $Quotation=Quotation::find($id);
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
         $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','PG25')->first();
-        if($cartl2){
-            Cart_product::destroy($cartl2->id);
-        }
+        // if($cartl2){
+        //     Cart_product::destroy($cartl2->id);
+        // }
         //agregar el nuevo al carrito, lo que este en 
         $SJL2 = Quot25JGalvanizedPanel::where('quotation_id', $Quotation_Id)->first();
         //guardar en el carrito
@@ -1688,9 +1688,9 @@ class PanelController extends Controller
         $Quotation=Quotation::find($id);
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
         $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','PP25')->first();
-        if($cartl2){
-            Cart_product::destroy($cartl2->id);
-        }
+        // if($cartl2){
+        //     Cart_product::destroy($cartl2->id);
+        // }
         //agregar el nuevo al carrito, lo que este en 
         $SJL2 = Quot25JPaintedPanel::where('quotation_id', $Quotation_Id)->first();
         //guardar en el carrito
@@ -1713,9 +1713,9 @@ class PanelController extends Controller
         $Quotation=Quotation::find($id);
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
         $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','PGC')->first();
-        if($cartl2){
-            Cart_product::destroy($cartl2->id);
-        }
+        // if($cartl2){
+        //     Cart_product::destroy($cartl2->id);
+        // }
         //agregar el nuevo al carrito, lo que este en 
         $SJL2 = QuotChairJGalvanizedPanel::where('quotation_id', $Quotation_Id)->first();
         //guardar en el carrito
@@ -1738,9 +1738,9 @@ class PanelController extends Controller
         $Quotation=Quotation::find($id);
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
         $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','PPC')->first();
-        if($cartl2){
-            Cart_product::destroy($cartl2->id);
-        }
+        // if($cartl2){
+        //     Cart_product::destroy($cartl2->id);
+        // }
         //agregar el nuevo al carrito, lo que este en 
         $SJL2 = QuotChairJPaintedPanel::where('quotation_id', $Quotation_Id)->first();
         //guardar en el carrito

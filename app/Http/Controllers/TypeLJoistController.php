@@ -293,9 +293,9 @@ class TypeLJoistController extends Controller
         $Quotation=Quotation::find($id);
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
         $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','SJL')->first();
-        if($cartl2){
-            Cart_product::destroy($cartl2->id);
-        }
+        // if($cartl2){
+        //     Cart_product::destroy($cartl2->id);
+        // }
         //agregar el nuevo al carrito, lo que este en 
         $SJL2 = SelectiveJoistL::where('quotation_id', $Quotation_Id)->first();
         //guardar en el carrito
@@ -322,9 +322,9 @@ class TypeLJoistController extends Controller
         $Quotation=Quotation::find($id);
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
         $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','SJL14')->first();
-        if($cartl2){
-            Cart_product::destroy($cartl2->id);
-        }
+        // if($cartl2){
+        //     Cart_product::destroy($cartl2->id);
+        // }
         //agregar el nuevo al carrito, lo que este en 
         $SJL2 = SelectiveJoistLCaliber14::where('quotation_id', $Quotation_Id)->first();
         //guardar en el carrito

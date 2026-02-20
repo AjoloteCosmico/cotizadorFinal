@@ -63,9 +63,9 @@ class PasarelaController extends Controller
         
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
         $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','Pang'.$caliber)->first();
-        if($cartl2){
-            Cart_product::destroy($cartl2->id);
-        }
+        // if($cartl2){
+        //     Cart_product::destroy($cartl2->id);
+        // }
         //agregar el nuevo al carrito, lo que este en 
         $SJL2 = quotation_gangplank_angle::where('quotation_id', $Quotation_Id)->first();
         //guardar en el carrito
@@ -129,9 +129,9 @@ class PasarelaController extends Controller
         
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
         $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','Pgall'.$caliber)->first();
-        if($cartl2){
-            Cart_product::destroy($cartl2->id);
-        }
+        // if($cartl2){
+        //     Cart_product::destroy($cartl2->id);
+        // }
         //agregar el nuevo al carrito, lo que este en 
         $SJL2 = quotation_galleta::where('quotation_id', $Quotation_Id)->first();
         //guardar en el carrito

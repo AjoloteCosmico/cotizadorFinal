@@ -452,9 +452,9 @@ class TypeBox25JoistController extends Controller
         $Quotation=Quotation::find($id);
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
         $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','SJB25')->first();
-        if($cartl2){
-            Cart_product::destroy($cartl2->id);
-        }
+        // if($cartl2){
+        //     Cart_product::destroy($cartl2->id);
+        // }
         //agregar el nuevo al carrito, lo que este en 
         $SJB2 = SelectiveJoistBox25::where('quotation_id', $Quotation_Id)->first();
         //guardar en el carrito
@@ -482,9 +482,9 @@ class TypeBox25JoistController extends Controller
         $Quotation=Quotation::find($id);
         //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
         $cartl2 = Cart_product::where('quotation_id', $Quotation_Id)->where('type','SJB2514')->first();
-        if($cartl2){
-            Cart_product::destroy($cartl2->id);
-        }
+        // if($cartl2){
+        //     Cart_product::destroy($cartl2->id);
+        // }
         //agregar el nuevo al carrito, lo que este en 
         $SJL2 = SelectiveJoistBox25Caliber14::where('quotation_id', $Quotation_Id)->first();
         //guardar en el carrito

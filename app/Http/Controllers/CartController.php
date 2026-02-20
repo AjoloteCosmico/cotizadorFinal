@@ -98,10 +98,10 @@ public function add_selectivo_carga_pesada($id,$Costo,$tornilleria){
     $Quotation_Id = $id;
     $Quotation=Quotation::find($id);
     //buscar si en el carrito hay otro SHLF de esta cotizacion y borrarlo
-    $cartSHLF = Cart_product::where('quotation_id', $Quotation_Id)->where('type','SHLF')->first();
-    if($cartSHLF){
-        Cart_product::destroy($cartSHLF->id);
-    }
+    // $cartSHLF = Cart_product::where('quotation_id', $Quotation_Id)->where('type','SHLF')->first();
+    // if($cartSHLF){
+    //     Cart_product::destroy($cartSHLF->id);
+    // }
     //agregar el nuevo al carrito, lo que este en
     $SHLF = SelectiveHeavyLoadFrame::where('quotation_id', $Quotation_Id)->first();
     //guardar en el carrito
@@ -129,9 +129,9 @@ public function add_selectivo_marcos_estructurales($id,$Costo){
     $Quotation=Quotation::find($id);
     // buscar si en el carrito hay otro SSF de esta cotizacion y borrarlo
     $cartSHLF = Cart_product::where('quotation_id', $Quotation_Id)->where('type','SSF')->first();
-    if($cartSHLF){
-        Cart_product::destroy($cartSHLF->id);
-    }
+    // if($cartSHLF){
+    //     Cart_product::destroy($cartSHLF->id);
+    // }
     //agregar el nuevo al carrito, lo que este en
     $SF = SelectiveStructuralFrame::where('quotation_id', $Quotation_Id)->first();
     //guardar en el carrito
