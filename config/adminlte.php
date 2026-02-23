@@ -436,19 +436,19 @@ return [
                     'text' => 'TRANSPORTES',
                     'icon' => 'fas fa-fw fa-truck-plane',
                     'route'  => 'transports.index',
-                    'can'  => 'VER FACTORES',
+                    'can'  => 'VER TRANSPORTES',
                 ],
                 [
                     'text' => 'DESTINOS',
                     'icon' => 'fas fa-fw fa-map-location-dot',
                     'route'  => 'destinations.index',
-                    'can'  => 'VER FACTORES',
+                    'can'  => 'VER DESTINOS',
                 ],
                 [
                     'text' => 'VIÁTICOS',
                     'icon' => 'fas fa-fw fa-route',
                     'route'  => 'travel_assignments.index',
-                    'can'  => 'VER FACTORES',
+                    'can'  => 'VER VIATICOS',
                 ],
                 /*
                 [
