@@ -96,7 +96,9 @@ class CrossbarController extends Controller
             $SCB->total_price = $SubTotal;
             $SCB->save();
         }
+        if(Auth::user()->can('VER LOGS CALCULOS')){
         echo "Costo acero: $".$PriceList->cost." //Factor: ".$PriceList->f_total." //Peso: ".$Piece->weight;
+        }
         //guardar COMPONENTES para reportes
         $Type='SCB';
         $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
@@ -113,7 +115,9 @@ class CrossbarController extends Controller
                 );
         
         if($ConConnector != 'No'){
+            if(Auth::user()->can('VER LOGS CALCULOS')){
             echo "<br> precio conector: $".$PriceConector->cost."//Factor: ".$PriceConector->f_total." //preso conector: 0.84" ;
+            }
             DB::table('costos')->insert(
                     ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> '10','factor'=>$PriceConector->f_total,
                      'sku'=>$Conector->sku ,'cant'=>$Amount,'description'=>'CONECTOR CROSSBAR',

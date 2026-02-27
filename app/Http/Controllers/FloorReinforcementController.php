@@ -64,7 +64,9 @@ class FloorReinforcementController extends Controller
             $SFR->total_price = $SubTotal;
             $SFR->save();
         }
+        if(Auth::user()->can('VER LOGS CALCULOS')){
         echo "Costo acero: $".$PriceLists->cost." //Factor ".$PriceLists->description.$PriceLists->caliber.": ".$PriceLists->f_total." //Peso: ".$Piece->weight;
+        }
         //guardar COMPONENTES para reportes
                 $Type='SFR';
                 $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();

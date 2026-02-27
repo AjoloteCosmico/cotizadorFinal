@@ -137,12 +137,13 @@ class TypeL2JoistController extends Controller
                     'costo_unit'=>$Clavijas->cost,'costo_total'=>$Clavijas->cost * 2*$Amount,
                     ]]
                 );
+        if(Auth::user()->can('VER LOGS CALCULOS')){
             echo "  //Factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
             echo " //precio acero: $".$PriceList->cost;
             echo " //precio unit sin f_total: $".$Import / $PriceList->f_total ;
             echo '<br> //Peso: '.$TypeLJoists->weight;
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
-            
+        }
             return view('quotes.selectivo.joists.typel2joists.caliber14.store', compact(
                 'Precio_sin_factor',
                 'Amount',
@@ -239,11 +240,13 @@ class TypeL2JoistController extends Controller
             $SJL2->total_price = $Import*$Amount + $CostoTotalClavijas;
             $SJL2->save();
         }
-        echo "  //Factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
+        if(Auth::user()->can('VER LOGS CALCULOS')){
+            echo "  //Factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
             echo " //precio acero: $".$PriceList->cost;
             echo " //precio unit sin f_total: $".$Import / $PriceList->f_total ;
             echo '<br> //Peso: '.$TypeLJoists->weight;
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
+        }
             $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
             $Type='SJL2';
             $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
@@ -400,11 +403,13 @@ class TypeL2JoistController extends Controller
             $SJL2->total_price = $Import *$Amount;
             $SJL2->save();
         }
+        if(Auth::user()->can('VER LOGS CALCULOS')){
             echo "  //Factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
             echo " //precio acero: $".$PriceList->cost;
             echo " //precio unit sin f_total: $".$Import / $PriceList->f_total ;
             echo '<br> //Peso: '.$TypeLJoists->weight;
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
+        }
             $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
         return view('quotes.drivein.joists.typel2joists.store', compact(
             'Precio_sin_factor',

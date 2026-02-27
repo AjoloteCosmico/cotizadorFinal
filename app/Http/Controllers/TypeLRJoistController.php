@@ -112,11 +112,13 @@ class TypeLRJoistController extends Controller
                 $SJLR->total_price = $Import*$Amount + $CostoTotalClavijas;
                 $SJLR->save();
             }
+            if(Auth::user()->can('VER LOGS CALCULOS')){
             echo "  //Factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
             echo " //precio acero: $".$PriceList->cost;
             echo " //precio unit sin f_total: $".$Import / $PriceList->f_total ;
             echo '<br> //Peso: '.$TypeLJoists->weight;
-            echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
+            echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; }
+
             $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
             $Type='SJLR14';
             $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
@@ -232,11 +234,13 @@ class TypeLRJoistController extends Controller
                 $SJLR->total_price = $Import*$Amount + $CostoTotalClavijas/2;
                 $SJLR->save();
             }
+            if(Auth::user()->can('VER LOGS CALCULOS')){
             echo "  //Factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
             echo " //precio acero: $".$PriceList->cost;
             echo " //precio unit sin f_total: $".$Import / $PriceList->f_total ;
             echo '<br> //Peso: '.$TypeLJoists->weight;
             echo "<br> //Costo clavija $". $Clavijas->cost."// Factor clavija: ".$Clavijas->f_total; 
+            }
             $Precio_sin_factor=($Import / $PriceList->f_total)*$Amount;
             $Type='SJLR';
             $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();

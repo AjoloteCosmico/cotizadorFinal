@@ -202,10 +202,11 @@ class PanelController extends Controller
             }
             $LengthDimension= $TwoInJoistLGalvanizedPanel->length_dimension;
             $LoadingCapacity= $TwoInJoistLGalvanizedPanel->loading_capacity;
-            
+            if(Auth::user()->can('VER LOGS CALCULOS')){
             echo "  //Factor: ".$PriceLists->f_total.' '.$PriceLists->description.$PriceLists->type.$PriceLists->caliber; 
             echo "  // Costo acero ".$PriceLists->type.$PriceLists->caliber.": $". $PriceLists->cost;
             echo " // Peso: ". $Weight;
+            }
             $Type='PG2';
             $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
                 // REFUERZO PARA PISO
@@ -315,9 +316,10 @@ class PanelController extends Controller
             }
             $LengthDimension= $TwoInJoistLPaintedPanel->length_dimension;
             $LoadingCapacity= $TwoInJoistLPaintedPanel->loading_capacity;
+            if(Auth::user()->can('VER LOGS CALCULOS')){
             echo "  //Factor: ".$PriceLists->f_total.' '.$PriceLists->description.$PriceLists->type.$PriceLists->caliber; 
             echo "  // Costo acero ".$PriceLists->type.$PriceLists->caliber.": $". $PriceLists->cost;
-            echo " // Peso: ". $Weight;
+            echo " // Peso: ". $Weight;}
             $Type='PP2';
             $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
                 // REFUERZO PARA PISO
@@ -441,9 +443,10 @@ class PanelController extends Controller
                     'kg_unit'=>$Weight, 'm2_unit'=>$M2
                     ]
                 );
+            if(Auth::user()->can('VER LOGS CALCULOS')){
             echo "  //Factor: ".$PriceLists->f_total.' '.$PriceLists->description.$PriceLists->type.$PriceLists->caliber; 
             echo "  // Costo acero ".$PriceLists->type.$PriceLists->caliber.": $". $PriceLists->cost;
-            echo " // Peso: ". $Weight;
+            echo " // Peso: ". $Weight;}
             return view('quotes.selectivo.panels.two_point_five_in_joist_l_galvanized_panels.store', compact(
                 'Quotation_Id',
                 'Amount',
@@ -541,9 +544,10 @@ class PanelController extends Controller
             }
             $LengthDimension= $TwoPointFiveInJoistLPaintedPanel->length_dimension;
             $LoadingCapacity= $TwoPointFiveInJoistLPaintedPanel->loading_capacity;
+            if(Auth::user()->can('VER LOGS CALCULOS')){
             echo "  //Factor: ".$PriceLists->f_total.' '.$PriceLists->description.$PriceLists->type.$PriceLists->caliber; 
             echo "  // Costo acero ".$PriceLists->type.$PriceLists->caliber.": $". $PriceLists->cost;
-            echo " // Peso: ". $Weight;
+            echo " // Peso: ". $Weight;}
             $Type='PP25';
             $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
                 // REFUERZO PARA PISO
@@ -653,9 +657,10 @@ class PanelController extends Controller
             }
             $LengthDimension= $ChairJoistGalvanizedPanel->length_dimension;
             $LoadingCapacity= $ChairJoistGalvanizedPanel->loading_capacity;
+            if(Auth::user()->can('VER LOGS CALCULOS')){
             echo "  //Factor: ".$PriceLists->f_total.' '.$PriceLists->description.$PriceLists->type.$PriceLists->caliber; 
             echo "  // Costo acero ".$PriceLists->type.$PriceLists->caliber.": $". $PriceLists->cost;
-            echo " // Peso: ". $Weight;
+            echo " // Peso: ". $Weight;}
             $Type='PGC';
             $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
                 // REFUERZO PARA PISO
@@ -766,9 +771,10 @@ class PanelController extends Controller
             }
             $LengthDimension= $ChairJoistLPaintedPanel->length_dimension;
             $LoadingCapacity= $ChairJoistLPaintedPanel->loading_capacity;
+            if(Auth::user()->can('VER LOGS CALCULOS')){
             echo "  //Factor: ".$PriceLists->f_total.' '.$PriceLists->description.$PriceLists->type.$PriceLists->caliber; 
             echo "  // Costo acero ".$PriceLists->type.$PriceLists->caliber.": $". $PriceLists->cost;
-            echo " // Peso: ". $Weight;
+            echo " // Peso: ". $Weight;}
             $Type='PG2';
             $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
                 // REFUERZO PARA PISO

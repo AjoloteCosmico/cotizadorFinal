@@ -18,7 +18,8 @@ class QuotationProtectorController extends Controller
     /* Selectivo */
     public function selectivo_protectors_index($id)
     {
-        echo Session::get('protector_logs');
+        if(Auth::user()->can('VER LOGS CALCULOS')){
+        echo Session::get('protector_logs');}
         $Quotation_Id = $id;
         $QuotationProtectors = QuotationProtector::where('quotation_id', $Quotation_Id)->get();
         if(count($QuotationProtectors)>0){

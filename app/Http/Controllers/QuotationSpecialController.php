@@ -63,7 +63,8 @@ class QuotationSpecialController extends Controller
         }
 
         $Special = QuotationSpecial::where('quotation_id', $request->Quotation_Id)->first();
-        echo "  //factor auxiliares ESPECIAL: ". $PriceListAuxiliars->f_total;
+        if(Auth::user()->can('VER LOGS CALCULOS')){
+        echo "  //factor auxiliares ESPECIAL: ". $PriceListAuxiliars->f_total;}
         $Type='SSP';
         $Componentes=Costo::where('quotation_id',$request->Quotation_Id)->where('type',$Type)->delete();
             

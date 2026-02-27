@@ -53,10 +53,11 @@ class DriveInPiezasController extends Controller
         $QuotSoporte->amount=$request->amount;
         $QuotSoporte->sku=$Soporte->sku;
         $QuotSoporte->save();
+        if(Auth::user()->can('VER LOGS CALCULOS')){
         echo "  //factor: ".$PrecioLamina->f_total.' '.$PrecioLamina->description.$PrecioLamina->type.$PrecioLamina->caliber; 
         echo " //precio acero: $".$PrecioLamina->cost;
         echo " //peso total: ".$Soporte->weight;
-        echo "////id:".$PrecioLamina->id;
+        echo "////id:".$PrecioLamina->id;}
         return view('quotes.drivein.soportes.store',compact('QuotSoporte','Soporte'));
     }
     public function soportes_add_carrito($id,$caliber){
@@ -114,9 +115,10 @@ class DriveInPiezasController extends Controller
         $QuotGuia->amount=$request->amount;
         $QuotGuia->sku=$Guia->sku;
         $QuotGuia->save();
+        if(Auth::user()->can('VER LOGS CALCULOS')){
         echo "  //factor: ".$PrecioLamina->f_total.' '.$PrecioLamina->description.$PrecioLamina->type.$PrecioLamina->caliber; 
         echo " //precio acero: $".$PrecioLamina->cost;
-        echo " //peso total: ".$Guia->weight;
+        echo " //peso total: ".$Guia->weight;}
         return view('quotes.drivein.guias.store',compact('QuotGuia','Guia'));
     }
     public function guias_add_carrito($id){
@@ -168,11 +170,12 @@ class DriveInPiezasController extends Controller
         $PrecioLaminaEST3=PriceList::where('system','DRIVE IN')->where('piece','BRAZOS')->where('caliber','EST 3 IN')->where('type','RC ESTRUCTURAL')->first();
         $PrecioLaminaEST4=PriceList::where('system','DRIVE IN')->where('piece','BRAZOS')->where('caliber','EST 3 IN')->where('type','RC ESTRUCTURAL')->first();
         // dd($PrecioLaminaRC10,$PrecioLaminaRC14,$PrecioLaminaRC316,$PrecioLaminaEST3,$PrecioLaminaEST4); 
+        if(Auth::user()->can('VER LOGS CALCULOS')){
         echo "Lamina RC14  costo: $".$PrecioLaminaRC14->cost."// factor: ".$PrecioLaminaRC14->f_total."  //"; 
         echo "Lamina RC10  costo: $".$PrecioLaminaRC10->cost."// factor: ".$PrecioLaminaRC10->f_total."  //"; 
         echo "Lamina RC3/16  costo: $".$PrecioLaminaRC316->cost."// factor: ".$PrecioLaminaRC316->f_total."<br>"; 
         echo "Lamina EST 3 IN costo: $".$PrecioLaminaEST3->cost."// factor: ".$PrecioLaminaEST3->f_total."// "; 
-        echo "Lamina EST 4 IN  costo: $".$PrecioLaminaEST4->cost."// factor: ".$PrecioLaminaEST4->f_total."<br>"; 
+        echo "Lamina EST 4 IN  costo: $".$PrecioLaminaEST4->cost."// factor: ".$PrecioLaminaEST4->f_total."<br>"; }
         $Rolados=quotation_drive_in_brazo::where('quotation_id','=',$request->Quotation_Id)->where('description','ROLADO')->first();
         $Est3In=quotation_drive_in_brazo::where('quotation_id','=',$request->Quotation_Id)->where('description','EST 3 IN')->first();
         $Est4In=quotation_drive_in_brazo::where('quotation_id','=',$request->Quotation_Id)->where('description','EST 4 IN')->first();
@@ -190,7 +193,8 @@ class DriveInPiezasController extends Controller
             $Rolados->sku='TC0000117254';
         }
         if($request->rolados_amount>0){
-            echo "Peso rolados: 2.1371  //";
+            if(Auth::user()->can('VER LOGS CALCULOS')){
+            echo "Peso rolados: 2.1371  //";}
         }
         $PrecioCuerpo=1.43*$PrecioLaminaRC14->f_total*$PrecioLaminaRC14->cost;
         $PrecioConectores=0.57*$PrecioLaminaRC316->f_total*$PrecioLaminaRC316->cost;
@@ -221,7 +225,8 @@ class DriveInPiezasController extends Controller
         $Est3In->amount=$request->est3_amount;
         $Est3In->save();
         if($request->est3_amount>0){
-            echo "Peso EST 3 IN: 1.53 //";
+            if(Auth::user()->can('VER LOGS CALCULOS')){
+            echo "Peso EST 3 IN: 1.53 //";}
         }
         if(!$Est4In){
             $Est4In = new  quotation_drive_in_brazo();
@@ -244,7 +249,8 @@ class DriveInPiezasController extends Controller
         $Est4In->save();
 
         if($request->est4_amount>0){
-            echo "Peso EST 4 IN: 2.01  //";
+            if(Auth::user()->can('VER LOGS CALCULOS')){
+            echo "Peso EST 4 IN: 2.01  //";}
         }
         return view('quotes.drivein.brazos.store',compact('Rolados','Est3In','Est4In'));
     }
@@ -314,9 +320,11 @@ class DriveInPiezasController extends Controller
         // $request->validate($rules);
         $PrecioLaminaRC=PriceList::where('piece','ARRIOSTRADO')->where('caliber','12')->first();
         $PrecioLaminaEst=PriceList::where('piece','ARRIOSTRADO')->where('caliber','ANG 1.5 (1/8)')->first();
+        if(Auth::user()->can('VER LOGS CALCULOS')){
         echo "Lamina RC 12 costo: $".$PrecioLaminaRC->cost."// factor: ".$PrecioLaminaRC->f_total."id:".$PrecioLaminaRC->id." //"; 
         echo "Lamina Angulo costo: $".$PrecioLaminaEst->cost."// factor: ".$PrecioLaminaEst->f_total."id:".$PrecioLaminaEst->id."<br>"; 
         echo "Peso rolados: 21.25 // Peso estructurales: 3.20";
+        }
         $Rolados=quotation_drive_in_arriostrado::where('quotation_id','=',$request->Quotation_Id)->where('description','ROLADO C-12')->first();
         $Estructurales=quotation_drive_in_arriostrado::where('quotation_id','=',$request->Quotation_Id)->where('description','ESTRUCTURAL')->first();
         if(!$Rolados){

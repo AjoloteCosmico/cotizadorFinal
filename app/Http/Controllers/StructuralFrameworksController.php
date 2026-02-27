@@ -172,12 +172,13 @@ class StructuralFrameworksController extends Controller
                     'costo_unit'=>$PriceListScrewsTravDiag->cost,'costo_total'=>$PriceListScrewsTravDiag->cost * $TotTornTravDiag,
                     ]]
                 );
+                if(Auth::user()->can('VER LOGS CALCULOS')){
                 echo "  //factor: ".$PriceList->f_total.' '.$Data->model.$Data->caliber; 
                 echo " //precio acero: $".$PriceList->cost;
                 echo " //peso total: ".$Data->total_kg ;
                 echo " //total sn f_total: $".$Precio_sin_factor ;
                 echo "<br> //Costo calzas: $".$CostoTotalCalza;
-                echo "/CostoTaquetes: $".$CostoTotalTaquete;
+                echo "/CostoTaquetes: $".$CostoTotalTaquete;}
              
                 return view('quotes.selectivo.frames.structuralframeworks.store', compact(
                     'Cantidad',

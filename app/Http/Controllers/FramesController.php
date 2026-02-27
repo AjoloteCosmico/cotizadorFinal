@@ -196,12 +196,13 @@ class FramesController extends Controller
                     
 
                 //Logs para depuracion
+                if(Auth::user()->can('VER LOGS CALCULOS')){
                 echo "  //factor: ".$PriceList->f_total.' '.$PriceList->description.$PriceList->type.$PriceList->caliber; 
                 echo " //precio acero: $".$PriceList->cost;
                 echo " //peso total: ".$Data->total_kg ;
                 echo " //total sn f_total: $".$Precio_sin_factor ;
                 echo "<br> //Costo calzas: $".$CostoTotalCalza;
-                echo "/CostoTaquetes: $".$CostoTotalTaquete;
+                echo "/CostoTaquetes: $".$CostoTotalTaquete;}
                 return view('quotes.selectivo.frames.heavyloads.store', compact(
                     'Precio_sin_factor',
                     'Cantidad',

@@ -73,9 +73,9 @@ class SpacerController extends Controller
             $SS->total_price = $SubTotal ;
             $SS->save();
         }
-  
+            if(Auth::user()->can('VER LOGS CALCULOS')){
             echo "Costo acero ".$PriceLists->caliber.": $".$PriceLists->cost." //Factor ".$PriceLists->description.$PriceLists->caliber.": ".$PriceLists->f_total." //Peso: ".$Piece->weight;
-            echo "<br> Costo sin factor unit ".$PriceUnit.": $"."//Costo tornillos unit: $".$CostoTornillos."// factor tornillos: ".$Tornillos->f_total;
+            echo "<br> Costo sin factor unit ".$PriceUnit.": $"."//Costo tornillos unit: $".$CostoTornillos."// factor tornillos: ".$Tornillos->f_total;}
             
             $Type='SS';
             $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();

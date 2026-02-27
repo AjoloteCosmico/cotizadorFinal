@@ -85,7 +85,8 @@ class GrillController extends Controller
             $Grills->total_price = $TotalPrice;
             $Grills->save();
         }
-        echo "  //Factor: ".$PriceListAuxiliars->f_total.' '.$PriceListAuxiliars->description.$PriceListAuxiliars->type; 
+        if(Auth::user()->can('VER LOGS CALCULOS')){
+        echo "  //Factor: ".$PriceListAuxiliars->f_total.' '.$PriceListAuxiliars->description.$PriceListAuxiliars->type; }
         $Type='GRILL';
         $Quotation_Id=$request->Quotation_Id;
         $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
