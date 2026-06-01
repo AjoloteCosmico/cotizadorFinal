@@ -12,6 +12,7 @@ use App\Models\PriceListScrew;
 use App\Models\SelectiveStructuralFrame;
 use App\Models\Cart_product;
 use DB;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Costo;
 use Illuminate\Http\Request;
 
