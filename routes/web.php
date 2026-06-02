@@ -186,7 +186,11 @@ Route::group(['middleware' => ['auth:sanctum'], 'verified'], function()
     Route::get('/cot_installs/{id}', [FreightController::class, 'selectivo_installs'])->name('selectivo_installs');
     Route::post('/cot_travel_assignments_add', [FreightController::class, 'selectivo_travel_assignments_add'])->name('selectivo_travel_assignments_add');
     Route::post('/cot_travel_assignments_general_update', [FreightController::class, 'selectivo_travel_assignments_general_update'])->name('selectivo_travel_assignments_general_update');
-    
+    //Nuevas rutas para guardar viaticos unificadamente
+    Route::post(
+    '/selectivo/travel-assignments/calcular',
+    [FreightController::class, 'selectivo_travel_assignments_calcular']
+    )->name('selectivo_travel_assignments_calcular');
     Route::post('/cot_fiut_add', [FreightController::class, 'selectivo_fiut_add'])->name('selectivo_fiut_add');
     
     Route::get('/cot_panels/{id}', [PanelController::class, 'selectivo_panels'])->name('selectivo_panels');

@@ -105,8 +105,8 @@ class FreightController extends Controller
     {
         $Quotation_Id = $id;
         $Quotation=Quotation::find($id);
-        $Descriptions = TravelAssignment::distinct()->get('description');
-
+        // $Descriptions = TravelAssignment::distinct()->get('description');
+        $Descriptions = TravelAssignment::select('description', 'unit')->get();
         $QuotationTravelAssignments = QuotationTravelAssignment::where('quotation_id', $Quotation_Id)->get();
         if(count($QuotationTravelAssignments)>0){
             $TotalTravelAssignments = 0;
@@ -146,67 +146,140 @@ class FreightController extends Controller
             'Quotation'
         ));
     }
-    public function selectivo_travel_assignments_general_update(Request $request)
-    {
-        $rules = [
-            'dias' => 'required',
-            'npos' => 'required',
-            'operarios' => 'required',
-            'posxdia' => 'required',
-        ];
-
-        $messages = [
-            
-            'dias.required' => 'Por favor capture el número de dias',
-            'npos.required' => 'Por favor capture el número de posiciones',
-            'operarios.required' => 'Por favor capture el número de operarios',
-            'posxdia.required' => 'Por favor capture el número de posiciones por dia',
-        ];
-        $request->validate($rules);
-        $Quotation=Quotation::find($request->Quotation_Id);
-        $Quotation->npos=$request->npos;
-        $Quotation->dias=$request->dias;
-        $Quotation->posxdia=$request->posxdia;
-        $Quotation->operarios=$request->operarios;
-        $Quotation->save();
-        $Type='SVIAT';
-        Costo::where('quotation_id',$request->Quotation_Id)->where('type',$Type)->delete();
-        QuotationTravelAssignment::where('quotation_id',$request->Quotation_Id)->delete();    
-       
-        foreach(array_keys($request->dia) as $i){
-            $TravelAssignments = TravelAssignment::where('description', $request->description[$i])->first();
-            if($TravelAssignments){
-                    $Cost = $TravelAssignments->cost * $TravelAssignments->f_total;
-                    $Import = $request->cost[$i] * $request->dia[$i]*$request->operario[$i]*$TravelAssignments->f_total;
-                    $QuotationTravelAssignments = new QuotationTravelAssignment();
-                    $QuotationTravelAssignments->quotation_id = $request->Quotation_Id;
-                    $QuotationTravelAssignments->dias = $request->dia[$i];
-                    $QuotationTravelAssignments->amount = $request->dia[$i];
-                    $QuotationTravelAssignments->operarios = $request->operario[$i];
-                    $QuotationTravelAssignments->description = $TravelAssignments->description;
-                    $QuotationTravelAssignments->unit = $TravelAssignments->unit;
-                    $QuotationTravelAssignments->cost = $request->cost[$i]*$TravelAssignments->f_total;
-                    $QuotationTravelAssignments->import = $Import;
-                    $QuotationTravelAssignments->save();
-                    
-
-          //INSTALACION COSTOS 
-                DB::table('costos')->insert(
-                        ['quotation_id' => $request->Quotation_Id, 'type' => $Type,'calibre'=> 'TRANSPORTE',
-                            'sku'=>' ','cant'=>$request->dia[$i]*$request->operario[$i] ,'description'=>'VIATICOS '.$TravelAssignments->description,
-                        'precio_unit'=>$Cost,'precio_total'=>$Import, 'factor'=>$TravelAssignments->f_total,
-                        'costo_unit'=> $request->cost[$i] * $TravelAssignments->f_total,'costo_total'=> $request->cost[$i] * $request->dia[$i]*$request->operario[$i],
-                        'kg_unit'=>0, 'm2_unit'=>0,]
-                    );
-                
-                } 
-
+  public function selectivo_travel_assignments_calcular(Request $request)
+{
+    $filas        = $request->input('filas', []);
+    $resultados   = [];
+    $totalGeneral = 0;
+ 
+    foreach ($filas as $fila) {
+        $description = $fila['description'] ?? '';
+        $cost        = floatval($fila['cost']      ?? 0);
+        $dias        = floatval($fila['dias']       ?? 0);
+        $operarios   = floatval($fila['operarios']  ?? 0);
+ 
+        if (!$description || $cost <= 0) {
+            // Fila incompleta — devolver null para que el frontend muestre "—"
+            $resultados[] = ['import' => null];
+            continue;
         }
-
-
-        return redirect()->route('selectivo_quotation_travel_assignments', $request->Quotation_Id);
-    
+ 
+        $TravelAssignment = TravelAssignment::where('description', $description)->first();
+ 
+        if (!$TravelAssignment) {
+            $resultados[] = ['import' => null];
+            continue;
+        }
+ 
+        $import = $cost * $dias * $operarios * $TravelAssignment->f_total;
+ 
+        $resultados[]  = ['import' => round($import, 2)];
+        $totalGeneral += $import;
     }
+ 
+    return response()->json([
+        'total' => round($totalGeneral, 2),
+        'filas' => $resultados,
+    ]);
+}
+ 
+ 
+// ══════════════════════════════════════════════════════════════════════════════
+// POST PRINCIPAL — Guardar datos generales + todas las filas de viáticos
+// Reemplaza el antiguo selectivo_travel_assignments_general_update
+// y elimina la necesidad de selectivo_travel_assignments_add
+// ══════════════════════════════════════════════════════════════════════════════
+public function selectivo_travel_assignments_general_update(Request $request)
+{
+    $rules = [
+        'dias'      => 'required|numeric|min:1',
+        'npos'      => 'required|numeric|min:1',
+        'operarios' => 'required|numeric|min:1',
+        'posxdia'   => 'required|numeric|min:1',
+    ];
+ 
+    $messages = [
+        'dias.required'      => 'Por favor capture el número de días.',
+        'dias.min'           => 'El número de días debe ser mayor a cero.',
+        'npos.required'      => 'Por favor capture el número de posiciones.',
+        'npos.min'           => 'Las posiciones deben ser mayor a cero.',
+        'operarios.required' => 'Por favor capture el número de operarios.',
+        'operarios.min'      => 'Los operarios deben ser mayor a cero.',
+        'posxdia.required'   => 'Por favor capture las posiciones por día.',
+        'posxdia.min'        => 'Las posiciones por día deben ser mayor a cero.',
+    ];
+ 
+    $request->validate($rules, $messages);
+ 
+    // ── 1. Guardar datos generales de la cotización ────────────────────────
+    $Quotation           = Quotation::findOrFail($request->Quotation_Id);
+    $Quotation->npos     = $request->npos;
+    $Quotation->dias     = $request->dias;
+    $Quotation->posxdia  = $request->posxdia;
+    $Quotation->operarios = $request->operarios;
+    $Quotation->save();
+ 
+    // ── 2. Borrar viáticos y costos anteriores de este presupuesto ────────
+    $Type = 'SVIAT';
+    Costo::where('quotation_id', $request->Quotation_Id)->where('type', $Type)->delete();
+    QuotationTravelAssignment::where('quotation_id', $request->Quotation_Id)->delete();
+ 
+    // ── 3. Insertar filas nuevas ───────────────────────────────────────────
+    if ($request->has('dia')) {
+        foreach (array_keys($request->dia) as $i) {
+            $description = $request->description[$i] ?? null;
+            $cost        = floatval($request->cost[$i]      ?? 0);
+            $dias        = floatval($request->dia[$i]       ?? 0);
+            $operarios   = floatval($request->operario[$i]  ?? 0);
+ 
+            // Saltar filas con costo cero o sin descripción (validación de seguridad)
+            if (!$description || $cost <= 0) {
+                continue;
+            }
+ 
+            $TravelAssignment = TravelAssignment::where('description', $description)->first();
+ 
+            if (!$TravelAssignment) {
+                continue;
+            }
+ 
+            $costConFactor = $cost * $TravelAssignment->f_total;
+            $import        = $cost * $dias * $operarios * $TravelAssignment->f_total;
+ 
+            // Guardar en quotation_travel_assignments
+            $qta               = new QuotationTravelAssignment();
+            $qta->quotation_id = $request->Quotation_Id;
+            $qta->dias         = $dias;
+            $qta->amount       = $dias;
+            $qta->operarios    = $operarios;
+            $qta->description  = $TravelAssignment->description;
+            $qta->unit         = $TravelAssignment->unit;
+            $qta->cost         = $costConFactor;
+            $qta->import       = $import;
+            $qta->save();
+ 
+            // Guardar en tabla costos
+            DB::table('costos')->insert([
+                'quotation_id'  => $request->Quotation_Id,
+                'type'          => $Type,
+                'calibre'       => 'TRANSPORTE',
+                'sku'           => ' ',
+                'cant'          => $dias * $operarios,
+                'description'   => 'VIATICOS ' . $TravelAssignment->description,
+                'precio_unit'   => $TravelAssignment->cost * $TravelAssignment->f_total,
+                'precio_total'  => $import,
+                'factor'        => $TravelAssignment->f_total,
+                'costo_unit'    => $costConFactor,
+                'costo_total'   => $cost * $dias * $operarios,
+                'kg_unit'       => 0,
+                'm2_unit'       => 0,
+            ]);
+        }
+    }
+ 
+    // ── 4. Redirigir a la vista general de la cotización ──────────────────
+    return redirect()->route('selectivo.show', $request->Quotation_Id);
+}
     public function selectivo_travel_assignments_add(Request $request)
     {
         $rules = [
@@ -246,6 +319,12 @@ class FreightController extends Controller
         return redirect()->route('selectivo_quotation_travel_assignments', $request->Quotation_Id);
     }
 
+
+
+
+
+
+    
     public function selectivo_installs($id)
     {
         $Quotation_Id = $id;
