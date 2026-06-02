@@ -277,7 +277,9 @@ public function selectivo_travel_assignments_general_update(Request $request)
         }
     }
  
-    // ── 4. Redirigir a la vista general de la cotización ──────────────────
+    // ── 4. agregar todo al carritp ──────────────────
+    
+    $this->viaticos_add_carrito($request->Quotation_Id);
     return redirect()->route('selectivo.show', $request->Quotation_Id);
 }
     public function selectivo_travel_assignments_add(Request $request)
