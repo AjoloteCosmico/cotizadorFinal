@@ -190,8 +190,15 @@ class CustomerController extends Controller
 
     public function destroy($id)
     {
-        Customer::destroy($id);
+        try {
+            $customer = Customer::findOrFail($id);
+            $customer->delete();
 
-        return redirect()->route('customers.index')->with('eliminar', 'ok');
+            return redirect()->route('customers.index')->with('eliminar', 'ok');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->route('customers.index')->with('error_delete', 'ok');
+        } catch (\Exception $e) {
+            return redirect()->route('customers.index')->with('error_delete', 'ok');
+        }
     }
 }
