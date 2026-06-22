@@ -16,8 +16,8 @@ DB_DATABASE = os.getenv('DB_DATABASE')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_PORT = os.getenv('DB_PORT')
 
-a_color='#354F84'
-a_lite='#b4c7ed'
+a_color="#686868"
+a_lite="#cacaca"
 b_color='#91959E'
 # Conectar a DB
 cnx = mysql.connector.connect(user=DB_USERNAME,
@@ -160,7 +160,7 @@ blue_content_unit = workbook.add_format({
     
     'border_color':a_color,
     'font_size':10,
-    'num_format': '0.00'})
+    'num_format': '#,##0.00'})
 blue_content_lite = workbook.add_format({
     'border': 1,
     'align': 'center',
@@ -178,7 +178,7 @@ blue_content_unit_lite = workbook.add_format({
     'bg_color':a_lite,
     'border_color':a_color,
     'font_size':10,
-    'num_format': '0.00'})
+    'num_format': '#,##0.00'})
 blue_content_bold = workbook.add_format({
     'bold': True,
     'border': 1,

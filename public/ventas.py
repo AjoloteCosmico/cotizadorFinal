@@ -160,7 +160,7 @@ blue_content_unit = workbook.add_format({
     
     'border_color':a_color,
     'font_size':10,
-    'num_format': '0.00'})
+    'num_format': '#,##0.00'})
 blue_content_lite = workbook.add_format({
     'border': 1,
     'align': 'center',
@@ -178,7 +178,7 @@ blue_content_unit_lite = workbook.add_format({
     'bg_color':a_lite,
     'border_color':a_color,
     'font_size':10,
-    'num_format': '0.00'})
+    'num_format': '#,##0.00'})
 blue_content_bold = workbook.add_format({
     'bold': True,
     'border': 1,

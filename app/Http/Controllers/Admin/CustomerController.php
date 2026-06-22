@@ -193,7 +193,6 @@ class CustomerController extends Controller
         try {
             $customer = Customer::findOrFail($id);
             $customer->delete();
-
             return redirect()->route('customers.index')->with('eliminar', 'ok');
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect()->route('customers.index')->with('error_delete', 'ok');
