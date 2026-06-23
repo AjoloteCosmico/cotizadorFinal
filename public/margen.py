@@ -364,8 +364,8 @@ worksheet.merge_range('D21:E21', costo_total, blue_content)
 worksheet.merge_range('D22:E22', precio_venta-costo_total, blue_content)
 worksheet.merge_range('D23:E23', '{:.2f}'.format(cociente((precio_venta-costo_total)*100,precio_venta))+'%', blue_content)
 worksheet.merge_range('D24:E24', cociente(costo_total,len(cart_products)), blue_content)
-worksheet.merge_range('D25:E25', quotation['dias'].fillna(0).values[0], blue_content)
-worksheet.merge_range('D26:E26', quotation['operarios'].fillna(0).values[0], blue_content)
+worksheet.merge_range('D25:E25', quotation['dias'].fillna(0).values[0], blue_content_unit)
+worksheet.merge_range('D26:E26', quotation['operarios'].fillna(0).values[0], blue_content_unit)
 worksheet.merge_range('D27:E27', materials['kg_total'].sum(), blue_content_unit)	
 worksheet.merge_range('D28:E28', cociente(costo_total,materials['kg_total'].sum()), blue_content)	
 worksheet.merge_range('D29:E29', cociente(precio_venta,materials['kg_total'].sum()), blue_content)
@@ -373,7 +373,7 @@ worksheet.merge_range('D29:E29', cociente(precio_venta,materials['kg_total'].sum
 
 #ajustar columnas
 worksheet.set_column('A:A',15)
-
+worksheet.set_column('C:C',16)
 worksheet.set_column('D:D',20)
 worksheet.set_column('F:F',25)
 worksheet.set_column('L:L',15)
