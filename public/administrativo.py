@@ -371,11 +371,11 @@ for i in materials.loc[materials['kg_unit']>0,'calibre'].astype(str).unique():
         p=materials.loc[materials['calibre']==i]
         sum_kg=p['kg_total'].fillna(0).sum()
         suma_peso=suma_peso+sum_kg
-        worksheet.write('B'+str(trow+6+art_i),sum_kg,blue_content)
+        worksheet.write('B'+str(trow+6+art_i),sum_kg,blue_content_unit)
         worksheet.write('C'+str(trow+6+art_i),i,blue_content_unit)
         art_i=art_i+1
 
-worksheet.write('B'+str(trow+5+len(materials['calibre'].unique())),suma_peso,blue_footer_format_bold_kg)
+worksheet.write('B'+str(trow+5+len(materials.loc[materials['kg_unit']>0])),suma_peso,blue_footer_format_bold_kg)
 #subtabla2 costos F-G-H-I-J-K-L-M-N
 #                     F-G-H-I-J-K-L-M-N
 worksheet.merge_range('F'+str(trow+4)+':I'+str(trow+4),'RESUMEN DE COSTOS',blue_header_format_bold)

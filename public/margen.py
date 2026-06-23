@@ -154,7 +154,7 @@ blue_content_unit = workbook.add_format({
     
     'border_color':a_color,
     'font_size':10,
-    'num_format': '0.00'})
+    'num_format': '#,##0.00'})
 blue_content_lite = workbook.add_format({
     'border': 1,
     'align': 'center',
@@ -346,8 +346,8 @@ aceros=materials.loc[materials['calibre'].str.contains(r'\d', regex=True, na=Fal
 tornilleria=materials.loc[materials['calibre']=='TORNILLERIA']
 
 worksheet.merge_range('D6:E6', quotation['invoice'].values[0], blue_content)
-worksheet.merge_range('D7:E7', str(int(precio_pintura)), blue_content)
-worksheet.merge_range('D8:E8',len(cart_products), blue_content)	
+worksheet.merge_range('D7:E7', int(precio_pintura), blue_content)
+worksheet.merge_range('D8:E8',str(len(cart_products)), blue_content)	
 worksheet.merge_range('D9:E9', 'COT-'+ quotation['invoice'].values[0], blue_content)	
 worksheet.merge_range('D10:E10', quotation['type'].values[0], blue_content)	
 worksheet.merge_range('D11:E11',aceros['costo_total'].sum(), blue_content)	
@@ -364,8 +364,9 @@ worksheet.merge_range('D21:E21', costo_total, blue_content)
 worksheet.merge_range('D22:E22', precio_venta-costo_total, blue_content)
 worksheet.merge_range('D23:E23', '{:.2f}'.format(cociente((precio_venta-costo_total)*100,precio_venta))+'%', blue_content)
 worksheet.merge_range('D24:E24', cociente(costo_total,len(cart_products)), blue_content)
-
-worksheet.merge_range('D27:E27', products[cols_kg].sum(axis=1,numeric_only=True).sum(), blue_content_unit)	
+worksheet.merge_range('D25:E25', quotation['dias'].fillna(0).values[0], blue_content)
+worksheet.merge_range('D26:E26', quotation['operarios'].fillna(0).values[0], blue_content)
+worksheet.merge_range('D27:E27', materials['kg_total'].sum(), blue_content_unit)	
 worksheet.merge_range('D28:E28', cociente(costo_total,materials['kg_total'].sum()), blue_content)	
 worksheet.merge_range('D29:E29', cociente(precio_venta,materials['kg_total'].sum()), blue_content)
 
