@@ -256,7 +256,7 @@ df[0:1].to_excel(writer, sheet_name='Sheet1', startrow=7,startcol=6, header=Fals
 materials=pd.read_sql('select * from costos where quotation_id ='+str(id),cnx)
 worksheet = writer.sheets['Sheet1']
 #Encabezado del documento--------------
-worksheet.merge_range('B2:F2', 'REPORTE POR COTIZACION ', negro_b)
+worksheet.merge_range('B2:F2', 'REPORTE POR COTIZACION '+quotation['invoice'].values[0], negro_b)
 worksheet.merge_range('B3:F3', 'VENTAS', negro_s)
 worksheet.merge_range('B4:F4', 'PRECIOS ', negro_b)
 worksheet.write('H2', 'AÑO', negro_b)
@@ -371,7 +371,7 @@ for i in materials.loc[materials['kg_unit']>0,'calibre'].astype(str).unique():
         sum_kg=p['kg_total'].fillna(0).sum()
         suma_peso=suma_peso+sum_kg
         worksheet.write('B'+str(trow+6+art_i),sum_kg,blue_content)
-        worksheet.write('C'+str(trow+6+art_i),i,blue_content)
+        worksheet.write('C'+str(trow+6+art_i),i,blue_content_unit)
         art_i=art_i+1
 
 worksheet.write('B'+str(trow+5+len(materials['calibre'].unique())),suma_peso,blue_footer_format_bold_kg)

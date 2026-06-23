@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 load_dotenv()
 #ESTE ARGUMENTO NO SE USA EN ESTE REPORTE, SERÁ 0 SIEMPRE UWU
 id=str(sys.argv[1])
+# id=19
 #configurar la conexion a la base de datos
 DB_USERNAME = os.getenv('DB_USERNAME')
 DB_DATABASE = os.getenv('DB_DATABASE')
@@ -29,7 +30,7 @@ cnx = mysql.connector.connect(user=DB_USERNAME,
                               use_pure=False)
 
 quotation=pd.read_sql("select * from quotations where id=" +str(id),cnx)
-
+cart_products=pd.read_sql("select * from cart_products where quotation_id ="+str(id),cnx)
 writer = pd.ExcelWriter('storage/report/margen'+str(id)+'.xlsx', engine='xlsxwriter')
 workbook = writer.book
 df=quotation[['id','user_id']]
@@ -227,8 +228,8 @@ total_cereza_format = workbook.add_format({
 df=quotation[['id','user_id']]
 #Encabezado del documento--------------
 worksheet.merge_range('B2:F2', 'REPORTE POR COTIZACION ', negro_b)
-worksheet.merge_range('B3:F3', 'ADMINISTRATIVO', negro_s)
-worksheet.merge_range('B4:F4', 'COSTOS ', negro_b)
+worksheet.merge_range('B3:F3', 'administrativo', negro_s)
+worksheet.merge_range('B4:F4', 'MARGEN ', negro_b)
 worksheet.write('H2', 'AÑO', negro_b)
 import datetime
 
@@ -288,11 +289,11 @@ products[cols_kg+cols_m2]=products[cols_kg+cols_m2].fillna(0)
 
 
 #trayendo informacion de materiales
-materials=pd.read_sql('select * from (materials left join price_list_screws on materials.price_list_screw_id= price_list_screws.id)left join price_lists on price_lists.id=materials.price_list_id',cnx)
-materials['type']=materials['type'].fillna('')
-materials=materials.rename(columns={'product':'tabla'})
+materials=pd.read_sql('select * from costos where quotation_id ='+str(id),cnx)
+materials['kg_total']=materials['kg_unit']*materials['cant']
+# materials=materials.rename(columns={'product':'tabla'})
 #calculando costos
-used_materials=products[['tabla','quotation_id']].merge(materials,how='inner',on='tabla')
+# used_materials=products[['tabla','quotation_id']].merge(materials,how='inner',on='tabla')
 
 precio_pintura=pd.read_sql("select cost from price_lists where description like 'PINTURA'",cnx).values[0]
 costo_instalacion=products.loc[products['tabla'].isin(['quotation_uninstalls','quotation_installs',]),'cost'].sum()
@@ -303,8 +304,8 @@ costo_acero=products.loc[products['caliber'].isna(),'cost'].sum()
 
 costo_otros=products['cost'].sum()-costo_acero-costo_instalacion-costo_fletes
 costo_pintura=products.loc[products['caliber'].notna(),'cost'].sum()
-costo_total=costo_pintura+products['cost'].sum()+used_materials['cost'].fillna(0).sum(axis=1, numeric_only=True).sum()
-precio_venta=products[price_cols].sum(axis=1,numeric_only=True).sum()
+costo_total=materials['costo_total'].sum()
+precio_venta=materials['precio_total'].sum()
 #Llenado del archivo
 #Cabeceras -------
 worksheet.write('I2', year, negro_b)
@@ -340,29 +341,33 @@ worksheet.merge_range('B28:C28', 'COSTO POR KILO', blue_header_format)
 worksheet.merge_range('B29:C29', 'PRECIO PROPUESTO KG', blue_header_format)	
 
 #Fila 2
+#discrimar acero de lo que no es acero, basicamente si hay algun numero en calibre, es acero i.e. en materials buscar que en calibre halla algun numero
+aceros=materials.loc[materials['calibre'].str.contains(r'\d', regex=True, na=False)]
+tornilleria=materials.loc[materials['calibre']=='TORNILLERIA']
+
 worksheet.merge_range('D6:E6', quotation['invoice'].values[0], blue_content)
-worksheet.merge_range('D7:E7', len(used_materials)+len(products), blue_content)
-worksheet.merge_range('D8:E8',str(int(precio_pintura)), blue_content)	
+worksheet.merge_range('D7:E7', str(int(precio_pintura)), blue_content)
+worksheet.merge_range('D8:E8',len(cart_products), blue_content)	
 worksheet.merge_range('D9:E9', 'COT-'+ quotation['invoice'].values[0], blue_content)	
 worksheet.merge_range('D10:E10', quotation['type'].values[0], blue_content)	
-worksheet.merge_range('D11:E11',products.loc[products['caliber'].notna(),'cost'].sum(), blue_content)	
-worksheet.merge_range('D12:E12', used_materials.loc[used_materials['price_list_screw_id'].notna(),'cost'].fillna(0).sum(axis=1, numeric_only=True).sum(), blue_content)
-worksheet.merge_range('D13:E13', costo_otros, blue_content)
+worksheet.merge_range('D11:E11',aceros['costo_total'].sum(), blue_content)	
+worksheet.merge_range('D12:E12', tornilleria['costo_total'].sum(), blue_content)
+worksheet.merge_range('D13:E13', materials.loc[~materials['id'].isin(aceros['id']) & ~materials['id'].isin(tornilleria['id'])]['costo_total'].sum(), blue_content)
 worksheet.merge_range('D14:E14', costo_instalacion, blue_content)	
 worksheet.merge_range('D15:E15', costo_fletes, blue_content)
 worksheet.merge_range('D16:E16', products[cols_m2].sum(axis=1, numeric_only=True).sum()*int(precio_pintura), blue_content)
-worksheet.merge_range('D17:E17', costo_acero+used_materials.loc[used_materials['price_list_screw_id'].notna(),'cost'].fillna(0).sum(axis=1, numeric_only=True).sum(), blue_content)	
+# worksheet.merge_range('D17:E17', costo_acero+used_materials.loc[used_materials['price_list_screw_id'].notna(),'cost'].fillna(0).sum(axis=1, numeric_only=True).sum(), blue_content)	
 worksheet.merge_range('D18:E18', costo_total, blue_content)	
-	
+
 worksheet.merge_range('D20:E20', precio_venta, blue_content)	
 worksheet.merge_range('D21:E21', costo_total, blue_content)
 worksheet.merge_range('D22:E22', precio_venta-costo_total, blue_content)
 worksheet.merge_range('D23:E23', '{:.2f}'.format(cociente((precio_venta-costo_total)*100,precio_venta))+'%', blue_content)
-worksheet.merge_range('D24:E24', cociente(costo_total,(len(used_materials)+len(products))), blue_content)
+worksheet.merge_range('D24:E24', cociente(costo_total,len(cart_products)), blue_content)
 
-worksheet.merge_range('D27:E27',products[cols_kg].sum(axis=1,numeric_only=True).sum(), blue_content_unit)	
-worksheet.merge_range('D28:E28', cociente(costo_total,products[cols_kg].sum(axis=1,numeric_only=True).sum()), blue_content)	
-worksheet.merge_range('D29:E29', cociente(precio_venta,products[cols_kg].sum(axis=1,numeric_only=True).sum()), blue_content)
+worksheet.merge_range('D27:E27', products[cols_kg].sum(axis=1,numeric_only=True).sum(), blue_content_unit)	
+worksheet.merge_range('D28:E28', cociente(costo_total,materials['kg_total'].sum()), blue_content)	
+worksheet.merge_range('D29:E29', cociente(precio_venta,materials['kg_total'].sum()), blue_content)
 
 
 #ajustar columnas
