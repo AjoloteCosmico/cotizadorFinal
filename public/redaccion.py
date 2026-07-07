@@ -204,7 +204,7 @@ for i in range(len(products)):
                         'cantidad':int(products['cantidad'].values[i]),
                         'color': this_color,
                         'largo': products[largo_cols].sum(axis=1).values[i],
-                        'carga': 'loading_capacity',
+                        'carga': carga_formateada,
                         'altura': products[largo_cols].sum(axis=1).values[i],
                         'ancho': products[ancho_cols].sum(axis=1).values[i],
                         'depth': products['depth'].values[i],
