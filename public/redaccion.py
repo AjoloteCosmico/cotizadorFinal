@@ -195,6 +195,8 @@ for i in range(len(products)):
                         'sku':products['sku'].values[i]}
             #vigas
             if('joist' in products['tabla'].values[i]):
+                capacidad_carga = products['loading_capacity'].values[i]
+                carga_formateada = '{0:,.2f}'.format(capacidad_carga) if pd.notnull(capacidad_carga) else '0.00'
                 product_dict={'nombre':redact[products['tabla'].values[i]],
                         'extra':extras[products['tabla'].values[i]],                          
                         'ref':ref[products['tabla'].values[i]],
@@ -202,7 +204,7 @@ for i in range(len(products)):
                         'cantidad':int(products['cantidad'].values[i]),
                         'color': this_color,
                         'largo': products[largo_cols].sum(axis=1).values[i],
-                        'carga': 'loading_capacity',
+                        'carga': carga_formateada,
                         'altura': products[largo_cols].sum(axis=1).values[i],
                         'ancho': products[ancho_cols].sum(axis=1).values[i],
                         'depth': products['depth'].values[i],
