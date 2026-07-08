@@ -123,7 +123,7 @@ redact={
 'selective_joist_box2_caliber14s' : 'viga tipo caja de 2.0 calibre14',
 'selective_joist_c2_s' : 'Viga tipo C2 modelo',
 'selective_joist_chairs' : 'Viga tipo silla modelo',
-'selective_joist_l25_caliber14s' : 'Viga tipo l25 calibre 14 modelo',
+'selective_joist_l25_caliber14s' : 'Viga tipo L25 calibre 14 modelo',
 'selective_joist_l25_s' : 'Viga tipo L25 modelo',
 'selective_joist_l2_caliber14s' : 'Viga tipo L2 calibre14 modelo',
 'selective_joist_l2_s' : 'Viga tipo L2 modelo',
