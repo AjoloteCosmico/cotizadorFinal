@@ -86,6 +86,8 @@ class FreightController extends Controller
             $Packagings->cost = $Cost;
             $Packagings->import = $Import;
             $Packagings->save();
+        }else{
+            return redirect()->back()->with('message','no_destino');
         }
         $Type='SFLETE';
         // $Componentes=Costo::where('quotation_id',$request->Quotation_Id)->where('type',$Type)->where()->delete();

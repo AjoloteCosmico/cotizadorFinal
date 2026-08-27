@@ -52,5 +52,14 @@
 @stop
 
 @section('js')
-
+    @if (session('message') == 'no_destino')
+        <script>
+            Swal.fire({
+                title: 'No encontramos un registro con este destino y unidad',
+                text: 'Asegúrate de que exista en el catálogo de destinos.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+        </script>
+    @endif
 @stop
