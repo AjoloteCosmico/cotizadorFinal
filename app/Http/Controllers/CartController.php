@@ -94,6 +94,7 @@ class CartController extends Controller
         return redirect()->route('selectivo.show',$Quotation_Id);
 }
 
+
 public function add_selectivo_carga_pesada($id,$Costo,$tornilleria){
     $Quotation_Id = $id;
     $Quotation=Quotation::find($id);

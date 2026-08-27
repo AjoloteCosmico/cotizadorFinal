@@ -162,10 +162,17 @@ class FramesController extends Controller
                 $Type='SHLF';
                 $Componentes=Costo::where('quotation_id',$Quotation_Id)->where('type',$Type)->delete();
                 // MARCO
+                //Calcular Precio total para componente 
+                $SumaCarrito=$Precio_Total + $CostoTotalCalza + $CostoTotalTaquete;
+                $SumaComponentesSinMarco=($CostoCalzas->cost *.179 * $CostoCalzas->f_total*$Calzas*$Cantidad)
+                                         +($CostoTaquetes->cost * $CostoTaquetes->f_total*$Taquetes*$Cantidad)
+                                         +($PriceListScrewsTravDiag->cost * $PriceListScrewsTravDiag->f_total*$TotTornTravDiag)
+                                         +($PriceListScrewsPlacas->cost * $PriceListScrewsPlacas->f_total*$TotTornPlacas);
+                $PrecioMarcoComponente=$SumaCarrito-$SumaComponentesSinMarco;
                 DB::table('costos')->insert(
                     ['quotation_id' => $Quotation_Id, 'type' => $Type,'calibre'=> $Calibre,
                      'sku'=>$Sku ,'cant'=>$Cantidad,'description'=>'MARCO CARGA PESADA '.$Modelo,
-                    'precio_unit'=>$Precio_Total/$Cantidad,'precio_total'=>$Precio_Total, 'factor'=>$PriceList->f_total,
+                    'precio_unit'=>$PrecioMarcoComponente/$Cantidad,'precio_total'=>$PrecioMarcoComponente, 'factor'=>$PriceList->f_total,
                     'costo_unit'=>$Data->total_kg * $PriceList->cost,'costo_total'=>($Data->total_kg * $PriceList->cost)*$Cantidad,
                     'kg_unit'=>$Total_Kg/$Cantidad, 'm2_unit'=>$Total_m2/$Cantidad
                     ]
