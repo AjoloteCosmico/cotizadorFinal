@@ -160,7 +160,7 @@ class TypeL2JoistController extends Controller
                 'CostoTotalClavijas',
             ));
         }else{
-            return redirect()->route('menujoists.show')->with('no_existe', 'ok');
+            return redirect()->route('menujoists.show',$Quotation_Id)->with('no_existe', 'ok');
         }        
     }
 
