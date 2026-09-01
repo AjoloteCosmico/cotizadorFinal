@@ -156,7 +156,7 @@ class TypeC2JoistController extends Controller
                 return redirect()->route('selectivo.show',[$Quotation_Id,$System])->with('no_existe', 'ok');
             }
             else{
-            return redirect()->route('menujoists.show')->with('no_existe', 'ok');
+            return redirect()->route('menujoists.show',$Quotation_Id)->with('no_existe', 'ok');
             }
         }        
     }

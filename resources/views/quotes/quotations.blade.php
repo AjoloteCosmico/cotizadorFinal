@@ -105,11 +105,20 @@
     document.getElementById("{{'quot'.$QuotationId}}").focus();
 </script>
 <script>
-    setTimeout(
-  function() {
-    window.location.replace("{{route('redaccion',[$QuotationId,1])}}");
-  }, 2500);
-  
+    Swal.fire({
+        title: '¿Descargar cotización?',
+        text: 'Se generará el reporte de redacción en formato PDF',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, descargar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.replace("{{route('redaccion',[$QuotationId,1])}}");
+        }
+    });
 </script>
 <script type="text/javascript" src="{{ asset('vendor/mystylesjs/js/close_quotation.js') }}"></script>
 

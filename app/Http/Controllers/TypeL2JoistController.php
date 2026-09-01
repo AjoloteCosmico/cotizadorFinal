@@ -175,6 +175,7 @@ class TypeL2JoistController extends Controller
             'weight' => 'required',
             'joist_type' => 'required',
         ];
+        
         $messages = [
             'amount.required' => 'Capture una cantidad válida',
             'caliber.required' => 'Seleccione el Calibre de la Viga',
